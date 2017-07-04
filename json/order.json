@@ -1,0 +1,36 @@
+
+{
+    "status": "SUCCSEE",
+    "data": [
+        {	"id": "0001",
+            "storage_type":"hot",
+	        "daytime":35,
+            "total_space": "100.22",
+            "create_time": "2016-05-05",
+            "end_time": "2017-05-06",
+            "start_time": "2016-05-06",
+            "payment": "600.00",
+            "status":"未付款"
+        },
+        {	"id": "0002",
+            "storage_type":"hot",
+	        "daytime":35,
+            "total_space": "100.22",
+            "create_time": "2016-05-05",
+            "end_time": "2017-05-06",
+            "start_time": "2016-05-06",
+            "payment": "600.00",
+            "status":"未付款"
+        },
+        {	"id": "0003",
+            "storage_type":"hot",
+	        "daytime":35,
+            "total_space": "100.22",
+            "create_time": "2016-05-05",
+            "end_time": "2017-05-06",
+            "start_time": "2016-05-06",
+            "payment": "600.00",
+            "status":"未付款"
+        }
+]		
+}

@@ -1,0 +1,21 @@
+{
+    "total": "2",
+    "rows": [
+        {
+            "favorite_id": "9EB34B66-D853-D6D9-F026-A6368E3C9A88",
+            "insert_time": "0000-00-00 00:00:00",
+            "cat_id": "02",
+            "cat_name": "DNA",
+            "title": "dna产品",
+            "pubtime": "2016-11-08 12:14:18"
+        },
+        {
+            "favorite_id": "A3B51B09-CA73-58FD-6402-6CA3A6986139",
+            "insert_time": "0000-00-00 00:00:00",
+            "cat_id": "01",
+            "cat_name": "前沿研究",
+            "title": "title标题",
+            "pubtime": "2016-09-08 12:14:18"
+        }
+    ]
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>新闻列表</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link href="public/css/reset.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="public/css/bootstrap.min.css" rel="stylesheet">
+	<link href="public/css/long_common.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/style.css" rel="stylesheet" type="text/css"  media="all" />
+	<!--	<link rel="stylesheet" type="text/css" href="css/home_style.css" media="all" />-->
+</head>
+
+<body style="min-width: 1024px;min-height: 768px;overflow:auto;">
+	<!--前台公共头部-->
+	<div class="top" style="width:100%;">
+		<div class="main_nav1">
+			<div class="container" >
+				<a href="#" class="logo"><img src="public/image/logo.png"/></a>
+				<ul class="main_nav1_left" style="line-height: 70px;">
+					<li class="nav_b1"><a href="#">首页</a></li>
+					<li class="nav_b1"><a href="#">云中漫步</a></li>
+					<li ><a href="#" >前沿研究</a></li>
+					<li ><a href="#">市场活动</a></li>	
+				</ul>
+				<div id="search_news" class="main_nav1_left searchNews">
+					<span class="searchIcon"></span>
+					<input type="text" id="search_news_input" class="form-control">
+				</div>
+				<ul class="main_nav1_right" style="line-height: 70px;">
+					<li id="searchIcon"><a href="#"><img src="public/image/搜索.png" alt="搜索" /></a></li>
+					<li><a href="#"><img src="public/image/通知.png" alt="通知" /></a></li>
+					<li><a href="#"><img src="public/image/用户.png" alt="用户" /></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--/前台公共头部-->
+	<!--主体-->
+    <div class="container" style="width: 1218px;margin-top: 101px;">
+		<div class="change_box">
+			<!--新闻列表-->
+			<div class="news-list">
+				<div class="news" >
+					<ul>
+						<li class="news-2" id="063AC3F1-DDFA-1C7A-562D-07C7A8403A74">
+							<a href="#" title="高通量测序技术揭秘，中药如何杀死癌细胞？">
+								<div class="info">
+									<h3><a target='_blank' href='/ddgene/Home/News/showNews/id/063AC3F1-DDFA-1C7A-562D-07C7A8403A74'>高通量测序技术揭秘，中药如何杀死癌细胞？</a></h3>
+									<p>澳大利亚阿德莱德大学的研究人员揭示了在中国临床上使用多年的中药——复方苦参注射液（CKI）如何杀死癌细胞，相关研究结果于近日发表在《Oncotarget》杂志上，是首个在不破坏结构的基础上分析中医分子作用机制的研究。 CKI已在中国临床上使用了15年，通常被用于...</p>
+								</div>
+							</a>
+							<div class="tools">
+								<p class="praise">5</p>
+								<p class="favorite"></p>
+								<p class="comment"><a href="/ddgene/Home/News/showNews/id/063AC3F1-DDFA-1C7A-562D-07C7A8403A74"></a></p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--/新闻列表-->
+			<!--右侧组件-->
+			<div class="right-tools">
+				<div class="implant">
+					<div class="main">
+						<a href="http://www.8omics.com/col.jsp?id=107" target="_blank">
+							<img src="public/image/recruitment.jpg" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="implant">
+					<div class="main">
+						<a href="http://www.8omics.com/col.jsp?id=106" target="_blank">
+							<img src="public/image/groupStudy.jpg" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+			<!--/右侧组件-->
+		</div>
+	</div>
+	<!--/主体-->
+
+
+<!-- =============登录框============ -->                
+<!--<!-- =============登录框============ -->
+
+	<div class="modal fade" id="loginBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="margin-top:100px">
+			<div class="modal-content col-sm-10 col-sm-push-1">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body" style=" text-align:center">
+					<h3 class="modal-title" style="text-align: center"> 用户登录</h3>
+					<div class="login_subtitle">
+						<p>DoDoGENE</p>
+					</div>
+					<form style="text-align:left" id="login_form" action="/ddgene/Home/Login/login" method='POST'>
+						<div class="input_div">
+							<input type="text" class="form-control input-lg" placeholder="输入手机或邮箱登录" id="name" name="name" required>
+								<span></span>
+						</div>
+						<div class="input_div">
+							<input type="password" class="form-control input-lg" placeholder="输入密码" id="password" name="password" required>
+								<span></span>
+						</div>
+						<button type="submit" class="form-control input-lg" id="login">登录</button>
+					</form>
+					<div class="forget">
+						<a href="/ddgene/Home/Login/change_pw_email">忘记密码》</a>
+						<p>还没有账号？
+							<a href="/ddgene/Home/Login/register">点击注册》</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<!-- =============登录框结束=========== -->
+
+
+
+<div class="modal fade" id="loginBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content col-sm-10 col-sm-push-1">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+					</button>
+			</div>
+
+			<div class="modal-body" style=" text-align:center">
+				<h3 class="modal-title" style="text-align: center">
+						用户登录
+				</h3>
+				<div class="login_subtitle">
+					<p>DoDoGENE</p>
+				</div>
+				<form style="text-align:left" id="login_form">
+					<div class="input_div">
+						<input type="text" class="form-control input-lg" placeholder="输入手机或邮箱登录" id="name" name="name" required>
+						<span></span>
+					</div>
+					<div class="input_div">
+						<input type="password" class="form-control input-lg" placeholder="输入密码" id="password" name="password" required>
+						<span>密码错误！</span>
+					</div>
+					<button type="submit" class="form-control input-lg" id="login">登录</button>
+				</form>
+				<div class="forget">
+					<a href="change_pw_phone.html">忘记密码》</a>
+					<p>还没有账号？
+						<a href="register.html">点击注册》</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- =============登录框结束=========== -->  
+
+<!--页脚-->
+<div id="footer_style" style="position: fixed;bottom: 10px;">
+	<footer class="footerstyle">
+		<p>版权所有 © 2016 京ICP备15033925号</p>
+		<p>北京拓美科基因科技有限公司</p>
+	</footer>
+</div>
+	<script type="text/javascript" src="public/js/jquery-1.11.2.min.js"></script>
+    <script src="public/js/bootstrap.min.js"></script>	
+	<script type="text/javascript" src="public/js/long_common.js"></script>	
+	<script type="text/javascript" src="public/js/jquery.SuperSlide.2.1.1.js"></script>
+	<script type="text/javascript" src="js/news_script.js"></script>
+	<!--<script type="text/javascript">
+        var module = '/ddgene/Home';
+        </script>
+	<script type="text/javascript" src="js/heart.js"></script>-->
+</body>
+
+</html>

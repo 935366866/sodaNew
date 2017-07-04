@@ -1,0 +1,52 @@
+{
+    "data": [
+        {
+            "newsType": "havePic",
+            "newsUrl": "a.html",
+            "title": "行业新闻，前沿研究",
+            "cat_id": "01",
+            "cat_name": "前沿研究",
+            "id": "00001",
+            "pic": "public/home/imgs/pic-3.jpg",
+            "pubtime": "2016-5-6",
+            "zan":666,
+            "summary": "美国国家航空航天局（NASA）官网30日宣布，刚过去的周末，NASA宇航员凯特·鲁宾斯在国际空间站内成功完成微重力条件下的DNA测序，这标志着人类已迎来“能对太空活体生物进行基因测序”的全新时代。"
+        },
+        {
+            "newsType": "noPic",
+            "newsUrl": "a.html",
+            "title": "行业新闻，前沿研究",
+            "cat_id": "01",
+            "cat_name": "市场动态",
+            "id": "00002",
+            "pic": "public/home/imgs/pic-3.jpg",
+            "pubtime": "2016-5-6",
+            "zan":666,
+            "summary": "美国国家航空航天局（NASA）官网30日宣布，刚过去的周末，NASA宇航员凯特·鲁宾斯在国际空间站内成功完成微重力条件下的DNA测序，这标志着人类已迎来“能对太空活体生物进行基因测序”的全新时代。"
+        },
+        {
+            "newsType": "noPic",
+            "newsUrl": "a.html",
+            "title": "行业新闻，前沿研究",
+            "cat_id": "02",
+            "cat_name": "DNA",
+            "id": "00003",
+            "pic": "public/home/imgs/pic-3.jpg",
+            "pubtime": "2016-5-6",
+            "zan":999,
+            "summary": "美国国家航空航天局（NASA）官网30日宣布，刚过去的周末，NASA宇航员凯特·鲁宾斯在国际空间站内成功完成微重力条件下的DNA测序，这标志着人类已迎来“能对太空活体生物进行基因测序”的全新时代。"
+        },
+        {
+            "newsType": "havePic",
+            "newsUrl": "a.html",
+            "title": "行业新闻，前沿研究",
+            "cat_id": "02",
+            "cat_name": "RNA",
+            "id": "00004",
+            "pic": "public/home/imgs/pic-3.jpg",
+            "pubtime": "2016-5-6",
+            "zan":999,
+            "summary": "美国国家航空航天局（NASA）官网30日宣布，刚过去的周末，NASA宇航员凯特·鲁宾斯在国际空间站内成功完成微重力条件下的DNA测序，这标志着人类已迎来“能对太空活体生物进行基因测序”的全新时代。"
+        }
+    ]
+}
