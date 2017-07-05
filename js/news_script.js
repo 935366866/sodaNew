@@ -1,8 +1,20 @@
 
-$(function () {
-    $(".scroll-picture").slide({ mainCell: ".scroll-picture-list ul", autoPage: false, effect: "top", vis: 3 });
-    var list = $('.scroll-picture-list ul li');
-    
+$(function () {	
+	jQuery(".picMarquee-top").slide({
+		autoPage:true,     //程序自动分页
+		titCell:".hd li",    //导航元素对象（鼠标的触发元素对象）
+		mainCell:".bd ul",    //切换元素的包裹层对象
+		autoPlay:true,         //自动运行
+		effect:"topLoop",   	//动画效果
+		vis:3,      //mainCell的可视范围个数
+		interTime:1000,  //自动运行间隔。
+		opp:false,   //	默认反方向运动，
+		pnLoop:true,   //前/后按钮是否继续循环，
+		trigger:"click",  
+		mouseOverStop:true  
+	});
+//  $(".scroll-picture").slide({ mainCell: ".scroll-picture-list ul", autoPage: false, effect: "top", vis: 3 });
+    var list = $('.bd ul li');
 	var left_width = $('.focus-picture').width();
     $('.focus-picture').css('height', (left_width*0.618));
     $('.tempWrap').css('height', (left_width*0.618));
@@ -45,10 +57,10 @@ $(function () {
     //其他news展示
     
     //惰性加载数据
-    $(window).scroll(function(){
-        loadData(loadNewsList,module+"/News/listNews");
-	//console.log(module+"/News/listNews")
-    });
+//  $(window).scroll(function(){
+//      loadData(loadNewsList,module+"/News/listNews");
+//	//console.log(module+"/News/listNews")
+//  });
 
 
     //搜索
