@@ -276,7 +276,7 @@ a:hover {
   margin-left: 10px;
   color: #000;
 }
-.home .news li.news-1 .info h3 {
+/*.home .news li.news-1 .info h3 {
   font-size: 24px;
   line-height: 30px;
   margin-top: 5px;
@@ -284,11 +284,11 @@ a:hover {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-.home .news li.news-1 .info:hover h3 {
+}*/
+/*.home .news li.news-1 .info:hover h3 {
   color: #0078ff;
   text-decoration: none;
-}
+}*/
 .home .news li.news-1 .info p {
   font-size: 14px;
   line-height: 18px;
@@ -331,7 +331,6 @@ a:hover {
   font-size: 24px;
   line-height: 30px;
   margin-top: 10px;
-  color: #02014e;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -404,7 +403,6 @@ a:hover {
   font-size: 24px;
   line-height: 30px;
   margin-top: 5px;
-  color: #02014e;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -455,7 +453,7 @@ a:hover {
   float: left;
 }
 .home .news li.news-3 .sub_news li .info p {
-  color: #02014e;
+  color: #333;
 }
 .news-list {
   float: left;
@@ -502,7 +500,7 @@ a:hover {
   left: 15px;
 }
 .news-list .focus-news .focus-picture .focusInfo{
-	height: 90px;
+	height: 60px;
 	width:100%;
 	left: 0;
 	bottom: 1px; 
@@ -510,7 +508,7 @@ a:hover {
 }
 .news-list .focus-news .focus-picture .info .title {
   font-size: 22px;
-  line-height: 90px;
+  line-height: 60px;
   display: block;
   margin-bottom: 3px;
   padding-left: 23px;
@@ -694,13 +692,13 @@ ews-list .focus-news .focus-picture .info .title:hover {
   font-weight: bold;/**/
   line-height: 30px;
   margin-top: 5px;
-  color: #02014e;
+  color: #333;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 .news-list .news li.news-1 .info:hover a {/*h3*/
-  color: #0078ff;
+  color: #13438b;
   text-decoration: none;
 }
 .news-list .news li.news-1 .info p {
@@ -745,26 +743,26 @@ ews-list .focus-news .focus-picture .info .title:hover {
   margin-bottom: 20px;
   margin-top: 25px;
 }
-/*.news-list .news li.news-2 .info{
+.news-list .news li.news-2 .info{
 	min-height: 120px;
-}*/
+}
 .news-list .news li.news-2 .info a {/*h3*/
   font-size: 18px;/*24*/
-  /*font-weight: bold;*/
+  font-weight: bold;
   line-height: 30px;
   margin-top: 10px;
   text-decoration: none!important;
-  color: #000;
+  color: #333 !important;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 .news-list .news li.news-2 .info a:hover{
-	color: #13438b;
+	color: #13438b !important;
 }
-/*.news-list .news li.news-2 .info:hover a {
+.news-list .news li.news-2 .info:hover a {
   text-decoration: none!important;
-}*/
+}
 .news-list .news li.news-2 .info p {
   font-size: 13px;/*14*/
   line-height: 18px;
@@ -829,13 +827,13 @@ ews-list .focus-news .focus-picture .info .title:hover {
   font-size: 24px;
   line-height: 30px;
   margin-top: 5px;
-  color: #02014e;
+  color: #333;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 .news-list .news li.news-3 .info:hover h3 {
-  color: #0078ff;
+  color: #13438B;
 }
 .news-list .news li.news-3 .info p {
   font-size: 14px;
@@ -878,7 +876,7 @@ ews-list .focus-news .focus-picture .info .title:hover {
   float: left;
 }
 .news-list .news li.news-3 .sub_news li .info p {
-  color: #02014e;
+  color: #333;
   max-height: 64px;
 }
 .right-tools {
@@ -918,7 +916,7 @@ ews-list .focus-news .focus-picture .info .title:hover {
   font-size: 16px;
   line-height: 40px;
   height: 40px;
-  color: #03012e;
+  color: #13438B;
 }
 .right-tools .recruit .recruit-info li span {
   font-size: 18px;
@@ -931,7 +929,7 @@ ews-list .focus-news .focus-picture .info .title:hover {
 .right-tools .recruit .recruit-info a {
   font-size: 18px;
   line-height: 40px;
-  color: #157bf7;
+  color: #1348b;
 }
 .right-tools .title {
   line-height: 44px;
@@ -1133,7 +1131,7 @@ ews-list .focus-news .focus-picture .info .title:hover {
   font-size: 16px;
   font-weight: 400;
   padding-left: 44px;
-  color: #157bf7;
+  color: #1348b;
   background: url(../../news/imgs/message-board-title.png) 0 50% no-repeat;
 }
 .message-board .message-board-input {
@@ -1146,7 +1144,7 @@ ews-list .focus-news .focus-picture .info .title:hover {
   width: calc(100% - 136px - 30px - 30px*2);
   height: 40px;
   padding: 0 30px;
-  color: #0179ff;
+  color: #1348b;
   border: 2px solid #bebebe;
   outline: none;
   background-color: #fff;
@@ -1236,9 +1234,9 @@ ews-list .focus-news .focus-picture .info .title:hover {
 }
 .tools p {
   display: block;
-  width: 24px;
-  height: 24px;
-  margin-bottom: 10px;
+  width: 22px;
+  height: 22px;
+  margin-bottom: 6px;
   cursor: pointer;
   text-align: center;
   background-image: url(../img/tools-bg.png);
@@ -1441,7 +1439,7 @@ ews-list .focus-news .focus-picture .info .title:hover {
 .picMarquee-top .bd ul li{ 
 	text-align:center; 
 	zoom:1;
-	margin-top: 5px;
+	margin-bottom: 5px;
 	position: relative;
 }
 .picMarquee-top .bd ul li .pic{ 

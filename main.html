@@ -11,9 +11,9 @@
 	<link href="public/css/long_common.css" rel="stylesheet" type="text/css" media="all" /><!--news_css文件存在，未改-->
 	<link href="css/home_style.css" rel="stylesheet" type="text/css" media="all" />
 </head>
-<body style="min-width: 1024px;min-height: 768px;overflow:auto;">
+<body>
 	<!--前台公共头部-->
-	<div class="top" style="width:100%;">
+	<div class="top">
 		<div class="main_nav1">
 			<div class="container">
 				<a href="#" class="logo"><img src="public/image/logo.png"/></a>
@@ -23,11 +23,11 @@
 					<li ><a href="#" >前沿研究</a></li>
 					<li ><a href="#">市场活动</a></li>	
 				</ul>
-				<div id="search_news" class="main_nav1_left" style="position: absolute;left: 276px; height: 70px;line-height: 70px;width: 50%;margin:0 auto;text-align: center; display: none;">
-					<span style="display: inline-block;width: 27px;height: 27px;vertical-align: middle; background: url(public/image/搜索.png) no-repeat;cursor: pointer;"></span>
-					<input type="text" id="search_news_input" class="form-control" style="margin-top: 19px;margin-left:11px;height: 35px;font-size: 18px; display:inline-block;width:505px;border:1px solid #fff !important;background:none;color: #fff;">
+				<div id="search_news" class="main_nav1_left searchNews">
+					<span class="searchIcon"></span>
+					<input type="text" id="search_news_input" class="form-control">
 				</div>
-				<ul class="main_nav1_right" style="line-height: 70px;">
+				<ul class="main_nav1_right">
 					<li id="searchIcon"><a href="#"><img src="public/image/搜索.png" alt="搜索" /></a></li>
 					<li><a href="#"><img src="public/image/通知.png" alt="通知" /></a></li>
 					<li><a href="#"><img src="public/image/用户.png" alt="用户" /></a></li>
@@ -112,21 +112,15 @@
 						<h2 id="tag" class="tag">前沿研究</h2>
 						<ul>
 							<li class="news-2" id="0417B5BA-EE2A-411C-7125-EB6A330958A9">
-								<a href="#" title="利用生物信息学发现基因组暗物质">
 									<div class="info">
-										<!--<div class="tags clearfix">-->
-											<!--<div class="column column-color-2">新闻快讯</div>-->
-											<!--<div id="tag" class="tag">前沿研究</div>-->
-										<!--</div>-->
-										<h3><a target='_blank' href='/ddgene/Home/News/showNews/id/0417B5BA-EE2A-411C-7125-EB6A330958A9'>利用生物信息学发现基因组暗物质</a></h3>
+										<a style="font-weight: bold;" target='_blank' href='/ddgene/Home/News/showNews/id/0417B5BA-EE2A-411C-7125-EB6A330958A9'>利用生物信息学发现基因组暗物质</a>
 										<p>非编码RNA(noncoding RNA)是基因组上不编码蛋白、在RNA水平发挥功能的一类基因，它们在生物体内行使着多种多样的重要功能。对于非编码RNA基因的鉴定、结构及功能研究是近年来生命科学领域研究的热点。清华大学鲁志实验室围绕非编码RNA，开发了一系列分析软件。1. RNAfinder软件系列: 利用机器学习发现基因组暗物质...</p>
 									</div>
-								</a>
 								<div class="tools">
 									<p class="praise">17</p>
 									<p class="favorite"></p>
 									<p class="comment">
-										<a href="/ddgene/Home/News/showNews/id/0417B5BA-EE2A-411C-7125-EB6A330958A9"></a>
+										<a  href="/ddgene/Home/News/showNews/id/0417B5BA-EE2A-411C-7125-EB6A330958A9"></a>
 									</p>
 									<!--<p class="share"><img src="http://www.it-long.com/qc.php?x" alt=""></p>-->
 								</div>
@@ -134,10 +128,6 @@
 							<li class="news-2" id="9284324C-5794-9F2D-E8EA-61A5ECBC1F26">
 								<a href="#" title="朱健康院士miRNA研究成果刊登国际期刊">
 									<div class="info">
-										<!--<div class="tags clearfix">
-											<div class="column column-color-2">新闻快讯</div>
-											<div id="tag" class="tag">前沿研究</div>
-										</div>-->
 										<h3><a target='_blank' href='/ddgene/Home/News/showNews/id/9284324C-5794-9F2D-E8EA-61A5ECBC1F26'>朱健康院士miRNA研究成果刊登国际期刊</a></h3>
 										<p>miRNA在植物发育和胁迫反应中的功能，已经得到了广泛的研究。然而，miRNA在植物发育和非生物胁迫响应中如何发挥关键功能，我们还知之甚少。一个众所周知的miRNA——miR165/166，在植物发育中具有重要作用。miR165/166在植物生长和发育中的功能，已经得以广泛研究。然而，它在非生物性胁迫反应中的作用，尚不清楚。最...</p>
 									</div>

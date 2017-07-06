@@ -13,13 +13,13 @@
 	<link href="css/soda_common.css" rel="stylesheet" >	
 </head>
 
-<body style="min-width: 1024px;min-height: 768px;overflow:auto;background-color: rgb(248,248,248);">
+<body style="background-color: rgb(248,248,248);">
 	<!--前台公共头部-->
-	<div class="top" style="width:100%;">
+	<div class="top">
 		<div class="main_nav1">
-			<div class="container" style="padding-left: 11px;padding-right: 11px;position: relative;">
+			<div class="container">
 				<a href="#" class="logo"><img src="public/image/logo.png"/></a>
-				<ul class="main_nav1_left" style="line-height: 70px;">
+				<ul class="main_nav1_left">
 					<li class="nav_b1"><a href="#">首页</a></li>
 					<li class="nav_b1"><a href="#">云中漫步</a></li>
 					<li ><a href="#" >前沿研究</a></li>
@@ -29,7 +29,7 @@
 					<span class="searchIcon"></span>
 					<input type="text" id="search_news_input" class="form-control">
 				</div>
-				<ul class="main_nav1_right" style="line-height: 70px;">
+				<ul class="main_nav1_right">
 					<li id="searchIcon"><a href="#"><img src="public/image/搜索.png" alt="搜索" /></a></li>
 					<li><a href="#"><img src="public/image/通知.png" alt="通知" /></a></li>
 					<li><a href="#"><img src="public/image/用户.png" alt="用户" /></a></li>
@@ -37,7 +37,7 @@
 			</div>
 		</div>
 		<div class="main_nav2">
-			<div class="container" style="padding-left: 11px;padding-right: 11px;">
+			<div class="container">
 				<ul class="main_nav2_left">
 					<li class="nav2_list1" style="margin-right:0px;" >
 						<a href="#" class="active" style="padding-left:15px;padding-right:15px;">分析流程<img src="img/02.png" alt=""></a>
@@ -50,17 +50,20 @@
 					<li class="nav2_list2" style="margin-right:0px;">
 						<a href="#" style="padding-left:15px;padding-right:15px;">小工具<img src="img/02.png" alt=""></a>
 						<ul class="">
+							<li><a href="">基本绘图</a></li>
+							<li><a href="">流程绘图</a></li>
+							<li><a href="">高级绘图</a></li>
+							<li><a href="">表格工具</a></li>
 							<li><a href="">计算统计</a></li>
-							<li><a href="">绘图软件</a></li>
 						</ul>
 					</li>
 					<li class=""><a href="#">我的项目</a></li>
 					<li class=""><a href="#">我的目录</a></li>
 					<li class=""><a href="#">回收站</a></li>
 				</ul>
-				<div class="search_right" style="float: right;line-height: 45px;margin-right: 23px;">
+				<div class="search_right">
 					<input type="text" class="form-control" placeholder="搜索想要使用的流程或小工具" id="search_flowapp">
-					<button class="btn btn-primary" id="search_button">搜索</button>				
+					<button class="btn btn-blue" id="search_button">搜索</button>				
 				</div>
 			</div>
 		</div>	
@@ -76,7 +79,7 @@
 						<button class="btn btnBlue" data-target="#newProject" data-toggle="modal">
                                 新建项目&nbsp;&nbsp;<i style="color: rgb( #FFF); font-size: 12px;"  class="glyphicon glyphicon-plus"></i>
                         </button>
-						<button class="btn btnRed" id="removeProject">
+						<button class="btn btn-danger" id="removeProject">
                                 删除项目&nbsp;&nbsp;<i style="color: rgb( #FFF); font-size: 12px;"  class="glyphicon glyphicon-remove"></i>
                         </button>
 						<!----------------------------------------------------------------------------------------------------->

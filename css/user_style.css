@@ -170,7 +170,7 @@ body {
   margin-bottom: 5px;
 }
 .personal .sub-toggle {
-  height: 80px;
+  height: 60px;
   cursor: pointer;
   /*border: 1px solid #e9e9e9;
   border-width: 1px 0px;*/
@@ -181,31 +181,30 @@ body {
 }
 .personal .sub-toggle .title img {
   float: left;
-  margin-top: 27px;
+  margin-top: 9px;
   margin-right: 11px;
 }
 .personal .sub-toggle .title h3 {
   float: left;
   font-size: 16px;
-  margin-top: 34px;
   color: #555;
 }
 .personal .sub-toggle .icon {
   float: right;
   width: 37px;
-  height: 80px;
+  height: 50px;
   margin-right: 13px;
   background: url(../img/openDown.png) 0 50% no-repeat;
 }
 .personal .user-form {
-  display: block;
+  display: none;
   clear: both;
   overflow: hidden;
   width: 560px;
   padding: 15px 0;
 }
 .personal .user-form .btn-blue {
-  background-color: #2289e5;
+  background-color: #13438b;
   color: #fff;
   margin-left: 10px;
 }
@@ -380,11 +379,10 @@ body {
   text-align: center;
   color: #fff;
   border-radius: 9px;
-  background-color: #228ae4;
+  background-color: #3abeed;
 }
 .favorites .favorites-list {
-  padding-bottom: 50px;
-  height: 466px;
+  padding-bottom: 15px;
   overflow: auto;
 }
 .favorites .favorites-list li {
@@ -413,7 +411,7 @@ body {
   padding: 0 7px;
   color: #fff;
   border-radius: 6px;
-  background-color: #228ae4;
+  background-color: #3abeed;
 }
 .favorites .favorites-list li .favorites-list-link a h3 {
   font-size: 18px;
@@ -457,11 +455,11 @@ body {
   text-align: center;
   color: #fff;
   border-radius: 9px;
-  background-color: #228ae4;
+  background-color: #3abeed;
 }
 .comment .comment-list {
   padding-bottom: 50px;
-  height: 600px;
+  height: 450px;
   overflow: auto;
 }
 .comment .comment-list li {
@@ -491,7 +489,7 @@ body {
   padding: 0 7px;
   color: #fff;
   border-radius: 6px;
-  background-color: #228ae4;
+  background-color: #3abeed;
 }
 .comment .comment-list li .comment-list-link a h3 {
   font-size: 18px;

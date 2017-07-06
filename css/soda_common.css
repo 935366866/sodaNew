@@ -115,7 +115,7 @@
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
   border-radius: 15px;
-  background: #0379e7;
+  background: #13438b;
   padding: 3px 15px;
 }
 .main_nav3_right_report {
@@ -154,9 +154,9 @@
   width: 30px;
   height: 30px;
 }
-.main_nav3_right_report .report_success span {
+/*.main_nav3_right_report .report_success span {
   background-color: #0379e7;
-}
+}*/
 .main_nav3_right_report .report_running span {
   background-color: #32ae4e ;
   border: 1px solid #32ae4e ;

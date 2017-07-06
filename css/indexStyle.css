@@ -1,0 +1,203 @@
+.search {
+  margin-top: 70px;
+  float: left;
+  width: 100%;
+  height: 60px;
+}
+.search .search_left {
+  float: left;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+.search .search_right {
+  float: right;
+  width: 550px;
+  font-size: 20px;
+  margin-top: 14px;
+  margin-right: 15px;
+}
+.search .search_right input {
+  width: 470px;
+  float: right;
+}
+.search .search_right button {
+  float: right;
+  margin-left: 0px;
+}
+.btn-blue {
+  background-color:#13438b;
+  color: #fff;
+  margin-left: 10px;
+}
+.btn-blue-log {/*mainnobase/flowapp.html中未登录的登录按钮变为无背景色*/
+  color: #fff;
+  margin-left: 10px;
+}
+.btn-blue:hover {
+  color: #fff;
+}
+.round_Button {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  font-size: 14px!important;
+  padding: 1px 12px!important;
+}
+.btn_green {
+  background-color: #38beed;
+  color: #fff;
+}
+.btn_green a {
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.btn_green a:hover {
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.btn_grey {
+  background-color: #666464;
+  color: #fff;
+}
+.btn_grey a {
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.btn_grey a:hover {
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.btn_white {
+  margin-right: 30px;
+  background-color: #fff;
+  color: #333;
+}
+.btn_white a {
+  text-decoration: none;
+  color: #333333;
+  cursor: pointer;
+}
+.btn_white a:hover {
+  text-decoration: none;
+  color: #333333;
+  cursor: pointer;
+}
+.btn_blue {
+  background-color:#13438b;
+  color: #fff;
+}
+.btn_blue a {
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.btn_blue a:hover {
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.btn_purple {
+  background-color: #eb973b;
+  color: #fff;
+}
+.btn_purple a {
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.btn_purple a:hover {
+  text-decoration: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+.list {
+  overflow: hidden;
+}
+.list li {
+  box-shadow: 0px 3px 2px -1px #cdcece;
+  position: relative;
+  float: left;
+  width: calc(100%/4 - 15px);
+  background-color: #fff!important;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin-right: 15px;
+  margin-bottom: 18px;
+}
+.list li .flowApp {
+  height: 180px;
+  padding: 20px 20px 0px 20px;
+}
+.list li .flowApp p{
+	text-align: left;
+}
+.list li .flowApp .fa_title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333333;
+}
+.list li .flowApp .fa_ver {
+  font-size: 13px;
+  color: #666;
+  padding: 0px;
+  margin: 0px;
+}
+.list li .flowApp .fa_info {
+  font-size: 13px;
+  color: #666;
+  padding: 0px;
+  margin-top: 10px;
+}
+.list li .use_button {
+  background-color: #e2e4e6;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+.list li .use_button button{
+	border: 1px solid #fff;
+}
+.page {
+  margin: 30px auto;
+  text-align: center;
+}
+.page li {
+  display: inline-block;
+  width: 26px;
+  margin-right: 3px;
+}
+.page li a {
+  font-size: 14px;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  padding: 2px 6px;
+  text-align: center;
+  color: #c8c8c8;
+  border: 1px solid #d4d4d4;
+  border-radius: 3px;
+}
+.page li a:hover {
+  background: #fff;
+  color: #808080;
+  border-color: #808080;
+}
+.page li a.disable {
+  color: #858585;
+}
+.page li a.disable:hover {
+  background-color: #fff;
+  
+}
+.page li.active a {
+  background: #fff;
+  color: #808080;
+  border-color: #808080;
+}

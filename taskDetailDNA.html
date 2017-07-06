@@ -13,23 +13,23 @@
 	<link rel="stylesheet" href="css/common.css">	
 </head>
 
-<body style="min-width: 1024px;min-height: 768px;overflow:auto;background-color: rgb(248,248,248);">
+<body style="background-color: rgb(248,248,248);">
 	<!--前台公共头部-->
-	<div class="top" style="width:100%;">
+	<div class="top">
 		<div class="main_nav1">
-			<div class="container" style="padding-left: 11px;padding-right: 11px;position: relative;">
+			<div class="container">
 				<a href="#" class="logo"><img src="public/image/logo.png"/></a>
-				<ul class="main_nav1_left" style="line-height: 70px;">
+				<ul class="main_nav1_left">
 					<li class="nav_b1"><a href="#">首页</a></li>
 					<li class="nav_b1"><a href="#">云中漫步</a></li>
 					<li ><a href="#" >前沿研究</a></li>
 					<li ><a href="#">市场活动</a></li>	
 				</ul>
-				<div id="search_news" class="main_nav1_left" style="position: absolute;left: 276px; height: 70px;line-height: 70px;width: 50%;margin:0 auto;text-align: center; display: none;">
-					<span style="display: inline-block;width: 27px;height: 27px;vertical-align: middle; background: url(public/image/搜索.png) no-repeat;cursor: pointer;"></span>
-					<input type="text" id="search_news_input" class="form-control" style="margin-top: 19px;margin-left:11px;height: 35px;font-size: 18px; display:inline-block;width:505px;border:1px solid #fff !important;background:none;color: #fff;">
+				<div id="search_news" class="main_nav1_left searchNews">
+					<span class="searchIcon"></span>
+					<input type="text" id="search_news_input" class="form-control">
 				</div>
-				<ul class="main_nav1_right" style="line-height: 70px;">
+				<ul class="main_nav1_right">
 					<li id="searchIcon"><a href="#"><img src="public/image/搜索.png" alt="搜索" /></a></li>
 					<li><a href="#"><img src="public/image/通知.png" alt="通知" /></a></li>
 					<li><a href="#"><img src="public/image/用户.png" alt="用户" /></a></li>
@@ -37,7 +37,7 @@
 			</div>
 		</div>
 		<div class="main_nav2">
-			<div class="container" style="padding-left: 11px;padding-right: 11px;">
+			<div class="container">
 				<ul class="main_nav2_left">
 					<li class="nav2_list1" style="margin-right:0px;" >
 						<a href="#" class="active" style="padding-left:15px;padding-right:15px;">分析流程<img src="img/02.png" alt=""></a>
@@ -50,38 +50,47 @@
 					<li class="nav2_list2" style="margin-right:0px;">
 						<a href="#" style="padding-left:15px;padding-right:15px;">小工具<img src="img/02.png" alt=""></a>
 						<ul class="">
+							<li><a href="">基本绘图</a></li>
+							<li><a href="">流程绘图</a></li>
+							<li><a href="">高级绘图</a></li>
+							<li><a href="">表格工具</a></li>
 							<li><a href="">计算统计</a></li>
-							<li><a href="">绘图软件</a></li>
 						</ul>
 					</li>
 					<li class=""><a href="#">我的项目</a></li>
 					<li class=""><a href="#">我的目录</a></li>
 					<li class=""><a href="#">回收站</a></li>
 				</ul>
-				<div class="search_right" style="float: right;line-height: 45px;margin-right: 23px;">
+				<div class="search_right">
 					<input type="text" class="form-control" placeholder="搜索想要使用的流程或小工具" id="search_flowapp">
 					<button class="btn btn-blue" id="search_button">搜索</button>				
 				</div>
 			</div>
-		</div>
+		</div>	
 		<div class="nav_line"></div>
 		<div class="main_nav3" style="box-shadow:-2px 3px 9px 0px #ccc;">
-			<div class="change_box">
+			<div class="container">
 				<ul class="main_nav3_left_report">
-					<li><span class="themeDNA"><a href="report.html">查看报告</a></span></li>
-					<li><span class="themeDNA"><a href="#">下载报告</a></span></li><!--云超，下载报告的链接-->
-					<li><span class="themeDNA"><a id="taskRerun" href="#">重跑一次</a></span></li>
+					<li><span><a href="report.html">查看报告</a></span></li>
+					<li><span><a href="#">下载报告</a></span></li>
+					<!--云超，下载报告的链接-->
+					<li><span><a id="taskRerun" href="#">重跑一次</a></span></li>
 				</ul>
 				<ul class="main_nav3_right_report">
-					<li class="report_success"><span class="themeDNA"><a href="#">任务已完成</a></span></li>
+					<li class="report_success"><span class="btn btn-success"><a href="#">任务已完成</a></span></li>
 					<!--
-					<li class="report_running"><span><a href="#">任务运行中</a></span></li>
-					<li class="report_end"><span><a href="#">任务已终止</a></span></li>
-					-->
-					<li id="refresh"><a href="#"><img src="img/分析报告_18.png" alt="刷新" /></a></li>
-					<li id="stop"><a href="#"><img src="img/分析报告_20.jpg" alt="停止" /></a></li>
-					<li id="delete"><a href="#"><img src="img/分析报告_22.png" alt="删除" /></a></li>
-		
+								<li class="report_running"><span><a href="#">任务运行中</a></span></li>
+								<li class="report_end"><span><a href="#">任务已终止</a></span></li>
+								-->
+					<li id="refresh">
+						<a href="#"><img src="img/分析报告_18.png" alt="刷新" /></a>
+					</li>
+					<li id="stop">
+						<a href="#"><img src="img/分析报告_20.jpg" alt="停止" /></a>
+					</li>
+					<li id="delete">
+						<a href="#"><img src="img/分析报告_22.png" alt="删除" /></a>
+					</li>
 				</ul>
 			</div>
 		</div>
