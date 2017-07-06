@@ -222,7 +222,6 @@ $(function(){
 					}
 				};
 			};
-		$(".favorites-list").children("div").css("height",0)
 		myAjax("json/t1.json",{id:ids},f_d_c);
 	});
 });
