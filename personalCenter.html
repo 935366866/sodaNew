@@ -532,7 +532,7 @@
 				$(".favorites-list").children("div").css("height","auto")
 				var content=$(this).next().text();
 				if($(this).prop("checked")){
-					$(this).parents(".all-checked").siblings(".all-checked").find("input").attr("disabled","disabled")
+//					$(this).parents(".all-checked").siblings(".all-checked").find("input").attr("disabled","disabled")
 					$(".favorites-list-link .tag span").each(function(){
 						if(content==$(this).text()){
 							$(this).parents("li").find("input").prop("checked",true)
@@ -541,7 +541,7 @@
 						}
 					});
 				}else{
-					$(this).parents(".all-checked").siblings(".all-checked").find("input").removeAttr("disabled","disabled")
+//					$(this).parents(".all-checked").siblings(".all-checked").find("input").removeAttr("disabled","disabled")
 					$(".favorites-list-link .tag span").each(function(){
 						if(content==$(this).text()){
 							$(this).parents("li").find("input").prop("checked",false)
