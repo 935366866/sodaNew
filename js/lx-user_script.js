@@ -206,7 +206,6 @@ $(function(){
 			all_favorite_flag = 0;
 		};
 	});
-//	deleteSelected($("#favorite_delete"));
 
 	//3.删除
 	$("#favorite_delete").click(function(){
@@ -220,40 +219,24 @@ $(function(){
 						ids += s_item.attr("id");
 					}else{
 						ids += ","+s_item.attr("id");
-					}	
+					}
 				};
 			};
 		myAjax("json/t1.json",{id:ids},f_d_c);
 	});
 });
-//删除选中的input
-//function deleteSelected(delDom) {
-//	$(delDom).click(function() {
-//		//向后传id
-//		var ids = "";
-//		var all_select = $(".favorites-list li input");
-//		for(var i = 0; i < all_select.length; i++) {
-//			var s_item = $(all_select[i]);
-//			if(s_item.is(":checked") == true) {
-//				if(ids == "") {
-//					ids += s_item.attr("id");
-//				} else {
-//					ids += "," + s_item.attr("id");
-//				}
-//			};
-//		};
-//		myAjax("json/t1.json", { id: ids }, f_d_c);
-//	});
-//}
-
 //删除收藏后执行的函数
 function f_d_c(a,old){
-	alert("删除成功!");
 	var all = old.id.split(",");
 	for(var i=0;i<all.length;i++){
 		var id_name = all[i];
 		$($(".favorites-list #"+id_name).closest("li")).remove();	
 	};		
+	setTimeout(function(){
+		alert("删除成功!");
+	},1000)
+
+
 };
 
 //4.评论部分===================================
@@ -374,12 +357,13 @@ $(function(){
 });
 //删除收藏后执行的函数
 function c_d_c(a,old){
-	alert("删除成功!");
 	var all = old.id.split(",");
 	for(var i=0;i<all.length;i++){
 		var id_name = all[i];
 		$($(".comment-list #"+id_name).closest("li")).remove();
+			
 	};
+	alert("删除成功!");
 };
 //-------------------------------------------函数------------------------------
 
@@ -455,7 +439,7 @@ function showNews(id, bmark){
 	
 		$.ajax({
 				    url:'/sodadev/Home/Notice/getNoticeInfo/bmark/'+bmark,     
-				    type:'post',
+				    type:'get',
 				    data:{id:id},
 				    dataType: "json",
 				    success:function(data,textStatus) {

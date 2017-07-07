@@ -165,6 +165,15 @@
   background-color: #ec5743 ;
   border: 1px solid #ec5743 ;
 }
+#maintable .glyphicon-plus{
+	color: #13438B !important; 
+}
+#maintable .btn-primary{
+	background: #13438B !important; 
+}
+#maintable .btn-warning{
+	background: #ea973b !important; 
+}
 #footer_style {
   margin: 10px 0;
   float: left;

@@ -333,12 +333,8 @@
 							<div class="favorites-tools" style="background: #F8F8F8;padding-left: 15px;padding-right: 15px;">
 								<div class="all-checked">
 									<input id="all_favorite" type="checkbox" name="all_favorite"> 全选
-								</div>
-								<div  class="all-checked" style="margin-left: 60px;">
-									<input type="checkbox" id="studyInput" name="resourceStudy"> <label style="font-weight: normal;">前沿研究</label>
-								</div>
-								<div id="resourceMarket" class="all-checked" style="margin-left: 60px;">
-									<input id="marketInput" type="checkbox" ><label style="font-weight: normal;">市场动态</label>
+									<input class="selectInput" id="marketInput" type="checkbox" name="marketInput" ><label>市场动态</label>
+									<input class="selectInput" id="studyInput" type="checkbox"  name="resourceStudy"> <label>前沿研究</label>
 								</div>
 								<div class="del" id="favorite_delete">
 									删除
@@ -382,12 +378,8 @@
 							<div class="comment-tools" style="background: #F8F8F8;padding-left: 15px;padding-right: 15px;">
 								<div class="all-checked">
 									<input type="checkbox" name="all_comment" id="all_comment"> 全选
-								</div>
-								<div class="all-checked" style="margin-left: 60px;">
-									<input type="checkbox" > 前沿研究
-								</div>
-								<div class="all-checked" style="margin-left: 60px;">
-									<input type="checkbox" > 市场动态
+									<input class="selectInput" type="checkbox" id="commentStudy"><label>前沿研究</label>
+									<input class="selectInput" type="checkbox" id="commentMarket" ><label>市场动态</label>
 								</div>
 								<div class="del" id="comment_delete">
 									删除
@@ -524,37 +516,5 @@
 	var module="/ddgene/Home";
 	</script>
 	<script type="text/javascript" src="/ddgene/Public/js/heart.js"></script>-->
-	<script type="text/javascript">
-		inputSelect($("#studyInput"));
-		inputSelect($("#marketInput"));
-		function inputSelect(ele){
-			$(ele).change(function(){
-				$(".favorites-list").children("div").css("height","auto")
-				var content=$(this).next().text();
-				if($(this).prop("checked")){
-//					$(this).parents(".all-checked").siblings(".all-checked").find("input").attr("disabled","disabled")
-					$(".favorites-list-link .tag span").each(function(){
-						if(content==$(this).text()){
-							$(this).parents("li").find("input").prop("checked",true)
-						}else{   
-							$(this).parents("li").hide();
-						}
-					});
-				}else{
-//					$(this).parents(".all-checked").siblings(".all-checked").find("input").removeAttr("disabled","disabled")
-					$(".favorites-list-link .tag span").each(function(){
-						if(content==$(this).text()){
-							$(this).parents("li").find("input").prop("checked",false)
-						}else{
-							$(this).parents("li").show();
-						}
-					});
-				}		
-			})	
-		}
-		
-		
-
-	</script>
 </body>
 </html>

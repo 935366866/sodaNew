@@ -206,7 +206,6 @@ $(function(){
 			all_favorite_flag = 0;
 		};
 	});
-
 	//3.删除
 	$("#favorite_delete").click(function(){
 		//向后传id
@@ -219,25 +218,50 @@ $(function(){
 						ids += s_item.attr("id");
 					}else{
 						ids += ","+s_item.attr("id");
-					}
+					}	
 				};
 			};
 		myAjax("json/t1.json",{id:ids},f_d_c);
 	});
+	favoritesSelect($("#studyInput"));
+	favoritesSelect($("#marketInput"));
 });
+
 //删除收藏后执行的函数
 function f_d_c(a,old){
 	var all = old.id.split(",");
 	for(var i=0;i<all.length;i++){
 		var id_name = all[i];
 		$($(".favorites-list #"+id_name).closest("li")).remove();	
-	};		
+	};	
 	setTimeout(function(){
 		alert("删除成功!");
-	},1000)
-
-
+	},400)
 };
+
+		function favoritesSelect(ele){
+			$(ele).click(function(){
+				$(".favorites-list").children("div").css("height","auto")
+				var content=$(this).next().text();
+				if($(this).prop("checked")){
+					$(this).siblings(".selectInput").attr("disabled","disabled");
+					$(".favorites-list-link .tag span").each(function(){
+						if(content==$(this).text()){
+							$(this).parents("li").find("input").prop("checked",true);
+						}
+					});
+					$(".favorites-list").find("input:not(:checked)").parents("li").hide()
+				}else{
+					$(this).siblings(".selectInput").removeAttr("disabled","disabled");
+					$(".favorites-list-link .tag span").each(function(){
+						if(content==$(this).text()){
+							$(this).parents("li").find("input").prop("checked",false);
+						}
+					});
+					$(".favorites-list").find("input:not(:checked)").parents("li").show()
+				}
+			})	
+		}
 
 //4.评论部分===================================
 var all_favorite_flag = 0;
@@ -250,11 +274,11 @@ $(function(){
     "total": "2",
     "rows": [
         {
-            "news_id": "9EB34B66-D853-D6D9-F026-A6368E3C9A88",
+            "news_id": "c1",
             "url": "www.baidu.com",
-            "comment": "werthj",
+            "comment": "werthj1",
             "create_time": "2016-11-30 23:47:19",
-            "cat_id": "02",
+            "cat_id": "01",
             "cat_name": "DNA",
             "title": "dna产品",
             "pubtime": "2016-11-08 12:14:18"
@@ -262,7 +286,7 @@ $(function(){
         {
             "news_id": "c2",
             "url": "www.baidu.com",
-            "comment": "werthj",
+            "comment": "werthj2",
             "create_time": "2016-11-30 23:47:19",
             "cat_id": "02",
             "cat_name": "DNA",
@@ -272,9 +296,9 @@ $(function(){
         {
             "news_id": "c3",
             "url": "www.baidu.com",
-            "comment": "werthj",
+            "comment": "werthj3",
             "create_time": "2016-11-30 23:47:19",
-            "cat_id": "02",
+            "cat_id": "01",
             "cat_name": "DNA",
             "title": "dna产品",
             "pubtime": "2016-11-08 12:14:18"
@@ -282,7 +306,7 @@ $(function(){
         {
             "news_id": "c4",
             "url": "www.baidu.com",
-            "comment": "werthj",
+            "comment": "werthj4",
             "create_time": "2016-11-30 23:47:19",
             "cat_id": "02",
             "cat_name": "DNA",
@@ -347,24 +371,50 @@ $(function(){
 						ids += s_item.attr("id");
 					}else{
 						ids += ","+s_item.attr("id");
-					}
-					
-					
+					}	
 				};
 			};
 		myAjax("json/t1.json",{id:ids},c_d_c);
 	});
+	commentSelect($("#commentStudy"));
+	commentSelect($("#commentMarket"));
 });
-//删除收藏后执行的函数
+//删除评论后执行的函数
 function c_d_c(a,old){
 	var all = old.id.split(",");
 	for(var i=0;i<all.length;i++){
 		var id_name = all[i];
 		$($(".comment-list #"+id_name).closest("li")).remove();
-			
 	};
-	alert("删除成功!");
+	setTimeout(function(){
+		alert("删除成功!");
+	},400)
 };
+
+		//删选前沿研究或者市场动态
+		function commentSelect(ele){
+			$(ele).click(function(){
+				$(".comment-list").children("div").css("height","auto")
+				var content=$(this).next().text();
+				if($(this).prop("checked")){
+					$(this).siblings(".selectInput").attr("disabled","disabled");
+					$(".comment-list-link .tag span").each(function(){
+						if(content==$(this).text()){
+							$(this).parents("li").find("input").prop("checked",true);
+						}
+					});
+					$(".comment-list").find("input:not(:checked)").parents("li").hide()
+				}else{
+					$(this).siblings(".selectInput").removeAttr("disabled","disabled");
+					$(".comment-list-link  .tag span").each(function(){
+						if(content==$(this).text()){
+							$(this).parents("li").find("input").prop("checked",false);
+						}
+					});
+					$(".comment-list").find("input:not(:checked)").parents("li").show()
+				}
+			})	
+		}
 //-------------------------------------------函数------------------------------
 
 //清空表格参数
@@ -439,7 +489,7 @@ function showNews(id, bmark){
 	
 		$.ajax({
 				    url:'/sodadev/Home/Notice/getNoticeInfo/bmark/'+bmark,     
-				    type:'get',
+				    type:'post',
 				    data:{id:id},
 				    dataType: "json",
 				    success:function(data,textStatus) {

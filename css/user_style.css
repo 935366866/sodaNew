@@ -366,6 +366,12 @@ body {
   float: left;
   color: #999;
 }
+.favorites .favorites-tools .all-checked .selectInput {
+	margin-left: 30px;
+}
+.favorites .favorites-tools .all-checked label {
+	font-weight: normal !important;
+}
 .favorites .favorites-tools .all-checked span {
   margin-left: 20px;
 }
@@ -442,6 +448,12 @@ body {
   float: left;
   color: #999;
 }
+.comment .comment-tools .all-checked .selectInput {
+	margin-left: 30px;
+}
+.comment .comment-tools .all-checked label {
+	font-weight: normal !important;
+}
 .comment .comment-tools .all-checked span {
   margin-left: 20px;
 }
@@ -458,8 +470,7 @@ body {
   background-color: #3abeed;
 }
 .comment .comment-list {
-  padding-bottom: 50px;
-  height: 450px;
+  padding-bottom: 15px;
   overflow: auto;
 }
 .comment .comment-list li {

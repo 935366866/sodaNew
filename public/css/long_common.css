@@ -153,32 +153,22 @@ html {
 .main_nav1 .main_nav1_left li {
   background: #13438b;
   float: left;
-  width: 100px;
+  width: 105px;
   text-align: center;
-  font-size: 16px;
-  padding-right: 15px;
-  padding-left: 15px;
   margin-right: 30px;
-  letter-spacing: 1px;
 }
-.main_nav1 .main_nav1_left li.listshow ul {
-  display: block;
-}
-.main_nav1 .main_nav1_left ul {
+
+/*.main_nav1 .main_nav1_left ul {
   display: none;
   padding-left: 0px;
 }
 .main_nav1 .main_nav1_left ul li {
   padding-right: 30px;
   padding-left: 15px;
-  float: none;
-  border-top: 1px solid #666;
   display: block;
   height: 45px;
-  margin-left: 0px;
-  margin-right: 0px;
-}
-.main_nav1 .main_nav1_left .dodo {
+}*/
+/*.main_nav1 .main_nav1_left .dodo {
   width: 100px;
   padding-left: 0px;
   letter-spacing: 0px;
@@ -192,7 +182,7 @@ html {
   text-decoration: none;
   color: #46a2f9;
   cursor: pointer;
-}
+}*/
 /*.main_nav1 .main_nav1_left .nav_b1 {
   background-image: url('../img/main_nav_01.png');
   background-repeat: repeat-x;
@@ -231,6 +221,7 @@ html {
 }
 .main_nav2 .main_nav2_left a.active{
 	color: #333;
+	font-weight: bold;
 }
 /*.main_nav2 .main_nav2_left a:hover {
   text-decoration: none;
