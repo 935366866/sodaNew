@@ -32,10 +32,16 @@ $(function () {
 	})
 	
     //左边导航的效果
-    $(".nav li").on('click',function(){
+	var scrollTop = $(window).scrollTop()
+   $(".nav li").on('click',function(e){
+   		e.preventDefault();
     	$(this).siblings().removeClass("active");
         $(this).addClass("active");
+	    $('html, body').animate({
+		    'scrollTop': $($(this).children("a").attr('href')).offset().top-60
+		}, 400);
     });
+
 //1.个人信息部分===================================
     //昵称提交
     $("#s_nikename").click(function(){
