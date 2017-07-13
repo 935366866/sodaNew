@@ -17,27 +17,21 @@ $(function(){
     };
 });	
 
-//导航条
-//	$(function(){
-//		$(".main_nav1_left li").mouseover(function(){
-//			$(this).css("background","#d3d5e4").children("a").css("color","#13438b");
-//		})
-//		$(".main_nav1_left li").mouseout(function(){
-//			$(this).css("background","#13438b").children("a").css("color","#ddd");
-//		})
-//		$(".main_nav2_left li").mouseover(function(){
-//			$(this).children("a").addClass("active");
-//		})
-//		$(".main_nav2_left li").mouseout(function(){
-//			$(this).children("a").removeClass("active");
-//		})
-//
-//	})
-$(function(){
-	$(".main_nav1_left li").click(function(){
-		
+导航条
+	$(function(){
+		$(".main_nav1_left li").mouseover(function(){
+			$(this).css("background","#d3d5e4").children("a").css("color","#13438b");
+		})
+		$(".main_nav1_left li").mouseout(function(){
+			$(this).css("background","#13438b").children("a").css("color","#ddd");
+		})
+		$(".main_nav2_left li").mouseover(function(){
+			$(this).children("a").addClass("active");
+		})
+		$(".main_nav2_left li").mouseout(function(){
+			$(this).children("a").removeClass("active");
+		})
 	})
-})
 
 
 //搜索框

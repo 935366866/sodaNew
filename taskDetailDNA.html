@@ -543,7 +543,7 @@ var samplesDataUrl = "__MODULE__/Data/remoteDirView"; //像后台发送目录的
 //设置每个节点的状态
 var selectColor="rgb(56,190,237)";
 var unselectColor="lightgray";
-var runningColor="rgb(56,190,237)";
+var runningColor="red";
 var failedColor="rgb(255,0,0)"
 var arrowColor="rgb(100,100,100)";
 var nodeNameColor="rgb(255,255,255)";
@@ -570,26 +570,21 @@ diagram =
 //节点的样式
 		diagram.nodeTemplate =
 			$(go.Node, "Auto",
- 
 			  new go.Binding("location", "loc", go.Point.parse),
-			  $(go.Shape, "RoundedRectangle", { fill: selectColor ,
-			  									parameter1: 5,  // the corner has a large radius
-			  									stroke:nodeBorderColor,
-												
-												},
-												new go.Binding("fill", "color")
-												),     
-										
+			  $(go.Shape, "RoundedRectangle", 
+			  	{ fill: selectColor ,
+			  	parameter1: 5,  // the corner has a large radius
+			  	stroke:nodeBorderColor,
+				},
+				new go.Binding("fill", runningColor)),     						
 			  {
-				  selectionAdornmentTemplate:
-				  $(go.Adornment, "Auto",
+				selectionAdornmentTemplate:
+				$(go.Adornment, "Auto",
 					$(go.Shape, "RoundedRectangle",
 					{ fill: null, stroke: selectColor, strokeWidth: 1 }),
 					$(go.Placeholder)
 				  )  // end Adornment
 			  },
-				
-				
 			  $(go.TextBlock,{ font: "bold 14px sans-serif",
 							   stroke: nodeNameColor,
 							   margin: 10 },
@@ -611,8 +606,6 @@ diagram =
 			
 		  );  
 
-
-		
   var nodeDataArray = [
 		{key: "QC", loc:"0 0"},
 		{key: "Alignment", loc:"-25 80"},
@@ -633,7 +626,6 @@ diagram =
 	 diagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);	
 	 diagram.initialContentAlignment = go.Spot.Center; //整个图居中		
 	});
-
 
 //选定的模块参数
 function selectedNode(){

@@ -505,48 +505,45 @@
 		//节点的样式
 		diagram.nodeTemplate =
 			$(go.Node, "Auto",
- 
-			  new go.Binding("location", "loc", go.Point.parse),
-			  $(go.Shape, "RoundedRectangle", { fill: selectColor ,
-			  									parameter1: 5,  // the corner has a large radius
-			  									stroke:nodeBorderColor,
-												
-												},
-												new go.Binding("fill", "color")
-												),     
-										
-			  {
-				  selectionAdornmentTemplate:
-				  $(go.Adornment, "Auto",
-					$(go.Shape, "RoundedRectangle",
-					{ fill: null, stroke: selectColor, strokeWidth: 1 }),
-					$(go.Placeholder)
-				  )  // end Adornment
-			  },
-				
-				
-			  $(go.TextBlock,{ font: "bold 14px sans-serif",
-							   stroke: nodeNameColor,
-							   margin: 10 },
-				new go.Binding("text", "key"))
+				new go.Binding("location", "loc", go.Point.parse),
+				$(go.Shape, "RoundedRectangle", 
+					{ fill: selectColor ,
+				  	parameter1: 5,  // the corner has a large radius
+				  	stroke:nodeBorderColor,
+					},
+					new go.Binding("fill", "color")
+				),
+				{
+					selectionAdornmentTemplate:
+					$(go.Adornment, "Auto",
+						$(go.Shape, "RoundedRectangle",
+						{ fill: null, stroke: selectColor, strokeWidth: 1 }),
+						$(go.Placeholder)
+					)  // end Adornment
+				},
+				$(go.TextBlock,
+					{ font: "bold 14px sans-serif",
+					stroke: nodeNameColor,
+					margin: 10 },
+					new go.Binding("text", "key")
+				)
 			);
 
 		
 		//连线的样式
 	   diagram.linkTemplate =
-		  $(go.Link,  // the whole link panel
+		  $(go.Link,  
 			{ curve: go.Link.Bezier, reshapable: true },
 			// don't need to save Link.points, so don't need TwoWay Binding on "points"
 			new go.Binding("curviness", "curviness").makeTwoWay(),  // but save "curviness" automatically
 			$(go.Shape,  // the link shape
 			  { strokeWidth: 2 ,stroke:arrowColor }),
-	//		  new go.Binding("stroke", "color"),
 			$(go.Shape,  // the arrowhead
 			  { toArrow: "standard", stroke: null, fill:arrowColor })
 			
 		  );  
 
-//单击元素，直接获得 key
+		//单击元素，直接获得 key
 		diagram.addDiagramListener("ObjectSingleClicked",
 			      function(e) {
 					  if(nodeLockStatus == 1){
@@ -616,120 +613,108 @@
 				}
 					
 		
-  var nodeDataArray = [
-		{key: "Basic_QC", loc:"0 0"},
-		{key: "Alignment", loc:"-5 100"},
-		{key: "Advanced_QC", loc:"150 100"},
-		{key: "SNP_INDEL", loc:"160 200"},
-		{key: "Assemble", loc:"0 200"},
-		{key: "AS", loc:"-100 200"},
-		{key: "DE", loc:"25 300"},
-		{key: "PPI", loc:"-70 400"},
-		{key: "GO", loc:"25 400"},
-		{key: "KEGG", loc:"120 400"}
-	  ];
+	  	var nodeDataArray = [
+			{key: "Basic_QC", loc:"0 0"},
+			{key: "Alignment", loc:"-5 100"},
+			{key: "Advanced_QC", loc:"150 100"},
+			{key: "SNP_INDEL", loc:"160 200"},
+			{key: "Assemble", loc:"0 200"},
+			{key: "AS", loc:"-100 200"},
+			{key: "DE", loc:"25 300"},
+			{key: "PPI", loc:"-70 400"},
+			{key: "GO", loc:"25 400"},
+			{key: "KEGG", loc:"120 400"}
+		];
   
-  var linkDataArray = [
-		{from: "Basic_QC", to:"Alignment", "curviness":0},
-		{from: "Alignment", to:"Advanced_QC", "curviness":0},
-		{from: "Advanced_QC", to:"SNP_INDEL", "curviness":0},
-		{from: "Alignment", to:"Assemble", "curviness":0},
-		{from: "Assemble", to: "AS", "curviness":0},
-		{from: "Assemble", to: "DE", "curviness":0},
-		{from: "DE", to: "PPI", "curviness":-20},
-		{from: "DE", to: "GO", "curviness":0},
-		{from: "DE", to: "KEGG", "curviness":20}
-	  ];
+	  	var linkDataArray = [
+			{from: "Basic_QC", to:"Alignment", "curviness":0},
+			{from: "Alignment", to:"Advanced_QC", "curviness":0},
+			{from: "Advanced_QC", to:"SNP_INDEL", "curviness":0},
+			{from: "Alignment", to:"Assemble", "curviness":0},
+			{from: "Assemble", to: "AS", "curviness":0},
+			{from: "Assemble", to: "DE", "curviness":0},
+			{from: "DE", to: "PPI", "curviness":-20},
+			{from: "DE", to: "GO", "curviness":0},
+			{from: "DE", to: "KEGG", "curviness":20}
+		  ];
  
-	 diagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);	
-	 diagram.initialContentAlignment = go.Spot.Center; //整个图居中	
-//	 diagram.toolManager.mouseWheelBehavior = false ;  //控制放大缩小
-//	 diagram.allowDrop = false;
-//	 diagram.animationManager.isEnabled = false ;
-	
-	});
+		 diagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);	
+		 diagram.initialContentAlignment = go.Spot.Center; //整个图居中	
+	//	 diagram.toolManager.mouseWheelBehavior = false ;  //控制放大缩小
+	//	 diagram.allowDrop = false;
+	//	 diagram.animationManager.isEnabled = false ;	
+		});
 
 
-//选定的模块
-
-var nodeLockStatus=1  //可编辑
-//解锁
-function unlock(){
-	nodeLockStatus=1;
-	$("#lockNode").attr("class","btn btn_orange round_Button");
-	$("#unlockNode").attr("class","btn btn_white round_Button");
-	$("#parasPanel").html("");  //清空现有的参数
-	};
-//点击锁定模块
-function selectedNode(){
-	$("#unlockNode").attr("class","btn btn_orange round_Button");
-	$("#lockNode").attr("class","btn btn_white round_Button");
-	if(nodeLockStatus == 1){  //判断是否是解锁状态
-		$("#parasPanel").html(""); //清空现有的参数
-	for(var key in nodeStatus){
-		if (nodeStatus[key] == 1){
-//加载json相应模块的数据到模块参数设置当中
-			
-			//添加该模块的面板
-			if(! defaultRefParams[key]){
-				continue;
-			}
-			$("#parasPanel").append('<div class="panel panel-default"  id="' + key + '"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#' + key + '" href="#' + key + '_panel_body">' + key + ' 参数设置</a></h4></div><div id="' + key + '_panel_body" class="panel-collapse collapse in"><div class="panel-body"><form class="form-horizontal" role="form"></form></div></div></div>');
-			addPara(key); //添加面板中的参数
-
+		//选定的模块
+		var nodeLockStatus=1  //可编辑
+		//解锁
+		function unlock(){
+			nodeLockStatus=1;
+			$("#lockNode").attr("class","btn btn_orange round_Button");
+			$("#unlockNode").attr("class","btn btn_white round_Button");
+			$("#parasPanel").html("");  //清空现有的参数
+			};
+		//点击锁定模块
+		function selectedNode(){
+			$("#unlockNode").attr("class","btn btn_orange round_Button");
+			$("#lockNode").attr("class","btn btn_white round_Button");
+			if(nodeLockStatus == 1){  //判断是否是解锁状态
+				$("#parasPanel").html(""); //清空现有的参数
+			for(var key in nodeStatus){
+				if (nodeStatus[key] == 1){
+		//加载json相应模块的数据到模块参数设置当中
+					//添加该模块的面板
+					if(! defaultRefParams[key]){
+						continue;
+					}
+					$("#parasPanel").append('<div class="panel panel-default"  id="' + key + '"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#' + key + '" href="#' + key + '_panel_body">' + key + ' 参数设置</a></h4></div><div id="' + key + '_panel_body" class="panel-collapse collapse in"><div class="panel-body"><form class="form-horizontal" role="form"></form></div></div></div>');
+					addPara(key); //添加面板中的参数
+				};
+			};
+			};
+			nodeLockStatus=0; 
 		};
-	};
-	};
-	nodeLockStatus=0; 
-
-};
-//在参数设置中 给node名字为key的模块 添加input或dropdown参数
-function addPara(key){
-				var data = defaultRefParams;
-				items = data[key];   //找到参数中键为key的node项目
-				if(typeof(items)=='undefined' || items==null){
-					return;
-				}	
-				for (var i=0; i < items.length; i++){   //遍历其中的许多参数
-					if(items[i]["type"] == "input"){   //添加一个input框
-						
-						var name = items[i]["name"]
-						var id = items[i]["id"]
-						var value = items[i]["value"]
-						var info = items[i]["illustration"]
-						//添加input的代码
-					
-						$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id="'+ id +'" name="'+ id +'" title="' + info + '"></div><a class="col-sm-2 control-label"  style=" text-align:left;" onclick="paraDefult('+key+','+id+')">默认值</a></div>');
-						
-						//向input中添加默认值
-						$("#" + id).val(value);
-						};
-
-					if(items[i]["type"] == "dropdown"){   //添加一个下拉框
-						var name = items[i]["name"]
-						var id = items[i]["id"]
-						var value = items[i]["value"].split(";")
-						var info = items[i]["illustration"]
-						var opts = ""
-						for (var j=0;j < value.length; j++){
-							var tmpArr = value[j].split(',');
-							if (tmpArr.length <2){
-								tmpArr[1] = tmpArr[0];
-							}
-							opts += '<option value="'+tmpArr[0]+'">' + tmpArr[1] + '</option>';   //给option添加一个value
-							};
-					
-						//添加dropdown的代码
-						$("#" + key + " form").append('<div class="" ><label title="'+info+'" class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7" ><select class="form-control" id="'+ id +'" name="'+ id +'"  title="">' + opts + '</select></div></div>');
-						};	
-						$("#"+id).selectpicker({
-							  liveSearch: true,
-						});
+		//在参数设置中 给node名字为key的模块 添加input或dropdown参数
+		function addPara(key) {
+			var data = defaultRefParams;
+			items = data[key]; //找到参数中键为key的node项目
+			if(typeof(items) == 'undefined' || items == null) {
+				return;
+			}
+			for(var i = 0; i < items.length; i++) { //遍历其中的许多参数
+				if(items[i]["type"] == "input") { //添加一个input框
+		
+					var name = items[i]["name"]
+					var id = items[i]["id"]
+					var value = items[i]["value"]
+					var info = items[i]["illustration"]
+					//添加input的代码		
+					$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id="' + id + '" name="' + id + '" title="' + info + '"></div><a class="col-sm-2 control-label"  style=" text-align:left;" onclick="paraDefult(' + key + ',' + id + ')">默认值</a></div>');		
+					//向input中添加默认值
+					$("#" + id).val(value);
+				};
+				if(items[i]["type"] == "dropdown") { //添加一个下拉框
+					var name = items[i]["name"]
+					var id = items[i]["id"]
+					var value = items[i]["value"].split(";")
+					var info = items[i]["illustration"]
+					var opts = ""
+					for(var j = 0; j < value.length; j++) {
+						var tmpArr = value[j].split(',');
+						if(tmpArr.length < 2) {
+							tmpArr[1] = tmpArr[0];
+						}
+						opts += '<option value="' + tmpArr[0] + '">' + tmpArr[1] + '</option>'; //给option添加一个value
 					};
-	
-			
-	};
-//点击恢复默认值
+					//添加dropdown的代码
+					$("#" + key + " form").append('<div class="" ><label title="' + info + '" class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7" ><select class="form-control" id="' + id + '" name="' + id + '"  title="">' + opts + '</select></div></div>');
+				};
+				$("#" + id).selectpicker({
+					liveSearch: true,
+				});
+			};
+		};//点击恢复默认值
 function paraDefult(key,id){
 	var key = key.id;
 	var id = id.id;	
