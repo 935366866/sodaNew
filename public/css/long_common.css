@@ -157,7 +157,12 @@ html {
   text-align: center;
   margin-right: 30px;
 }
-
+.main_nav1 .main_nav1_left li.active {
+  background: #d3d5e4 !important;
+}
+.main_nav1 .main_nav1_left li.active a {
+  color: #13438b !important;
+}
 /*.main_nav1 .main_nav1_left ul {
   display: none;
   padding-left: 0px;

@@ -109,19 +109,22 @@ body {
   display: block;
   color: #000;
 }
-
+/*.user .left .nav li a:hover {
+  color: #fff;
+  background-color: #13438b;
+}*/
 .user .left .nav li.active a {
   color: #fff;
   background-color: #13438b;
 }
 .user .right {
   float: right;
-  margin-top: 50px;
+  margin-top: 105px;
   width: calc(100% - 243px);
 }
 .user .right .box {
   min-height: 100px;
-  margin-top: 36px;
+  margin-bottom: 36px;
   margin-left: 30px;
   border-radius: 6px;
   background-color: #fff;

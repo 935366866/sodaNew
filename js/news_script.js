@@ -39,28 +39,31 @@ $(function () {
     })
 */
     //标签切换
-    Tab($('.tabs .nav li'),$('.tabs .cons .con'),'active')
+//  Tab($('.tabs .nav li'),$('.tabs .cons .con'),'active')
     //蓝条
-    var catname = document.getElementById("tag").innerText; 
-    if (catname=="前沿研究"){
-     	$("#dh11").attr("class","");     
-        $("#dh12").attr("class","nav_b1");
-        $("#dh13").attr("class","");	
-    }else if(catname=="市场动态"){
-    	$("#dh11").attr("class","");      
-        $("#dh12").attr("class","");
-        $("#dh13").attr("class","nav_b1");
-    }else{
-	
-    }
+//  var catname = document.getElementById("tag").innerText; 
+//  if (catname=="前沿研究"){
+//   	$("#dh11").attr("class","");     
+//      $("#dh12").attr("class","nav_b1");
+//      $("#dh13").attr("class","");	
+//  }else if(catname=="市场动态"){
+//  	$("#dh11").attr("class","");      
+//      $("#dh12").attr("class","");
+//      $("#dh13").attr("class","nav_b1");
+//  }else{
+//	
+//  }
+    
+    
+    
 
     //其他news展示
     
     //惰性加载数据
-//  $(window).scroll(function(){
-//      loadData(loadNewsList,module+"/News/listNews");
-//	//console.log(module+"/News/listNews")
-//  });
+    $(window).scroll(function(){
+        loadData(loadNewsList,module+"/News/listNews");
+	//console.log(module+"/News/listNews")
+    });
 
 
     //搜索
@@ -159,8 +162,7 @@ function loadNewsList(url){
             type:'get',
             data:{id:lastId},
             dataType: "json",
-            success:function(data) {
-                
+            success:function(data) {               
                 var newsData = data.data;
                 for(var i=0;i < newsData.length ; i++){
                     
@@ -178,7 +180,6 @@ function loadNewsList(url){
                     var pubtime = newsData[i].pubtime;
                     var zan = newsData[i].praise;
                     var summary = newsData[i].detail;
-	//		console.log(summary);
 		    var summary1 = summary.substring(0,200);
                     if(cat_id == "新闻快讯"){
                         cat_id = "新闻快讯";
@@ -189,12 +190,12 @@ function loadNewsList(url){
                     };
 
                     if(newsType == "havePic"){
-			$(".news ul").append('<li class="news-1" id="'+id+'"><a href="'+module+'/News/showNews/id/'+id+'" title="'+title+'"><div class="pic"><img src="'+pic+'" alt="'+title+'"></div><div class="info"><div class="tags clearfix"><div class="tag">'+cat_name+'</div></div><h3><a target="_blank" href="'+module+'/News/showNews/id/'+id+'">'+title+'</a></h3><p>'+summary1+'</p></div></a><div class="tools"><p class="praise">'+zan+'</p><p class="favorite"></p><p class="comment"><a href="'+module+'/News/showNews/id/'+id+'"></a></p></div></li>');                        
+			$(".news ul").append('<li class="news-1" id="'+id+'"><a href="'+module+'/News/showNews/id/'+id+'" title="'+title+'"><div class="pic"><img src="'+pic+'" alt="'+title+'"></div><div class="info"><h3><a target="_blank" href="'+module+'/News/showNews/id/'+id+'">'+title+'</a></h3><p>'+summary1+'</p></div></a><div class="tools"><p class="praise">'+zan+'</p><p class="favorite"></p><p class="comment"><a href="'+module+'/News/showNews/id/'+id+'"></a></p></div></li>');                        
 
 //                        $(".news ul").append('<li class="news-1" id="'+id+'"><a href="'+newsUrl+'" title="'+title+'"><div class="pic"><img src="'+pic+'" alt="'+title+'"></div><div class="info"><div class="tags clearfix"><div class="column column-color-1">'+cat_id+'</div><div class="tag">'+cat_name+'</div></div><h3><a target="_blank" href="'+module+'/News/showNews/id/'+id+'">'+title+'</a></h3><p>'+summary1+'</p></div></a><div class="tools"><p class="praise">'+zan+'</p><p class="favorite"></p><p class="comment"><a href="'+module+'/News/showNews/id/'+id+'"></a></p></div></li>');
 
                     }else if(newsType == "noPic"){
-			$(".news ul").append('<li class="news-2" id="'+id+'"><a href="'+module+'/News/showNews/id/'+id+'" title="'+title+'"><div class="info"><div class="tags clearfix"><div class="tag">'+cat_name+'</div></div><h3><a target="_blank" href="'+module+'/News/showNews/id/'+id+'">'+title+'</a></h3><p>'+summary1+'</p></div></a><div class="tools"><p class="praise">'+zan+'</p><p class="favorite"></p><p class="comment"><a href="'+module+'/News/showNews/id/'+id+'"></a></p></div></li>');
+			$(".news ul").append('<li class="news-2" id="'+id+'"><a href="'+module+'/News/showNews/id/'+id+'" title="'+title+'"><div class="info"><h3><a target="_blank" href="'+module+'/News/showNews/id/'+id+'">'+title+'</a></h3><p>'+summary1+'</p></div></a><div class="tools"><p class="praise">'+zan+'</p><p class="favorite"></p><p class="comment"><a href="'+module+'/News/showNews/id/'+id+'"></a></p></div></li>');
 
                        //$(".news ul").append('<li class="news-2" id="'+id+'"><a href="'+newsUrl+'" title="'+title+'"><div class="info"><div class="tags clearfix"><div class="column column-color-2">'+cat_id+'</div><div class="tag">'+cat_name+'</div></div><h3><a target="_blank" href="'+module+'/News/showNews/id/'+id+'">'+title+'</a></h3><p>'+summary1+'</p></div></a><div class="tools"><p class="praise">'+zan+'</p><p class="favorite"></p><p class="comment"><a href="'+module+'/News/showNews/id/'+id+'"></a></p></div></li>');
                     }else{

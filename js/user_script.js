@@ -33,7 +33,7 @@ $(function () {
 	
     //左边导航的效果
 	var scrollTop = $(window).scrollTop()
-   $(".nav li").on('click',function(e){
+   $("#persongNav li").on('click',function(e){
    		e.preventDefault();
     	$(this).siblings().removeClass("active");
         $(this).addClass("active");
