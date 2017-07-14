@@ -17,7 +17,7 @@ $(function(){
     };
 });	
 
-导航条
+//导航条
 	$(function(){
 		$(".main_nav1_left li").mouseover(function(){
 			$(this).css("background","#d3d5e4").children("a").css("color","#13438b");

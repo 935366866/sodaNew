@@ -46,7 +46,7 @@
 					<img src="img/上传头像.png" alt="">
 				</div>
 				<div class="nikename">
-					<h3>liuxiao</h3>
+					<h3>Jerry</h3>
 				</div>
 				<div class="logout">
 					<a href="/ddgene/Home/Login/logout">注销</a>
@@ -59,7 +59,7 @@
 						<li><a href="#my_collection">我的收藏</a></li>
 						<li><a href="#my_comment">我的评论</a></li>
 						<!--<li><a href="#my_order">我的订单</a></li>-->
-											</ul>
+					</ul>
 				</div>
 			</div>
 			<div class="right">
@@ -71,13 +71,14 @@
 						</div>
 						<div id="personIcon" class="icon"></div>
 					</div>
-						<div id="showdv" style="width: 100%;padding-bottom: 10px;display: none;">
-						<div style="background: #F8F8F8;width: 740px;margin-bottom: 10px;margin-top: 15px;margin-bottom: 10px;padding: 20px 15px;">
+				<div class="togglebox" style="display: none;">
+				<div id="showdv" style="width: 100%;padding-bottom: 10px;">
+					<div style="background: #F8F8F8;width: 740px;margin-bottom: 10px;margin-top: 15px;margin-bottom: 10px;padding: 20px 15px;">
 						<div class="personal">
 							<div class="sub-toggle" style="background: #fff;margin-top: 15px;height: 50px;padding-left: 10px;">
 								<div class="title">
 									<img src="img/nickName.png" alt="">
-									<h3>昵称：liuxiao</h3>
+									<h3>昵称：Jerry</h3>
 								</div>
 								<div class="icon"></div>
 							</div>
@@ -195,6 +196,7 @@
 							</div>
 						</div>-->
 					</div>
+					</div>
 				</div>
 				<div id="my_news" class="box">
 					<div class="toggle">
@@ -204,19 +206,14 @@
 						</div>
 						<div class="icon"></div>
 					</div>
-					<div class="toggle-box" style="height:500px;">
+					<div class="toggle-box togglebox" style="height:500px;">
 <!-- ======================================================================== -->						
-            <div class="col-md-12" id="infoDiv">
-                
+            <div class="col-md-12" id="infoDiv">                
                 <div id="toolbar">
-
-                </div>
-                        
+                </div>                        
                           <!--  data-side-pagination="server"  -->
-
                 <table data-toggle="table"
-                            data-url="/ddgene/Home/Notice/listNotices"
-                
+                            data-url="/ddgene/Home/Notice/listNotices"                
                             data-toolbar="#toolbar"
                             data-search="true"
                             data-click-to-select="true"
@@ -235,10 +232,8 @@
                             data-show-footer="false"
                             data-sort-name="id" 
                             data-sort-order='desc'
-                            data-side-pagination="server"
-                            
-                        id="infoTable"
-                            >
+                            data-side-pagination="server"                            
+                        id="infoTable">
                     <thead>
                     <tr>
                         <th data-field="state" data-checkbox="true"></th>
@@ -293,7 +288,7 @@
 						</div>
 						<div class="icon"></div>
 					</div>
-					<div class="toggle-box">
+					<div class="toggle-box togglebox">
 						<div class="space">
 							<div class="space-l">
 								<h3>冷存储当前空间 <span><font>67</font>/100GB</span></h3>
@@ -328,7 +323,7 @@
 						</div>
 						<div class="icon"></div>
 					</div>
-					<div class="toggle-box" style="padding-top: 15px;">
+					<div class="toggle-box togglebox" style="padding-top: 15px;">
 						<div class="favorites">
 							<div class="favorites-tools" style="background: #F8F8F8;padding-left: 15px;padding-right: 15px;">
 								<div class="all-checked">
@@ -373,7 +368,7 @@
 						</div>
 						<div class="icon"></div>
 					</div>
-					<div class="toggle-box" style="padding-top: 15px;">
+					<div class="toggle-box togglebox" style="padding-top: 15px;">
 						<div class="comment">
 							<div class="comment-tools" style="background: #F8F8F8;padding-left: 15px;padding-right: 15px;">
 								<div class="all-checked">

@@ -1,13 +1,12 @@
 
 $(function () {
     $('.toggle').on('click',function(){
-        
-        if($(this).next('.toggle-box').is(":hidden")){
+        if($(this).next('.togglebox').is(":hidden")){
             $(this).addClass('active');
-            $(this).next('.toggle-box').show(0);
+            $(this).next('.togglebox').show(0);
         }else{
             $(this).removeClass('active');
-            $(this).next('.toggle-box').hide(0);
+            $(this).next('.togglebox').hide(0);
         }
     })
     $('.sub-toggle').on('click',function(){
@@ -20,16 +19,6 @@ $(function () {
             $(this).next('.user-form').hide(0);
         }
     })
-	$(function(){
-		$("#personIcon").click(function(){
-			if($("#showdv").is(":hidden")){
-				$("#showdv").show();
-			}else{
-				$("#showdv").hide();
-			}
-						
-		})
-	})
 	
     //左边导航的效果
 	var scrollTop = $(window).scrollTop()

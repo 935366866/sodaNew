@@ -199,6 +199,9 @@ body {
   margin-right: 13px;
   background: url(../img/openDown.png) 0 50% no-repeat;
 }
+.personal .sub-toggle.active .icon {
+  background-image: url(../img/openUp.png);
+}
 .personal .user-form {
   display: none;
   clear: both;
