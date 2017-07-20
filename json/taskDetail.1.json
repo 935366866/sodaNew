@@ -92,7 +92,7 @@
         {
             "task_name": "ck_rRNA_CHECK",
             "flow_mod": "QC",
-            "status": "failed",
+            "status": "pending",
             "job_number": "536",
             "submit_time": "2016-08-01 15:40:30",
             "done_time": null,
@@ -101,7 +101,7 @@
         {
             "task_name": "wll_rRNA_CHECK",
             "flow_mod": "QC",
-            "status": "failed",
+            "status": "done",
             "job_number": "537",
             "submit_time": "2016-08-01 15:40:30",
             "done_time": null,

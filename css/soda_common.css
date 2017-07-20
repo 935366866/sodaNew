@@ -111,6 +111,13 @@
   padding-left: 5px;
   letter-spacing: 1px;
 }
+.main_nav3_left_report li button{
+	  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  background: #13438b;
+  padding: 3px 15px;
+}
 .main_nav3_left_report li span {
   -moz-border-radius: 15px;
   -webkit-border-radius: 15px;
@@ -172,6 +179,12 @@
 	background: #13438B !important; 
 }
 #maintable .btn-warning{
+	background: #ea973b !important; 
+}
+.btn-primary{
+	background: #13438B !important; 
+}
+.btn-warning{
 	background: #ea973b !important; 
 }
 #footer_style {

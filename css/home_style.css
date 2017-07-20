@@ -734,14 +734,27 @@ a:hover {
 .news-list .news li.news-2 .info .tags .column.column-color-2 {
   color: #fb8407;
 }
+.news-list .news li{
+	margin-bottom: 20px !important;
+}
 .news-list .news .tag {
   font-size: 20px;
   font-weight: bold;
   float: left;
   margin-left: 0px;/*10*/
   color: #000;
-  margin-bottom: 20px;
-  margin-top: 25px;
+}
+.news-list .news li .pic {
+  position: relative;
+  float: left;
+  overflow: hidden;
+  width: 191px;
+  margin-right: 22px;
+  border-radius: 4px;
+}
+.news-list .news li .pic img {
+  width: 100%;
+  height: 132px;
 }
 .news-list .news li.news-2 .info{
 	min-height: 120px;
@@ -882,7 +895,6 @@ a:hover {
 .right-tools {
   float: right;
   position: fixed;
-  margin-top: 13px;
   margin-left:835px ;
 }
 .right-tools .recruit {
@@ -976,9 +988,6 @@ a:hover {
   font-size: 14px;
   line-height: 36px;
   color: #12288d;
-}
-.right-tools .implant {
-  margin-top: 20px;
 }
 .right-tools .implant .close {
   font-size: 14px;
@@ -1229,14 +1238,14 @@ a:hover {
 }
 .tools {
   position: absolute;
-  top: -2px;
+  top: 30px;
   right: 10px;
 }
 .tools p {
   display: block;
   width: 22px;
   height: 22px;
-  margin-bottom: 6px;
+  margin-bottom: 11px;
   cursor: pointer;
   text-align: center;
   background-image: url(../img/tools-bg.png);
@@ -1471,5 +1480,5 @@ a:hover {
 	line-height:24px;
 }
 .picMarquee-top .bd .tempWrap{
-	height: 320px !important;
+	height: 312px !important;
 }

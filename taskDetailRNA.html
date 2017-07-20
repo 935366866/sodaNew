@@ -71,13 +71,13 @@
 		<div class="main_nav3" style="box-shadow:-2px 3px 9px 0px #ccc;">
 			<div class="container">
 				<ul class="main_nav3_left_report">
-					<li><span><a href="report.html">查看报告</a></span></li>
-					<li><span><a href="#">下载报告</a></span></li>
+					<li><span id="showReport"><a >查看报告</a></span></li>
+					<li><span id="downloadReport"><a >下载报告</a></span></li>
 					<!--云超，下载报告的链接-->
 					<li><span><a id="taskRerun" href="#">重跑一次</a></span></li>
 				</ul>
 				<ul class="main_nav3_right_report">
-					<li class="report_success"><span class="btn btn-success"><a href="#">任务已完成</a></span></li>
+					<li class="report_success"><span id="taskStatus" class="btn btn-success"><a href="#">任务运行中</a></span></li>
 					<!--
 								<li class="report_running"><span><a href="#">任务运行中</a></span></li>
 								<li class="report_end"><span><a href="#">任务已终止</a></span></li>
@@ -547,28 +547,28 @@ function getTaskData(url){
 						else if(key == "modStatus"){  //填充任务状态table
 							$('#modStatusTable').bootstrapTable('load',data[key]);
 							}
-							/* 波波，这是之前的判断状态的，现在暂时去掉了
+//							 波波，这是之前的判断状态的，现在暂时去掉了
 						else if(key == "status"){
 							taskStatus = data.status;
 							if(data.status == "finished"){
 								$("#showReport").attr("onclick","window.open('__MODULE__/Report/showReport/id/{$id}')");
 								$("#downloadReport").attr("onclick","window.open('__MODULE__/Report/downReport/id/{$id}')");
 								$("#taskStatus").removeClass("btn-success");
-								$("#taskStatus").addClass("btn-primary").text('任务已完成');
-								
+								$("#taskStatus").addClass("btn-primary").text('任务已完成');								
 							}else if(data.status == "failed"){
 								$("#taskStatus").addClass("btn-warning").text('任务已终止');
-								$("#showReport").hide();
-								$("#downloadReport").hide();
+								$("#showReport").css("background","#ccc");
+								$("#downloadReport").css("background","#ccc");
 								$("#taskReport h4").after('<p>任务终止，报告未生成。</p>');
 							}
-							else{
-									$("#showReport").hide();
-									$("#downloadReport").hide();
+							else {
+									$("#taskStatus").addClass("btn-success").text('任务运行中');
+									$("#showReport").css("background","#ccc");
+									$("#downloadReport").css("background","#ccc");
 									$("#taskReport h4").after('<p>报告尚未生成，请耐心等待</p>');
 								}
 							}
-							*/
+							
 						else{
 								$("#"+key).val(data[key])
 							};
