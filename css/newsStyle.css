@@ -459,10 +459,7 @@ a:hover {
 }
 .news-list {
   float: left;
-  margin-top: -43px;/*100*/
-  padding-top: 20px;
-  margin-left: -23px;
-  width: calc(100% - 320px);
+  width: calc(100% - 400px);
 }
 .news-list .focus-news {
   position: relative;
@@ -902,6 +899,9 @@ a:hover {
   right: auto;
   margin-left:790px;
 }
+.right-tools .implant{
+margin-bottom: 33px;
+}
 .right-tools .recruit {
   margin-bottom: 22px;
 }
@@ -994,9 +994,7 @@ a:hover {
   line-height: 36px;
   color: #12288d;
 }
-.right-tools .implant {
-  margin-top: 20px;
-}
+
 .right-tools .implant .close {
   font-size: 14px;
   text-align: right;
@@ -1256,7 +1254,7 @@ a:hover {
   margin-bottom: 10px;
   cursor: pointer;
   text-align: center;
-  background-image: url(../img/tools-bg.png);/*../../home/imgs/tools-bg.png*/
+  background-image: url(../img/tools-bg.svg);/*../../home/imgs/tools-bg.png*/
   background-repeat: no-repeat;
 }
 .tools .praise {

@@ -19,12 +19,12 @@ $(function(){
 
 //导航条
 	$(function(){
-//		$(".main_nav1_left li").mouseover(function(){
-//			$(this).css("background","#d3d5e4").children("a").css("color","#13438b");
-//		})
-//		$(".main_nav1_left li").mouseout(function(){
-//			$(this).css("background","#13438b").children("a").css("color","#ddd");
-//		})
+		$(".main_nav1_left li").mouseover(function(){
+			$(this).css("background","#d3d5e4").children("a").css("color","#13438b");
+		})
+		$(".main_nav1_left li").mouseout(function(){
+			$(this).css("background","#13438b").children("a").css("color","#ddd");
+		})
 		$(".main_nav2_left li").mouseover(function(){
 			$(this).children("a").addClass("active");
 		})
@@ -48,10 +48,9 @@ $(function() {
      	$("#searchIcon").fadeIn()
      });
      function searchClick(){
-
-	     	$("#search_news").fadeOut(500);
-	     	$(".main_nav1_left li").fadeIn();
-	     	$("#searchIcon").fadeIn()
+     	$("#search_news").fadeOut(500);
+     	$(".main_nav1_left li").fadeIn();
+     	$("#searchIcon").fadeIn()
 
      }
      $(document).keypress(function(event){

@@ -895,7 +895,10 @@ a:hover {
 .right-tools {
   float: right;
   position: fixed;
-  margin-left:835px ;
+  margin-left:840px ;
+}
+.right-tools .implant {
+margin-bottom: 33px;
 }
 .right-tools .recruit {
   margin-bottom: 22px;
@@ -1014,7 +1017,7 @@ a:hover {
   height: 24px;
   cursor: pointer;
   text-align: center;
-  background-image: url(../img/tools-bg.png);/* ../../home/imgs/tolls-bg.png*/
+  background-image: url(../img/tools-bg.svg);/* ../../home/imgs/tolls-bg.png*/
   background-repeat: no-repeat;
 }
 .articles .tools-1 .praise {
@@ -1248,7 +1251,7 @@ a:hover {
   margin-bottom: 11px;
   cursor: pointer;
   text-align: center;
-  background-image: url(../img/tools-bg.png);
+  background-image: url(../img/tools-bg.svg);
   background-repeat: no-repeat;
 }
 .tools .praise {

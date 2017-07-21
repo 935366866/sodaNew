@@ -31,7 +31,7 @@
   color: #fff;
   margin-left: 10px;
 }
-.btn-blue-log {/*mainnobase/flowapp.htmlÖÐÎ´µÇÂ¼µÄµÇÂ¼°´Å¥±äÎªÎÞ±³¾°É«*/
+.btn-blue-log {/*mainnobase/flowapp.htmlï¿½ï¿½Î´ï¿½ï¿½Â¼ï¿½Äµï¿½Â¼ï¿½ï¿½Å¥ï¿½ï¿½Îªï¿½Þ±ï¿½ï¿½ï¿½É«*/
   color: #fff;
   margin-left: 10px;
 }
@@ -43,7 +43,6 @@
   -webkit-border-radius: 10px;
   border-radius: 10px;
   font-size: 14px!important;
-  padding: 1px 12px!important;
 }
 .btn_green {
   background-color: #38beed;
@@ -162,7 +161,15 @@
   text-align: center;
 }
 .list li .use_button button{
-	border: 1px solid #fff;
+	/*border: 1px solid #fff;*/
+	height: 24px;
+	line-height: 24px;
+}
+.list li .use_button button{
+	/*border: 1px solid #fff;*/
+	height: 24px;
+	line-height: 24px;
+	padding: 0 12px;
 }
 .page {
   margin: 30px auto;

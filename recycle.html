@@ -10,6 +10,11 @@
 	<link href="public/css/bootstrap-editable.css" rel="stylesheet" >
 	<link href="public/css/long_common.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css/soda_common.css" rel="stylesheet" >	
+	<style type="text/css">
+		.panel .columns-right button{
+			height: 34px !important;
+		}
+	</style>
 </head>
 <body style="background-color: rgb(248,248,248);">
 	<!--前台公共头部-->
@@ -18,10 +23,10 @@
 			<div class="container">
 				<a href="#" class="logo"><img src="public/image/logo.png"/></a>
 				<ul class="main_nav1_left">
-					<li class="nav_b1"><a href="#">首页</a></li>
-					<li class="nav_b1"><a href="#">云中漫步</a></li>
-					<li ><a href="#" >前沿研究</a></li>
-					<li ><a href="#">市场活动</a></li>	
+					<li id="main"><a href="main.html">首页</a></li>
+					<li id="sodaIndex"><a href="sodaIndex.html">云中漫步</a></li>
+					<li id="frontierResearch"><a href="frontierResearch.html" >前沿研究</a></li>
+					<li id="marketActive"><a href="marketActive.html">市场活动</a></li>	
 				</ul>
 				<div id="search_news" class="main_nav1_left searchNews">
 					<span class="searchIcon"></span>
@@ -37,16 +42,16 @@
 		<div class="main_nav2">
 			<div class="container">
 				<ul class="main_nav2_left">
-					<li class="nav2_list1" style="margin-right:0px;" >
-						<a href="#" class="active" style="padding-left:15px;padding-right:15px;">分析流程<img src="img/02.png" alt=""></a>
+					<li class="nav2_list1" style="width: 90px;">
+						<a href="#" class="active">分析流程<img src="img/02.png" alt=""></a>
 						<ul class="">
 							<li><a href="">DNA流程</a></li>
 							<li><a href="">RNA流程</a></li>
 							<li><a href="">医学方案流程</a></li>
 						</ul>				
 					</li>
-					<li class="nav2_list2" style="margin-right:0px;">
-						<a href="#" style="padding-left:15px;padding-right:15px;">小工具<img src="img/02.png" alt=""></a>
+					<li class="nav2_list2" style="width: 70px;">
+						<a href="#">小工具<img src="img/02.png" alt=""></a>
 						<ul class="">
 							<li><a href="">基本绘图</a></li>
 							<li><a href="">流程绘图</a></li>
@@ -68,9 +73,8 @@
 	</div>
 	<!--/前台公共头部-->
 
-	<div style="width:100%;float: left;padding-top: 120px;">
-		<div class=" change_box">
-			<div class=" panel panel-default container " style="width:100%">
+	<div  class="change_box" style="margin-top: 120px;width: 87%;padding-right: 10px;">
+		<div class="panel panel-default container " style="width:100%"> 
 			<div id="toolbar">
                             <button class="btn btn-primary " id="recover" style="background: #13438B;"> 
                                 恢复&nbsp;&nbsp;<i style="color: rgb( #FFF); font-size: 12px;"  class="glyphicon glyphicon-repeat"></i>

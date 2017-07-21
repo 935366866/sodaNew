@@ -10,7 +10,11 @@
 	<link href="public/css/bootstrap-editable.css" rel="stylesheet" >
 	<link href="public/css/long_common.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css/soda_common.css" rel="stylesheet" >	
-
+	<style type="text/css">
+		.panel .columns-right button{
+			height: 34px !important;
+		}
+	</style>
 </head>
 <body style="background-color: rgb(248,248,248);">
 	<!--前台公共头部-->
@@ -19,10 +23,10 @@
 			<div class="container">
 				<a href="#" class="logo"><img src="public/image/logo.png"/></a>
 				<ul class="main_nav1_left">
-					<li class="nav_b1"><a href="#">首页</a></li>
-					<li class="nav_b1"><a href="#">云中漫步</a></li>
-					<li ><a href="#" >前沿研究</a></li>
-					<li ><a href="#">市场活动</a></li>	
+					<li id="main"><a href="main.html">首页</a></li>
+					<li id="sodaIndex"><a href="sodaIndex.html">云中漫步</a></li>
+					<li id="frontierResearch"><a href="frontierResearch.html" >前沿研究</a></li>
+					<li id="marketActive"><a href="marketActive.html">市场活动</a></li>	
 				</ul>
 				<div id="search_news" class="main_nav1_left searchNews">
 					<span class="searchIcon"></span>
@@ -38,16 +42,16 @@
 		<div class="main_nav2">
 			<div class="container">
 				<ul class="main_nav2_left">
-					<li class="nav2_list1" style="margin-right:0px;" >
-						<a href="#" class="active" style="padding-left:15px;padding-right:15px;">分析流程<img src="img/02.png" alt=""></a>
+					<li class="nav2_list1" style="width: 90px;">
+						<a href="#" class="active">分析流程<img src="img/02.png" alt=""></a>
 						<ul class="">
 							<li><a href="">DNA流程</a></li>
 							<li><a href="">RNA流程</a></li>
 							<li><a href="">医学方案流程</a></li>
 						</ul>				
 					</li>
-					<li class="nav2_list2" style="margin-right:0px;">
-						<a href="#" style="padding-left:15px;padding-right:15px;">小工具<img src="img/02.png" alt=""></a>
+					<li class="nav2_list2" style="width: 70px;">
+						<a href="#">小工具<img src="img/02.png" alt=""></a>
 						<ul class="">
 							<li><a href="">基本绘图</a></li>
 							<li><a href="">流程绘图</a></li>
@@ -69,160 +73,137 @@
 	</div>
 	<!--/前台公共头部-->
 
-	<div  style="width:100%;float: left;padding-top:120px;">
-		<div  class="change_box">
-			<div class=" panel panel-default container " style="width:100%">                      
-				<div id="toolbar">
-                    <button class="btn btn-primary col-md-6"  data-target="#newProject" data-toggle="modal" style="background: #13438B !important;" >新建项目&nbsp;&nbsp;
-                        <i style="color: rgb( #FFF); font-size: 12px;"  class="glyphicon glyphicon-plus"></i>
-                    </button>
-                    <button class="btn btn-danger col-md-6 col-md-push-1" id="removeProject" >删除项目&nbsp;&nbsp;
-                    	<i style="color: rgb( #FFF); font-size: 12px;"  class="glyphicon glyphicon-remove"></i>
-                    </button>
-<!----------------------------------------------------------------------------------------------------->
-<!-- 添加项目的模态框 -->
-<div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog">
-      <div class="modal-content col-md-10 col-md-push-1">
-         <div class="modal-header">
-            <button type="button" class="close" 
-               data-dismiss="modal" aria-hidden="true">
-                  &times;
-            </button>
-            <h4 class="modal-title" id="myModalLabel">
-               新建项目
-            </h4>
-         </div>
-         <form class="form-horizontal" id="submitNewPro" role="form" action="test" method="post">
-         <div class="modal-body" style=" text-align:center">
-<!---------------------------------------------------------------------------------->
-            <div class="form-group">
-                <label class="col-sm-3">项目名称*</label>
-                <div class="col-sm-8">
-                <input type="text" class="form-control col-md-7" id="project_name" name="project_name" placeholder="请输入项目名称" required >
-                </div>
-            </div>
-               <div class="form-group">
-                  <label class="col-md-3" for="inputfile">项目说明</label>
-                  <div class="col-sm-8"  style="height: 150px">
-                  <textarea class="form-control col-md-7" style="height:150px; resize:none"  placeholder="请输入项目说明" id="project_remark" name="project_remark"> </textarea>
-                  </div>
-               </div>
-         </div>   
-		<!----------------------------------------------------------------------->
-		         <div class="modal-footer">
-		            <button type="button" onClick="submitProject()" class="btn btn-primary">
-		            	新建
-		            </button>
-		            <button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">
-		               取消
-		            </button>
-		         </div>
-		          </form>
-		      </div>
-		</div>
-		</div>
-		<!-------------------------------------------------------------------------->                                   
-		</div>
-
-                    <table data-toggle="table"
-                               data-url="json/myProject.json"
-                    
-                               data-toolbar="#toolbar"
-                               data-search="true"
-                               data-click-to-select="true"
-                               data-show-refresh="true"
-                               data-show-columns="true"
-                               data-height="480"
-                               
-                               data-show-export="true"
-                               data-detail-view="true"
-                               data-detail-formatter="detailFormatter"
-                               data-after-detail-formatter="edit"
-                               data-side-pagination="server"
-                               
-                               data-minimum-count-columns="2"
-                               data-show-pagination-switch="true"
-                               data-pagination="true"
-                               data-id-field="id"
-                               data-page-list="[10, 25, 50, 100, ALL]"
-                               data-show-footer="false"
-                               data-sort-name="create_time" 
-                               data-sort-order="desc" id="maintable">
-                        <thead>
-                        <tr>
-                            <th data-field="state" data-checkbox="true"></th>
-                            <th data-field="project_name" data-halign="center"  data-formatter="linkJob" data-sortable="true">项目名</th>
-                            <th data-field="create_man" data-align="center" data-sortable="true">创建人</th>
-                            <th data-field="create_time"  data-align="center" data-sortable="true">创建时间</th>
-                            <th data-field="project_remark" data-visible="false" >项目说明</th>
-                            <th data-field="id" data-visible="false" >项目ID</th>
-                            <th data-field="run_num" data-align="center" data-formatter="runFormatter" data-sortable="false">运行任务</th>
-                            <th data-field="done_num" data-align="center" data-formatter="doneFormatter" data-sortable="false">完成任务</th>
-                            <th data-field="stop_num" data-align="center" data-formatter="stopFormatter" data-sortable="false">终止任务</th>
-                        </tr>
-                        </thead>
-                    </table>
-
-                        <p>已选中<span id="now_ck_num">0</span>项</p>
-                    </div>
+	<div  class="change_box" style="margin-top: 120px;width: 87%;padding-right: 10px;">
+		<div class="panel panel-default container " style="width:100%">                      
+			<div id="toolbar">
+			    <button class="btn btn-primary col-md-6"  data-target="#newProject" data-toggle="modal" style="background: #13438B !important;" >新建项目&nbsp;&nbsp;
+			        <i style="color: rgb( #FFF); font-size: 12px;"  class="glyphicon glyphicon-plus"></i>
+			    </button>
+			    <button class="btn btn-danger col-md-6 col-md-push-1" id="removeProject" >删除项目&nbsp;&nbsp;
+			    	<i style="color: rgb( #FFF); font-size: 12px;"  class="glyphicon glyphicon-remove"></i>
+			    </button>
+				<!----------------------------------------------------------------------------------------------------->
+				<!-- 添加项目的模态框 -->
+				<div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				   <div class="modal-dialog">
+					    <div class="modal-content col-md-10 col-md-push-1">
+					        <div class="modal-header">
+					            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					                  &times;
+					            </button>
+					            <h4 class="modal-title" id="myModalLabel">新建项目</h4>
+					         </div>
+					         <form class="form-horizontal" id="submitNewPro" role="form" action="test" method="post">
+					         	<div class="modal-body" style=" text-align:center">
+						            <div class="form-group">
+						                <label class="col-sm-3">项目名称*</label>
+						                <div class="col-sm-8">
+						                	<input type="text" class="form-control col-md-7" id="project_name" name="project_name" placeholder="请输入项目名称" required >
+						                </div>
+						            </div>
+						            <div class="form-group">
+						                <label class="col-md-3" for="inputfile">项目说明</label>
+						                <div class="col-sm-8"  style="height: 150px">
+						                	<textarea class="form-control col-md-7" style="height:150px; resize:none"  placeholder="请输入项目说明" id="project_remark" name="project_remark"> </textarea>
+						                </div>
+						            </div>
+							    </div>   
+						        <div class="modal-footer">
+						            <button type="button" onClick="submitProject()" class="btn btn-primary">新建</button>
+						            <button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">取消</button>
+						        </div>
+							</form>
+						</div>
+					</div>
 				</div>
-
-        </div>             
+				<!-------------------------------------------------------------------------->                                   
+			</div>
+            <table data-toggle="table"
+                       data-url="json/myProject.json"            
+                       data-toolbar="#toolbar"
+                       data-search="true"
+                       data-click-to-select="true"
+                       data-show-refresh="true"
+                       data-show-columns="true"
+                       data-height="480"
+                       
+                       data-show-export="true"
+                       data-detail-view="true"
+                       data-detail-formatter="detailFormatter"
+                       data-after-detail-formatter="edit"
+                       data-side-pagination="server"
+                       
+                       data-minimum-count-columns="2"
+                       data-show-pagination-switch="true"
+                       data-pagination="true"
+                       data-id-field="id"
+                       data-page-list="[10, 25, 50, 100, ALL]"
+                       data-show-footer="false"
+                       data-sort-name="create_time" 
+                       data-sort-order="desc" id="maintable">
+                <thead>
+                <tr>
+                    <th data-field="state" data-checkbox="true"></th>
+                    <th data-field="project_name" data-align="center"  data-formatter="linkJob" data-sortable="true">项目名</th>
+                    <th data-field="create_man" data-align="center" data-sortable="true">创建人</th>
+                    <th data-field="create_time"  data-align="center" data-sortable="true">创建时间</th>
+                    <th data-field="project_remark" data-visible="false" >项目说明</th>
+                    <th data-field="id" data-visible="false" >项目ID</th>
+                    <th data-field="run_num" data-align="center" data-formatter="runFormatter" data-sortable="false">运行任务</th>
+                    <th data-field="done_num" data-align="center" data-formatter="doneFormatter" data-sortable="false">完成任务</th>
+                    <th data-field="stop_num" data-align="center" data-formatter="stopFormatter" data-sortable="false">终止任务</th>
+                </tr>
+                </thead>
+            </table>
+            <p>已选中<span id="now_ck_num">0</span>项</p>
+        </div>
+	</div>
+          
 <!-- =============登录框============ -->
-
-        <div class="modal fade" id="loginBox" tabindex="-1" role="dialog" 
-                aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" style="margin-top:100px">
-                        <div class="modal-content col-sm-10 col-sm-push-1">
-                                <div class="modal-header" >
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                        &times;
-                                        </button>
-                                </div>
-
-                                <div class="modal-body" style=" text-align:center">
-                                        <h3 class="modal-title" style="text-align: center">
-                                                用户登录
-                                        </h3>
-                                        <div class="login_subtitle">
-                                                <p>DoDoGENE</p>
-                                        </div>
-                                        <form style="text-align:left" id="login_form" action="/ddgene/Home/Login/login" method='POST'>
-                                                <div class="input_div">
-                                                        <input type="text" class="form-control input-lg" placeholder="输入手机或邮
-箱登录" id="name" name="name" required>
-                                                        <span></span>
-                                                </div>
-                                                <div class="input_div">
-                                                        <input type="password" class="form-control input-lg" placeholder="输入密码
-" id="password" name="password" required>
-                                                        <span></span>
-                                               </div>
-                                                <button type="submit" class="form-control input-lg" id="login">登录</button>
-
-                                        </form>
-
-                                        <div class="forget">
-                                                <a href="/ddgene/Home/Login/change_pw_email">忘记密码》</a>
-                                                <p>还没有账号？<a href="/ddgene/Home/Login/register">点击注册》</a></p>
-                                        </div>
-                                </div>
-                        </div>
-        </div>
-        </div>
-
-</div>
+	<div class="modal fade" id="loginBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="margin-top:100px">
+			<div class="modal-content col-sm-10 col-sm-push-1">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body" style=" text-align:center">
+					<h3 class="modal-title" style="text-align: center">用户登录</h3>
+					<div class="login_subtitle">
+						<p>DoDoGENE</p>
+					</div>
+					<form style="text-align:left" id="login_form" action="/ddgene/Home/Login/login" method='POST'>
+						<div class="input_div">
+							<input type="text" class="form-control input-lg" placeholder="输入手机或邮箱登录" id="name" name="name" required>
+								<span></span>
+						</div>
+						<div class="input_div">
+							<input type="password" class="form-control input-lg" placeholder="输入密码" id="password" name="password" required>
+								<span></span>
+						</div>
+						<button type="submit" class="form-control input-lg" id="login">登录</button>	
+					</form>	
+					<div class="forget">
+						<a href="/ddgene/Home/Login/change_pw_email">忘记密码》</a>
+						<p>还没有账号？
+							<a href="/ddgene/Home/Login/register">点击注册》</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	</div>
 <!-- =============登录框结束=========== -->
 
 
-<!--页脚-->				
-<div id="footer_style">
-	<footer class="footerstyle">
-		<p>版权所有 © 2016 京ICP备15033925号</p>
-		<p>北京拓美科基因科技有限公司</p>
-	</footer>
-</div>
+	<!--页脚-->				
+	<div id="footer_style">
+		<footer class="footerstyle">
+			<p>版权所有 © 2016 京ICP备15033925号</p>
+			<p>北京拓美科基因科技有限公司</p>
+		</footer>
+	</div>
 	<script src="public/js/jquery-1.11.2.min.js"></script>
 	<script src="public/js/bootstrap.min.js"></script>
 	<script src="public/js/bootstrap-table.js"></script>
@@ -357,7 +338,7 @@ function linkJob(name,row) {
 $(function(){
 	setInterval("rf_bsTable('maintable')", 300000);
 });
-//ly
+////ly
 //$(function(){
 //	if(user=0){
 //		$('#loginBox').modal('show');
