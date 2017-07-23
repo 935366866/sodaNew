@@ -738,7 +738,7 @@ a:hover {
 	margin-bottom: 20px !important;
 }
 .news-list .news .tag {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
   float: left;
   margin-left: 0px;/*10*/
@@ -777,7 +777,7 @@ a:hover {
   text-decoration: none!important;
 }
 .news-list .news li.news-2 .info p {
-  font-size: 13px;/*14*/
+  font-size: 14px;/*14*/
   line-height: 18px;
   text-decoration: none!important;
   max-height: 75px;

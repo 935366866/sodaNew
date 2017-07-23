@@ -13,43 +13,41 @@
 </head>
 
 <body style="background-color: rgb(248,248,248);">
-	<!--前台公共头部-->
+		<!--前台公共头部-->
 	<div class="top">
 		<div class="main_nav1">
 			<div class="container">
-				<a href="#" class="logo">
-					<img src="public/image/logo.png"/>
-				</a>
+				<a href="#" class="logo"><img src="public/image/navLogo.svg"/></a>
 				<ul class="main_nav1_left">
-					<li class="nav_b1"><a href="#">首页</a></li>
-					<li class="nav_b1"><a href="#">云中漫步</a></li>
-					<li ><a href="#" >前沿研究</a></li>
-					<li ><a href="#">市场活动</a></li>	
+					<li id="main"><a href="main.html">首页</a></li>
+					<li id="sodaIndex"><a href="sodaIndex.html">云中漫步</a></li>
+					<li id="frontierResearch"><a href="frontierResearch.html" >前沿研究</a></li>
+					<li id="marketActive"><a href="marketActive.html">市场活动</a></li>	
 				</ul>
 				<div id="search_news" class="main_nav1_left searchNews">
 					<span class="searchIcon"></span>
 					<input type="text" id="search_news_input" class="form-control">
 				</div>
 				<ul class="main_nav1_right">
-					<li id="searchIcon"><a href="#"><img src="public/image/搜索.png" alt="搜索" /></a></li>
-					<li><a href="#"><img src="public/image/通知.png" alt="通知" /></a></li>
-					<li><a href="#"><img src="public/image/用户.png" alt="用户" /></a></li>
+					<li id="searchIcon"><a href="#"><img src="public/image/navSearch.svg" alt="搜索" /></a></li>
+					<li><a href="#"><img src="public/image/navEmail.svg" alt="通知" /></a></li>
+					<li><a href="#"><img src="public/image/navUser.svg" alt="用户" /></a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="main_nav2">
-			<div class="container" style="padding-left: 11px;padding-right: 11px;">
+			<div class="container">
 				<ul class="main_nav2_left">
-					<li class="nav2_list1" >
-						<a href="#" class="active" style="padding-left:15px;padding-right:15px;">分析流程<img src="img/02.png" alt=""></a>
+					<li class="nav2_list1" style="width: 90px;">
+						<a href="#" class="active">分析流程<img src="public/image/navDown.svg" alt=""></a>
 						<ul class="">
 							<li><a href="">DNA流程</a></li>
 							<li><a href="">RNA流程</a></li>
 							<li><a href="">医学方案流程</a></li>
 						</ul>				
 					</li>
-					<li class="nav2_list2" style="margin-right:0px;">
-						<a href="#" style="padding-left:15px;padding-right:15px;">小工具<img src="img/02.png" alt=""></a>
+					<li class="nav2_list2" style="width: 73px;">
+						<a href="#">小工具<img src="public/image/navDown.svg" alt=""></a>
 						<ul class="">
 							<li><a href="">基本绘图</a></li>
 							<li><a href="">流程绘图</a></li>
@@ -58,7 +56,7 @@
 							<li><a href="">计算统计</a></li>
 						</ul>
 					</li>
-					<li class=""><a href="#">我的项目</a></li>
+					<li class=""><a href="myProject.html">我的项目</a></li>
 					<li class=""><a href="#">我的目录</a></li>
 					<li class=""><a href="#">回收站</a></li>
 				</ul>
@@ -83,7 +81,7 @@
 					<div class="part_box" style=" padding-top:0px; ">
 
 						<div class="task_form_height">
-							<label class="task_label"><span class="colorRNA">1</span>流程分析</label>
+							<label class="task_label"><span>1</span>流程分析</label>
 						</div>
 
 						<!--流程图的div-->
@@ -103,14 +101,14 @@
 							<input type='hidden' id='id' name="id" value="{$id} "></input>
 							
 							<div class=" task_form_height">						
-								<label class="task_label"><span class="colorRNA">2</span>任务名称</label>
+								<label class="task_label"><span>2</span>任务名称</label>
 								<div class="task_box" >
 									<input type="text" class="form-control" required id="task_name" name="task_name" placeholder="请填写任务名称">
 								</div>
 							</div>
 
 							<div class="task_form_height">
-								<label class="task_label"><span class="colorRNA">3</span>所属项目</label>
+								<label class="task_label"><span>3</span>所属项目</label>
 								<div class="task_box">
 									<select id="project_id" name="project_id" class="selectpicker select_width" data-live-search="true" >
 		
@@ -126,20 +124,20 @@
 							</div>
 
 							<div class="task_form_height">
-								<label class="task_label"><span class="colorRNA">4</span>任务目录</label>
+								<label class="task_label"><span>4</span>任务目录</label>
 								<div class="task_box" >
 									<input type="url" class="form-control" id="dir_path" name="dir_path" placeholder="请选择任务目录" readonly>
 
 								</div>
 								<a onclick="opendir_path()">
-									<span class="glyphicon glyphicon-folder-open colorRNA" style="font-size:20px; top: 5px; cursor:pointer; "></span>
+									<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
 								</a>							
 
 							</div>
 
 
 							<div class="task_form_height">
-								<label class="task_label"><span class="colorRNA">5</span>物种名称</label>
+								<label class="task_label"><span>5</span>物种名称</label>
 
 								<div class="task_box">
 									<select id="species" name="species" class="selectpicker select_width" data-live-search="true">
@@ -155,7 +153,7 @@
 							</div>
 
 							<div class="task_form_height">
-								<label class="task_label"><span class="colorRNA">6</span>链特异性文库</label>
+								<label class="task_label"><span>6</span>链特异性文库</label>
 								<div class="task_box">
 									<select id="is_sslib" name="is_sslib" class="selectpicker select_width">
 				
@@ -167,7 +165,7 @@
 							</div>
 
 							<div class="task_form_height">
-								<label class="task_label"><span class="colorRNA">7</span>测序类型</label>
+								<label class="task_label"><span>7</span>测序类型</label>
 								<div class="task_box">
 									<select id="seq_type" name="seq_type" class="selectpicker select_width">
 		
@@ -180,12 +178,12 @@
 
 							<!--数据目录-->
 							<div class="task_form_height">
-								<label class="task_label"><span class="colorRNA">8</span>数据目录</label>
+								<label class="task_label"><span>8</span>数据目录</label>
 								<div class="task_box" >
 									<input type="url" class="form-control " required id="data_dir" name="data_dir" placeholder="请选择数据目录" readonly>
 								</div>
 								<a onclick="openDataUrl()">
-									<span class="glyphicon glyphicon-folder-open colorRNA" style="font-size:20px; cursor:pointer;"></span>
+									<span class="glyphicon glyphicon-folder-open" style="font-size:20px; cursor:pointer;color:#7f8080;"></span>
 								</a>
 							</div>
 
@@ -233,8 +231,8 @@
 									<div class="input-group">
 										<input type="text" class="form-control" id="inputUrl">
 										<span class="input-group-btn">
-											<button class="btn btn-default glyphicon glyphicon-arrow-left colorRNA" id="back" type="button" style="top: 0px;"></button>
-											<button class="btn btn-default glyphicon glyphicon-arrow-right colorRNA" id="search" type="button" style="top: 0px;"></button>
+											<button class="btn btn-default glyphicon glyphicon-arrow-left" id="back" type="button" style="top: 0px;"></button>
+											<button class="btn btn-default glyphicon glyphicon-arrow-right" id="search" type="button" style="top: 0px;"></button>
 										</span>
 									</div>
 								</div>
@@ -277,7 +275,7 @@
 					<div class="part_box">
 
 						<div class="task_form_height">
-							<label class="task_label"><span class="colorRNA">9</span>模块参数设置</label>
+							<label class="task_label"><span>9</span>模块参数设置</label>
 							<!--点击展开参数-->
 							<div class="panel-group params_part" id="parasPanel">
 							</div>							
@@ -292,7 +290,7 @@
 					<div class="part_box">
 						<!--带星 分组比较标题-->
 						<div class="task_form_height">
-							<label class="task_label"><span class="colorRNA">10</span>分组比较</label>
+							<label class="task_label"><span>10</span>分组比较</label>
 								<!--带有拖拽内容的面板-->
 						<div class="sample_part">
 							<div class="panel panel-default" style="padding:0px;">
@@ -408,10 +406,10 @@
 					<!-- --运行-- -->
 					<!--			<img src="image/run.png" style="height:40px; width:40px; float:right; cursor:pointer ;" id="taskRun"></img>   -->
 					<div class="task_form_height">
-						<label class="task_label"><span style=" background-image:url('img/bgGoGreen.png');">&nbsp;</span>提交任务</label>
+						<label class="task_label"><span><img style="padding-bottom: 5px;" src="img/arrowLeft.svg"></span>提交任务</label>
 						<div class="run_style">
 							<button type="submit" class="btn submitBut" id="taskRun" style="float:left;padding: 0px; border-width: 0px;">
-								<img src="img/runGreen.png" alt="">
+								<img src="img/grunGreen.svg" alt="">
 							</button>
 						</div>
 
@@ -761,10 +759,10 @@ function addIcon(State, row) {
 	var typeChr = row.type.charAt(0);
 		
 	if(typeChr == 'd'){
-		return '<span class="glyphicon glyphicon-folder-open colorRNA"></span>';
+		return '<span class="glyphicon glyphicon-folder-open"></span>';
 		}
 	else{
-		return '<span class="glyphicon glyphicon-file colorRNA"></span> ';
+		return '<span class="glyphicon glyphicon-file"></span> ';
 		}
 };
 
@@ -963,7 +961,7 @@ function geturl(formInputId,type){
 				//清空样本
 				$(formInputId).nextAll().remove();
 				for(var i=0; i< files.length; i++){
-					$(formInputId).after('<span class="label label-default span_sample">'+files[i]+'<a href="javascript:void(0);" onclick="remover_this_sample(this)" class="glyphicon glyphicon-remove colorRNA"></a></span>');
+					$(formInputId).after('<span class="label label-default span_sample">'+files[i]+'<a href="javascript:void(0);" onclick="remover_this_sample(this)" class="glyphicon glyphicon-remove"></a></span>');
 				};
 			};
 		};

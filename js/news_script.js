@@ -7,7 +7,7 @@ $(function () {
 		autoPlay:true,         //自动运行
 		effect:"topLoop",   	//动画效果
 		vis:3,      //mainCell的可视范围个数
-		interTime:1000,  //自动运行间隔。
+		interTime:2000,  //自动运行间隔。
 		opp:false,   //	默认反方向运动，
 		pnLoop:true,   //前/后按钮是否继续循环，
 		trigger:"click",  

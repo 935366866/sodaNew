@@ -149,6 +149,7 @@ html {
   color: #fff;
   font-weight: bold;
   cursor: pointer;
+  letter-spacing: 3px;
 }
 .main_nav1 .main_nav1_left li {
   background: #13438b;

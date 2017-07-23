@@ -614,6 +614,7 @@ a:hover {
   clear: both;
   margin-top: 18px;/*30*/
   padding-right: 80px;
+  font-family: "微软雅黑";
 }
 .news-list .news li:after {
   font-size: 0;
@@ -689,11 +690,10 @@ a:hover {
   text-decoration: none;
 }
 .news-list .news li.news-1 .info p {
-  font-size: 13px;/*14*/
+  font-size: 14px;/*14*/
   line-height: 20px;
   text-decoration: none;
   max-height: 76px;
-  letter-spacing: 1px;
   color: #929292;/*333*/
   display: -webkit-box;
   overflow: hidden;
@@ -743,7 +743,7 @@ a:hover {
   color: #0078ff;
 }*/
 .news-list .news li.news-1 .info a {/*h3*/
-  font-size: 20px;/*24*/
+  font-size: 18px;/*24*/
   font-weight: bold;/**/
   line-height: 30px;
   margin-top: 5px;
@@ -758,7 +758,7 @@ a:hover {
 }
 
 .news-list .news li.news-2 .info a {/*h3*/
-  font-size: 20px;/*24*/
+  font-size: 18px;/*24*/
   font-weight: bold;/**/
   line-height: 30px;
   margin-top: 10px;
@@ -774,9 +774,8 @@ a:hover {
 }
 
 .news-list .news li.news-2 .info p {
-  font-size: 13px;/*14*/
+  font-size: 14px;/*14*/
   line-height: 20px;
-  letter-spacing: 1px;
   text-decoration: none!important;
   max-height: 75px;
   color: #929292;/*333*/

@@ -152,9 +152,6 @@
   letter-spacing: 1px;
 }
 .main_nav3_right_report li span {
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
   padding: 6px 8px;
 }
 .main_nav3_right_report li a img {
@@ -339,14 +336,15 @@
 }
 .task_form_height .task_label span {
   float: left;
-  font-size: 20px;
+  font-size: 18px;
   margin-right: 10px;
   text-align: center;
+  color: #7f8080;
   width: 45px;
   height: 45px;
   background-image: url('../img/bg_01.png');
   background-repeat: no-repeat;
-  background-position: 4px 4px;
+  background-position: 5px 4px;
 }
 .task_form_height .task_box {
   float: left;
@@ -415,6 +413,6 @@
 #modStatus {
   background-color: #fff;
   float: left;
-  margin-right: 15px;
-  width: 62%;
+  width: 86%;
+  margin-left: 7px;
 }
