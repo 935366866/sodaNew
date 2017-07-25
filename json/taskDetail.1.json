@@ -13,7 +13,7 @@
     "compare_groups": "{\"12\":[\"1\",\"2\"]}",
     "venn_compares": "null",
     "exclude_modules": "PPI,KEGG",
-    "status": "failed",
+    "status": "finished",
     "create_time": "2016-08-01 15:39:51",
     "unselectNode": "",
     "create_man": "soda",

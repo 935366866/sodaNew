@@ -4,58 +4,58 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
 	<title>BSA方案</title>
-	
+	<link href="public/css/reset.css" rel="stylesheet" />
 	<link href="public/css/long_common.css" rel="stylesheet"  media="all">
 	<link href="public/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/new_common.css">
 </head>
 <body>
 <!--导航条-->
-<body style="background-color: rgb(248,248,248);">
+<body> 
 	<!--前台公共头部-->
 	<div class="top">
 		<div class="main_nav1">
 			<div class="container">
-				<a href="#" class="logo"><img src="public/image/logo.png"/></a>
+				<a href="#" class="logo"><img src="public/image/navLogo.svg"/></a>
 				<ul class="main_nav1_left">
-					<li class="nav_b1"><a href="#">首页</a></li>
-					<li class="nav_b1"><a href="sodaIndex.html">云中漫步</a></li>
-					<li ><a href="#" >前沿研究</a></li>
-					<li ><a href="#">市场活动</a></li>	
+					<li id="main"><a href="main.html">首页</a></li>
+					<li id="sodaIndex"><a href="sodaIndex.html">云中漫步</a></li>
+					<li id="frontierResearch"><a href="frontierResearch.html" >前沿方案</a></li>
+					<li id="marketActive"><a href="marketActive.html">市场活动</a></li>	
 				</ul>
 				<div id="search_news" class="main_nav1_left searchNews">
 					<span class="searchIcon"></span>
 					<input type="text" id="search_news_input" class="form-control">
 				</div>
 				<ul class="main_nav1_right">
-					<li id="searchIcon"><a href="#"><img src="public/image/搜索.png" alt="搜索" /></a></li>
-					<li><a href="#"><img src="public/image/通知.png" alt="通知" /></a></li>
-					<li><a href="#"><img src="public/image/用户.png" alt="用户" /></a></li>
+					<li id="searchIcon"><a href="#"><img src="public/image/navSearch.svg" alt="搜索" /></a></li>
+					<li><a href="#"><img src="public/image/navEmail.svg" alt="通知" /></a></li>
+					<li><a href="#"><img src="public/image/navUser.svg" alt="用户" /></a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="main_nav2">
 			<div class="container">
 				<ul class="main_nav2_left">
-					<li class="nav2_list1" style="margin-right:0px;" >
-						<a href="#" class="active" style="padding-left:15px;padding-right:15px;">分析流程<img src="img/02.png" alt=""></a>
+					<li class="nav2_list1" style="width: 90px;">
+						<a href="#" class="active">流程方案<img src="public/image/navDown.svg" alt=""></a>
 						<ul class="">
-							<li><a href="">DNA流程</a></li>
-							<li><a href="">RNA流程</a></li>
-							<li><a href="">医学方案流程</a></li>
+							<li><a href="">DNA流程方案</a></li>
+							<li><a href="">RNA流程方案</a></li>
+							<li><a href="">医学流程方案</a></li>
 						</ul>				
 					</li>
-					<li class="nav2_list2" style="margin-right:0px;">
-						<a href="#" style="padding-left:15px;padding-right:15px;">小工具<img src="img/02.png" alt=""></a>
+					<li class="nav2_list2" style="width: 73px;">
+						<a href="#">小工具<img src="public/image/navDown.svg" alt=""></a>
 						<ul class="">
 							<li><a href="">基本绘图</a></li>
 							<li><a href="">流程绘图</a></li>
 							<li><a href="">高级绘图</a></li>
-							<li><a href="">表格工具</a></li>
+							<li><a href="">表格处理</a></li>
 							<li><a href="">计算统计</a></li>
 						</ul>
 					</li>
-					<li class=""><a href="#">我的项目</a></li>
+					<li class=""><a href="myProject.html">我的项目</a></li>
 					<li class=""><a href="#">我的目录</a></li>
 					<li class=""><a href="#">回收站</a></li>
 				</ul>
@@ -69,10 +69,8 @@
 		<div class="nav_line"></div>
 
 		<div class="main_nav3">
-			<div class="change_box">
-	
-				<ul class="main_nav3_left">
-					
+			<div class="change_box" style="width: 1200px;">	
+				<ul class="main_nav3_left">	
 					<li onClick="location.href='1.html'" class="nav3_title"><a>BSA方案</a></li>
 					<li onClick="location.href='2.html'"><span><a href="#">基础实验</a></span></li>
 					<li onClick="location.href='3.html'"><span><a href="#">建库测序</a></span></li>
@@ -82,7 +80,7 @@
 	
 				</ul>
 				<ul class="main_nav3_right">
-					<li class=""><span style="background-color:#13438B;border:1px solid #13438B;"><a style="color:#fff;" href="#">使用流程</a></span></li>
+					<li class=""><span><a style="color:#fff;" href="#">使用流程</a></span></li>
 				</ul>
 			</div>
 		</div>
@@ -90,8 +88,7 @@
 </div>
 <!--页面主体-->
 <div id="main_box">
-
-	<div class="change_box">
+	<div class="change_box" style="width: 1170px;">
 		<!--左边导航-->
 		<div class="b_left" style="position: fixed;top:170px;">
 			<div id="left_list">

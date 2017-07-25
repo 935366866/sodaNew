@@ -24,7 +24,7 @@ a:hover {
   font-size: 15px;
   font-weight: bold;
   background-color: #fff;
-  color: #0078ff;
+  color: #13438B;
   text-align: center;
   line-height: 40px;
   width: 150px;
@@ -41,7 +41,7 @@ a:hover {
   color: red;
 }
 #loginBox .modal-body #login_form #login {
-  background-color: #0078ff;
+  background-color: #13438B;
   color: #fff;
   height: 60px;
 }
@@ -52,12 +52,12 @@ a:hover {
   letter-spacing: 1px;
   float: left;
   text-decoration: none;
-  color: #0078ff;
+  color: #13438B;
   cursor: pointer;
 }
 #loginBox .modal-body .forget a:hover {
   text-decoration: none;
-  color: #0078ff;
+  color: #13438B;
   cursor: pointer;
 }
 #loginBox .modal-body .forget p {
@@ -72,12 +72,12 @@ a:hover {
   font-size: 15px;
   letter-spacing: 1px;
   text-decoration: none;
-  color: #0078ff;
+  color: #13438B;
   cursor: pointer;
 }
 #loginBox .modal-body .forget p a:hover {
   text-decoration: none;
-  color: #0078ff;
+  color: #13438B;
   cursor: pointer;
 }
 .home-nav {
@@ -209,7 +209,7 @@ a:hover {
   margin-right: 0;
 }
 .home .hot-news li:hover p {
-  color: #0078ff;
+  color: #13438B;
 }
 .home .news li {
   position: relative;
@@ -336,7 +336,7 @@ a:hover {
   text-overflow: ellipsis;
 }
 .home .news li.news-2 .info:hover h3 {
-  color: #0078ff;
+  color: #13438B;
   text-decoration: none!important;
 }
 .home .news li.news-2 .info p {
@@ -408,7 +408,7 @@ a:hover {
   text-overflow: ellipsis;
 }
 .home .news li.news-3 .info:hover h3 {
-  color: #0078ff;
+  color: #13438B;
   text-decoration: none;
 }
 .home .news li.news-3 .info p {
@@ -718,7 +718,7 @@ a:hover {
  margin-bottom: -15px;
 }
 .news-list .news li.news-2 .info .tags {
-  line-height: 44px;/*24*/
+  line-height: 24px;/*24*/
   height: 24px;
   padding-bottom: 5px;
 }
@@ -734,11 +734,18 @@ a:hover {
 .news-list .news li.news-2 .info .tags .column.column-color-2 {
   color: #fb8407;
 }
+.news-list .news li.news-2 .info h3 {
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+}
+.news-list .news{
+	margin-top: 20px !important;
+}
 .news-list .news li{
 	margin-bottom: 20px !important;
 }
 .news-list .news .tag {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
   float: left;
   margin-left: 0px;/*10*/
@@ -777,7 +784,7 @@ a:hover {
   text-decoration: none!important;
 }
 .news-list .news li.news-2 .info p {
-  font-size: 13px;/*14*/
+  font-size: 14px;/*14*/
   line-height: 18px;
   text-decoration: none!important;
   max-height: 75px;
@@ -895,7 +902,7 @@ a:hover {
 .right-tools {
   float: right;
   position: fixed;
-  margin-left:840px ;
+  margin-left:845px ;
 }
 .right-tools .implant {
 margin-bottom: 33px;

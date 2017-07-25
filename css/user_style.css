@@ -107,6 +107,7 @@ body {
 .user .left .nav li a {
   font-size: 14px;
   display: block;
+  letter-spacing: 1px;
   color: #000;
 }
 /*.user .left .nav li a:hover {
@@ -119,7 +120,7 @@ body {
 }
 .user .right {
   float: right;
-  margin-top: 105px;
+  margin-top: 85px;
   width: calc(100% - 243px);
 }
 .user .right .box {
@@ -140,14 +141,16 @@ body {
 .user .right .box .toggle .title {
 	position: absolute;
 	top: 50%;
-	margin-top: -25px;
-  float: left;
+	left: 20px;
+	margin-top: -24px;
   width: 156px;
   text-align: center;
 }
 .user .right .box .toggle .title img {
   font: 0/0;
   float: left;
+  margin-top: 5px;
+  margin-right: 10px;
 }
 .user .right .box .toggle .title h3 {
 	float: left;
@@ -188,7 +191,7 @@ body {
 }
 .personal .sub-toggle .title img {
   float: left;
-  margin-top: 9px;
+  margin-top: 5px;
   margin-right: 11px;
 }
 .personal .sub-toggle .title h3 {
@@ -330,7 +333,7 @@ body {
   width: 16px;
   height: 16px;
   margin-left: 8px;
-  background: url(../img/icon-11.png) 0 0 no-repeat;
+  background: url(../img/questionIcon.svg) 0 0 no-repeat;
 }
 .space .space-l p {
   font-size: 14px;

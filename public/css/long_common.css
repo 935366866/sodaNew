@@ -37,7 +37,7 @@ html {
   z-index: 999;
 }
 .top .container{
-	width: 1170px;
+	width: 1180px;
 	position: relative;
 }
 .main_nav1 {
@@ -149,6 +149,7 @@ html {
   color: #fff;
   font-weight: bold;
   cursor: pointer;
+  letter-spacing: 3px;
 }
 .main_nav1 .main_nav1_left li {
   background: #13438b;
@@ -207,7 +208,7 @@ html {
   height: 45px;/*白条高度*/
   background-color: #fff;
   border-bottom: 1px solid #ebebeb; 
-  box-shadow:-2px 3px 9px 0px #ccc; 
+  box-shadow:-2px 2px 5px 0px #ccc; 
 }
 .main_nav2 ul {
   list-style: none;
@@ -233,7 +234,7 @@ html {
   color: #333;
   cursor: pointer;
 }*/
-.main_nav2 .main_nav2_left li {
+.main_nav2 .main_nav2_left>li {
   z-index: 101;
   position: relative;
   background: #fff;
@@ -242,31 +243,32 @@ html {
   margin-right: 60px;
   letter-spacing: 1px;
 }
-.main_nav2 .main_nav2_left li.listshow ul {
+.main_nav2 .main_nav2_left>li.listshow ul {
   display: block;
 }
 .main_nav2 .main_nav2_left ul {
   display: none;
-  /*box-shadow: 3px 3px 6px -7px #cccccc;*/
   box-shadow: 4px 4px 16px -11px #000000;
 }
 .main_nav2 .main_nav2_left .nav2_list1 ul{
 	width: 120px;
   	margin: 0 auto;
-  	margin-left: -25px;
+  	position: absolute;
+  	left: -21px;
 }
 .main_nav2 .main_nav2_left .nav2_list2 ul{
 	width: 90px;
   	margin: 0 auto;
-  	margin-left: -30px;
+  	position: absolute;
+  	margin-left: -28px;
 }
-
-.main_nav2 .main_nav2_left ul li {
+.main_nav2 .main_nav2_left .nav2_list1 ul li,.main_nav2 .main_nav2_left .nav2_list2 ul li {
   display: block;
   height: 45px;
   width: 120px;
   border-top: 1px solid #ccc;
   text-align: center;
+  background: #fff;
 }
 .main_nav2 .main_nav2_left .nav2_search {
   float: left;

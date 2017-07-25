@@ -280,7 +280,7 @@ a:hover {
   font-size: 24px;
   line-height: 30px;
   margin-top: 5px;
-  color: #02014e;
+  color: #000;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -331,7 +331,7 @@ a:hover {
   font-size: 24px;
   line-height: 30px;
   margin-top: 10px;
-  color: #02014e;
+  color: #000;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -404,7 +404,7 @@ a:hover {
   font-size: 24px;
   line-height: 30px;
   margin-top: 5px;
-  color: #02014e;
+  color: #000;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -455,7 +455,7 @@ a:hover {
   float: left;
 }
 .home .news li.news-3 .sub_news li .info p {
-  color: #02014e;
+  color: #000;
 }
 .news-list {
   float: left;
@@ -614,6 +614,7 @@ a:hover {
   clear: both;
   margin-top: 18px;/*30*/
   padding-right: 80px;
+  font-family: "微软雅黑";
 }
 .news-list .news li:after {
   font-size: 0;
@@ -679,7 +680,7 @@ a:hover {
   font-size: 24px;
   line-height: 30px;
   margin-top: -2px;
-  color: #02014e;
+  color: #000;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -689,11 +690,10 @@ a:hover {
   text-decoration: none;
 }
 .news-list .news li.news-1 .info p {
-  font-size: 13px;/*14*/
+  font-size: 14px;/*14*/
   line-height: 20px;
   text-decoration: none;
   max-height: 76px;
-  letter-spacing: 1px;
   color: #929292;/*333*/
   display: -webkit-box;
   overflow: hidden;
@@ -743,11 +743,11 @@ a:hover {
   color: #0078ff;
 }*/
 .news-list .news li.news-1 .info a {/*h3*/
-  font-size: 20px;/*24*/
+  font-size: 18px;/*24*/
   font-weight: bold;/**/
   line-height: 30px;
   margin-top: 5px;
-  color: #02014e;
+  color: #000;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -758,12 +758,12 @@ a:hover {
 }
 
 .news-list .news li.news-2 .info a {/*h3*/
-  font-size: 20px;/*24*/
+  font-size: 18px;/*24*/
   font-weight: bold;/**/
   line-height: 30px;
   margin-top: 10px;
   text-decoration: none!important;
-  color: #02014e;
+  color: #000;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -774,9 +774,8 @@ a:hover {
 }
 
 .news-list .news li.news-2 .info p {
-  font-size: 13px;/*14*/
+  font-size: 14px;/*14*/
   line-height: 20px;
-  letter-spacing: 1px;
   text-decoration: none!important;
   max-height: 75px;
   color: #929292;/*333*/
@@ -838,7 +837,7 @@ a:hover {
   font-size: 24px;
   line-height: 30px;
   margin-top: 5px;
-  color: #02014e;
+  color: #000;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -887,7 +886,7 @@ a:hover {
   float: left;
 }
 .news-list .news li.news-3 .sub_news li .info p {
-  color: #02014e;
+  color: #000;
   max-height: 64px;
 }
 .right-tools {
@@ -1031,7 +1030,7 @@ margin-bottom: 33px;
 }
 .articles .tools-1 .praise.active,
 .articles .tools-1 .praise:hover {
-  color: #0179ff;
+  color: #13438B;
   background-position: -46px 0px !important;/**/
 }
 .articles .tools-1 .favorite {
@@ -1133,7 +1132,7 @@ margin-bottom: 33px;
   border-radius: 3px;
 }
 .articles .articles-main .articles-matter a {
-  color: #0179ff;
+  color: #13438B;
 }
 .message-board {
   margin-top: 25px;
@@ -1159,7 +1158,7 @@ margin-bottom: 33px;
   width: calc(100% - 136px - 30px - 30px*2);
   height: 30px;/**/
   padding: 0 30px;
-  color: #0179ff;
+  color: #13438B;
   border: 2px solid #bebebe;
   outline: none;
   background-color: #fff;
@@ -1229,7 +1228,7 @@ margin-bottom: 33px;
   float: left;
   margin: 0px;
   font-weight: bold;
-  color: #0179ff;
+  color: #13438B;
 }
 .message-board .message-board-list li .info .nickname span {
   font-size: 15px;
@@ -1265,15 +1264,15 @@ margin-bottom: 33px;
 }
 .tools .praise.active,
 .tools .praise:hover {
-  color: #0179ff;
+  color: #13438B;
   background-position: -46px 21px;
 }
 .tools .favorite {
-  background-position: 0 -33px;
+  background-position: 0 -30px;
 }
 .tools .favorite.active,
 .tools .favorite:hover {
-  background-position: -46px -33px;
+  background-position: -46px -30px;
 }
 .tools .comment {
   background-position: 2px -72px;

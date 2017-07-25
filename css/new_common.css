@@ -34,7 +34,11 @@
   display: block;
   line-height: 45px;
   padding-right: 0px;
-  padding-left: 0px;
+  padding-left: 15px;
+}
+.main_nav3 .main_nav3_left .nav3_title a:hover{
+	color: #13438B;
+	font-weight: bold;
 }
 .main_nav3 .main_nav3_left a {
   text-decoration: none;
@@ -51,6 +55,7 @@
   text-align: center;
   margin-right: 30px;
   font-size: 16px;
+  border: none;
 }
 .main_nav3 .main_nav3_left li {
   z-index: 100;
@@ -95,11 +100,12 @@
   letter-spacing: 1px;
 }
 .main_nav3 .main_nav3_right li span {
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
   padding: 6px 8px;
-  border: 1px solid #777;
+  border: 1px solid #13438B;
+  background-color:#13438B;
 }
 #main_box {
   margin-top: 135px;
