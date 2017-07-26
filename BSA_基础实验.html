@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<title>基础实验</title>
+	<link rel="stylesheet" type="text/css" href="css/new_common.css">
+	<link rel="stylesheet" href="public/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="public/css/long_common.css">
+    <script src="public/js/jquery-1.11.2.min.js"></script>
+    <script src="public/js/bootstrap.min.js"></script>
+	<script src="/ddgene/Public/instruction/bsaDNA/js/FI_common.js"></script>	
+	<script type="text/javascript" src="/ddgene/Public/js/heart.js"></script>
+
+</head>
+<body>
+<div id="main_box">
+	<div class="change_box">
+		<!--左边导航-->
+		<div class="b_left" style="position: fixed;top:170px;">
+			<div id="left_list">
+				<div class="selectable active"><a class="#part1"><span class="a_line">|</span>样本获得</a></div>
+				<div class="selectable"><a class="#part2"><span class="a_line">|</span>组织获得</a></div>		
+				<div class="selectable"><a class="#part3"><span class="a_line">|</span>DNA获得</a></div>	
+			</div>
+		</div>	
+		<div class="b_right">
+			<p>基础实验部分流程示意图如下：</p>
+			<div class="img_box">
+				<img class="img-original" style="height: 450px;" src="img/1.png" />
+			</div>
+			<div id="part1" class="r_part_box">
+                <div class="first_title">
+                    <h2><img  src="img/report_01.png" alt="">样本获得</h2>
+                </div>
+				<p class="indent">BSA依照定位的性状不同分为BSA-QTLseq和BSA-Mutmap两种。</p>
+				<p class="indent">BSA-BSA-QTLseq通过选择两个性状存在显著极端差异的亲本进行杂交，构建性状分离家系群体，如F2、RIL等子代群体。</p>
+				<p class="indent">在构建好的群体中，选择两个亲本，以及性状呈正态分布的子代群体中目标性状表现最强(前15%)与最弱(后15%)两个子代混池测序，（混池个数≥20，<span style="color:#337bb6;">混池时，既可混样本也可混提取的DNA，保证等量混合即可</span>）</p>
+				<div class="img_box">
+                	<img class="img-original" src="img/2.png" />
+				</div>
+				<p class="indent">BSA-Mutmap通过选择突变型和野生型进行回交，自交或者单倍体加倍等产生F2、DH、RIL等性状分离的子代群体。</p>
+				<p class="indent">通过F1代判断性状的显隐性，通过F2代判断是否为单基因调控性状。选取除F1之外的子代样本混池和亲本进行高通量测序实验。（混池个数同BSA-QTLseq）</p>
+				<h4>注意事项：</h4>
+				<p class="indent">亲本和子代池需均为纯合。</p>
+				<p class="indent">如：</p>
+				<p class="indent">F2群体等（子代群体中含有杂合型的个体）：显性亲本、隐性子代池。</p>
+				<p class="indent">DH群体等（子代群体中不含杂合型的个体）：隐性亲本、显性子代池；或显性亲本（纯合）、隐性子代池；</p>
+				<p class="indent">*特殊情况：如果存在隐性纯合致死等导致缺失隐性子代池，则选取性状明显的显性纯合子代池
+BSA-QTLseq通过选择两个性状存在显著极端差异的亲本进行杂交，构建性状分离家系群体，如F2、RIL等子代群体。</p>
+
+			</div>
+
+			<div id="part2" class="r_part_box">
+                <div class="first_title">
+                	<h2><img  src="img/report_01.png" alt="">组织获得</h2>
+                </div>
+				<p class="indent">在家系群体中选定研究个体后，选取组织并进行相应的处理。本步骤包含组织的选取、保存及运输。流程图示意如下：</p>
+				<div class="img_box">
+                	<img class="img-original" height="285px;" src="img/3.png" />
+				</div>
+				<h3>组织选取</h3>
+				<p class="indent">1、植物</p>
+				<p class="indent2">选取无菌黄化苗或嫩叶等，选取<span style="color:#337bb6;">多糖多酚等次生代谢产物少</span>的组织，取材后需用70%酒精将材料表面的灰尘及泥土冲洗干净，吸干。<span style="color:#337bb6;">液氮速冻</span>后，放入预冷的 50ml离心管或密封性好的小塑料袋中。</p>
+				<p class="indent">2、动物</p>
+				<p class="indent2">a) 组织：</p>
+				<p class="indent3">做好前处理如去皮、去毛等，选取肌肉、软骨等<span style="color:#337bb6;">肌纤维、脂肪类含量较少</span>的组织，用0.9%生理盐水漂洗，以去除血渍和污物，并剔除结缔组织和脂肪组织等非研究所需的组织类型，吸干，并、将样品分割成 50mg 左右的小块（组织块越小，保存效果越好），放入 1.5ml 或2.0ml 的 EP 管中，<span style="color:#337bb6;">液氮速冻</span>后用封口膜封口，将 EP 管放置于 50ml 离心管中或密封性好的小塑料袋中。</p>
+				<p class="indent2">b) 细胞：</p>
+				<p class="indent3">样品培养至107以上，去除培养液，用PBS 缓冲液快速洗一次，除去缓PBS 缓冲液，收集得到细胞沉淀，放于1.5ml或2.0ml的EP管中，<span style="color:#337bb6;">液氮速冻</span>后用封口膜封口，将 EP 管放置于 50ml 离心管中或密封性好的小塑料袋中。</p>
+				<p class="indent2">c) 血液：</p>
+				<p class="indent3">i) 要求为全血样本，并加入抗凝剂，推荐使用EDTA抗凝的采血管收集样品（由于会影响实验，不能使用肝素抗凝），取血后，<span style="color:#337bb6;">颠倒摇晃几次</span>，封口处用封口膜封好；<span style="color:#337bb6;">-80℃冷冻</span>后，干冰运输。</p>
+				<p class="indent3">ii) 直接将全血接入BCT抗凝管中，可常温运输。</p>
+				<p class="indent2">d) 个体较小样品（蚊、螨等） ，一次提取的样品放在一个 EP 管中，避免分管。</p>
+				
+				<h3>组织保存</h3>
+				<p class="indent">1、组织干重至少1g以上，血液至少1ml以上，细胞107以上，建议多保存，用于不同的实验类型，-80℃冰箱长期保存。</p>
+				<p class="indent">2、如果送至公司提取，建议送样量够3次以上提取的，减少由于实验失败造成周期延长的风险。</p>
+				<p class="indent">3、组织切段或者切碎，建议分管、分袋进行保存，便于取样，防止反复冻融降解。</p>
+				<h3>组织运输</h3>
+				<p class="indent">1、建议样品存放于管子中，避免过分挤压，必要时要在管外加些报纸等物加以固定，以防运输过程中出现撞击管裂。</p>
+				<p class="indent">2、锡箔运输时，折叠要有可寻的纹理，避免提取样品时样品散落，样品信息标注于可视位置。</p>
+				<p class="indent">3、禁止寄送带有人畜共患病的组织，包括但不限于病毒、细菌、寄生虫（如口蹄疫病毒、禽流感病毒、疟原虫、弓形虫等）。</p>
+			</div>
+
+			<div id="part3" class="r_part_box">
+                <div class="first_title">
+                	<h2><img  src="img/report_01.png" alt="">DNA获得</h2>
+                </div>
+				<div class="img_box">
+                	<img class="img-original" style="height: 170px;" src="img/4.png" />
+				</div>
+				<p class="indent">从已获得组织中提取基因组DNA后，方能用于后续的测序实验。</p>
+				<p class="indent">细胞中 DNA 主要存在于细胞核内，称为核DNA 或染色体DNA，也有人称之为基因组DNA(genomic DNA)，严格地讲，基因组DNA 是指单倍体细胞核DNA。细胞质中含有少量的DNA，称为核外DNA 或核外基因。主要分布在线粒体及叶绿体内，分别称为线粒体DNA(mtDNA)及叶绿体DNA(ctDNA)。细胞内各种DNA 总称为总DNA(total DNA)。</p>
+				<h3>DNA提取</h3>
+				<p class="indent">基因组DNA提取的流程图如下：</p>
+				<div class="img_box">
+                	<img class="img-style" style="max-height: 320px;" src="img/5.png" />
+				</div>
+				<h4>1.提取试剂盒</h4>
+				<div class="img_box">
+                	<img class="img-original" src="img/6.png" />
+				</div>
+				<h4>2.提取SOP</h4>
+				<p class="indent">1) 植物：CTAB</p>
+				<p class="indent2">a) 50mL 离心管中加入10mL 提取缓冲液，65℃预热。</p>
+				<p class="indent2">b) 取 1~2g 新鲜幼嫩叶片，去除叶脉，于液氮中迅速研磨成粉，研钵中预先加入 0.1gPVP及少许石英砂。</p>
+				<p class="indent2">c) 将冻粉迅速转入提取缓冲液中涡旋震荡混匀，于 65℃保温30 min，期间振荡2~3次。</p>
+				<p class="indent2">d) 取出离心管，冷却至室温，加入等体积的氯仿/异戊醇，轻缓颠倒混匀，10000r/min离心10 min。</p>
+				<p class="indent2">e) 转移上清液于另一 50mL 离心管，加入等体积异丙醇，轻轻颠倒，12000r/min 离心10 min。</p>
+				<p class="indent2">f) 70％乙醇洗涤2 次，每次2mL，室温下微干，溶于0.5mLTE 缓冲液中，转移到1.5mL离心管中。</p>
+				<p class="indent2">g) 加入等体积的苯酚：氯仿：异戊醇（25：24：1），颠倒离心管数次，12000r/min 离心5 min。</p>
+				<p class="indent2">h) 小心地用移液器将上层溶液转移到另一离心管，加等体积的苯酚：氯仿：异戊醇（25：24：1），颠倒混匀，12000r/min 离心5 min。</p>
+				<p class="indent2">i) 将上清移入干净离心管，加入 1/10 体积的3mol/L NaAc 溶液，再加2 倍体积冷无水乙醇，混合后室温放置10 min。</p>
+				<p class="indent2">j) (10)12000r/min 离心10 min，沉淀用70％乙醇洗3 次，将离心管倒置滤纸上干燥。</p>
+				<p class="indent2">k) 用适量 TE 缓冲液回溶DNA。如要除去其中的RNA，可加5u1 RnaseA (10μg/μL)，37℃保温30 分钟，用酚抽提后，按步骤(8)—(10)重沉淀DNA。</p>
+				<p class="indent">其中：</p>
+				<div class="img_box">
+                	<img class="img-original" src="img/7.png" />
+				</div>
+				<p class="indent">2) 动物：SDS</p>
+				<p class="indent2">a) 取组织至1.5mL离心管里，加入150ul EDTA（0.5M，pH8.0）和500ml 核裂解液，混匀后加入35ul Proteinase K（20mg/ml）和30ul溶菌酶,颠倒混匀，55℃孵育2h，期间可以轻柔涡旋帮助完全裂解。</p>
+				<p class="indent2">b) 加入200ul 5M NACL，轻柔涡旋25sec，冰浴5min后，12000rpm离心5min。 3.吸取上清至新的EP管中，12000rpm离心5min，管底可能还有微量蛋白沉淀。</p>
+				<p class="indent2">c) 吸取上清至新的EP管中，加入等体积的饱和酚/氯仿/异戊醇，颠倒混匀，室温静置2min后12000rpm离心3min。</p>
+				<p class="indent2">d) 小心吸取上清至新管中（宁可少取，枪头不可碰触分层处），加入等体积的氯仿/异戊醇，颠倒混匀，室温静置2min后12000rpm离心3min。</p>				
+				<p class="indent2">e) 混匀后加入等体积的异丙醇，混匀后-20℃放置20min后，13000rpm离心10min。</p>
+				<p class="indent2">f) 加入1ml 75%乙醇，室温静置5min，不要碰触DNA沉淀块儿，用枪头吸走大部分的乙醇丢弃。</p>
+				<p class="indent2">g) 晾干，加入100ul TE溶解。</p>
+				<p class="indent2">h) 加入1.5ul RNA酶，37度 30min。</p>
+				<p class="indent2">i) 提取出DNA后，建议对提取得到的DNA先进行RNA消化，再进行过柱纯化去除杂质。如果跑胶没有杂质，则可不纯化，但一般RNA是需要消化处理的。</p>
+
+				<h4>3.DNA质量提升</h4>
+				<p class="indent">1) DNA纯化</p>
+				<p class="indent2">a) 加等体积氯仿；异戊醇，轻轻振摇5分钟，12000rpm低温离心5分钟，吸取上层水相至另一EP管；重复一次；</p>
+				<p class="indent2">b) 加入1/12体积的3M NaAC（醋酸钠），混匀，再加入2.5倍体积无水乙醇沉淀DNA；12000rpm低温离心5分钟，去除上清；</p>
+				<p class="indent2">c) 加1ml 70%乙醇洗涤，12000rpm 低温离心10分钟，去上清；重复1次；</p>
+				<p class="indent2">d) 真空干燥，加适量TE溶解，置4℃或者-80℃备用。</p>
+				<p class="indent">2) 消化RNA</p>
+				<p class="indent2">用任何一家公司的RNase A都可以，37℃消化30分钟，工作浓度是20ug/ml，如果效果不好，可以延长消化时间或加大RNase A的浓度。</p>
+				
+				<h4>4.DNA平均得率</h4>
+				<div class="img_box">
+                	<img class="img-original" src="img/8.png" />
+				</div>
+
+				<h3>DNA保存</h3>
+				<p class="indent">1、DNA属于酸性，长期保存需要弱碱性环境，中性或者酸性环境保存容易降解。无菌水、TE缓冲液、乙醇保存都可以。乙醇保存的需要使用的时候弃去乙醇，加无菌水或者TE溶解；</p>
+				<p class="indent">2、浓度不宜过低（容易降解），也不宜过高（容易沉淀），用无菌ddH<sub>2</sub>O 将样品稀释或浓缩成0.5～1.0mg／mL 的浓度；</p>
+				<p class="indent">3、一周之内使用可以保存4℃，长期保存-20℃，但是最好-80℃，建议分装，避免反复冻融；</p>
+				
+				<h3>DNA检测</h3>
+				<p class="indent">1、检测标准</p>
+				<p class="indent">看：无颜色异常，不粘稠</p>
+				<p class="indent">测：无蛋白、无RNA、无其他污染，无降解（主带20Kb以上，无弥散）</p>
+				<div class="img_box">
+                	<img class="img-original" src="img/9.png" />
+				</div>
+				<p class="indent">2、检测方法</p>
+				<p class="indent">AGE：Agarose Gel Electrophoresis，即琼脂糖凝胶电泳检测。1%，100V，40min</p>
+				<p class="indent">1) 实验原理</p>
+				<p class="indent2">琼脂糖凝胶电泳是用于分离、鉴定和提纯DNA片段的标准方法。</p>
+				<p class="indent2">琼脂糖是从琼脂中提取的一种多糖，具亲水性，但不带电荷，是一种很好的电泳支持物。DNA在碱性条件下（pH8.0的缓冲液）带负电荷，在电场中通过凝胶介质向正极移动，不同DNA分子片段由于分子和构型不同，在电场中的泳动速率也不同。大分子物质在涌动时受到的阻力大，因此在凝胶电泳中，跑得比较慢。GelRed可嵌入DNA分子碱基对间形成荧光络合物，经紫外线照射后，可分出不同的区带，达到分离、鉴定分子量，筛选重组子的目的。</p>
+				<p class="indent">2) 溶液配制</p>
+				<p class="indent2">a) 1%的琼脂糖凝胶配制：称1.0g（2.0g）琼脂糖，溶解于100 ml TAE Buffer中，待完全溶解后，冷却至50℃左右加入稀释的GelRed染料（稀释10倍）1.6ul，让其凝固30-40分钟后，4℃保存。（这样的目的是为了避免拔掉梳子的时候，梳子的尖端会带出一部分胶，导致胶底部有漏孔，无法点样使用）。</p>
+				<p class="indent2">b) 缓冲液：配制1%的TAE缓冲液，使用3次后换新的缓冲液。</p>
+				<p class="indent">3) 上样</p>
+				<p class="indent2">a) 上样原则：正确的DNA上样量是条带清晰的保证。太多可能导致DNA带型模糊，而太少则导致带信号弱甚至缺失。</p>
+				<p class="indent2">b) 上样量：1ul 200ng（根据Nanodrop 浓度稀释）左右的样品+4ulH2O+1ul Loading Buffer，6ul点样。</p>
+				<p class="indent2">c) 点样时候注意枪头不要触到胶，防止戳破胶，并避免漂样。</p>
+				<p class="indent">4) 电泳</p>
+				<p class="indent2">a) 电压：<span style="color:#337bb6;">100 V</span>（4-5V/cm），在低电压时，线状DNA片段的迁移速率与所加电压成正比。但是随着电场强度的增加，不同分子量的DNA片段的迁移率将以不同的幅度增长，片段越大，因场强升高引起的迁移率升高幅度也越大，因此电压增加，琼脂糖凝胶的有效分离范围将缩小。</p>
+				<div class="img_box">
+                	<img class="img-original" src="img/10.png" />
+				</div>
+				<p class="indent2">b) 时间：<span style="color:#337bb6;">40分钟</span>（待loading buffer的前面那条蓝带在整个琼脂糖凝胶的80%位置），marker跑开为宜，电泳时间一定要保证，如果时间过短，如只跑了15分钟，则会看不到已经降解的DNA的弥散条带。从电泳图A、B中Marker（M）分开程度、离胶孔距离可以看出A电泳时间不足40min，所以样品主带与B图相比较集中。</p>
+				<div class="img_box">
+                	<img class="img-original" src="img/11.png" />
+					<p>电泳条件：1%琼脂糖电泳，100V，40min。M：λ-Hind Ⅲ digest</p>
+				</div>
+				<p class="indent">5) 样品检测注意事项</p>
+				<p class="indent2">a) DNA检测时，取样后样品必须置于冰上，待其溶解后进行后续操作。检测时样品一直置于冰上。</p>
+				<p class="indent2">b) 当天拿出的样品当天检测完，避免反复冻融而引起样品降解。</p>
+				<p class="indent2">c) 吸打、震荡混匀样品时动作轻柔，避免DNA断裂。</p>
+
+				<h3>DNA运输</h3>
+				<p class="indent">1、存放EP管：使用1.5 ml EP 管装载样品（其他保存管容易破裂且不利于后续实验的开展），不建议样品溶于无水乙醇、异丙醇等有机溶剂中邮寄，因为有机溶剂比较容易泄露，泄露后容易使管壁字迹模糊，甚至造成样品交叉污染。如果一定需溶于有机溶剂运输，那么 EP 管的管口至少要用 parafilm 封 5 圈以上，并用存放盒装载样品，防止样品管倒置而导致泄漏。</p>
+				<p class="indent">2、为了防止 EP 管在运输过程中受到挤压破裂，导致样品损失，最好将 EP管装在50 ml离心管或其他支撑物中，里面还可以添加棉花等固定（切勿在50 ml管内或其他支撑物内加入液氮等危险品）。</p>
+				<p class="indent">3、批量样品(多于15管）请用冻存盒之类的存放盒或泡沫板装载并固定结实，防止样品散乱在运输箱中受损、丢失，样品的排列应与信息单中的顺序对应。</p>
+				<p class="indent">4、若使用冰袋运输，请添加足够数量冰袋，保证样本到达前温度不高于 4℃，运输途中不超过72h。</p>
+				<p class="indent">5、如放于干冰中运输，确保样品送达接收地点时有足量的干冰剩余；运输过程中需要添加的干冰和冰袋的量与季节、运输时间长短、泡沫盒的薄厚有关（为更有利于保温，尽量选用大块的干冰，如果条件允许，建议可在泡沫盒的上下填充一些棉花等，以隔绝热量的传递），安全的干冰维持量为 5 kg/day，运输途中不超过72h。</p>
+				<p class="indent">6、选择可靠的快递公司，建议先提前电话咨询运输方式及运送时间等。</p>
+				<p class="indent">※样品装箱前进行检查确认并拍照留存，在样品寄送前，填写完整样品信息单与样品一起寄送，同时以邮件的形式将电子版信息单发送给收样单位。</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

@@ -29,6 +29,10 @@ html {
   width: 90%;
   max-width: 1200px;
 }
+.mainBody{
+	width: 1180px ;
+	margin: 0 auto;
+}
 .top {
   float: left;
   width: 100%;
@@ -116,27 +120,29 @@ html {
 	left: 276px; 
 	height: 52px !important;
 	line-height: 52px !important;
-	width: 50%;
+	width: 550px;
 	margin:0 auto;
 	text-align: center;
-	 display: none;
+	display: none;
 }
-.main_nav1 .main_nav1_left .searchIcon{
+.main_nav1 .searchNews span{
+	margin-right: -25px;
+}
+.main_nav1 .searchNews span img{
+	 width: 25px;
+	 height: 25px;
+}
+.main_nav1 .searchIcon{
 	display: inline-block;
-	line-height: 52px;
 	width: 25px;
 	height: 29px;
-	margin-right: 5px;
-	vertical-align: middle;
 	background: url(../image/searchIcon.svg) no-repeat;
-	cursor: pointer;"
+	cursor: pointer;
 }
-.main_nav1 .main_nav1_left .form-control{
-	line-height: 52px;
-	height: 30px;
+.main_nav1 .form-control{
 	font-size: 18px; 
-	display:inline-block;
 	width:505px;
+	margin-top: 9px;
 	border:1px solid #fff !important;
 	background:none;
 	color: #fff;"
@@ -269,6 +275,25 @@ html {
   border-top: 1px solid #ccc;
   text-align: center;
   background: #fff;
+}
+.main_nav2 .form-group{
+	width: 400px !important;
+	position: absolute !important;
+	left: 780px !important;
+	top: 5px !important;
+}
+.main_nav2 .form-group .col-sm-10 input{
+ 	border-bottom-right-radius: 0 !important;
+ 	border-top-right-radius: 0 !important;
+ 	height: 33.8px !important;
+}
+.main_nav2 .form-group button{
+ 	background: #13438B !important;
+ 	color: #fff !important;
+ 	margin-left: -15px !important;
+ 	border-bottom-left-radius: 0 !important;
+ 	border-top-left-radius: 0 !important;
+ 	border: 1px solid #13438B !important;
 }
 .main_nav2 .main_nav2_left .nav2_search {
   float: left;

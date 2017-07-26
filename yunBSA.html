@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="public/css/reset.css" rel="stylesheet" />
+		<link href="public/css/long_common.css" rel="stylesheet"  media="all">
+		<link href="public/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/new_common.css">
+	</head>
+	<body>
+<div id="main_box">
+	<div class="change_box" style="width: 1170px;">
+		<!--左边导航-->
+		<div class="b_left" style="position: fixed;top:170px;">
+			<div id="left_list">
+				<div class="selectable active"><a class="#part1"><span class="a_line">|</span>整体方案</a></div>
+				<div class="selectable"><a class="#part2"><span class="a_line">|</span>文献解读</a></div>			
+			</div>
+		</div>	
+		<div class="b_right">
+
+			<div id="part1" class="r_part_box">
+                <div class="first_title">
+                	<h2><img  src="img/report_01.png" alt="">整体方案</h2>
+                </div>
+				<p class="indent">在农业中，重要的农艺性状，如产量、品质等，经常由数量性状基因座（QTL）来决定。为进行定位，可采用多种方法，遗传图谱、GWAS、BSA、非测序手段等策略。其中时间最短、针对性最强、价格最低的是BSA-QTLseq。</p>
+				<p class="indent">BSA-QTLseq是一种采用高通量测序的技术进行功能基因的定位的方法。其分析原理比较简单，基本思路是选取两个性状差异较大的个体作为亲本构建性状分离的家系群体，子代群体的目标数量性状表现为正态分布，则选择其中目标性状表现最极端的两组子代个体分别混池，结合两个亲本之前的差异，定位检验两个混池之间的遗传多态性差异最大的区域为目标性状的基因座。该方法于XX2013年首次被日本科学家用来定位水稻抗稻瘟病耐盐性状基因，获得巨大成功，从此BSA定位法被不断应用并改进。迄今为止，BSA法已经成功应用于水稻、黄瓜、拟南芥、玉米、油菜、大豆、番茄等物种，并成功定位到诸如多耐盐、抗病等多种目标性状基因。</p>
+				<p class="indent">本平台从最开始的样本选取到最终的科研成果产出，涵盖了各个环节的参考资料，流程图示意图如下：</p>
+				<div class="img_box">
+                	<img class="img-original" style="max-height: 450px;" src="img/0.png" />
+				</div>
+                
+			</div>
+
+			<div id="part2" class="r_part_box">
+                <div class="first_title">
+                    <h2><img  src="img/report_01.png" alt="">文献解读</h2>
+                </div>
+				<p>为了方便读者大致了解快速的认识BSA-QTLseq的流程，我们选取了一篇代表型性文献以及一篇最新文献进行详解。具体解读如下：</p>
+				<h2 class="literature" onclick="javascript:window.open('http://onlinelibrary.wiley.com/doi/10.1111/tpj.12105/full')">QTL-seq: rapid mapping of quantitative trait loci in rice by whole genome resequencing of DNA from two bulked populations. (2013年)</h2>
+				<p class="h4_inline"><span>杂志名称：</span>The Plant Journal，影响因子6.582</p>
+				<h4>研究背景：</h4>
+				<p class="indent">植物中很多农艺性状由数量性状基因座（植物中鉴定QTL）控制，其鉴定十分非常重要，分子标记辅助育种相较于依据表型育种有效的降低时间和人力的成本。对于鉴定某个特定的QTL，随着分子标记SNP被用于BSA，应用BSA（混合分组分析）技术定位某个特定的QTL非常有效更加行之有效。两个有明显性状差异的亲本产生F2等表型产生分离的子代。通过表型将子代混合两个极端池，DNA的标记在两个池中也表现极端分离。过去BSA研究中常用的是RFLPs、RAPD等标记，随着分子标记SNP被用于BSA，QTL的定位更加方便、快捷。对于水稻而言，稻瘟病是需要严防死守的头号流行病，拥有着大规模的杀伤力。该性状由数量性状基因座（QTL）所控制，因而BSA-QTLseq法被用来鉴定其相关基因。</p>
+
+				<h4>方法与材料：</h4>
+				<p>1、稻瘟病研究材料</p>
+				<p class="indent">
+				亲本：抗稻瘟病品种Nortai；感稻瘟病品种Hitomebore；</p>
+				<p class="indent">
+				子代：Nortai和Hitomebore杂交得到的F2连续自交到F7，即RIL群体共241株；将20株最抗病的RILs混合为抗病池（R），20株最感病的RILs混合为感病池（S）。</p>
+				<div class="img_box">
+                	<img class="img-style" src="img/5.png" />
+				</div>
+				<p>2、幼苗活力研究材料</p>
+				<p class="indent">
+				亲本：幼苗活力很强的水稻栽培系DunghanShali、幼苗活力一般的水稻栽培系Hitomebore；</p>
+				<p class="indent">
+				子代：双亲杂交得到的F2群体共计531株，取F2中最高的50株幼苗混合成“H-bulk”，最矮的50株幼苗混合成“L-bulk”。</p>
+				<div class="img_box">
+                	<img class="img-style" src="img/image007.png" />
+				</div>
+
+				<h4>测序策略：</h4>
+				<p class="indent">Illumina GAIIx平台，共开发亲本间多态性标记161563个，采用全基因组重测序,两个子代池平均测序深度为6.88X</p>
+
+				<h4>研究结果：</h4>
+				<div class="col2">
+					<div class="col2_left">
+						<p>1、稻瘟病QTL定位</p>
+						<p class="indent">右图展示了SNP-index和基因组的位置关系。</p>
+						<p class="indent">
+
+							（1）抗病池R-bulk和感病池S-bulk的SNP-index差值最大的区域位于6号染色体2.39 ~4.39 Mb区段。
+						</p>
+						<p class="indent">
+							（2）抗病池SNP-index与感病池的SNP-index作差，得到△SNP-index图即R-S bulk，图中显示大部分△SNP-index均在0附近，仅有6号染色体2.39 ~ 4.39 Mb区段的△SNP-index＞0.79，推断这个区域内极可能含有稻瘟病相关QTL。
+						</p>
+						<p class="indent">为了对定位结果进行验证，科研人员使用传统QTL作图方法计算出SNP标记与表型间的LOD值，该值在0~4.9Mb区间内为最高，与利用QTL-seq定位的区段一致，证明QTL-seq方法可以利用RILs群体快速定位性状相关QTL。</p>
+					</div>
+					<div class="img_box col2_right">
+						<img class="img-original" src="img/image008.png" />
+					</div>
+				</div>
+				<div class="col2">
+					<div class="col2_left">
+						<p>2、幼苗活力QTL定位</p>
+						<p class="indent">H-L bulk图（即两个混池的△SNP-index图）中显示以下两个区段可能存在QTL：</p>
+						<p class="indent">（1）3号染色体的36.21~37.31Mb区段， △ SNP-index =0.61（P＜0.01）
+						</p>
+						<p class="indent">（2）1号染色体的39.08~41.08 Mb区段， △ SNP-index =0.67（P＜0.05）
+						</p>
+						<p class="indent">科研人员使用传统的QTL作图方法，鉴定出主效QTL qPHS3-2的位置与H-L bulk图中3号染色体36.21~37.31Mb区段重合，该QTL与赤霉素合成基因OsGA20ox1相关；</p>
+						<p class="indent">用传统QTL作图法定位出的微效QTL qPHS-1也与1号染色体39.08~41.08 Mb区段重合。</p>
+					</div>
+					<div class="img_box col2_right">
+						<img class="img-original" src="img/image009.png" />
+					</div>
+				</div>
+				<p>由此可见，QTL-seq方法可以比较精确地鉴定性状相关QTL。</p>
+				<br/><br/>
+				<h2 class="literature" onclick="javascript:window.open('http://onlinelibrary.wiley.com/doi/10.1111/pbi.12567/full')">QTL-seq for rapid identification of candidate genes for 100-seed weight and root/total plant dry weight ratio under rainfed conditions in chickpea. (2016年)</h2>
+				<p class="h4_inline"><span>杂志名称：</span>Plant Biotechnology Journal，影响因子6.090</p>
+
+				<h4>研究背景：</h4>
+				<p class="indent">鹰嘴豆作为重要的豆类植物，生物和非生物逆境对其产量影响很大，近年来逐渐出现使用二代测序方法研究鹰嘴豆抗逆性的案例。</p>
+
+				<h4>方法与材料：</h4>
+				<p class="indent">亲本：</p>
+				<p class="indent2">抗旱亲本ICC 4958，性状表现：高百粒重和高根干重／植株干重</p>
+				<p class="indent2">不抗旱亲本ICC 1882，性状表现：低百粒重和低根干重／植株干重</p>
+				<p class="indent">子代：</p>
+				<p class="indent2">RILs群体共计262个个体，选择百粒重极端性状的两个子代池（左图）和根干重／植株干重极端性状的两个子代池（右图），每个子代池均为15个个体。</p>
+				<div class="img_box">
+                	<img class="img-style" src="img/image011.png" />
+				</div>
+
+				<h4>测序策略：</h4>
+				<p>Illumina MiSeq平台</p>
+				<p class="indent">亲本ICC 4958平均测序深度：6.52X，基因组覆盖率：96.35%；不抗旱亲本未测；</p>
+				<p class="indent">百粒重性状子代池平均测序深度：3.18X/3.17X，覆盖率：81.73%/81.53%；</p>
+				<p class="indent">根干重／植株干重性状子代池平均测序深度：3.21X/3.17X，覆盖率：81.94%和81.05%</p>
+
+				<h4>研究结果：</h4>
+				<p class="indent">获得亲本以及子代池的测序数据后，分别计算两个子代池的SNP-index和△（SNP-index），并绘制曼哈顿图。</p>
+				<p class="indent"><b>就百粒重性状而言：</b></p>
+				<p class="indent">CaLG01连锁群（1号染色体）上存在1.08Mb（3.07-4.15Mb）的候选区间；（图 a）</p>
+				<p class="indent">CaLG04连锁群（4号染色体）上存在2.70Mb (11.12-13.82 Mb)的候选区间；（图 b）</p>
+				<div class="img_box">
+                	<img class="img-original" src="img/image013.png" />
+				</div>
+
+				<p class="indent">候选区间内包含21个∆（SNP-index）= -1的SNP位点，筛选出候选基因Ca_04364及Ca_04607,详见下表：</p>
+				<div class="img_box">
+                	<img class="img-original" src="img/image014.png" />
+				</div>
+				<p class="indent"><b>就根干重／植株干重性状而言：</b></p>
+				<p class="indent">CaLG04连锁群（4号染色体）上存在长达1.10Mb（12.73– 13.83 Mb）的候选区间。（图 c）</p>
+				<p class="indent">候选区间包含26个∆（SNP-index）= -1的SNP位点，筛选出候选基因Ca_04586，该基因负责编码细胞色素P450单氧化酶，详见下表：</p>
+				<div class="img_box">
+                	<img class="img-original" src="img/image016.png" />
+				</div>
+
+				<h4>验证实验：</h4>
+				<p class="indent">使用CAPS/dCAPS标记，设计了11对CAPS/dCAPS引物，对筛选到的与百粒重相关的5个SNP位点和与根干重／植株干重性状相关的6个SNP位点进行验证。</p>
+				<p class="indent">验证了候选基因Ca_04364和 Ca_04607与百粒重性状相关，候选基因Ca_04586与根干重／植株干重性状相关。</p>
+				<div class="img_box">
+                	<img class="img-original" src="img/image017.png" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+	</body>
+</html>

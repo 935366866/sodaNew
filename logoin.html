@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+		<title>登录页面</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="content-type" content="text/html" ; charset="utf-8">
+		<link href="public/css/bootstrap.min.css" rel="stylesheet" />
+		<script src="public/js/jquery-1.11.2.min.js"></script>
+		<script src="public/js/bootstrap.min.js"></script>
+		<!--设置登录界面的css-->
+		<link href="css/login.css" rel="stylesheet" />
+		<!--设置记住我功能-->
+		<script type="text/jscript" src="public/js/jquery.cookie.js"></script>
+		<script type="text/jscript">
+			$(document).ready(function() {
+				if($.cookie("rmbUser") == "true") {
+					$("#ck_rmbUser").attr("checked", true);
+					$("#name").val($.cookie("username"));
+				}
+			});
+
+			//记住用户名密码
+			function Save() {
+				if($("#ck_rmbUser").attr("checked")) {
+					var str_username = $("#name").val();
+					$.cookie("rmbUser", "true", { expires: 7 }); //存储一个带7天期限的cookie
+					$.cookie("username", str_username, { expires: 7 });
+				} else {
+					$.cookie("rmbUser", "false", { expire: -1 });
+					$.cookie("username", "", { expires: -1 });
+				}
+			};
+		</script>
+		<!---->
+		<link rel="stylesheet" type="text/css" href="css/home_style.css" media="all" />
+	</head>
+	<body style="background-color:#f8f8f8;">
+		<div class='bg'>
+			<img src="img/loginBj.jpg" alt="">
+		</div>
+		<!--登录框-->
+		<!--<div class="login col-sm-4 col-sm-push-4">-->
+		<!--<p class="login_title">欢迎使用SODA系统</p>
+<form role="form" class="form-horizontal" action="/ddgene/Home/Login/login" method = 'post'>
+<font color='red'></font>
+	<div class="form-group col-sm-9 col-sm-push-2" style="height:45px;">
+		<input class="form-control" id="username" name="username" placeholder="账号或邮箱地址" required>
+	</div>
+	<div class="form-group col-sm-9 col-sm-push-2"  style="height:40px;">
+		
+		<input type="password" class="form-control" id="inputPassword" name="password" placeholder="请输入密码" required>
+	</div>    
+    <div class="checkbox form-inline col-sm-12"  style="height:50px;">
+        <label  class="col-sm-3  col-sm-push-2">
+        <input  type="checkbox" id="ck_rmbUser"> 记住我
+        </label>
+        
+    </div>
+    <div class="form-group col-sm-9 col-sm-push-2"  style="height:50px;">
+    <button type="submit" class="btn btn-primary btn-lg col-sm-5" onclick="Save()">登&nbsp;&nbsp;录</button>
+    <a href="/ddgene/Home/Login/register"> <button type="button" class="btn btn-default btn-lg col-sm-5 col-sm-push-2">注&nbsp;&nbsp;册</button> </a>
+    </div>
+</form>
+</div>-->
+		<!--登录框 结束-->
+		<div class="modal fade in" id="loginBox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: block; padding-right: 17px;">
+			<!--padding-right:17px-->
+			<div class="modal-dialog" style="margin-top:100px">
+				<div class="modal-content col-sm-10 col-sm-push-1">
+					<div class="modal-header">
+					</div>
+
+					<div class="modal-body" style=" text-align:center">
+						<h3 class="modal-title" style="text-align: center">
+                                                用户登录
+                                        </h3>
+						<div class="login_subtitle">
+							<p>DoDoGENE</p>
+						</div>
+						<font color='red'></font>
+						<form style="text-align:left" id="login_form" action="/ddgene/Home/Login/login" method='POST'>
+							<div class="input_div">
+								<input type="text" class="form-control input-lg" placeholder="输入手机或邮
+箱登录" id="name" name="name" required>
+									<span></span>
+							</div>
+							<div class="input_div">
+								<input type="password" class="form-control input-lg" placeholder="输入密码
+" id="password" name="password" required>
+									<span></span>
+							</div>
+							<button type="submit" class="form-control input-lg" id="login">登录</button>
+
+						</form>
+
+						<div class="forget">
+							<a href="/ddgene/Home/Login/change_pw_email">忘记密码》</a>
+							<p>还没有账号？
+								<a href="/ddgene/Home/Login/register">点击注册》</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</div>
+
+	</body>
+
+</html>

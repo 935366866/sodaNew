@@ -35,9 +35,7 @@ $(function(){
             $(this).removeClass("listshow");
         });
     };
-    
 });
-
 //左边导航的滚动监听
 $(function(){
 

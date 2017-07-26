@@ -761,7 +761,7 @@ a:hover {
 }
 .news-list .news li .pic img {
   width: 100%;
-  height: 132px;
+  height: 120px;
 }
 .news-list .news li.news-2 .info{
 	min-height: 120px;
@@ -1248,7 +1248,7 @@ margin-bottom: 33px;
 }
 .tools {
   position: absolute;
-  top: 30px;
+  top: 12px;
   right: 10px;
 }
 .tools p {
