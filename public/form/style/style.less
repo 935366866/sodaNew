@@ -1,0 +1,522 @@
+.mt-45{margin-top: 45px;}
+body,html {
+    height: 100%;
+}
+* {
+  text-decoration: none !important;
+}
+a:hover {
+  text-decoration: none !important;
+}
+//背景
+.bg{width: 100%;height: 100%;top:0;z-index: -1; position: absolute;}
+.bg img{ position:fixed;display: block;outline: none;border:0;height: 100%;width: 100%; }
+//注册的logo
+.logo {
+    float:left;
+    width:100%;
+    height: 150px;
+    img{
+        margin-top: 40px;
+        width:70px;
+    };
+};
+//注册框
+.form-2 {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 450px;
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+
+        overflow: hidden;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        background-color: #fff;
+        .title {
+            font-size: 20px;
+            padding-top: 7px;
+            text-align: center;
+            color: #0079fe;
+            h3 {
+                color:#333;
+                font-size: 20px;
+                letter-spacing: 2px;
+                font-weight: bold;
+            }
+        }
+        .sub-title {
+            line-height: 30px;
+
+            width: 390px;
+            height: 30px;
+            margin-bottom: 10px;
+
+            text-align: center;
+
+            background: url(../../form/imgs/form-title.png) 0 50% repeat-x;
+            h3 {
+                font-size: 12px;
+                font-weight: 400;
+                color: #0279e6;
+                display: inline;
+                letter-spacing: 2px;
+                padding: 0 20px;
+                background-color: #fff;
+            }
+        }
+        .input {
+            width: 390px;
+            .each_input{
+                width: 390px;
+                border: 1px solid #ddd;
+                height: 38px;
+                float: left;
+                p{
+                    float: left;
+                    font-size: 16px;
+                    font-weight: bold;
+                    line-height: 38px;
+                    color: #999;
+                    width:100px;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    span {
+                        color: #c10100;
+                        font-size: 18px;
+                        font-weight: bold;
+                        padding-left: 3px;
+                    }
+                };
+                input{
+                    width:280px;
+                    height: 36px;
+                    font-size: 12px;
+                    letter-spacing: 2px;
+                    color: #333;
+                    border: none;
+                    outline: none;
+                    background: none;
+                }
+
+            }
+            //验证码 去掉
+            .code{
+                float: right;
+                button{
+                     width: 95px;
+                };
+                .btn-blue {
+                   
+                    background-color: #2289e5;
+                    color: #fff;
+                    margin-left: 10px;
+                }
+                .btn-blue:hover {
+                    color: #fff;
+                }
+            }
+            //无提示
+            .normal{
+                float: left;
+                width: 100%;
+                margin: 0px;
+                padding: 0px;
+                height: 20px;
+            }
+            //错误提示
+            .error{
+                float: left;
+                width: 100%;
+                margin: 0px;
+                padding: 0px;
+                height: 20px;
+                font-size: 14px;
+
+                line-height: 20px;
+                padding-left: 27px;
+                color: #e30000;
+                background: url(../../form/imgs/error.png) 2px 50% no-repeat;
+            }
+            .submit {
+
+                width:100%;
+                overflow: hidden;
+                padding-top: 10px;
+                margin-bottom: 30px;
+                .submit-btn {
+                    font-size: 18px;
+                    font-weight: 600;
+                    line-height: 35px;
+
+                    display: block;
+                    overflow: hidden;
+
+                    width: 100%;
+                    height: 35px;
+                    margin: 2px auto 0 auto;
+
+                    cursor: pointer;
+
+                    color: #fff;
+                    border: 2px solid #2b7bff;
+                    border-radius: 3px;
+                    outline: none;
+                    background-color: #2b7bff;
+                }
+                .submit-btn-2 {
+                    font-size: 24px;
+                    font-weight: 600;
+
+                    display: block;
+
+                    width: 406px;
+                    height: 46px;
+                    margin: 27px auto 0 auto;
+
+                    cursor: pointer;
+
+                    color: #fff;
+                    border: none;
+                    border: 2px solid #0568d4;
+                    border-radius: 3px;
+                    background-color: #2b7bff;
+                }
+                
+            }
+        }
+
+   
+        &.reset-password{
+            .title{
+                padding-top: 116px;
+                margin-bottom: 48px;
+            }
+        }
+
+
+   &.success{
+
+        .success-icon{
+            margin-top: 30px;
+            height: 79px;
+            background:url(../../form/imgs/icon-1.png) 50% 0 no-repeat;
+        }
+        .s_title{
+            text-align: center;
+            h3{
+                font-size: 26px;
+                color: #000;
+                padding-top: 0;
+                letter-spacing: 5px;
+                font-weight: 300;
+                line-height: 50px;
+            };
+        }
+        .link{
+            width: 368px;
+            margin-bottom: 30px;
+            a{
+                display: block;
+                width: 100%;
+                height: 40px;
+                line-height: 40px;
+                background-color: #0079fe;
+                text-align: center;
+                color: #fff;
+                font-size: 20px;
+                font-weight: 400;
+                letter-spacing: 4px;
+                border-radius: 4px;
+            }
+        }
+    }
+   /*
+        .error{
+            font-size: 14px;
+            margin-top: -23px;
+            height: 23px;
+            line-height: 23px;
+            padding-left: 27px;
+            color: #e30000;
+            background: url(../../form/imgs/error.png) 2px 50% no-repeat;
+        }
+   */
+   
+    }
+    
+
+//.inner {}
+.form-1 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 450px;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+
+    overflow: hidden;
+    
+    margin-bottom: 30px;
+    border-radius: 5px;
+    background-color: #fff; 
+
+    .form-1-nav {
+        line-height: 50px;
+
+        overflow: hidden;
+
+        width: 288px;
+        height: 50px;
+        margin-top: 50px;
+
+        border: 2px solid #2b7bff;
+        border-radius: 25px;
+        background-color: #2b7bff;
+        li {
+            float: left;
+
+            width: 50%;
+
+            text-align: center;
+            a {
+                font-size: 18px;
+
+                display: inline-block;
+
+                width: 100%;
+
+                color: #2b7bff;
+                background-color: #fff;
+            }
+            &.active a,& a:hover {
+                color: #fff;
+                background-color:transparent;
+            }
+        }
+    }
+    .title {
+            font-size: 20px;
+            padding-top: 7px;
+            text-align: center;
+            color: #0079fe;
+            h3 {
+                color:#333;
+                font-size: 20px;
+                letter-spacing: 2px;
+                font-weight: bold;
+            }
+        }
+        .sub-title {
+            line-height: 30px;
+
+            width: 390px;
+            height: 30px;
+            margin-bottom: 10px;
+
+            text-align: center;
+
+            background: url(../../form/imgs/form-title.png) 0 50% repeat-x;
+            h3 {
+                font-size: 12px;
+                font-weight: 400;
+                color: #0279e6;
+                display: inline;
+                letter-spacing: 2px;
+                padding: 0 20px;
+                background-color: #fff;
+            }
+        }
+    .form-1-title {
+        line-height: 70px;
+
+        width: 406px;
+        height: 70px;
+
+        text-align: center;
+
+        background: url(../../form/imgs/form-title.png) 0 50% repeat-x;
+        h3 {
+            font-size: 14px;
+            font-weight: 400;
+
+            display: inline;
+
+            padding: 0 20px;
+
+            color: #999;
+            background-color: #fff;
+        }
+        a{
+            color: #84bfff;
+        }
+    }
+    .input {
+        width: 406px;
+        .each_input{
+            width: 406px;
+            border: 1px solid #ddd;
+            height: 38px;
+            float: left;
+            p{
+                float: left;
+                font-size: 16px;
+                font-weight: bold;
+                line-height: 38px;
+                color: #333;
+                width:100px;
+                padding-left: 10px;
+                padding-right: 10px;
+                span {
+                    color: #c10100;
+                    font-size: 18px;
+                    font-weight: bold;
+                    padding-left: 3px;
+                }
+            };
+            input{
+                width:304px;
+                height: 36px;
+                font-size: 12px;
+                letter-spacing: 2px;
+                color: #333;
+                border: none;
+                outline: none;
+                background: none;
+            }
+
+        }
+        //验证码
+        .code{
+            float: right;
+            button{
+                    width: 95px;
+            };
+            .btn-blue {
+                
+                background-color: #2289e5;
+                color: #fff;
+                margin-left: 10px;
+            }
+            .btn-blue:hover {
+                color: #fff;
+            }
+        }
+        //无提示
+        .normal{
+            float: left;
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
+            height: 20px;
+        }
+        //错误提示
+        .error{
+            float: left;
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
+            height: 20px;
+            font-size: 14px;
+
+            line-height: 20px;
+            padding-left: 27px;
+            color: #e30000;
+            background: url(../../form/imgs/error.png) 2px 50% no-repeat;
+        }
+        .submit {
+            width:140px;
+            overflow: hidden;
+            padding-top: 10px;
+            .submit-btn {
+                font-size: 18px;
+                font-size: 22px;
+                font-weight: 600;
+                line-height: 40px;
+
+                display: block;
+                overflow: hidden;
+
+                width: 110px;
+                height: 40px;
+                margin: 2px auto 0 auto;
+
+                cursor: pointer;
+
+                color: #2b7bff;
+                border: 2px solid #2b7bff;
+                border-radius: 22px;
+                outline: none;
+                background-color: #fff;
+                &:hover {
+                    color: #fff;
+                    background-color: #2b7bff;
+                }
+            }
+            .submit-btn-2 {
+                font-size: 24px;
+                font-weight: 600;
+
+                display: block;
+
+                width: 406px;
+                height: 46px;
+                margin: 27px auto 0 auto;
+
+                cursor: pointer;
+
+                color: #fff;
+                border: none;
+                border: 2px solid #0568d4;
+                border-radius: 3px;
+                background-color: #2b7bff;
+            }
+            
+        }
+    }
+    .tips {
+        
+        float: left;
+        width: 100%;
+        font-size: 14px;
+
+        margin-bottom: 18px;
+        margin-top: 10px;
+
+        color: #0079fe;
+        p {
+            padding-left: 30px;
+            &.right {
+                background:url(../../form/imgs/right.png) 0 50% no-repeat;
+            }
+        }
+        &.submit_captcha{
+            color: #999;
+        }
+    }
+    .link{
+        float: left;
+        width: 100%;
+        margin-top:30px;
+        a{
+            display: block;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            background-color: #0079fe;
+            text-align: center;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 4px;
+            border-radius: 4px;
+        }
+    }
+}
+
+
