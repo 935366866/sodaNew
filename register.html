@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="height: 100%;">
+<html lang="en" style="height: 100%;overflow: hidden;">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -14,22 +14,22 @@
 	<link href="public/css/bootstrap.min.css" rel="stylesheet">
     <script src="public/js/bootstrap.min.js"></script>	
 	<!--公共script-->
-	<script type="text/javascript" src="public/image/js/long_common.js"></script>	
+	<script type="text/javascript" src="public/js/long_common.js"></script>	
 	<link rel="stylesheet" type="text/css" href="public/css/long_common.css" media="all" />
 
 	<!--本页样式-->
-	<link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="public/form/style/style.css" media="all" />
 	<!--本页script-->
 	<!--<script type="text/javascript" src="public/form/script/img_show.js"></script>-->
-	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="public/form/script/script.js"></script>
 </head>
 
-<body style="height: 100%;width: 100%; background: url(img/loginBj.jpg);" >
+<body style="height: 100%;width: 100%; background: url(img/loginBj.jpg);background-size: 100% 100%;overflow: hidden;" >
 	<!--<div class='bg'>
 		<img src="img/loginBj.jpg" alt="背景图无法显示">
 	</div>-->
 	<div class="change_box">
-	
+		<div style="width: 200px;margin: 0 auto;margin-top: 62px;text-align: center;"><img src="public/image/logo.png"/></div>
 		<div class="form-2">
 			<div class="title">
 				<h3>用户注册</h3>
@@ -130,6 +130,13 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	<!--页脚-->
+	<div id="footer_style" style="position: fixed;bottom: 0px;">
+		<footer class="footerstyle">
+			<p>版权所有 © 2016 京ICP备15033925号</p>
+			<p>北京拓美科基因科技有限公司</p>
+		</footer>
 	</div>
 </body>
 

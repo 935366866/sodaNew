@@ -1,4 +1,18 @@
 $(function(){
+	reinitIframe();
+	$("#content").load(function() { 
+		reinitIframe();
+	});
+	$(".main_nav3_left li").click(function(){
+		$(this).children("span").css({"background":"#13438B","color":"#fff"})
+		$(this).siblings("li").children("span").css({"background":"#fff","color":"#777"})
+		if($(this).text()=="BSA方案"){
+			$("#content").attr("src","yunBSA.html");
+		}else if($(this).text()=="基础实验"){
+			$("#content").attr("src","BSA_基础实验.html");
+		}
+		reinitIframe();
+	})
     //左边导航鼠标悬停
     var allList = $(".selectable");
 	for(var i=0;i<allList.length;i++){
@@ -77,10 +91,23 @@ function checkWindowSize(){
         $(id).removeClass("bigbox_1200");
     };
 };
-//左边导航的控制
-function addNavStyle(i,allList){
-	$(allList[i]).attr("style","background:#eee");
-};
-function removeNavStyle(i,allList){
-	$(allList[i]).attr("style","");
-};
+	//左边导航的控制
+	function addNavStyle(i,allList){
+		$(allList[i]).attr("style","background:#eee");
+	};
+	function removeNavStyle(i,allList){
+		$(allList[i]).attr("style","");
+	};
+	//iframe初始化
+    function reinitIframe(){
+		var iframe = document.getElementById("content");
+		try{
+			iframe.style.height = 'auto';
+		var bHeight = iframe.contentWindow.document.body.scrollHeight;
+		var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+		var height = Math.max(bHeight, dHeight);
+		iframe.style.height = height+"px";
+		}catch (ex){
+			
+		}
+	}

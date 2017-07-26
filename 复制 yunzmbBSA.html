@@ -90,7 +90,7 @@
 	</div>
 </div>
 <div class="main" style="width: 1170px;margin: 0 auto;">
-	<iframe id="content" frameborder=0 width=1170 height=900 marginheight=0 marginwidth=0 scrolling=no src=yunBSA.html></iframe>
+	<iframe id="content" frameborder=0 marginheight=0 marginwidth=0 scrolling=no src=yunBSA.html style="width: 1170px;height: 900px;"></iframe>
 </div>
 
 <!--页脚-->
@@ -104,28 +104,5 @@
 	<script src="public/js/bootstrap.min.js"></script>
 	<script src="public/js/long_common.js"></script>
 	<script src="js/FI_common.js"></script>
-	<script>
-	//iframe
-    function reinitIframe(){
-		var iframe = document.getElementById("content");
-		try{
-		var bHeight = iframe.contentWindow.document.body.scrollHeight;
-		var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
-		var height = Math.max(bHeight, dHeight);
-		iframe.height = height;
-		}catch (ex){}
-	}
-	window.setInterval("reinitIframe()", 200);
-	$(".main_nav3_left li").click(function(){
-		$(this).children("span").css({"background":"#13438B","color":"#fff"})
-		$(this).siblings("li").children("span").css({"background":"#fff","color":"#777"})
-		if($(this).text()=="BSA方案"){
-			$("#content").attr("src","yunBSA.html");
-		}else if($(this).text()=="基础实验"){
-			$("#content").attr("src","BSA_基础实验.html");
-		}
-	})
-	
-	</script>
 </body>
 </html>
