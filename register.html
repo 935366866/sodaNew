@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="height: 100%;overflow: hidden;">
+<html lang="en">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -24,25 +24,27 @@
 	<script type="text/javascript" src="public/form/script/script.js"></script>
 </head>
 
-<body style="height: 100%;width: 100%; background: url(img/loginBj.jpg);background-size: 100% 100%;overflow: hidden;" >
-	<!--<div class='bg'>
-		<img src="img/loginBj.jpg" alt="背景图无法显示">
-	</div>-->
-	<div class="change_box">
-		<div style="width: 200px;margin: 0 auto;margin-top: 62px;text-align: center;"><img src="public/image/logo.png"/></div>
+<body style="overflow: hidden;" >
+	<div class='bg'>
+		<img src="public/form/imgs/loginBj.jpg" alt="背景图无法显示">
+	</div>
+	<div class="change_box" style="width: 1200px;">
+		
 		<div class="form-2">
+			<img src="img/logo-1.png" class="formLogo" />
 			<div class="title">
 				<h3>用户注册</h3>
 			</div>
 			<div class="sub-title">
-				<h3>请填写个人信息</h3>
+				<h3>请填写用户信息</h3>
 			</div>
 			<div class="input">
 				<form action="/" method="post" onsubmit="return submitForm(this)">
 					<div class="each_input">
 						<p>昵　　称<span>*</span></p><input type="text" name="name" id="name" class="" placeholder="昵称由4——16个字符组成" required>
 					</div>
-					<span class="error">昵称已经被注册</span>
+					<span class="normal"></span>
+					<!--<span class="error">昵称已经被注册</span>-->
 					<div class="each_input">
 						<p style="letter-spacing:5px;">邀请码<span>*</span></p><input type="text" name="invitation_code" id="invitation_code" class="" placeholder="请输入您的邀请码" required>
 					</div>
@@ -59,10 +61,10 @@
 						<p>确认密码<span>*</span></p><input type="password" name="repassword" id="repassword" class="" placeholder="请再次输入您的密码"  required>
 					</div>
 					<span class="normal"></span>
-					<div style="float: left;width:100%;">
-						<input id="agreement" type="checkbox"> <a href="#" data-toggle="modal" data-target="#agreement_detail">我已阅读并同意该协议</a>
+					<div class="agree">
+						<input id="agreement" type="checkbox" class="checks"> 
+						<a href="#" data-toggle="modal" data-target="#agreement_detail">同意拓美科协议</a>
 					</div>
-					
 					<div class="submit"><input type="submit" value="确  定" class="submit-btn"></div>
 				</form>
 			</div>

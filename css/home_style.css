@@ -17,7 +17,9 @@ a:hover {
   letter-spacing: 3px;
 }
 #loginBox .modal-body .login_subtitle {
-  background-image: url(../img/login_line.png);
+  background: url(../img/login_line.svg) no-repeat;
+  background-position:0 19px;
+   background-repeat-x:4;
   height: 40px;
 }
 #loginBox .modal-body p {

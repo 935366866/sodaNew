@@ -4,6 +4,7 @@
 body,
 html {
   height: 100%;
+  overflow: hidden;
 }
 * {
   text-decoration: none !important;
@@ -44,7 +45,6 @@ a:hover {
   -moz-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
-  overflow: hidden;
   margin-bottom: 30px;
   border-radius: 5px;
   background-color: #fff;
@@ -60,11 +60,18 @@ a:hover {
         }
    */
 }
+.form-2 .formLogo{
+	position: absolute;
+	left: 50%;
+	width: 135px;
+	margin-left: -65px;
+	margin-top: -50px;
+}
 .form-2 .title {
   font-size: 20px;
   padding-top: 7px;
   text-align: center;
-  color: #0079fe;
+  color: #13438B;
 }
 .form-2 .title h3 {
   color: #13438B;
@@ -78,12 +85,12 @@ a:hover {
   height: 30px;
   margin-bottom: 10px;
   text-align: center;
-  background: url(../../form/imgs/form-title.png) 0 50% repeat-x;
+  background: url(../../form/imgs/form-title.svg) 0 50% repeat-x;
 }
 .form-2 .sub-title h3 {
   font-size: 12px;
   font-weight: 400;
-  color: #0279e6;
+  color: #13438B;
   display: inline;
   letter-spacing: 2px;
   padding: 0 20px;
@@ -193,6 +200,51 @@ a:hover {
   border-radius: 3px;
   background-color: #13438B;
 }
+.form-2 .input .agree{
+	float: left;
+	width:100%;
+	height: 30px;
+	position: relative;
+}
+.form-2 .input .agree>input{
+	line-height: 30px;
+	position: absolute;
+	top: 2px;
+}
+.form-2 .input .agree>a{
+	position: absolute;
+	left: 20px;
+	top: 5px;
+	color: #999;
+	font-size: 13px;
+}
+.form-2 .input .agree>a:hover{
+	color: #13438B;
+}
+.form-2 .input .agree .checks {  
+    display: inline-block;  
+    -webkit-appearance: none;  
+    background-color: transparent;  
+    border: 0;  
+    outline: 0 !important;  
+    color: #d8d8d8;  
+}  
+.form-2 .input .agree .checks:after { 
+		cursor: pointer;   
+    content: "";
+    background:url(../imgs/check.svg) no-repeat;  
+    display:block;  
+    width: 20px;  
+    height: 20px;  
+}  
+.form-2 .input .agree .checks:checked:after  {
+		cursor: pointer;  
+    content: ""; 
+    background:url(../imgs/checkToCheck.svg) no-repeat;
+    display:block;  
+    width: 20px;  
+    height: 20px; 
+} 
 .form-2.reset-password .title {
   padding-top: 116px;
   margin-bottom: 48px;
@@ -200,7 +252,7 @@ a:hover {
 .form-2.success .success-icon {
   margin-top: 30px;
   height: 79px;
-  background: url(../../form/imgs/icon-1.png) 50% 0 no-repeat;
+  background: url(../../form/imgs/icon-1.svg) 50% 0 no-repeat;
 }
 .form-2.success .s_title {
   text-align: center;
@@ -222,7 +274,7 @@ a:hover {
   width: 100%;
   height: 40px;
   line-height: 40px;
-  background-color: #0079fe;
+  background-color: #13438B;
   text-align: center;
   color: #fff;
   font-size: 20px;
@@ -275,7 +327,7 @@ a:hover {
   font-size: 20px;
   padding-top: 7px;
   text-align: center;
-  color: #0079fe;
+  color: #13438B;
 }
 .form-1 .title h3 {
   color: #333;
@@ -294,7 +346,7 @@ a:hover {
 .form-1 .sub-title h3 {
   font-size: 12px;
   font-weight: 400;
-  color: #0279e6;
+  color: #13438B;
   display: inline;
   letter-spacing: 2px;
   padding: 0 20px;
@@ -432,7 +484,7 @@ a:hover {
   font-size: 14px;
   margin-bottom: 18px;
   margin-top: 10px;
-  color: #0079fe;
+  color: #13438B;
 }
 .form-1 .tips p {
   padding-left: 30px;
@@ -453,7 +505,7 @@ a:hover {
   width: 100%;
   height: 40px;
   line-height: 40px;
-  background-color: #0079fe;
+  background-color: #13438B;
   text-align: center;
   color: #fff;
   font-size: 20px;
