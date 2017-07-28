@@ -194,3 +194,31 @@ function add_list(data){
 		$(".list ul").append(item);
     }
 }
+
+/*友情弹窗,第一次登录时显示*/
+if(getcookievalue("isReload")){
+	$('#tip').modal('hide');
+	
+}else{
+	$('#tip').modal('show');
+	setcookievalue("isReload",true);
+}
+
+function getcookievalue(sname){
+  var svalue="";
+  var sname=sname+"=";
+  if(document.cookie.length>0){ 
+  	console.log(document.cookie)
+    offset=document.cookie.indexOf(sname);
+    if(offset!=-1){ 
+      offset+=sname.length;
+      end=document.cookie.indexOf(";",offset);
+      if(end==-1)end=document.cookie.length;
+      svalue=unescape(document.cookie.substring(offset,end))
+    }
+  }
+  return svalue;
+}
+function setcookievalue(sname,svalue){
+  document.cookie=sname+"="+escape(svalue);
+}

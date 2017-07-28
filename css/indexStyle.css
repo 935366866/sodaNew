@@ -208,3 +208,67 @@
   color: #808080;
   border-color: #808080;
 }
+/*友情提示弹窗样式*/
+	#tip .modal-dialog{
+		margin-top: 150px;
+	}
+	#tip .modal-dialog .modal-content{
+		background: rgba(19,67,139,0.6);
+		border-radius: 0;
+	}
+	#tip .modal-dialog .modal-content .modal-header{
+		border: none;
+		height: 70px;
+	}
+	#tip .modal-dialog .modal-content .modal-header .close{
+		opacity: 0.8;
+		width: 20px;
+		height: 20px;
+	}
+	#tip .modal-dialog .modal-content .modal-body{
+		text-align:center;
+		border-radius: 4px !important;
+	}
+	#tip .modal-dialog .modal-content .modal-body .wrap{
+		width: 430px;
+		height:210px; 
+		background: #FFF;
+		border-radius: 4px;
+		box-shadow:1px 1px 4px 2px #333;
+		padding: 0 15px;
+		margin-bottom: 15px;		
+	}
+	#tip .modal-dialog .modal-content .modal-body .wrap .left{
+		padding: 20px 0px;
+		float: left;
+	}
+	#tip .modal-dialog .modal-content .modal-body .wrap .left img{
+		margin-bottom: 33px;
+		margin-top: 10px;
+		width:160px;
+	}
+	#tip .modal-content .modal-body .wrap .left p{
+		font-size: 12px;
+		font-weight: bold;
+		font-family: "微软雅黑";
+	}
+	#tip .modal-content .modal-body .wrap .right{
+		width: 110px;
+		float: right;
+		margin-top: 20px;
+		text-align:center;
+		margin: 0 auto;
+		position: relative;
+	}
+	#tip .modal-content .modal-body .wrap .right .warn{
+		width: 125px;
+		display: block; 
+		position: absolute;
+		top: -37px;
+		right: 7px;
+	}
+	#tip .modal-content .modal-body .wrap .right .erWei{
+		width: 93px;
+		display: block;
+		margin-top: 101px;
+	}
