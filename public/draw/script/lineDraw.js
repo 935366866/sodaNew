@@ -213,6 +213,13 @@ $(function(){
 						preferredFormat: "hex3"
 					});
 				});
+			},
+			color:function(val,oldVal){
+				this.$nextTick(function(){
+					$(".spectrum").spectrum({
+						preferredFormat: "hex3"
+					});
+				});
 			}
 		}
 	});
