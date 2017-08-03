@@ -122,9 +122,9 @@
 									</div>
 								</div>
 								<div class="part"> 
-									<div class="input_a_l">统计内容:</div>	
+									<div class="input_a_l">绘图列数:</div>	
 									<div class="selectLeft" >
-										<div class="input_a_l" style="width: 55px;">基因列</div>
+										<div class="input_a_l" style="width: 65px;">X轴数据</div>
 										<div class="input_a_m" style="width: 100px;">
 											<select v-model="geneColumn" id="geneColumn"  name="geneColumn" class=" select_width" autocomplete="off" >
 												<option v-for="item in fileData['content'][0]" :value="item">{{item}}</option>
@@ -132,7 +132,7 @@
 										</div>	
 									</div>
 									<div class="selectRight">
-										<div class="input_a_l" style="width: 55px;margin-left: 80px;">功能列</div>
+										<div class="input_a_l" style="width: 65px;margin-left: 80px;">Y轴数据</div>
 										<div class="input_a_m" style="width: 100px;">
 											<select v-model="funColumn" id="funColumn"  name="funColumn" class="select_width" autocomplete="off" >
 												<option v-for="item in fileData['content'][0]" v-if="item!=fileData['content'][0][0]" :value="item">{{item}}</option>
@@ -187,9 +187,9 @@
 									<div class="input_a_l">颜色方案:</div>
 									<div class="input_b_3" style="float: left;width: 30%;">
 										<select id="colorProject"  name="colorProject" class="selectpicker select_width" autocomplete="off" >
-											<option value="project1">Npg</option>
-											<option value="project2">Aaas</option>
-											<option value="project3">Igv_default</option>
+											<option value="project1">NPG</option>
+											<option value="project2">AAAS</option>
+											<option value="project3">IGV</option>
 										</select>
 									</div>									
 								</div>

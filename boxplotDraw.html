@@ -77,7 +77,7 @@
 
     <div class="center_box" style="float:left;width:100%;">
 		<div class="app_title">
-			<p>散点图绘制工具</p>
+			<p>箱线图绘制工具</p>
 		</div>
         <div class="change_box" style="padding-left: 0px; padding-right:0px;padding-bottom:50px;" id='taskPanel'> </div>       
         <div class="myTab">
@@ -223,9 +223,9 @@
 									<div class="input_a_l">颜色方案:</div>
 									<div class="input_b_3" style="float: left;width: 30%;">
 										<select id="colorProject"  name="colorProject" class="selectpicker select_width" autocomplete="off" >
-											<option value="project1">NPG</option>
-											<option value="project2">AAAS</option>
-											<option value="project3">IGV</option>
+											<option value="project1">Npg</option>
+											<option value="project2">Aaas</option>
+											<option value="project3">Igv_default</option>
 										</select>
 									</div>									
 								</div>
@@ -239,23 +239,18 @@
 									<div class="input_c_4">
 										<input v-bind:value="color[index]" type="text" class="form-control spectrum">
 									</div>	
-									<div class="input_c_4">
-										<select class="selectpicker select_width">
-											<option value="Top">Top</option>
-											<option value="Bottom">Bottom</option>
-											<option value="Left">Left</option>
-											<option value="Right">Right</option>
-										</select>
-									</div>
 								</div>
 
 								<!--<div class="line" v-if="fileData['content'][0]&&fileData['content'][0].length>1"></div>-->
-								
 								<div class="line"></div>
 								<div class="part">
-									<div class="input_a_l">图例直径:</div>
+									<div class="input_a_l">图例宽度:</div>
 									<div class="input_b_2">
-										<input v-model="legendDiameter" type="text" class="form-control" id="legendDiameter" name="legendDiameter" placeholder="">
+										<input v-model="legendWidth" type="text" class="form-control" id="legendWidth" name="legendWidth" placeholder="">
+									</div>
+									<div class="input_a_l" style="width: 15%;margin-left: 30px;">图例高度:</div>
+									<div class="input_b_2">
+										<input v-model="legendHeight" type="text" class="form-control" id="legendHeight" name="legendHeight" placeholder="">
 									</div>
 								</div>
 								<div class="part">
@@ -286,14 +281,6 @@
 										</select>
 									</div>	
 								</div>	
-								<div class="line"></div>
-								<div class="part">
-									<div class="input_a_l">散点大小:</div>
-									<div class="input_f_2">
-										<input v-model="pointsize" type="text" class="form-control" id="pointsize" name="pointsize" placeholder="">
-										<!--<input v-model="barWidth" type="text" class="form-control" id="barWidth" name="barWidth" placeholder="">-->
-									</div>
-								</div>
 								<div class="line"></div>
 								<div class="part">
 									<div class="input_a_l">X轴网格线:</div>
@@ -367,7 +354,7 @@
 							</div>
 						</div>
 						<div class="panel-body">
-								<div id="main" style="width: 520px;height: 420px;margin-top: 20px;"></div>
+							<div id="main" style="width: 520px;height: 420px;margin-top: 20px;"></div>
 						</div>
 					</div>
 				</div>
@@ -483,34 +470,35 @@
     <script src="public/js/jquery.blockUI.js" type="text/javascript"></script>
     <script src="public/js/bootstrap-select.js"></script>
     <script src="public/js/defaults-zh_CN.js"></script>
-    <script src="public/js/vue.js"></script>
     <script src="public/draw/script/html2canvas.min.js"></script>
     <script src="public/draw/script/jspdf.min.js"></script>
     <script src="public/js/echarts.min.js"></script>
+    <script src="public/draw/script/dataTool.js"></script>
     <script src="public/js/long_common.js"></script>
+    <script src="public/js/vue.js"></script>
     <script src="public/draw/script/spectrum.js"></script>
     <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
     <script src="js/common.js"></script>
-    <script src="public/draw/script/scatterDraw.js"></script>  
+    <script src="public/draw/script/boxplotDraw.js"></script>
     <script>
-	    $(function(){
-			$("#xColumnField").selectpicker({noneSelectedText:'请选择'});
-			
-		})	
-	   	//支持下载pdf格式
-	    function convertCanvasToImage() {
-	        html2canvas(document.getElementById('main'), {
-	            onrendered: function(canvas) {
-	                document.body.appendChild(canvas);
-	                createPDFObject(canvas.toDataURL("image/jpeg"));
-	            }
-	        });
-	    }
-	    function createPDFObject(imgData) {
-	        var doc = new jsPDF('p', 'pt');
-	        doc.addImage(imgData, 10, 10, 500, 340, 'img');
-	        doc.save('test.pdf');
-	    }
+    	$(function(){
+    		$("#xColumnField").selectpicker({noneSelectedText:'请选择'});
+    		$("#markLine").selectpicker({noneSelectedText:'请选择'});
+    	})
+   	//支持下载pdf格式
+    function convertCanvasToImage() {
+        html2canvas(document.getElementById('main'), {
+            onrendered: function(canvas) {
+                document.body.appendChild(canvas);
+                createPDFObject(canvas.toDataURL("image/jpeg"));
+            }
+        });
+    }
+    function createPDFObject(imgData) {
+        var doc = new jsPDF('p', 'pt');
+        doc.addImage(imgData, 10, 10, 500, 340, 'img');
+        doc.save('test.pdf');
+    }
     </script>
 </body>
 

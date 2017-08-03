@@ -9,7 +9,7 @@
     "xlab_size": "13",
     "xlab_font": "italic",
     "ylab": "yyy",
-    "ylab_size": "14",
+    "ylab_size": "13",
     "ylab_font": "italic",
     "barWidth": "自适应",
     "xColumnField":"Category",
@@ -19,7 +19,7 @@
     "legendY":"bottom",
     "legendX":"center",
     "legendLayout":"horizontal",
-    "Xgrid": "show",
-    "Ygrid": "show",
+    "Xgrid": "hide",
+    "Ygrid": "hide",
     "markLine":"parent1"    
 }

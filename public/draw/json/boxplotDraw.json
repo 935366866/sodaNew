@@ -9,14 +9,14 @@
     "xlab_size": "13",
     "xlab_font": "italic",
     "ylab": "yyy",
-    "legendDiameter":14,
-    "legendX":"center",
-    "legendY":"bottom",
-    "legendLayout":"horizontal",
     "ylab_size": "13",
     "ylab_font": "italic",
-    "pointsize": "5",
-    "xColumnField":"group",
-    "Xgrid": "hide",
-    "Ygrid": "hide"
+    "xColumnField":"#geneID",
+    "legendWidth":25,  
+    "legendHeight":14,
+    "legendY":"bottom",
+    "legendX":"center",
+    "legendLayout":"horizontal",
+    "Xgrid": "show",
+    "Ygrid": "show"       
 }

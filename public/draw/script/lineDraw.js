@@ -259,7 +259,7 @@ $(function(){
 	            show: true,
 	            type : 'cross',
 	            lineStyle: {
-	                type : 'dashed',
+	                type : 'solid',
 	                width : 1
 	            }
 	        },
@@ -272,7 +272,7 @@ $(function(){
 	            splitLine:{
                 	show:vue.gridX,
                 	lineStyle:{
-                		type:'dashed'
+                		type:'solid'
                 	}
             	},
             	axisTick:{

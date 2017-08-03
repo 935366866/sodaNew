@@ -1,6 +1,6 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 
-$(function(){	
+$(function(){
 	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
 	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
 	var color3=["#4357a5","#c43c32","#719657","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
@@ -11,7 +11,8 @@ $(function(){
 			title:"",
 			xlab:"",
 			ylab:"",
-			pointsize:"",
+			legendWidth:"",
+			legendHeight:"",
 			fileData:{
 				content:[]
 			},
@@ -21,14 +22,13 @@ $(function(){
 			xlab_font_sel:"",
 			ylab_size_sel:"",
 			ylab_font_sel:"",
-			titleX_sel:"",
-			titleY_sel:"",
-			legendDiameter:"",
+			xColumnField_sel:null,
 			legendX_sel:"",
 			legendY_sel:"",
-			legendLayout_sel:"",
-			xColumnField_sel:null,
+			titleX_sel:"",
+			titleY_sel:"",
 			color:color1,
+			legendLayout_sel:"",
 			Xgrid:"hide",
 			Ygrid:"hide"
 		},
@@ -87,6 +87,25 @@ $(function(){
 		       $("#ylab_font").selectpicker("val",newValue);
 		    }
 		  },
+		  legendX:{
+		  	get: function () {
+		      return this.legendX_sel;
+		   },
+		    set: function (newValue) {
+		    	if(!newValue) return;
+		    	this.legendX_sel = newValue;
+		       $("#legendX").selectpicker("val",newValue);
+		    }
+		  },
+		  legendY:{
+		  	get: function () {
+		      return this.legendY_sel;
+		   },
+		    set: function (newValue) {
+		    	this.legendY_sel = newValue;
+		       $("#legendY").selectpicker("val",newValue);
+		    }
+		  },
 		  titleX:{
 			  	get: function () {
 			      return this.titleX_sel;
@@ -107,23 +126,14 @@ $(function(){
 			       $("#titleY").selectpicker("val",newValue);
 			    }
 			},
-			legendX:{
+			xColumnField:{
 			  	get: function () {
-			      return this.legendX_sel;
-			   },
+			      return this.xColumnField_sel;
+			    },
 			    set: function (newValue) {
 			    	if(!newValue) return;
-			    	this.legendX_sel = newValue;
-			       $("#legendX").selectpicker("val",newValue);
-			    }
-			},
-			legendY:{
-			  	get: function () {
-			      return this.legendY_sel;
-			   },
-			    set: function (newValue) {
-			    	this.legendY_sel = newValue;
-			       $("#legendY").selectpicker("val",newValue);
+			    	this.xColumnField_sel = newValue;		    	
+			        $("#xColumnField").selectpicker("val",newValue);
 			    }
 			},
 			legendLayout:{
@@ -133,16 +143,6 @@ $(function(){
 			    set: function (newValue) {
 			    	this.legendLayout_sel = newValue;
 			       $("#legendLayout").selectpicker("val",newValue);
-			    }
-			},
-			xColumnField:{
-			  	get: function () {
-			      return this.xColumnField_sel;
-			    },
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.xColumnField_sel = newValue;
-			        $("#xColumnField").selectpicker("val",newValue);
 			    }
 			},
 			gridX:function(){
@@ -163,7 +163,7 @@ $(function(){
 		watch:{
 			input:function(val,oldVal){
 				$.ajax({
-					url: 'public/draw/json/scatterDrawFileData.json',  
+					url: 'public/draw/json/boxplotDrawFileData.json',  
 					type:'get',
 					data:{
 						fileName:val
@@ -191,13 +191,6 @@ $(function(){
 						preferredFormat: "hex3"
 					});
 				});
-			},
-			color:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
 			}
 		}
 	});
@@ -217,28 +210,12 @@ $(function(){
 	        top:20
 	       
 	    },
-	    tooltip : {
-	        trigger: 'axis',
-	        showDelay : 0,
-	        axisPointer:{
-	            show: true,
-	            type : 'cross',
-	            lineStyle: {
-	                type : 'dashed',
-	                width : 1
-	            }
-	        },
-	        zlevel: 1
-	    },
-		toolbox: {
-	        show : true,
-	        feature : {
-	            mark : {show: true},
-	            dataZoom : {show: true},
-	            dataView : {show: true, readOnly: false},
-	            restore : {show: true}
-	        }
-	    },
+		tooltip: {
+		    trigger: 'item',
+		    axisPointer: {
+		        type: 'shadow'
+		    }
+		},
 	    xAxis : [
 	        {
 	            scale:true,
@@ -246,7 +223,7 @@ $(function(){
 	            splitLine:{
                 	show:vue.gridX,
                 	lineStyle:{
-                		type:'solid'
+                		type:'dashed'
                 	}
             	},
             	axisTick:{
@@ -255,7 +232,7 @@ $(function(){
             	axisLine:{
             		show:false
             	},
-				type : 'value'
+				type : 'category'
 	        }
 	    ],
 	    yAxis : [
@@ -266,7 +243,7 @@ $(function(){
 	            splitLine:{
                 	show:vue.gridY,
                 	lineStyle:{
-                		type:'solid'
+                		type:'dashed'
                 	}
             	},
             	axisLine:{
@@ -274,12 +251,14 @@ $(function(){
             	},
             	axisTick:{
             		inside: true
-            	}
+            	},
+            	offset:-2
 	        }
 	    ],
 	    grid:{
 	    	show:true,
-	    	borderColor:'#000'
+	    	borderColor:'#000',
+	    	
 	    },
 		legend: {
 			y:vue.legendY,
@@ -308,12 +287,13 @@ $(function(){
 				$(this).siblings("tr").removeClass("active");
 			}			
 		})
+//		console.log(parmas.seriesName)
 	});
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
-	})
+	});
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){
 			vue.color=color1;
@@ -327,7 +307,7 @@ $(function(){
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
-			url: 'public/draw/json/scatterDraw.json',  
+			url: 'public/draw/json/boxplotDraw.json',  
 			type:'get',
 			data:tool_id,
 			dataType: "json",
@@ -342,7 +322,6 @@ $(function(){
 			}
 		});
 	});
-
 	//提交参数
 	$("#submit_paras").click(function(){
 		var formData =  allParams();//取form表单参数
@@ -352,7 +331,7 @@ $(function(){
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
 			myChart.showLoading();
 			$.ajax({
-				url: 'public/draw/json/scatterDrawFileData.json',  
+				url: 'public/draw/json/boxplotDrawFileData.json',  
 				type:'get',
 				data:{
 					fileName:formData.input
@@ -360,7 +339,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.xColumnField);
+					updateEchartsData(myChart,formData,data["content"],vue.xColumnField);	
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -368,11 +347,12 @@ $(function(){
 			});
 		}
 	});
-//	支持下载png格式
+
+	//支持下载png格式
 	$("#btnPng").click(function(){
 		downloadPic(myChart);
 	});
-	function downloadPic(myChart){
+  	function downloadPic(myChart){
 		var $a = document.createElement('a');
 		var type = 'png';
 		var title = myChart.getModel().get('title.0.text') || 'echarts';
@@ -401,13 +381,12 @@ $(function(){
             var tab = window.open();
             tab.document.write(html);
         }
-	}
+  	}
 	//与后台交互时冻结窗口
 	$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 
 });
 function updateEcharts(echarts,data){
-	console.log(data)
 	var color = [];
 	$(".spectrum").each(function(){
 		var colorStr = $(this).val();
@@ -418,7 +397,7 @@ function updateEcharts(echarts,data){
 			text:data.title,
 			textStyle:buildTextStyle(data.title_font,data.title_size),
 			x:data.titleX,
-			y:data.titleY
+			y:data.titleY,
 		},
 		xAxis :{
 			name:data.xlab,
@@ -459,10 +438,11 @@ function buildTextStyle(font,fontSize){
 	return {
 		fontStyle:fontStyle,
 		fontWeight:fontWeight,
-		fontSize:fontSize
+		fontSize:fontSize	
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
+
+function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField){
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
@@ -484,38 +464,30 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
 				resultData[j][i]=record;
 			}
 		}
+	
 		for(var i=0;i<resultData.length;i++){
 			var row = resultData[i];
 			var head = row[0];
 			row.shift();
 			var data = row;
+			var data1 = echarts.dataTool.prepareBoxplotData([data]);
+			console.log(data1)
 			if(head == xAxisField){
-				option.xAxis.data=data;
+				option.xAxis.data=data1.axisData;
 			}else{
 				option.series.push({
-					type:"scatter",
-					symbolSize: echartsStyle.pointsize,
+					type:"boxplot",
 					name:head,
-					label: {
-			            emphasis: {
-			                show: true,
-			                formatter: function(param) {
-			                    return param.data[3];
-			                },
-			                position: 'top'
-			            }
-			        },
-					data:data
-				});
+					data:data1.boxData
+				});				
 				option.legend.data.push(head);
-				var numD=parseInt(echartsStyle.legendDiameter);
-				option.legend.itemHeight=numD;
-				option.legend.itemWidth=numD;
+				var numWidth=parseInt(echartsStyle.legendWidth);
+				var numHeight=parseInt(echartsStyle.legendHeight);
+				option.legend.itemHeight=numHeight;
+				option.legend.itemWidth=numWidth;
 			}
-			
-			
 		}
-		echarts.setOption(option);
+		echartsInstance.setOption(option);
 	}
 	
 }
@@ -524,6 +496,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
 
 //参数组装
 function allParams(){
+
 	var app = $("#parameter").serializeArray();
 	var json1 = {};
 	for(var i=0;i<app.length;i++){

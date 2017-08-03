@@ -236,7 +236,7 @@ $(function(){
 	        },
 	        x:vue.titleX,
 	        y:vue.titleY,
-	        top:20
+	        top:30
 	       
 	    },
 		brush: {
@@ -244,12 +244,16 @@ $(function(){
 	        xAxisIndex: 0
 	    },
 	    toolbox: {
+	    	itemSize: 13,
+	    	itemGap: 5,
+	    	top:0,
 	        feature: {
 	            magicType: {
 	                type: ['stack']
 	            },
 	            restore: {show: true},
-	            dataView: {show:true,readOnly: true}
+	            dataView: {show:true,readOnly: true},
+	            saveAsImage : {show: true}
 	        }
 	    },
 	    tooltip : {
@@ -272,7 +276,7 @@ $(function(){
 	            splitLine:{
                 	show:vue.gridX,
                 	lineStyle:{
-                		type:'dashed'
+                		type:'solid'
                 	}
             	},
             	axisTick:{
@@ -292,7 +296,7 @@ $(function(){
 	            splitLine:{
                 	show:vue.gridY,
                 	lineStyle:{
-                		type:'dashed'
+                		type:'solid'
                 	}
             	},
             	axisLine:{
@@ -307,6 +311,7 @@ $(function(){
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
+	    	top:60
 	    	
 	    },
 		legend: {
