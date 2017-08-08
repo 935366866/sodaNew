@@ -181,7 +181,7 @@ function add_list(data){
         var item;
 
 		if(type == "DNA"){
-			item ='<li style="background:url(img/DNA.svg) no-repeat right top;"><div class="flowApp"><p class="fa_title">'+name+'</p><p class="fa_ver">'+version+'</p><p class="fa_ver">'+pubtime+'</p><p class="fa_info">'+summary+'</p></div><div class="use_button"><button class="btn btn_white round_Button"  onclick="window.open('+introduction_url+')"><a>方案说明</a></button><button class="btn btn_blue round_Button"  onclick="window.open('+use_url+')"><a>立即使用</a></button></div></li>';
+			item ='<li style="background:url(img/DNA.svg) no-repeat right top;"><div class="flowApp"><p class="preSale"></p><p class="fa_title">'+name+'</p><p class="fa_ver">'+version+'</p><p class="fa_ver">'+pubtime+'</p><p class="fa_info">'+summary+'</p></div><div class="use_button"><button class="btn btn_white round_Button"  onclick="window.open('+introduction_url+')"><a>方案说明</a></button><button class="btn btn_blue round_Button"  onclick="window.open('+use_url+')"><a>立即使用</a></button></div></li>';
 		}else if(type == "RNA"){
             item ='<li style="background:url(img/RNA.svg) no-repeat right top;"><div class="flowApp"><p class="fa_title">'+name+'</p><p class="fa_ver">'+version+'</p><p class="fa_ver">'+pubtime+'</p><p class="fa_info">'+summary+'</p></div><div class="use_button"><button class="btn btn_white round_Button"  onclick="window.open('+introduction_url+')"><a>方案说明</a></button><button class="btn btn_green round_Button"  onclick="window.open('+use_url+')"><a>立即使用</a></button></div></li>';
 

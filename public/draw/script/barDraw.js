@@ -236,7 +236,7 @@ $(function(){
 	        },
 	        x:vue.titleX,
 	        y:vue.titleY,
-	        top:30
+	        top:20
 	       
 	    },
 		brush: {
@@ -320,7 +320,6 @@ $(function(){
 			orient:vue.legendLayout
 		}
 	};
-	
 	myChart.on('brushSelected', renderBrushed);
 	function renderBrushed(params) {
 		var tr=$("#file table tr").first();
@@ -449,7 +448,8 @@ $(function(){
 		$a.target = '_blank';
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
-	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff'
+	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
+	        pixelRatio: 5
 	    });
 	    $a.href = url;
 	     // Chrome and Firefox

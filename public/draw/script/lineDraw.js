@@ -31,8 +31,7 @@ $(function(){
 			color:color1,
 			legendLayout_sel:"",
 			Xgrid:"hide",
-			Ygrid:"hide",
-			markLine_sel:null
+			Ygrid:"hide"
 		},
 		computed: {
 		  title_size: {
@@ -138,16 +137,6 @@ $(function(){
 			        $("#xColumnField").selectpicker("val",newValue);
 			    }
 			},
-			markLine:{
-			  	get: function () {
-			      return this.markLine_sel;
-			    },
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.markLine_sel = newValue;		    	
-			        $("#markLine").selectpicker("val",newValue);
-			    }
-			},
 			legendLayout:{
 			  	get: function () {
 			      return this.legendLayout_sel;
@@ -193,21 +182,12 @@ $(function(){
 				this.$nextTick(function(){
 					$('#xColumnField').selectpicker('refresh');				
 					this.geneColumn_sel=$('#xColumnField').selectpicker("val");
-					$('#markLine').selectpicker('refresh');
-					this.funColumn=$('#markLine').selectpicker("val");
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
 					});
 				});
 			},
 			xColumnField:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			},
-			markLine:function(val,oldVal){
 				this.$nextTick(function(){
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
@@ -244,6 +224,9 @@ $(function(){
 	        xAxisIndex: 0
 	    },
 	    toolbox: {
+	    	itemSize: 13,
+	    	itemGap: 5,
+	    	top:0,
 	        feature: {
 	            magicType: {
 	                type: ['stack']
@@ -259,7 +242,7 @@ $(function(){
 	            show: true,
 	            type : 'cross',
 	            lineStyle: {
-	                type : 'solid',
+	                type : 'dashed',
 	                width : 1
 	            }
 	        },
@@ -292,7 +275,7 @@ $(function(){
 	            splitLine:{
                 	show:vue.gridY,
                 	lineStyle:{
-                		type:'dashed'
+                		type:'solid'
                 	}
             	},
             	axisLine:{
@@ -307,6 +290,7 @@ $(function(){
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
+		top:60
 	    	
 	    },
 		legend: {
@@ -424,7 +408,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.markLine);
+					updateEchartsData(myChart,formData,data["content"],vue.xColumnField);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -525,7 +509,7 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize	
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine){
+function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
@@ -554,32 +538,6 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine)
 			var data = row;	
 			if(head == xAxisField){
 				option.xAxis.data=data;
-			}else if(head==markLine){
-				option.series.push({
-					type:"line",
-					lineStyle:{
-						normal:{
-							width:echartsStyle.lineWidth,
-						}
-					},  
-					name:head,
-					data:data,
-					markLine : {
-		                lineStyle: {
-		                    normal: {
-		                        type: 'dashed'
-		                    }
-		                },
-		                data : [
-		                    [{type : 'min'}, {type : 'max'}]
-		                ]
-		            }
-				});
-				option.legend.data.push(head);
-				var numWidth=parseInt(echartsStyle.legendWidth);
-				var numHeight=parseInt(echartsStyle.legendHeight);
-				option.legend.itemHeight=numHeight;
-				option.legend.itemWidth=numWidth;
 			}else{
 					option.series.push({
 					type:"line",
@@ -589,8 +547,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine)
 						}
 					},  
 					name:head,
-					data:data,
-					markLine:null
+					data:data
 				});
 				option.legend.data.push(head);
 				var numWidth=parseInt(echartsStyle.legendWidth);

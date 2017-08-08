@@ -29,7 +29,6 @@ $(function(){
 			titleY_sel:"",
 			color:color1,
 			legendLayout_sel:"",
-			Xgrid:"hide",
 			Ygrid:"hide"
 		},
 		computed: {
@@ -145,13 +144,6 @@ $(function(){
 			       $("#legendLayout").selectpicker("val",newValue);
 			    }
 			},
-			gridX:function(){
-				if(this.Xgrid=="show"){
-					return true;
-				}else{
-					return false;
-				}
-			},
 			gridY:function(){
 				if(this.Ygrid=="show"){
 					return true;
@@ -185,6 +177,13 @@ $(function(){
 					});
 				});
 			},
+			color:function(val,oldVal){
+				this.$nextTick(function(){
+					$(".spectrum").spectrum({
+						preferredFormat: "hex3"
+					});
+				});
+			},
 			xColumnField:function(val,oldVal){
 				this.$nextTick(function(){
 					$(".spectrum").spectrum({
@@ -192,6 +191,7 @@ $(function(){
 					});
 				});
 			}
+			
 		}
 	});
  	var myChart = echarts.init(document.getElementById('main'));
@@ -218,18 +218,24 @@ $(function(){
 		},
 	    xAxis : [
 	        {
-	            scale:true,
-	            nameLocation:'end',
+	            scale:true,	           
+		    	nameLocation:'middle',
+	            nameGap:12,
 	            splitLine:{
-                	show:vue.gridX,
                 	lineStyle:{
-                		type:'dashed'
+                		type:'solid'
                 	}
             	},
+	    		splitArea: {
+		           	show: true
+				},
             	axisTick:{
             		inside: true
             	},
             	axisLine:{
+            		show:false
+            	},
+            	axisLabel:{
             		show:false
             	},
 				type : 'category'
@@ -239,12 +245,11 @@ $(function(){
 	        {
 	            type : 'value',
 	            scale:true,
-	            nameLocation:'end',
+	            nameLocation:'middle',
+		    nameGap:35,
 	            splitLine:{
-                	show:vue.gridY,
-                	lineStyle:{
-                		type:'dashed'
-                	}
+                	show:false,
+
             	},
             	axisLine:{
             		show:false
@@ -258,7 +263,7 @@ $(function(){
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
-	    	
+	    	bottom:80
 	    },
 		legend: {
 			y:vue.legendY,
@@ -402,9 +407,6 @@ function updateEcharts(echarts,data){
 		xAxis :{
 			name:data.xlab,
 			nameTextStyle:buildTextStyle(data.xlab_font,data.xlab_size),
-			splitLine:{
-            	show:data.XgridShow
-        	}
 		},
 		yAxis :{
 			name:data.ylab,
@@ -471,13 +473,18 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField){
 			row.shift();
 			var data = row;
 			var data1 = echarts.dataTool.prepareBoxplotData([data]);
-			console.log(data1)
 			if(head == xAxisField){
 				option.xAxis.data=data1.axisData;
 			}else{
 				option.series.push({
 					type:"boxplot",
 					name:head,
+					blurSize: 10,
+					itemStyle: {
+						normal: {
+							borderWidth: 2
+						}			
+					},
 					data:data1.boxData
 				});				
 				option.legend.data.push(head);

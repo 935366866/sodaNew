@@ -237,7 +237,7 @@
 										自定义颜色:
 									</div>
 									<div class="input_c_4">
-										<input v-bind:value="color[index]" type="text" class="form-control spectrum">
+										<input v-bind:value="color[index-1]" type="text" class="form-control spectrum">
 									</div>	
 								</div>
 
@@ -324,7 +324,7 @@
 									<div class="input_a_l">趋势线:</div>	
 									<div class="input_b_3" style="float: left;width: 30%;">
 										<select v-model="markLine" id="markLine"  name="markLine" class="select_width" autocomplete="off" >
-											<option>None</option>
+											<option value="none">None</option>
 											<option v-for="item in fileData['content'][0]" v-if="item!=fileData['content'][0][0]" :value="item">{{item}}</option>
 										</select>
 									</div>		

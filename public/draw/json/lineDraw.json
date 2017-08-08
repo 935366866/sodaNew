@@ -13,7 +13,6 @@
     "ylab_font": "italic",
     "lineWidth": "2",
     "xColumnField":"#percent",
-    "markLine":"1-3",
     "legendWidth":25,  
     "legendHeight":14,
     "legendY":"bottom",

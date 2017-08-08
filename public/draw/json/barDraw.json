@@ -21,5 +21,5 @@
     "legendLayout":"horizontal",
     "Xgrid": "hide",
     "Ygrid": "hide",
-    "markLine":"parent1"    
+    "markLine":"none"    
 }
