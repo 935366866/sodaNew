@@ -235,7 +235,7 @@ $(function(){
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
 	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
-	        pixelRatio: 10,
+	        pixelRatio: 7,
 	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;
