@@ -360,6 +360,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
+					
 					updateEchartsData(myChart,formData,data["content"],vue.xColumnField);
 				},    
 				error : function(XMLHttpRequest) {
@@ -464,6 +465,7 @@ function buildTextStyle(font,fontSize){
 	}
 }
 function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
+	
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
@@ -472,37 +474,19 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
 				data:[]
 			}
 		};
-		var resultData = new Array();  //先声明一维
-		for(var k=0;k<echartsData[0].length;k++){    //一维长度为i,i为变量，可以根据实际情况改变
-			resultData[k]=new Array();  //声明二维，每一个一维数组里面的一个元素都是一个数组；
-			for(var j=0;j<echartsData.length;j++){   //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
-				resultData[k][j]="";    //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
-			}
-		}
-		for(var i=0;i<echartsData.length;i++){//循环表的每一行数据
-			for(var j=0;j<echartsData[i].length;j++){
-				var record = echartsData[i][j];
-				resultData[j][i]=record;
-			}
-		}
-		for(var i=0;i<resultData.length;i++){
-			var row = resultData[i];
-			var head = row[0];
-			row.shift();
-			var data = row;
-			if(head == xAxisField){
-				option.xAxis.data=data;
-				//判断x轴数据是否为数值
-				for(var m=0;m<data.length;m++){
-					if(!isNaN(parseInt(data[m]))){
-						option.xAxis.type="value";
-					}	
-				}
-			}else{
-				option.series.push({
+		var heads = echartsData[0];
+		var dataMap = {};//用来存储每一个系列的数据
+		var xAxisData = [];//用来存储y轴的数据 只有类目轴才会用到
+		var headIndexMap={};//用来存储每个表头对应的列数
+		for(var i=0;i<heads.length;i++){//循环表头
+			var headColumn = heads[i];
+			headIndexMap[headColumn]=i;//将表头的列数存入map中
+			if(headColumn != xAxisField){//如果是数据轴
+				option.legend.data.push(headColumn);//将数据名存入图例
+				dataMap[headColumn] = {
 					type:"scatter",
 					symbolSize: echartsStyle.pointsize,
-					name:head,
+					name:headColumn,
 					label: {
 			            emphasis: {
 			                show: true,
@@ -512,16 +496,47 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
 			                position: 'top'
 			            }
 			        },
-					data:data
-				});
-				option.legend.data.push(head);
-				var numD=parseInt(echartsStyle.legendDiameter);
-				option.legend.itemHeight=numD;
-				option.legend.itemWidth=numD;
+					data:[]
+				};
 			}
-			
-			
 		}
+		var isNum = true;
+		
+		for(var i=1;i<echartsData.length;i++){
+			var row = echartsData[i];
+			var xVal = row[headIndexMap[xAxisField]];
+			if(isNaN(parseInt(xVal))){
+				isNum = false;
+			}
+			xAxisData.push(xVal);
+			for(key in dataMap){
+				var value = dataMap[key];
+				var headIndex = headIndexMap[key];
+				var yVal = row[headIndex];
+				if(isNum){
+					value.data.push([xVal,yVal]);
+				}else{
+					value.data.push(yVal);
+				}
+				
+			}
+		}
+		
+		if(isNum){
+			option.xAxis.type = "value";
+			option.xAxis.data=[]
+		}else{
+			option.xAxis.type = "category";
+			option.xAxis.data = xAxisData;
+		}
+	
+		console.log("--------");
+		for(key in dataMap){
+			option.series.push(dataMap[key]);
+		}
+		var numD=parseInt(echartsStyle.legendDiameter);
+		option.legend.itemHeight=numD;
+		option.legend.itemWidth=numD;
 		echarts.setOption(option);	
 	}
 	
