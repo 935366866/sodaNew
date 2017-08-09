@@ -1,9 +1,6 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 
 $(function(){
-	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
-	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
-	var color3=["#4357a5","#c43c32","#719657","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
@@ -11,8 +8,6 @@ $(function(){
 			title:"",
 			xlab:"",
 			ylab:"",
-			legendWidth:"",
-			legendHeight:"",
 			fileData:{
 				content:[]
 			},
@@ -22,14 +17,8 @@ $(function(){
 			xlab_font_sel:"",
 			ylab_size_sel:"",
 			ylab_font_sel:"",
-			xColumnField_sel:null,
-			legendX_sel:"",
-			legendY_sel:"",
 			titleX_sel:"",
-			titleY_sel:"",
-			color:color1,
-			legendLayout_sel:"",
-			Ygrid:"hide"
+			titleY_sel:""
 		},
 		computed: {
 		  title_size: {
@@ -86,25 +75,6 @@ $(function(){
 		       $("#ylab_font").selectpicker("val",newValue);
 		    }
 		  },
-		  legendX:{
-		  	get: function () {
-		      return this.legendX_sel;
-		   },
-		    set: function (newValue) {
-		    	if(!newValue) return;
-		    	this.legendX_sel = newValue;
-		       $("#legendX").selectpicker("val",newValue);
-		    }
-		  },
-		  legendY:{
-		  	get: function () {
-		      return this.legendY_sel;
-		   },
-		    set: function (newValue) {
-		    	this.legendY_sel = newValue;
-		       $("#legendY").selectpicker("val",newValue);
-		    }
-		  },
 		  titleX:{
 			  	get: function () {
 			      return this.titleX_sel;
@@ -124,38 +94,12 @@ $(function(){
 			    	this.titleY_sel = newValue;
 			       $("#titleY").selectpicker("val",newValue);
 			    }
-			},
-			xColumnField:{
-			  	get: function () {
-			      return this.xColumnField_sel;
-			    },
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.xColumnField_sel = newValue;		    	
-			        $("#xColumnField").selectpicker("val",newValue);
-			    }
-			},
-			legendLayout:{
-			  	get: function () {
-			      return this.legendLayout_sel;
-			   	},
-			    set: function (newValue) {
-			    	this.legendLayout_sel = newValue;
-			       $("#legendLayout").selectpicker("val",newValue);
-			    }
-			},
-			gridY:function(){
-				if(this.Ygrid=="show"){
-					return true;
-				}else{
-					return false;
-				}
 			}
 		},
 		watch:{
 			input:function(val,oldVal){
 				$.ajax({
-					url: 'public/draw/json/boxplotDrawFileData.json',  
+					url: 'public/draw/json/heatmapDrawFileData.json',  
 					type:'get',
 					data:{
 						fileName:val
@@ -172,26 +116,8 @@ $(function(){
 			fileData:function(val,oldVal){
 				this.$nextTick(function(){
 					$('#xColumnField').selectpicker('refresh');
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			},
-			color:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			},
-			xColumnField:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
 				});
 			}
-			
 		}
 	});
  	var myChart = echarts.init(document.getElementById('main'));
@@ -208,7 +134,6 @@ $(function(){
 	        x:vue.titleX,
 	        y:vue.titleY,
 	        top:20
-	       
 	    },
 		tooltip: {
 		    trigger: 'item',
@@ -218,82 +143,26 @@ $(function(){
 		},
 	    xAxis : [
 	        {
-	            scale:true,	           
-		    	nameLocation:'middle',
-	            nameGap:12,
-	            splitLine:{
-                	lineStyle:{
-                		type:'solid'
-                	}
-            	},
-	    		splitArea: {
-		           	show: true
-				},
-            	axisTick:{
-            		inside: true
-            	},
-            	axisLine:{
-            		show:false
-            	},
-            	axisLabel:{
-            		show:false
-            	},
-				type : 'category'
+				type : 'category',
+				splitArea: {
+		            show: true
+		        }
 	        }
 	    ],
 	    yAxis : [
 	        {
-	            type : 'value',
-	            scale:true,
-	            nameLocation:'middle',
-		    nameGap:35,
-	            splitLine:{
-                	show:false,
-
-            	},
-            	axisLine:{
-            		show:false
-            	},
-            	axisTick:{
-            		inside: true
-            	},
-            	offset:-2
+	            type : 'category',
+                splitArea: {
+		            show: true
+		        }
 	        }
 	    ],
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
-	    	bottom:80
-	    },
-		legend: {
-			y:vue.legendY,
-			x:vue.legendX,
-			orient:vue.legendLayout
-		}
+	    }
 	};
 	
-	//点击柱子，对应的数据高亮显示
-	myChart.on('click', function (parmas) {
-		$('#appTabLeft li:eq(0) a').tab('show');
-		var tr=$("#file table tr").first();
-		var ths=$(tr).children("th");
-		//取到x轴名字
-		var xText=vue.xColumnField;
-		var index;
-		for(var i=0;i<ths.length;i++){
-			if(ths[i].innerText==xText){
-				index=i;
-				break;
-			}									
-		}
-		$("#file table tr").each(function(){
-			if($(this).children("td:eq("+index+")").text()==parmas.name){
-				$(this).addClass("active");
-				$(this).siblings("tr").removeClass("active");
-			}			
-		})
-//		console.log(parmas.seriesName)
-	});
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 	$("select").on("change.bs.select",function(){
@@ -312,7 +181,7 @@ $(function(){
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
-			url: 'public/draw/json/boxplotDraw.json',  
+			url: 'public/draw/json/heatmapDraw.json',  
 			type:'get',
 			data:tool_id,
 			dataType: "json",
@@ -336,7 +205,7 @@ $(function(){
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
 			myChart.showLoading();
 			$.ajax({
-				url: 'public/draw/json/boxplotDrawFileData.json',  
+				url: 'public/draw/json/heatmapDrawFileData.json',  
 				type:'get',
 				data:{
 					fileName:formData.input
@@ -344,7 +213,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.xColumnField);	
+					updateEchartsData(myChart,formData,data["content"],data["xcontent"],data["xcontent"]);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -365,9 +234,9 @@ $(function(){
 		$a.target = '_blank';
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
-	       	pixelRatio: 10,
-	        excludeComponents: ['toolbox'],
-	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff'
+	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
+	        pixelRatio: 10,
+	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;
 	     // Chrome and Firefox
@@ -394,11 +263,6 @@ $(function(){
 
 });
 function updateEcharts(echarts,data){
-	var color = [];
-	$(".spectrum").each(function(){
-		var colorStr = $(this).val();
-		color.push(colorStr);
-	});
 	echarts.setOption({
 		title:{
 			text:data.title,
@@ -408,22 +272,12 @@ function updateEcharts(echarts,data){
 		},
 		xAxis :{
 			name:data.xlab,
-			nameTextStyle:buildTextStyle(data.xlab_font,data.xlab_size),
+			nameTextStyle:buildTextStyle(data.xlab_font,data.xlab_size)
 		},
 		yAxis :{
 			name:data.ylab,
-			nameTextStyle:buildTextStyle(data.ylab_font,data.ylab_size),
-			splitLine:{
-            	show:data.YgridShow
-        	}
-		},
-		legend:{
-			x:data.legendX,
-			y:data.legendY,
-			orient:data.legendLayout
-		},
-		color:color
-		
+			nameTextStyle:buildTextStyle(data.ylab_font,data.ylab_size)
+		}
 	});
 }
 
@@ -445,60 +299,48 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize	
 	}
 }
-
-function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField){
+function updateEchartsData(echartsInstance,echartsStyle,echartsData,xdata,ydata){
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
-			xAxis:{},
-			legend: {
-				data:[]
-			}
+			xAxis:{
+				data:xdata
+			},
+			yAxis:{
+				data:ydata
+			},
+			visualMap: {
+		        min: 0,
+		        max: 1,
+		        calculable: true,
+		        orient: 'horizontal',
+		        left: 'center',
+		        bottom: '-10',
+		        inRange: {
+		            color: ['#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+		        } 
+		    }
 		};
-		var resultData = new Array();  //先声明一维
-		for(var k=0;k<echartsData[0].length;k++){    //一维长度为i,i为变量，可以根据实际情况改变
-			resultData[k]=new Array();  //声明二维，每一个一维数组里面的一个元素都是一个数组；
-			for(var j=0;j<echartsData.length;j++){   //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
-				resultData[k][j]="";    //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
-			}
-		}
-		for(var i=0;i<echartsData.length;i++){//循环表的每一行数据
-			for(var j=0;j<echartsData[i].length;j++){
-				var record = echartsData[i][j];
-				resultData[j][i]=record;
-			}
-		}
-	
-		for(var i=0;i<resultData.length;i++){
-			var row = resultData[i];
-			var head = row[0];
-			row.shift();
-			var data = row;
-			var data1 = echarts.dataTool.prepareBoxplotData([data]);
-			if(head == xAxisField){
-				option.xAxis.data=data1.axisData;
-			}else{
-				option.series.push({
-					type:"boxplot",
-					name:head,
-					blurSize: 10,
-					itemStyle: {
-						normal: {
-							borderWidth: 2
-						}			
-					},
-					data:data1.boxData
-				});				
-				option.legend.data.push(head);
-				var numWidth=parseInt(echartsStyle.legendWidth);
-				var numHeight=parseInt(echartsStyle.legendHeight);
-				option.legend.itemHeight=numHeight;
-				option.legend.itemWidth=numWidth;
-			}
-		}
+		data1 = echartsData.map(function (item) {
+		    return [item[1], item[0], item[2] || '-'];
+		});
+		option.series.push({
+					type:"heatmap",
+					data:data1,
+					label: {
+			            normal: {
+			                show: true
+			            }
+			        },
+			        itemStyle: {
+			            emphasis: {
+			                shadowBlur: 10,
+			                shadowColor: 'rgba(0, 0, 0, 0.5)'
+			            }
+			        }
+		});
 		echartsInstance.setOption(option);
 	}
-	
 }
 
 //---------------------------------------------------函数---------------------------

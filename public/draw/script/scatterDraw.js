@@ -255,7 +255,7 @@ $(function(){
             	axisLine:{
             		show:false
             	},
-				type : 'value'
+				type : 'category'
 	        }
 	    ],
 	    yAxis : [
@@ -380,7 +380,9 @@ $(function(){
 		$a.target = '_blank';
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
-	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff'
+	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
+	        pixelRatio: 10,
+	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;
 	     // Chrome and Firefox
@@ -407,7 +409,6 @@ $(function(){
 
 });
 function updateEcharts(echarts,data){
-	console.log(data)
 	var color = [];
 	$(".spectrum").each(function(){
 		var colorStr = $(this).val();
@@ -491,6 +492,12 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
 			var data = row;
 			if(head == xAxisField){
 				option.xAxis.data=data;
+				//判断x轴数据是否为数值
+				for(var m=0;m<data.length;m++){
+					if(!isNaN(parseInt(data[m]))){
+						option.xAxis.type="value";
+					}	
+				}
 			}else{
 				option.series.push({
 					type:"scatter",
@@ -515,7 +522,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
 			
 			
 		}
-		echarts.setOption(option);
+		echarts.setOption(option);	
 	}
 	
 }

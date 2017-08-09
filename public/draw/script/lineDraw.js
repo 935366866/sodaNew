@@ -428,7 +428,9 @@ $(function(){
 		$a.target = '_blank';
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
-	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff'
+	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
+	        pixelRatio: 10,
+	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;
 	     // Chrome and Firefox
