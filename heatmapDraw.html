@@ -77,7 +77,7 @@
 
     <div class="center_box" style="float:left;width:100%;">
 		<div class="app_title">
-			<p>箱线图绘制工具</p>
+			<p>热力图绘制工具</p>
 		</div>
         <div class="change_box" style="padding-left: 0px; padding-right:0px;padding-bottom:50px;" id='taskPanel'> </div>       
         <div class="myTab">
@@ -168,13 +168,13 @@
 									<div class="input_a_l">颜色方案:</div>
 									<div class="input_b_3" style="float: left;width: 30%;">
 										<select id="colorProject"  name="colorProject" class="selectpicker select_width" autocomplete="off" >
-											<option value="project1">Npg</option>
-											<option value="project2">Aaas</option>
-											<option value="project3">Igv_default</option>
+											<option value="project1">NPG</option>
+											<option value="project2">AAAS</option>
+											<option value="project3">IGV</option>
 										</select>
 									</div>									
 								</div>
-								<div v-for="(item,index) in fileData['content'][0]" v-if="item!=xColumnField" class="part">
+								<div v-for="(item,index) in inrange" v-if="show"  class="part">
 									<div class="input_e_1">						
 											{{item}}:
 									</div>
@@ -203,12 +203,12 @@
 						<div class="panel-body" style="padding: 0;">
 							<table class="table table-bordered">
                                 <thead>
-                                    <tr>
+                                    <tr style="display: none;">
                                         <th v-for="item in fileData.content[0]">{{item}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(item,index) in fileData.content" v-if="index!=0">
+                                    <tr v-for="(item,index) in fileData.content" >
                                         <td v-for="item1 in item">{{item1 }}</td>
                                     </tr>
                                 </tbody>
