@@ -1,5 +1,7 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
-
+	var color1=["#fff","#4357a5"];
+	var color2=["#f9f98c","#a50026"];
+	var color3=["#a0f8f0","#006edf"];
 $(function(){
 	vue=new Vue({
 		el:"#myTabContent",
@@ -18,7 +20,10 @@ $(function(){
 			ylab_size_sel:"",
 			ylab_font_sel:"",
 			titleX_sel:"",
-			titleY_sel:""
+			titleY_sel:"",
+			color:color1,
+			inrange:[0,1],
+			show:false
 		},
 		computed: {
 		  title_size: {
@@ -115,11 +120,21 @@ $(function(){
 			},
 			fileData:function(val,oldVal){
 				this.$nextTick(function(){
-					$('#xColumnField').selectpicker('refresh');
+					$(".spectrum").spectrum({
+						preferredFormat: "hex3"
+					});
+				});
+			},
+			color:function(val,oldVal){
+				this.$nextTick(function(){
+					$(".spectrum").spectrum({
+						preferredFormat: "hex3"
+					});
 				});
 			}
 		}
 	});
+
  	var myChart = echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
     var option = {
@@ -162,7 +177,19 @@ $(function(){
 	    	borderColor:'#000',
 	    }
 	};
-	
+	//点击数据，对应的数据高亮显示
+	myChart.on('click', function (parmas) {
+		$('#appTabLeft li:eq(0) a').tab('show');
+		var trs=$("#file tbody tr");
+		for(var i=0;i<trs.length;i++){
+			trs[i].className="";
+			var lastTexts=trs[i].lastChild.innerText;
+			var firstTexts=trs[i].firstChild.innerText;
+			if(lastTexts==parmas.value[2]&&firstTexts==parmas.value[0]){
+				trs[i].className="active";
+			}
+		}
+	});
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 	$("select").on("change.bs.select",function(){
@@ -187,6 +214,7 @@ $(function(){
 			dataType: "json",
 			success:function(data) {
 				//加载成功后将所有数据赋值给vue
+				vue.show=true
 				for(var item in data){
 					vue[item]=data[item];
 				}
@@ -277,7 +305,7 @@ function updateEcharts(echarts,data){
 		yAxis :{
 			name:data.ylab,
 			nameTextStyle:buildTextStyle(data.ylab_font,data.ylab_size)
-		}
+		} 
 	});
 }
 
@@ -300,6 +328,11 @@ function buildTextStyle(font,fontSize){
 	}
 }
 function updateEchartsData(echartsInstance,echartsStyle,echartsData,xdata,ydata){
+	var dcolor = [];
+	$(".spectrum").each(function(){
+		var colorStr = $(this).val();
+		dcolor.push(colorStr);
+	});
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
@@ -317,7 +350,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xdata,ydata)
 		        left: 'center',
 		        bottom: '-10',
 		        inRange: {
-		            color: ['#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+		            color: dcolor
 		        } 
 		    }
 		};

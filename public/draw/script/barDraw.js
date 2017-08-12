@@ -375,7 +375,7 @@ $(function(){
 				$(this).siblings("tr").removeClass("active");
 			}			
 		})
-//		console.log(parmas.seriesName)
+
 	});
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
