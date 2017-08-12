@@ -467,13 +467,13 @@ function buildTextStyle(font,fontSize){
 function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
 	
 	if(echartsData&&echartsData.length>0){
-		var option = {
-			series:[],
-			xAxis:{},
-			legend: {
-				data:[]
-			}
-		};
+		var option = echarts.getOption();
+		console.log(option);
+		option.xAxis=option.xAxis[0];
+		option.legend=option.legend[0];
+		option.legend.data=[];
+		option.xAxis.data=[];
+		echarts.clear();
 		var heads = echartsData[0];
 		var dataMap = {};//用来存储每一个系列的数据
 		var xAxisData = [];//用来存储y轴的数据 只有类目轴才会用到
@@ -531,12 +531,14 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
 		}
 	
 		console.log("--------");
+		option.series=[];
 		for(key in dataMap){
 			option.series.push(dataMap[key]);
 		}
 		var numD=parseInt(echartsStyle.legendDiameter);
 		option.legend.itemHeight=numD;
 		option.legend.itemWidth=numD;
+		console.info(option);
 		echarts.setOption(option);	
 	}
 	
