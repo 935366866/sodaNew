@@ -166,7 +166,9 @@ $(function(){
 		       	axisTick:{
 
 		       },
-		       max:'dataMax'
+		       axisLabel:{
+		       	rotate:-60
+		       }
 	        }
 	    ],
 	    yAxis : [
