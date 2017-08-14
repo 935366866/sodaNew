@@ -161,7 +161,12 @@ $(function(){
 				type : 'category',
 				splitArea: {
 		            show: true
-		        }
+		       	},
+		       	splitNumber: 10,
+		       	axisTick:{
+
+		       },
+		       max:'dataMax'
 	        }
 	    ],
 	    yAxis : [
@@ -175,6 +180,7 @@ $(function(){
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
+	    	left:100
 	    }
 	};
 	//点击数据，对应的数据高亮显示
