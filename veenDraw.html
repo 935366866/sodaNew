@@ -267,8 +267,8 @@
 				</div>
 			</div>
 		
-    	</div>
-        
+   </div>
+        <div id="venn"></div>
 	<!-- 标签切换 -->
 	
 	
@@ -295,7 +295,6 @@
 					<table data-toggle="table" data-url="json/jobUrl.json" data-minimum-count-columns="2" data-id-field="id" data-show-footer="false"
 						data-height="300" data-sort-name="id" data-click-to-select="true"  id="urlTable"
 						style="bottom:20px;">
-
 						<thead>
 							<tr>
 								<th data-field="state" data-checkbox="true"></th>
@@ -356,26 +355,25 @@
     <script src="js/common.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="public/draw/script/venn.js"></script>
-    <script src="public/draw/script/heatmapDraw.js"></script>   
+    <script src="public/draw/script/veenDraw.js"></script>   
     <script>
-    	$(function(){
-    		$("#xColumnField").selectpicker({noneSelectedText:'请选择'});
-    		$("#markLine").selectpicker({noneSelectedText:'请选择'});
-    	})
-   	//支持下载pdf格式
-    function convertCanvasToImage() {
-        html2canvas(document.getElementById('main'), {
-            onrendered: function(canvas) {
-                document.body.appendChild(canvas);
-                createPDFObject(canvas.toDataURL("image/jpeg"));
-            }
-        });
-    }
-    function createPDFObject(imgData) {
-        var doc = new jsPDF('p', 'pt');
-        doc.addImage(imgData, 10, 10, 500, 340, 'img');
-        doc.save('test.pdf');
-    }
+	var sets = [
+	            {sets:["Information"], size: 12},
+	            {sets:["Things That Overlap"], size: 12},
+	            {sets:["Circles"], size: 12},
+	            {sets: ["Information", "Things That Overlap"], size: 4, label: "Redundancy"},
+	            {sets: ["Information", "Circles"], size: 4, label: "Pie Charts", },
+	            {sets: ["Things That Overlap", "Circles"], size: 4, label: "Eclipses"},
+	            {sets: ["Information", "Things That Overlap", "Circles"], size: 2, label: "Venn Diagrams"}
+	    ];
+	
+	var chart = venn.VennDiagram()
+	    .width(640)
+	    .height(640);
+	
+	var div = d3.select("#venn").datum(sets).call(chart);
+	div.selectAll("text").style("fill", "white");
+	div.selectAll(".venn-circle path").style("fill-opacity", .6);
     </script>
 </body>
 

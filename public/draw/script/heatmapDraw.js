@@ -22,8 +22,8 @@ $(function(){
 			titleX_sel:"",
 			titleY_sel:"",
 			color:color1,
-			inrange:[0,1],
-			show:false
+			minValue:0,
+			maxValue:1
 		},
 		computed: {
 		  title_size: {
@@ -163,11 +163,10 @@ $(function(){
 		            show: true
 		       	},
 		       	splitNumber: 10,
-		       	axisTick:{
-
-		       },
-		       axisLabel:{
-		       	rotate:-60
+		       	axisLabel:{
+			       	rotate:-60,
+			       	margin:6,
+			       	interval:0
 		       }
 	        }
 	    ],
@@ -182,27 +181,37 @@ $(function(){
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
-	    	left:100
+	    	left:110,
+	    	bottom:80
 	    }
 	};
 	//点击数据，对应的数据高亮显示
 	myChart.on('click', function (parmas) {
+		console.log(parmas.value)
 		$('#appTabLeft li:eq(0) a').tab('show');
 		var trs=$("#file tbody tr");
-		for(var i=0;i<trs.length;i++){
-			trs[i].className="";
-			var lastTexts=trs[i].lastChild.innerText;
-			var firstTexts=trs[i].firstChild.innerText;
-			if(lastTexts==parmas.value[2]&&firstTexts==parmas.value[0]){
-				trs[i].className="active";
+		for(var j=1;j<trs.length;j++){
+			console.log(trs[j])
+			if(j==parmas.value[0]){
+				var tds=trs[j].childNodes;
+				console.log(tds);
+				console.log(j)
+				for(var i=1;i<tds.length;i++){
+					if(parmas.value[2]==tds[i].innerText){
+						tds[i].style.background="red";
+					}
+				}
 			}
-		}
+		}	
 	});
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
 	});
+	//颜色控件初始化开始
+	vue.color=["#fff","#4357a5"];
+	//颜色控件初始化结束
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){
 			vue.color=color1;
@@ -222,7 +231,6 @@ $(function(){
 			dataType: "json",
 			success:function(data) {
 				//加载成功后将所有数据赋值给vue
-				vue.show=true
 				for(var item in data){
 					vue[item]=data[item];
 				}
@@ -249,7 +257,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],data["xcontent"],data["xcontent"]);
+					updateEchartsData(myChart,formData,data["content"]);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -335,24 +343,41 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize	
 	}
 }
-function updateEchartsData(echartsInstance,echartsStyle,echartsData,xdata,ydata){
+function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 	var dcolor = [];
 	$(".spectrum").each(function(){
 		var colorStr = $(this).val();
 		dcolor.push(colorStr);
 	});
+
 	if(echartsData&&echartsData.length>0){
+		var head1=echartsData[0];
+		head1.shift();//删除第一列
+		var col=[];
+		var heatMapData=[];
+		for(var i=1;i<echartsData.length;i++){
+			col.push(echartsData[i][0]);//将第一列存储
+			var row=echartsData[i];//将整行存储
+			row.shift();//删除第一列
+			var tempdata=[];
+			for(var j=0;j<row.length;j++){
+				heatMapData.push([i-1,j,row[j]]);
+			}
+						
+		}
+		var minNum=Number(vue.minValue);
+		var maxNum=Number(vue.maxValue);
 		var option = {
 			series:[],
 			xAxis:{
-				data:xdata
+				data:head1
 			},
 			yAxis:{
-				data:ydata
+				data:col
 			},
 			visualMap: {
-		        min: 0,
-		        max: 1,
+		        min: minNum,
+		        max: maxNum,
 		        calculable: true,
 		        orient: 'horizontal',
 		        left: 'center',
@@ -362,12 +387,9 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xdata,ydata)
 		        } 
 		    }
 		};
-		data1 = echartsData.map(function (item) {
-		    return [item[1], item[0], item[2] || '-'];
-		});
 		option.series.push({
 					type:"heatmap",
-					data:data1,
+					data:heatMapData,
 					label: {
 			            normal: {
 			                show: true
@@ -385,7 +407,20 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xdata,ydata)
 }
 
 //---------------------------------------------------函数---------------------------
-
+   	//支持下载pdf格式
+    function convertCanvasToImage() {
+        html2canvas(document.getElementById('main'), {
+            onrendered: function(canvas) {
+                document.body.appendChild(canvas);
+                createPDFObject(canvas.toDataURL("image/jpeg"));
+            }
+        });
+    }
+    function createPDFObject(imgData) {
+        var doc = new jsPDF('p', 'pt');
+        doc.addImage(imgData, 10, 10, 500, 340, 'img');
+        doc.save('test.pdf');
+    }
 //参数组装
 function allParams(){
 

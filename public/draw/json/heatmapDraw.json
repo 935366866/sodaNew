@@ -10,5 +10,7 @@
     "xlab_font": "italic",
     "ylab": "yyy",
     "ylab_size": "14",
-    "ylab_font": "italic"    
+    "ylab_font": "italic" ,
+    "minValue":0,
+    "maxValue":1  
 }

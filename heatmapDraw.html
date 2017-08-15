@@ -174,16 +174,35 @@
 										</select>
 									</div>									
 								</div>
-								<div v-for="(item,index) in inrange" v-if="show"  class="part">
+								<div class="part">
 									<div class="input_e_1">						
-											{{item}}:
+											最小值:
+									</div>
+									<div class="input_a_m" style="width: 20%;margin-right: 10px;">
+										<input v-model="minValue" type="text" class="form-control" />
 									</div>
 									<div class="input_e_2 colorInput">
 										自定义颜色:
 									</div>
 									<div class="input_c_4">
-										<input v-bind:value="color[index]" type="text" class="form-control spectrum">
+										<input v-model="color[0]" type="text" class="form-control spectrum">
 									</div>	
+									
+								</div>
+								<div class="part">
+									<div class="input_e_1">						
+											最大值:
+									</div>
+									<div class="input_a_m" style="width: 20%;margin-right: 10px;">
+										<input v-model="maxValue" type="text" class="form-control" />
+									</div>
+									<div class="input_e_2 colorInput">
+										自定义颜色:
+									</div>
+									<div class="input_c_4">
+										<input v-model="color[1]" type="text" class="form-control spectrum">
+									</div>	
+									
 								</div>
 
 								<!--<div class="line" v-if="fileData['content'][0]&&fileData['content'][0].length>1"></div>-->
@@ -355,26 +374,6 @@
     <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
     <script src="js/common.js"></script>
     <script src="public/draw/script/heatmapDraw.js"></script>   
-    <script>
-    	$(function(){
-    		$("#xColumnField").selectpicker({noneSelectedText:'请选择'});
-    		$("#markLine").selectpicker({noneSelectedText:'请选择'});
-    	})
-   	//支持下载pdf格式
-    function convertCanvasToImage() {
-        html2canvas(document.getElementById('main'), {
-            onrendered: function(canvas) {
-                document.body.appendChild(canvas);
-                createPDFObject(canvas.toDataURL("image/jpeg"));
-            }
-        });
-    }
-    function createPDFObject(imgData) {
-        var doc = new jsPDF('p', 'pt');
-        doc.addImage(imgData, 10, 10, 500, 340, 'img');
-        doc.save('test.pdf');
-    }
-    </script>
 </body>
 
 </html>
