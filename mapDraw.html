@@ -77,7 +77,7 @@
 
     <div class="center_box" style="float:left;width:100%;">
 		<div class="app_title">
-			<p>维恩图绘制工具</p>
+			<p>地图绘制工具</p>
 		</div>
         <div class="change_box" style="padding-left: 0px; padding-right:0px;padding-bottom:50px;" id='taskPanel'> </div>       
         <div class="myTab">
@@ -105,100 +105,22 @@
 							<a id="use_default">使用示例文件</a>
 						</div>				
 						<div class="panel-body" style="height: 439px;">
-							<form id="parameter" style="margin-left: 30px;">
+							<form id="parameter">
 								<!--输入文件-->
-								<div class="part" id="sample1" style="background: #F5F5F5;padding: 20px;width: 500px;">
-										<div style="margin-bottom: 10px;">样本1<button type="button" class="close">&times;</button></div>
-										<div class="input_a_m">
-											<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="输入文件">
-										</div>
-										<div class="input_a_r" style="width: auto;">
-											<a onclick="openUrl('#input','file')">
-												<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
-											</a>
-											<span class="fileinput-button btn " style="padding: 0 10px;" >
-												<img src="public/draw/imgs/app_02.png" alt=""  style="width: 29px;">
-												<input id="upload_input" name="upload_input" onclick="uploadFile('json/upload.json','upload_input','#input')" type="file">
-											</span>
-										</div>
-										<div class="input_a_m" style="margin-top: 10px;">
-											<input v-model="input" type="text" class="form-control"  name="input" placeholder="设置样本名">
-										</div>
-								</div>
-								<div class="part" id="sample2"  style="background: #F5F5F5;padding: 20px;width: 500px;">
-										<div style="margin-bottom: 10px;">样本2<button type="button" class="close">&times;</button></div>
-										<div class="input_a_m">
-											<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="输入文件">
-										</div>
-										<div class="input_a_r" style="width: auto;">
-											<a onclick="openUrl('#input','file')">
-												<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
-											</a>
-											<span class="fileinput-button btn " style="padding: 0 10px;" >
-												<img src="public/draw/imgs/app_02.png" alt=""  style="width: 29px;">
-												<input id="upload_input" name="upload_input" onclick="uploadFile('json/upload.json','upload_input','#input')" type="file">
-											</span>
-										</div>
-										<div class="input_a_m" style="margin-top: 10px;">
-											<input v-model="input" type="text" class="form-control"  name="input" placeholder="设置样本名">
-										</div>
-								</div>
-								<div class="part" id="sample3" style="background: #F5F5F5;padding: 20px;width: 500px;">
-										<div style="margin-bottom: 10px;">样本3<a type="button" class="close">&times;</a></div>
-										<div class="input_a_m">
-											<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="输入文件">
-										</div>
-										<div class="input_a_r" style="width: auto;">
-											<a onclick="openUrl('#input','file')">
-												<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
-											</a>
-											<span class="fileinput-button btn " style="padding: 0 10px;" >
-												<img src="public/draw/imgs/app_02.png" alt=""  style="width: 29px;">
-												<input id="upload_input" name="upload_input" onclick="uploadFile('json/upload.json','upload_input','#input')" type="file">
-											</span>
-										</div>
-										<div class="input_a_m" style="margin-top: 10px;">
-											<input v-model="input" type="text" class="form-control"  name="input" placeholder="设置样本名">
-										</div>
-								</div>
-								<div class="part" id="sample4" style="background: #F5F5F5;padding: 20px;width: 500px;">
-										<div style="margin-bottom: 10px;">样本4<a type="button" class="close">&times;</a></div>
-										<div class="input_a_m">
-											<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="输入文件">
-										</div>
-										<div class="input_a_r" style="width: auto;">
-											<a onclick="openUrl('#input','file')">
-												<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
-											</a>
-											<span class="fileinput-button btn " style="padding: 0 10px;" >
-												<img src="public/draw/imgs/app_02.png" alt=""  style="width: 29px;">
-												<input id="upload_input" name="upload_input" onclick="uploadFile('json/upload.json','upload_input','#input')" type="file">
-											</span>
-										</div>
-										<div class="input_a_m" style="margin-top: 10px;">
-											<input v-model="input" type="text" class="form-control"  name="input" placeholder="设置样本名">
-										</div>
-								</div>
-								<div class="part" id="sample5" style="background: #F5F5F5;padding: 20px;width: 500px;display: none;">
-										<div style="margin-bottom: 10px;">样本5<a type="button" class="close">&times;</a></div>
-										<div class="input_a_m">
-											<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="输入文件">
-										</div>
-										<div class="input_a_r" style="width: auto;">
-											<a onclick="openUrl('#input','file')">
-												<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
-											</a>
-											<span class="fileinput-button btn " style="padding: 0 10px;" >
-												<img src="public/draw/imgs/app_02.png" alt=""  style="width: 29px;">
-												<input id="upload_input" name="upload_input" onclick="uploadFile('json/upload.json','upload_input','#input')" type="file">
-											</span>
-										</div>
-										<div class="input_a_m" style="margin-top: 10px;">
-											<input v-model="input" type="text" class="form-control"  name="input" placeholder="设置样本名">
-										</div>
-								</div>
-								<div>
-									<button id="addSample" class="btn btn-primary" style="margin-top: 10px;">添加样本</button>
+								<div class="part">
+									<div class="input_a_l">输入文件:</div>
+									<div class="input_a_m">
+										<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
+									</div>
+									<div class="input_a_r">
+										<a onclick="openUrl('#input','file')">
+											<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
+										</a>
+										<span class="fileinput-button btn " style="padding: 0 10px;" >
+											<img src="public/draw/imgs/app_02.png" alt=""  style="width: 29px;">
+											<input id="upload_input" name="upload_input" onclick="uploadFile('json/upload.json','upload_input','#input')" type="file">
+										</span>
+									</div>
 								</div>
 							</form>
 						</div>
@@ -242,7 +164,7 @@
 							</div>
 						</div>
 						<div class="panel-body">
-							<div id="main" style="width: 560px;height: 420px;margin-top: 20px;margin-left: 0;padding-left: 0;"></div>
+							<div id="china-map" style="width: 560px;height: 420px;margin-left: 0;padding-left: 0;"></div>
 						</div>
 					</div>
 				</div>
@@ -279,8 +201,8 @@
 				</div>
 			</div>
 		
-   </div>
-        <div id="venn"></div>
+    	</div>
+        
 	<!-- 标签切换 -->
 	
 	
@@ -307,6 +229,7 @@
 					<table data-toggle="table" data-url="json/jobUrl.json" data-minimum-count-columns="2" data-id-field="id" data-show-footer="false"
 						data-height="300" data-sort-name="id" data-click-to-select="true"  id="urlTable"
 						style="bottom:20px;">
+
 						<thead>
 							<tr>
 								<th data-field="state" data-checkbox="true"></th>
@@ -360,59 +283,12 @@
     <script src="public/draw/script/html2canvas.min.js"></script>
     <script src="public/draw/script/jspdf.min.js"></script>
     <script src="public/js/echarts.min.js"></script>
+    <script src="public/draw/script/china.js"></script>
     <script src="public/js/long_common.js"></script>
     <script src="public/js/vue.js"></script>
     <script src="public/draw/script/spectrum.js"></script>
     <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
     <script src="js/common.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-    <script src="public/draw/script/venn.js"></script>
-    <script src="public/draw/script/vennDraw.js"></script>   
-    <!--<script>
-	var sets = [
-	            {sets:["Information"], size: 12},
-	            {sets:["Things That Overlap"], size: 12},
-	            {sets:["Circles"], size: 12},
-	            {sets: ["Information", "Things That Overlap"], size: 4, label: "Redundancy"},
-	            {sets: ["Information", "Circles"], size: 4, label: "Pie Charts", },
-	            {sets: ["Things That Overlap", "Circles"], size: 4, label: "Eclipses"},
-	            {sets: ["Information", "Things That Overlap", "Circles"], size: 2, label: "Venn Diagrams"}
-	    ];
-	
-	var chart = venn.VennDiagram()
-	    .width(640)
-	    .height(640);
-	
-	var div = d3.select("#venn").datum(sets).call(chart);
-	div.selectAll("text").style("fill", "white");
-	div.selectAll(".venn-circle path").style("fill-opacity", .6);
-    </script>-->
-    <script>
-    	$(function(){
-    		var allsamples =["sample1","sample2"];
-			$(".close").click(function(){
-				$(this).parents(".part").hide();
-				if(allsamples.length>5){
-		    		$("#addSample").hide();
-		    	}else if(allsamples.length<=2){
-		    		$(".close").attr("disabled","disabled")
-		    		$("#addSample").show();
-		    	}else{
-		    		allsamples.length--;
-		    	}
-			}) 
-			$("#addSample").click(function(){
-				
-				
-			})
-
-
-			
-			 	
-    	})
-	 
-
-    </script>
+    <script src="public/draw/script/mapDraw.js"></script>   
 </body>
-
 </html>
