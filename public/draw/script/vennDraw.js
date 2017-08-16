@@ -6,213 +6,51 @@ $(function(){
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
-			input:"",
-			title:"",
-			xlab:"",
-			ylab:"",
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"",
-			title_font_sel:"",
-			xlab_size_sel:"",
-			xlab_font_sel:"",
-			ylab_size_sel:"",
-			ylab_font_sel:"",
-			titleX_sel:"",
-			titleY_sel:"",
-			color:color1,
-			inrange:[0,1],
+			sampleList:[
+				{
+					file:"dd",
+					sampleName:"aa"
+				},
+				{
+					file:"ff",
+					sampleName:"ee"
+				}
+			],
 			show:false
 		},
-		computed: {
-		  title_size: {
-		    get: function () {
-		      return this.title_size_sel;
-		    },
-		    set: function (newValue) {
-		       this.title_size_sel = newValue;
-		       $("#title_size").selectpicker("val",newValue);
-		    }
-		  },
-		  title_font:{
-		  	get: function () {
-		      return this.title_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.title_font_sel = newValue;
-		       $("#title_font").selectpicker("val",newValue);
-		    }
-		  },
-		  xlab_size:{
-		  	get: function () {
-		      return this.xlab_size_sel;
-		    },
-		    set: function (newValue) {
-		    	this.xlab_size_sel = newValue;
-		       $("#xlab_size").selectpicker("val",newValue);
-		    }
-		  },
-		  xlab_font:{
-		  	get: function () {
-		      return this.xlab_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.xlab_font_sel = newValue;
-		       $("#xlab_font").selectpicker("val",newValue);
-		    }
-		  },
-		  ylab_size:{
-		  	get: function () {
-		      return this.ylab_size_sel;
-		    },
-		    set: function (newValue) {
-		    	this.ylab_size_sel = newValue;
-		       $("#ylab_size").selectpicker("val",newValue);
-		    }
-		  },
-		  ylab_font:{
-		  	get: function () {
-		      return this.ylab_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.ylab_font_sel = newValue;
-		       $("#ylab_font").selectpicker("val",newValue);
-		    }
-		  },
-		  titleX:{
-			  	get: function () {
-			      return this.titleX_sel;
-			   },
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.titleX_sel = newValue;
-			       $("#titleX").selectpicker("val",newValue);
-			    }
+		methods:{
+			addSample:function(){
+				if(this.sampleList.length == 6){
+					alert();
+					return;
+				}
+				this.sampleList.push({
+					file:"",
+					sampleName:""
+				});
+				
 			},
-			titleY:{
-			  	get: function () {
-			      return this.titleY_sel;
-			   	},
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.titleY_sel = newValue;
-			       $("#titleY").selectpicker("val",newValue);
-			    }
+			delSample:function(index){
+				if(this.sampleList.length ==2){
+					alert();
+					return;
+				}
+				this.sampleList.splice(index, 1);
 			}
 		},
+		computed: {
+		
+		},
 		watch:{
-			input:function(val,oldVal){
-				$.ajax({
-					url: 'public/draw/json/vennDrawFileData.json',  
-					type:'get',
-					data:{
-						fileName:val
-					},
-					dataType: "json",
-					success:function(data) {
-						 vue["fileData"]=data; 
-					},    
-					error : function(XMLHttpRequest) {
-						//alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
-					}
-				});
-			},
-			fileData:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			},
-			color:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			}
+			
 		}
 	});
 
- 	var myChart = echarts.init(document.getElementById('main'));
-        // 指定图表的配置项和数据
-    var option = {
-    	backgroundColor: '#fff',
-	    title: {
-	        text: '',
-	        textStyle:{
-	        	fontStyle:'normal',
-	        	fontWeight:'normal',
-	        	fontSize:14
-	        },
-	        x:vue.titleX,
-	        y:vue.titleY,
-	        top:20
-	    },
-		tooltip: {
-		    trigger: 'item',
-		    axisPointer: {
-		        type: 'shadow'
-		    }
-		},
-	    xAxis : [
-	        {
-				type : 'category',
-				splitArea: {
-		            show: true
-		       	},
-		       	splitNumber: 10,
-		       	axisLabel:{
-			       	rotate:-60,
-			       	margin:6,
-			       	interval:0
-		       }
-	        }
-	    ],
-	    yAxis : [
-	        {
-	            type : 'category',
-                splitArea: {
-		            show: true
-		        }
-	        }
-	    ],
-	    grid:{
-	    	show:true,
-	    	borderColor:'#000',
-	    	left:110,
-	    	bottom:80
-	    }
-	};
-	//点击数据，对应的数据高亮显示
-	myChart.on('click', function (parmas) {
-		$('#appTabLeft li:eq(0) a').tab('show');
-		var trs=$("#file tbody tr");
-		for(var i=0;i<trs.length;i++){
-			trs[i].className="";
-			var lastTexts=trs[i].lastChild.innerText;
-			var firstTexts=trs[i].firstChild.innerText;
-			if(lastTexts==parmas.value[2]&&firstTexts==parmas.value[0]){
-				trs[i].className="active";
-			}
-		}
-	});
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-	$("select").on("change.bs.select",function(){
-		vue[$(this).attr("id")]=$(this).selectpicker("val");
-	});
-	$("#colorProject").on("change.bs.select",function(){
-		if($(this).selectpicker("val")=="project1"){
-			vue.color=color1;
-		}else if($(this).selectpicker("val")=="project2"){
-			vue.color=color2;
-		}
-		else{
-			vue.color=color3;
-		}
-	});
+
+	
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
@@ -233,28 +71,25 @@ $(function(){
 	});
 	//提交参数
 	$("#submit_paras").click(function(){
-		var formData =  allParams();//取form表单参数
-		if(formData.input==""){
-			alert("请输入文件");
-		}else{
-			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
-			myChart.showLoading();
-			$.ajax({
-				url: 'public/draw/json/vennDrawFileData.json',  
-				type:'get',
-				data:{
-					fileName:formData.input
-				},
-				dataType: "json",
-				success:function(data) {
-					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"]);
-				},    
-				error : function(XMLHttpRequest) {
-					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
-				}
-			});
+		var formData =[];
+		for(var i=0;i<vue.sampleList.length;i++){
+			formData.push(vue.sampleList.file)
 		}
+		$.ajax({
+			url: 'public/draw/json/vennDrawFileData.json',  
+			type:'get',
+			data:{
+				fileNames:formData
+			},
+			dataType: "json",
+			success:function(data) {
+				updateVennData($("#main"),data["files"]);
+			},    
+			error : function(XMLHttpRequest) {
+				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
+			}
+		});
+		
 	});
 
 	//支持下载png格式
@@ -297,102 +132,27 @@ $(function(){
 	$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 
 });
-function updateEcharts(echarts,data){
-	echarts.setOption({
-		title:{
-			text:data.title,
-			textStyle:buildTextStyle(data.title_font,data.title_size),
-			x:data.titleX,
-			y:data.titleY,
-		},
-		xAxis :{
-			name:data.xlab,
-			nameTextStyle:buildTextStyle(data.xlab_font,data.xlab_size)
-		},
-		yAxis :{
-			name:data.ylab,
-			nameTextStyle:buildTextStyle(data.ylab_font,data.ylab_size)
-		} 
-	});
-}
 
-function buildTextStyle(font,fontSize){
-	var fontStyle,fontWeight;
-	if(font=="bold"){
-		fontWeight = 'bolder';
-		fontStyle= 'normal';
-	}else if(font=="italic"){
-		fontWeight = 'normal';
-		fontStyle= 'italic';
-	}else{
-		fontWeight = 'normal';
-		fontStyle= 'normal';	
-	}
-	return {
-		fontStyle:fontStyle,
-		fontWeight:fontWeight,
-		fontSize:fontSize	
-	}
-}
-function updateEchartsData(echartsInstance,echartsStyle,echartsData){
-	var dcolor = [];
-	$(".spectrum").each(function(){
-		var colorStr = $(this).val();
-		dcolor.push(colorStr);
-	});
-	if(echartsData&&echartsData.length>0){
-		var head1=echartsData[0];
-		head1.shift();//删除第一列
-		var col=[];
-		var heatMapData=[];
-		for(var i=1;i<echartsData.length;i++){
-			
-			col.push(echartsData[i][0]);//将第一列存储
-			var row=echartsData[i];//将整行存储
-			row.shift();//删除第一列
-			var tempdata=[];
-			for(var j=0;j<row.length;j++){
-				heatMapData.push([i-1,j,row[j]]);
-			}
-						
-		}		
-		var option = {
-			series:[],
-			xAxis:{
-				data:head1
-			},
-			yAxis:{
-				data:col
-			},
-			visualMap: {
-		        min: 0,
-		        max: 1,
-		        calculable: true,
-		        orient: 'horizontal',
-		        left: 'center',
-		        bottom: '-10',
-		        inRange: {
-		            color: dcolor
-		        } 
-		    }
-		};
-		option.series.push({
-					type:"heatmap",
-					data:heatMapData,
-					label: {
-			            normal: {
-			                show: true
-			            }
-			        },
-			        itemStyle: {
-			            emphasis: {
-			                shadowBlur: 10,
-			                shadowColor: 'rgba(0, 0, 0, 0.5)'
-			            }
-			        }
-		});
-		echartsInstance.setOption(option);
-	}
+function updateVennData(el,vennData){
+	var sets = [
+            {sets:["Information"], size: 12},
+            {sets:["Things That Overlap"], size: 12},
+            {sets:["Circles"], size: 12},
+            {sets: ["Information", "Things That Overlap"], size: 4, label: "Redundancy"},
+            {sets: ["Information", "Circles"], size: 4, label: "Pie Charts", },
+            {sets: ["Things That Overlap", "Circles"], size: 4, label: "Eclipses"},
+            {sets: ["Information", "Things That Overlap", "Circles"], size: 2, label: "Venn Diagrams"}
+    ];
+
+var chart = venn.VennDiagram()
+    chart.wrap(false) 
+    .width(640)
+    .height(640);
+
+var div = d3.select("#main").datum(sets).call(chart);
+div.selectAll("text").style("fill", "white");
+div.selectAll(".venn-circle path").style("fill-opacity", .6);
+	
 }
 
 //---------------------------------------------------函数---------------------------
