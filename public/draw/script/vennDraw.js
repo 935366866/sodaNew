@@ -31,7 +31,6 @@ $(function(){
 					file:"",
 					sampleName:""
 				});
-				
 			},
 			delSample:function(index){
 				if(this.sampleList.length ==2){
@@ -83,7 +82,7 @@ $(function(){
 			},
 			dataType: "json",
 			success:function(data) {
-				updateVennData($("#main"),data["files"]);
+				updateVennData($("#main"),data["files"],vue.sampleList);
 			},    
 			error : function(XMLHttpRequest) {
 				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -91,6 +90,7 @@ $(function(){
 		});
 		
 	});
+
 
 	//支持下载png格式
 	$("#btnPng").click(function(){
@@ -133,26 +133,74 @@ $(function(){
 
 });
 
-function updateVennData(el,vennData){
-	var sets = [
-            {sets:["Information"], size: 12},
-            {sets:["Things That Overlap"], size: 12},
-            {sets:["Circles"], size: 12},
-            {sets: ["Information", "Things That Overlap"], size: 4, label: "Redundancy"},
-            {sets: ["Information", "Circles"], size: 4, label: "Pie Charts", },
-            {sets: ["Things That Overlap", "Circles"], size: 4, label: "Eclipses"},
-            {sets: ["Information", "Things That Overlap", "Circles"], size: 2, label: "Venn Diagrams"}
-    ];
+function updateVennData(el,files,sampleList){
+
+
+	var sets=[];
+	for(var i=0;i<sampleList.length;i++){
+		var fileName=sampleList[i].file;
+		var sampleName=sampleList[i].sampleName;
+		for(var j=0;j<files.length;j++){
+			var file=files[j];
+			var fileName2=file.fileName;
+			if(fileName==fileName2){
+				file.sampleName=[sampleName];
+				break;
+			}
+		}
+	}
+	for(var i=0;i<files.length;i++){
+			sets.push({
+				sets:files[i].sampleName, 
+				size:files[i].fileContent.length}
+			);
+		}
+	for(var i=0;i<files.length;i++){
+		var file1 = files[i];
+		for(var j=i+1;j<files.length;j++){
+			var file2 = files[j];
+			var result = sameItemArr(file1,file2);
+			sets.push({
+				sets:result.sampleName, 
+				size:result.fileContent.length}
+			);
+		}
+	}
+
+		
+
 
 var chart = venn.VennDiagram()
     chart.wrap(false) 
-    .width(640)
-    .height(640);
+    .width(450)
+    .height(450);
 
 var div = d3.select("#main").datum(sets).call(chart);
 div.selectAll("text").style("fill", "white");
 div.selectAll(".venn-circle path").style("fill-opacity", .6);
+
+}
+
+function sameItemArr(file1,file2){
+	var result={
+		fileName:"",
+		sampleName:[],
+		fileContent:[]
+	}
+	result.fileName = file1.fileName+";"+file2.fileName;
+	result.sampleName = file1.sampleName.concat(file2.sampleName);
 	
+	for(var i=0;i<file1.fileContent.length;i++){
+		var record1=file1.fileContent[i];
+		for(var j=0;j<file2.fileContent.length;j++){
+			var record2=file2.fileContent[j];
+			if(record1 == record2){
+				result.fileContent.push(record1);
+				break;
+			}
+		}
+	}
+	return result;
 }
 
 //---------------------------------------------------函数---------------------------

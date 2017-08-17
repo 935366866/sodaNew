@@ -381,7 +381,10 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 		        bottom: '-10',
 		        inRange: {
 		            color: dcolor
-		        } 
+		        } ,
+		        formatter:function(value){
+                	return value;
+            	}
 		    }
 		};
 		option.series.push({
