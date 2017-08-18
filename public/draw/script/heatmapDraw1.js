@@ -185,14 +185,13 @@ $(function(){
 	    	bottom:80
 	    }
 	};
+
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
 	});
-	//颜色控件初始化开始
-	vue.color=["#fff","#4357a5"];
-	//颜色控件初始化结束
+
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){
 			vue.color=color1;
@@ -365,10 +364,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 		        bottom: '-10',
 		        inRange: {
 		            color: dcolor
-		        } ,
-		        formatter:function(value){
-                	return value;
-            	}
+		        } 
 		    }
 		};
 		option.series.push({

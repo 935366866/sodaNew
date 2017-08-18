@@ -226,13 +226,12 @@ html {
   padding-right: 0px;
   padding-left: 10px;
 }
-.main_nav2 .main_nav2_left a {
+.main_nav2 .main_nav2_left li>a {
+	color: #000;
   text-decoration: none;
-  color: #959595;
   cursor: pointer;
 }
-.main_nav2 .main_nav2_left a.active{
-	color: #333;
+.main_nav2 .main_nav2_left li.active>a{
 	font-weight: bold;
 }
 /*.main_nav2 .main_nav2_left a:hover {

@@ -117,6 +117,7 @@ $(function(){
 		a.href = canvas.toDataURL('image/png');  //将画布内的信息导出为png图片数据
 		a.download = "MapByMathArtSys";  //设定下载名称
 		a.click(); //点击触发下载	
+
 	});
 
 

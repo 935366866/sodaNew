@@ -21,12 +21,12 @@ $(function(){
 		if($(".top").children().length<=1){
 			$(".main_nav1").css("box-shadow","-2px 3px 9px 0px #ccc").css("z-index",158);
 		}
-		$(".main_nav2_left li").mouseover(function(){
-			$(this).children("a").addClass("active");
-		})
-		$(".main_nav2_left li").mouseout(function(){
-			$(this).children("a").removeClass("active");
-		})
+//		$(".main_nav2_left li").mouseover(function(){
+//			$(this).children("a").addClass("active");
+//		})
+//		$(".main_nav2_left li").mouseout(function(){
+//			$(this).children("a").removeClass("active");
+//		})
 	})
 
 
