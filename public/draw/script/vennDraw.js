@@ -11,12 +11,12 @@ $(function(){
 			},
 			sampleList:[
 				{
-					file:"dd",
-					sampleName:"aa"
+					file:"",
+					sampleName:""
 				},
 				{
-					file:"ff",
-					sampleName:"ee"
+					file:"",
+					sampleName:""
 				}
 			],
 			show:false
@@ -59,9 +59,17 @@ $(function(){
 			dataType: "json",
 			success:function(data) {
 				//加载成功后将所有数据赋值给vue
+				var sampleListSize = vue.sampleList.length;
 				for(var item in data){
-					vue[item]=data[item];
+					if(item == "sampleList"){
+						vue[item]= data[item].slice(0,sampleListSize);
+					}else{
+						vue[item]=data[item];
+					}
+					
 				}
+				
+				
 			},    
 			error : function(XMLHttpRequest) {
 				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
@@ -94,93 +102,256 @@ $(function(){
 
 	//支持下载png格式
 	$("#btnPng").click(function(){
-		downloadPic(myChart);
+		var svgXml = $('#main').html();
+		var image = new Image();
+		image.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svgXml))); //给图片对象写入base64编码的svg流
+		
+		var canvas = document.createElement('canvas');  //准备空画布
+		canvas.width = $('#main svg').width();
+		canvas.height = $('#main svg').height();
+		
+		var context = canvas.getContext('2d');  //取得画布的2d绘图上下文
+		context.drawImage(image, 0, 0);
+		
+		var a = document.createElement('a');
+		a.href = canvas.toDataURL('image/png');  //将画布内的信息导出为png图片数据
+		a.download = "MapByMathArtSys";  //设定下载名称
+		a.click(); //点击触发下载	
 	});
-  	function downloadPic(myChart){
-		var $a = document.createElement('a');
-		var type = 'png';
-		var title = myChart.getModel().get('title.0.text') || 'echarts';
-		$a.download = title + '.' + type;
-		$a.target = '_blank';
-	    var url = myChart.getConnectedDataURL({
-	        type: type,
-	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
-	        pixelRatio: 7,
-	        excludeComponents: ['toolbox']
-	    });
-	    $a.href = url;
-	     // Chrome and Firefox
-        if (typeof MouseEvent === 'function' && !$.support.msie && !$.support.edge) {
-            var evt = new MouseEvent('click', {
-                view: window,
-                bubbles: true,
-                cancelable: false
-            });
-            $a.dispatchEvent(evt);
-        }
-        // IE
-        else {
-            var html = ''
-                + '<body style="margin:0;">'
-                + '<img src="' + url + '" style="max-width:100%;" />'
-                + '</body>';
-            var tab = window.open();
-            tab.document.write(html);
-        }
-  	}
+
+
+
+
+
+
 	//与后台交互时冻结窗口
 	$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 
 });
 
-function updateVennData(el,files,sampleList){
-
-
+function updateVennData(el,filesVal,sampleList){
 	var sets=[];
+	var files = [];
 	for(var i=0;i<sampleList.length;i++){
 		var fileName=sampleList[i].file;
 		var sampleName=sampleList[i].sampleName;
-		for(var j=0;j<files.length;j++){
-			var file=files[j];
+		for(var j=0;j<filesVal.length;j++){
+			var file=filesVal[j];
 			var fileName2=file.fileName;
 			if(fileName==fileName2){
 				file.sampleName=[sampleName];
+				files.push(file);
 				break;
 			}
 		}
 	}
 	for(var i=0;i<files.length;i++){
-			sets.push({
-				sets:files[i].sampleName, 
-				size:files[i].fileContent.length}
-			);
-		}
+		sets.push({
+			sets:files[i].sampleName, 
+			size:files[i].fileContent.length
+		});
+	}
+	var twoSame = [];
 	for(var i=0;i<files.length;i++){
 		var file1 = files[i];
 		for(var j=i+1;j<files.length;j++){
 			var file2 = files[j];
 			var result = sameItemArr(file1,file2);
+			twoSame.push(result);
 			sets.push({
 				sets:result.sampleName, 
 				size:result.fileContent.length}
 			);
 		}
 	}
-
-		
-
-
+	if(files.length>=3){
+		var threeSame = [];
+		var threeSampleNameArr = [];
+		for(var i=0;i<twoSame.length;i++){
+			var two = twoSame[i];
+			for(var j=0;j<files.length;j++){
+				var file2 = files[j];
+				if(two.sampleName.indexOf(file2.sampleName[0]) != -1){//如果已经是包含他的并集 跳过
+					continue;
+				}
+				var result = sameItemArr(two,file2);
+				var isHas = false;
+				for(var k=0;k<threeSampleNameArr.length;k++){
+					if(arrEquals(threeSampleNameArr[k],result.sampleName)){
+						isHas = true;
+					}
+				}
+				if(isHas){
+					continue;
+				}
+				
+				threeSampleNameArr.push(result.sampleName);
+				threeSame.push(result);
+				sets.push({
+					sets:result.sampleName, 
+					size:result.fileContent.length}
+				);
+			}
+		}
+		console.log(threeSame);
+	}
+	
+	if(files.length>=4){
+		var fourSame = [];
+		var fourSampleNameArr = [];
+		for(var i=0;i<threeSame.length;i++){
+			var three = threeSame[i];
+			for(var j=0;j<files.length;j++){
+				var file2 = files[j];
+				if(three.sampleName.indexOf(file2.sampleName[0]) != -1){//如果已经是包含他的并集 跳过
+					continue;
+				}
+				var result = sameItemArr(three,file2);
+				var isHas = false;
+				for(var k=0;k<fourSampleNameArr.length;k++){
+					if(arrEquals(fourSampleNameArr[k],result.sampleName)){
+						isHas = true;
+					}
+				}
+				if(isHas){
+					continue;
+				}
+				
+				fourSampleNameArr.push(result.sampleName);
+				fourSame.push(result);
+				sets.push({
+					sets:result.sampleName, 
+					size:result.fileContent.length}
+				);
+			}
+		}
+		console.log(fourSame);
+	}
+	
+	if(files.length>=5){
+		var fiveSame = [];
+		var fiveSampleNameArr = [];
+		for(var i=0;i<fourSame.length;i++){
+			var four = fourSame[i];
+			for(var j=0;j<files.length;j++){
+				var file2 = files[j];
+				if(four.sampleName.indexOf(file2.sampleName[0]) != -1){//如果已经是包含他的并集 跳过
+					continue;
+				}
+				var result = sameItemArr(four,file2);
+				var isHas = false;
+				for(var k=0;k<fiveSampleNameArr.length;k++){
+					if(arrEquals(fiveSampleNameArr[k],result.sampleName)){
+						isHas = true;
+					}
+				}
+				if(isHas){
+					continue;
+				}
+				fiveSampleNameArr.push(result.sampleName);
+				fiveSame.push(result);
+				sets.push({
+					sets:result.sampleName, 
+					size:result.fileContent.length}
+				);
+			}
+		}
+		console.log(fiveSame);
+	}
+	
+	if(files.length>=6){
+		var sixSame = [];
+		var sixSampleNameArr = [];
+		for(var i=0;i<fiveSame.length;i++){
+			var five = fiveSame[i];
+			for(var j=0;j<files.length;j++){
+				var file2 = files[j];
+				if(five.sampleName.indexOf(file2.sampleName[0]) != -1){//如果已经是包含他的并集 跳过
+					continue;
+				}
+				var result = sameItemArr(five,file2);
+				var isHas = false;
+				for(var k=0;k<sixSampleNameArr.length;k++){
+					if(arrEquals(sixSampleNameArr[k],result.sampleName)){
+						isHas = true;
+					}
+				}
+				if(isHas){
+					continue;
+				}
+				sixSampleNameArr.push(result.sampleName);
+				sixSame.push(result);
+				sets.push({
+					sets:result.sampleName, 
+					size:result.fileContent.length}
+				);
+			}
+		}
+		console.log(sixSame);
+	}
+	
 var chart = venn.VennDiagram()
     chart.wrap(false) 
     .width(450)
     .height(450);
 
 var div = d3.select("#main").datum(sets).call(chart);
-div.selectAll("text").style("fill", "white");
-div.selectAll(".venn-circle path").style("fill-opacity", .6);
+
+var tooltip = d3.select("body").append("div")
+    .attr("class", "venntooltip");
+
+div.selectAll("path")
+    .style("stroke-opacity", 0)
+    .style("stroke", "#fff")
+    .style("stroke-width", 3)
+
+div.selectAll("g")
+    .on("mouseover", function(d, i) {
+        // sort all the areas relative to the current item
+        venn.sortAreas(div, d);
+
+        // Display a tooltip with the current size
+        tooltip.transition().duration(400).style("opacity", .8);
+        tooltip.text(d.size);
+
+        // highlight the current path
+        var selection = d3.select(this).transition("tooltip").duration(400);
+        selection.select("path")
+            .style("fill-opacity", d.sets.length == 1 ? .4 : .1)
+            .style("stroke-opacity", 1);
+    })
+
+    .on("mousemove", function() {
+        tooltip.style("left", (d3.event.pageX) + "px")
+               .style("top", (d3.event.pageY - 28) + "px");
+    })
+
+    .on("mouseout", function(d, i) {
+        tooltip.transition().duration(400).style("opacity", 0);
+        var selection = d3.select(this).transition("tooltip").duration(400);
+        selection.select("path")
+            .style("fill-opacity", d.sets.length == 1 ? .25 : .0)
+            .style("stroke-opacity", 0);
+    });
+    var colours = ['black', 'red', 'blue','green','yellow','pink'];
+	d3.selectAll("#main .venn-circle path")
+    .style("fill", function(d,i) { return colours[i]; });
 
 }
 
+
+
+function arrEquals(arr1,arr2){
+	if(arr1.length != arr2.length){
+		return false;
+	}
+	for(var i=0;i<arr1.length;i++){
+		if(arr2.indexOf(arr1[i])==-1){
+			return false;
+		}
+	}
+	return true;
+}
 function sameItemArr(file1,file2){
 	var result={
 		fileName:"",
