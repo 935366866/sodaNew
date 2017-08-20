@@ -5,6 +5,9 @@
     "title_font": "bold",
     "titleX":"center",
     "titleY":"top",
+    "longitude":2,
+    "latitude":3,
+    "placeName":1,
     "minValue":0,
-    "maxValue":1 
+    "maxValue":28 
 }

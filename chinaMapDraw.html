@@ -164,6 +164,37 @@
 									</div>										
 								</div>							
 								<div class="line"></div>
+								<div class="part"> 
+									<div class="input_a_l">绘图列数:</div>	
+									<div class="selectLeft" >
+										<div class="input_a_l" style="width: 65px;">地名：</div>
+										<div class="input_a_m" style="width: 100px;">
+											<select v-model="placeName" id="placeName"  name="placeName" class="select_width" autocomplete="off" >
+												<option v-for="item in canSelectFields" :value="item">{{item}}</option>
+											</select>
+										</div>	
+									</div>	
+									<div class="selectRight"><div style="display: inline-block;width: 300px;"></div></div>
+									<div class="selectLeft" style="margin-left: 98px;">
+										<div class="input_a_l" style="width: 65px;">经度：</div>
+										<div class="input_a_m" style="width: 100px;">
+											<select v-model="longitude" id="longitude"  name="longitude" class=" select_width" autocomplete="off" >
+												<option v-for="item in canSelectFields" :value="item">{{item}}</option>
+											</select>
+										</div>	
+									</div>
+									<div class="selectRight">
+										<div class="input_a_l" style="width: 65px;margin-left: 80px;">纬度：</div>
+										<div class="input_a_m" style="width: 100px;">
+											<select v-model="latitude" id="latitude"  name="latitude" class="select_width" autocomplete="off" >
+												<option v-for="item in canSelectFields"  :value="item">{{item}}</option>
+											</select>
+										</div>	
+									</div>
+
+									
+								</div>
+								<div class="line"></div>
 								<div class="part">
 									<div class="input_a_l">颜色方案:</div>
 									<div class="input_b_3" style="float: left;width: 30%;">
@@ -373,7 +404,15 @@
     <script src="public/draw/script/spectrum.js"></script>
     <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
     <script src="js/common.js"></script>
-    <script src="public/draw/script/chinaMapDraw.js"></script>   
+    <script src="public/draw/script/chinaMapDraw.js"></script>
+    <script>
+    	$(function(){
+    		
+  		$("#longitude").selectpicker({noneSelectedText:'请选择'});
+  		$("#latitude").selectpicker({noneSelectedText:'请选择'});
+  		$("#placeName").selectpicker({noneSelectedText:'请选择'});
+    	})
+    </script>
 </body>
 
 </html>

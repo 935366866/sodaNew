@@ -374,7 +374,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (true) {
 	            zrUtil.assert(!this[IN_MAIN_PROCESS], '`setOption` should not be called during main process.');
 	        }
-
 	        var silent;
 	        if (zrUtil.isObject(notMerge)) {
 	            lazyUpdate = notMerge.lazyUpdate;
