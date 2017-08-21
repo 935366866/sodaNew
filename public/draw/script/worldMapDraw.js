@@ -325,6 +325,7 @@ $(function(){
                 }
             }
 		},
+		width:480,
 		series:[]
 	};
 	
