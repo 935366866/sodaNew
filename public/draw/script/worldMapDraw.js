@@ -1,7 +1,7 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
-	var color1=["#fff","#4357a5"];
-	var color2=["#f9f98c","#a50026"];
-	var color3=["#a0f8f0","#006edf"];
+	var color1=["#fff","pink","#4357a5"];
+	var color2=["#fff","#4ab1c9","#0f9a82"];
+	var color3=["#eae185","#ea8f10","#de1615"];
 $(function(){
 	vue=new Vue({
 		el:"#myTabContent",
@@ -13,9 +13,12 @@ $(function(){
 			},
 			title_size_sel:"",
 			title_font_sel:"",
+			titleX_sel:"",
+			titleY_sel:"",
 			color:color1,
 			minValue:0,
-			maxValue:200
+			middleValue:15,
+			maxValue:30
 		},
 		computed: {
 		  title_size: {
@@ -35,12 +38,32 @@ $(function(){
 		    	this.title_font_sel = newValue;
 		       $("#title_font").selectpicker("val",newValue);
 		    }
-		  }
+		  },
+		  titleX:{
+			  	get: function () {
+			      return this.titleX_sel;
+			   },
+			    set: function (newValue) {
+			    	if(!newValue) return;
+			    	this.titleX_sel = newValue;
+			       $("#titleX").selectpicker("val",newValue);
+			    }
+			},
+			titleY:{
+			  	get: function () {
+			      return this.titleY_sel;
+			   	},
+			    set: function (newValue) {
+			    	if(!newValue) return;
+			    	this.titleY_sel = newValue;
+			       $("#titleY").selectpicker("val",newValue);
+			    }
+			}
 		},
 		watch:{
 			input:function(val,oldVal){
 				$.ajax({
-					url: 'public/draw/json/chinaMapDrawFileData.json',  
+					url: 'public/draw/json/worldMapDrawFileData.json',  
 					type:'get',
 					data:{
 						fileName:val
@@ -82,6 +105,8 @@ $(function(){
 	        	fontWeight:'normal',
 	        	fontSize:14
 	        },
+	        x:vue.titleX,
+	        y:vue.titleY,
 	        top:20
 	    },
 		tooltip: {
@@ -94,7 +119,7 @@ $(function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
 	});
 	//颜色控件初始化开始
-	vue.color=["#fff","#4357a5"];
+	vue.color=["#fff","pink","#4357a5"];
 	//颜色控件初始化结束
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){
@@ -109,7 +134,7 @@ $(function(){
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
-			url: 'public/draw/json/chinaMapDraw.json',  
+			url: 'public/draw/json/worldMapDraw.json',  
 			type:'get',
 			data:tool_id,
 			dataType: "json",
@@ -133,7 +158,7 @@ $(function(){
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
 			myChart.showLoading();
 			$.ajax({
-				url: 'public/draw/json/chinaMapDrawFileData.json',  
+				url: 'public/draw/json/worldMapDrawFileData.json',  
 				type:'get',
 				data:{
 					fileName:formData.input
@@ -198,17 +223,17 @@ function updateEcharts(echarts,data){
 			x:data.titleX,
 			y:data.titleY,
 		},
-		 toolbox: {
-        show: true,
-        orient: 'vertical',
-        left: 'right',
-        top: 'center',
-        feature: {
-            dataView: {readOnly: false},
-            restore: {},
-            saveAsImage: {}
-        }
-    },
+		toolbox: {
+	        show: true,
+	        orient: 'vertical',
+	        right: 20,
+	        top: 'center',
+	        feature: {
+	            dataView: {readOnly: false},
+	            restore: {},
+	            saveAsImage: {}
+	        }
+	    }
 	});
 }
 
@@ -238,97 +263,40 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 	});
 
 	if(echartsData&&echartsData.length>0){
-		var option = {
-			series:[],
-			xAxis:{},
-			legend: {
-				data:[]
-			}
-		};
-		var
-		var head1=echartsData[0];
-		head1.shift();//删除第一列
-		var col=[];
-		var heatMapData=[];
+		var result=[];
 		for(var i=1;i<echartsData.length;i++){
-			col.push(echartsData[i][0]);//将第一列存储
-			var row=echartsData[i];//将整行存储
-			row.shift();//删除第一列
-			var tempdata=[];
-			for(var j=0;j<row.length;j++){
-				heatMapData.push([i-1,j,row[j]]);
-			}
-						
+			value=Number(echartsData[i][3])+Number(echartsData[i][4])+Number(echartsData[i][5]);
+			result.push({"name":echartsData[i][0],"value":value})
 		}
+
 		var minNum=Number(vue.minValue);
+		var middleNum=Number(vue.middleValue);
 		var maxNum=Number(vue.maxValue);
 		var option = {
 			series:[],
 			visualMap: {
 		        min: minNum,
 		        max: maxNum,
-		        left: 'left',
-        		text: ['高','低'], // 文本，默认为数值文本
 		        calculable: true,
+		        text: ['高','低'],  
+		        left: 'left',
+		        top: 'bottom',
 		        inRange: {
 		            color: dcolor
-		        },
-		        geo: {
-			        map: 'china',
-			        roam: true,
-			        label: {
-			            normal: {
-			                show: true,
-			                textStyle: {
-			                    color: 'rgba(0,0,0,0.4)'
-			                }
-			            }
-			        },
-			        itemStyle: {
-			            normal:{
-			                borderColor: 'rgba(0, 0, 0, 0.2)'
-			            },
-			            emphasis:{
-			                areaColor: null,
-			                shadowOffsetX: 0,
-			                shadowOffsetY: 0,
-			                shadowBlur: 20,
-			                borderWidth: 0,
-			                shadowColor: 'rgba(0, 0, 0, 0.5)'
-			            }
-			        }
-			    }
+		        }
 		    }
 		};
 		option.series.push({
+					name:"样本",
 					type:"map",
-					mapType: 'china',
-					label: {
-                        normal: {
-                            show: true,//显示省份标签
-                            textStyle:{color:"#c71585"}//省份标签字体颜色
-                        },    
-                        emphasis: {//对应的鼠标悬浮效果
-                            show: true,
-                            textStyle:{color:"#800080"}
-                        } 
-                    },
-                    itemStyle: {
-                        normal: {
-                            borderWidth: .5,//区域边框宽度
-                            borderColor: '#009fe8',//区域边框颜色
-                            areaColor:"#ffefd5",//区域颜色
-                        },
-                        emphasis: {
-                            borderWidth: .5,
-                            borderColor: '#4b0082',
-                            areaColor:"#ffdead",
-                        }
-                    },
-                    data:[
-                        {name:'福建', selected:true}//福建为选中状态
-                    ]
+					mapType: 'world',
+				    roam: true,
+		            itemStyle:{
+		                emphasis:{label:{show:true}}
+		            },
+					data:result
 		});
+		console.log(option);
 		echartsInstance.setOption(option);
 	}
 }

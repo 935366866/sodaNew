@@ -181,12 +181,12 @@
 									<div class="input_a_m" style="width: 20%;margin-right: 10px;">
 										<input v-model="minValue" type="text" class="form-control" />
 									</div>
-									<div class="input_e_2 colorInput">
+									<!--<div class="input_e_2 colorInput">
 										自定义颜色:
 									</div>
 									<div class="input_c_4">
 										<input v-model="color[0]" type="text" class="form-control spectrum">
-									</div>	
+									</div>	-->
 									
 								</div>
 								<div class="part">
@@ -196,13 +196,33 @@
 									<div class="input_a_m" style="width: 20%;margin-right: 10px;">
 										<input v-model="maxValue" type="text" class="form-control" />
 									</div>
-									<div class="input_e_2 colorInput">
+									<!--<div class="input_e_2 colorInput">
 										自定义颜色:
 									</div>
 									<div class="input_c_4">
-										<input v-model="color[1]" type="text" class="form-control spectrum">
-									</div>	
+										<input v-model="color[2]" type="text" class="form-control spectrum">
+									</div>-->
 									
+								</div>
+								<div class="part">
+									<div class="input_e_2 colorInput">
+										最小值颜色:
+									</div>
+									<div class="input_c_4">
+										<input v-model="color[0]" type="text" class="form-control spectrum">
+									</div>
+									<div class="input_e_2 colorInput" style="margin-left: 10px;">
+										中间颜色:
+									</div>
+									<div class="input_c_4">
+										<input v-model="color[1]" type="text" class="form-control spectrum">
+									</div>
+									<div class="input_e_2 colorInput" style="margin-left: 10px;">
+										最大值颜色:
+									</div>
+									<div class="input_c_4">
+										<input v-model="color[2]" type="text" class="form-control spectrum">
+									</div>
 								</div>
 
 								<!--<div class="line" v-if="fileData['content'][0]&&fileData['content'][0].length>1"></div>-->
@@ -367,13 +387,12 @@
     <script src="public/draw/script/html2canvas.min.js"></script>
     <script src="public/draw/script/jspdf.min.js"></script>
     <script src="public/js/echarts.min.js"></script>
-    <script src="public/draw/script/china.js"></script>
+    <script src="public/draw/script/world.js"></script>
     <script src="public/js/long_common.js"></script>
     <script src="public/js/vue.js"></script>
     <script src="public/draw/script/spectrum.js"></script>
     <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
     <script src="js/common.js"></script>
-    <script src="public/draw/script/chinaMapDraw.js"></script>   
+    <script src="public/draw/script/worldMapDraw.js"></script>   
 </body>
-
 </html>
