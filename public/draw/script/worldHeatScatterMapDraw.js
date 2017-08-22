@@ -292,8 +292,7 @@ $(function(){
 	        top:30
 	    },
 		tooltip: {
-		    trigger: 'item',
-			formatter: '{b}'
+		    trigger: 'item'
 		},
 		geo: {
 	        map: 'world',
@@ -521,9 +520,10 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 				dataIndexMap[head] = i;
 				var seriesItem = {
 					name:head,
-					type:"map",
+					type:"scatter",
 					geoIndex: 0,
 				    roam: true,
+				     coordinateSystem: 'geo',
 		            itemStyle:{
 		                emphasis:{
 		                	label:{
@@ -550,24 +550,11 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 			var rowData = echartsData[i];
 			var lat = rowData[latIndex];
 			var lon =  rowData[lonIndex];
-			var  placeName = rowData[placeNameIndex];
-			var coordSysList = echartsInstance._coordSysMgr.getCoordinateSystems();
-			if(coordSysList&&coordSysList.length>0){
-			 	if(coordSysList[0]&&coordSysList[0].getRegionByCoord){
-			 		var region =  coordSysList[0].getRegionByCoord([lat,lon]);
-			 		if(region){
-			 			placeName=region.name;
-			 		}
-			 	}
-			}
-			
+		
 			for(key in dataIndexMap){
 				var index = dataIndexMap[key];
 				var data = rowData[index];
-				mapSerieMap[key].data.push({
-					name:placeName,
-					value:data
-				});
+				mapSerieMap[key].data.push([lat,lon,data]);
 			}
 		}
 		console.info(option)

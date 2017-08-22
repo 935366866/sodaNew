@@ -23,6 +23,20 @@ $(function(){
 			legendLayout_sel:""
 		},
 		computed: {
+			dataColumn:function(){
+				if(this.fileData.content.length<=0){
+					return [];
+				}
+				var heads = this.fileData.content[0];
+				var result = [];
+				for(var i=0;i<heads.length;i++){
+					if(heads[i]=='地名'||heads[i]=='经度'||heads[i]=='纬度'){
+						continue;
+					}
+					result.push(heads[i]);
+				}
+				return result;
+			},
 			title_size: {
 			    get: function () {
 			      return this.title_size_sel;

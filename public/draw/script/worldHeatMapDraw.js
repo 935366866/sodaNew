@@ -292,8 +292,6 @@ $(function(){
 	        top:30
 	    },
 		tooltip: {
-		    trigger: 'item',
-			formatter: '{b}'
 		},
 		geo: {
 	        map: 'world',
@@ -311,7 +309,16 @@ $(function(){
 	            	color:"#ccc",
 	                areaColor: '#fff',
 	                borderColor: '#111'
-	            }
+	            },
+            emphasis:{
+                areaColor: null,
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                shadowBlur: 20,
+                borderWidth: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+	            
 	        },
 			label:{
                 normal: {
@@ -524,14 +531,6 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 					type:"map",
 					geoIndex: 0,
 				    roam: true,
-		            itemStyle:{
-		                emphasis:{
-		                	label:{
-		                		show:true
-		                	}
-		                	
-		                }
-		            },
 					data:[]
 				};
 				mapSerieMap[head]=seriesItem;
@@ -570,7 +569,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 				});
 			}
 		}
-		console.info(option)
+		console.info(JSON.stringify(option));
 		echartsInstance.setOption(option);
 	}
 }

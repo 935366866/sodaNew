@@ -326,7 +326,7 @@ function buildTextStyle(font,fontSize){
 function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 	var dcolor = [];
 	$(".spectrum").each(function(){
-		var colorStr = $(this).val();
+		var colorStr = $(this).spectrum("get").toHexString();
 		dcolor.push(colorStr);
 	});
 
@@ -364,7 +364,10 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 		        bottom: '-10',
 		        inRange: {
 		            color: dcolor
-		        } 
+		        },
+		        formatter:function(value){
+                	return value;
+            	}
 		    }
 		};
 		option.series.push({
