@@ -1,55 +1,28 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
-
-$(function(){	
 	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
 	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
 	var color3=["#4357a5","#c43c32","#719657","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
+$(function(){
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
-			pieType:'标准饼图',
 			input:"",
 			title:"",
-			t:null,
-			legendWidth:"",
-			legendHeight:"",
-			legendX_sel:"",
-			legendY_sel:"",
-			titleX_sel:"",
-			titleY_sel:"",
-			legendLayout_sel:"",
-			geneColumn_sel:null,
-			funColumn_sel:null,
 			fileData:{
 				content:[]
 			},
 			title_size_sel:"",
 			title_font_sel:"",
-			color:color1
+			titleX_sel:"",
+			titleY_sel:"",
+			color:color1,
+			legendWidth:"",
+			legendHeight:"",
+			legendX_sel:"",
+			legendY_sel:"",
+			legendLayout_sel:""
 		},
 		computed: {
-			seriesData:function(){
-				if(!this.geneColumn){
-					return new Array();
-				}
-				//
-				var datas=this.fileData.content[0];
-				if(!datas){
-					return new Array();
-				}
-				var index;
-				for(var i=0;i<datas.length;i++){
-					if(datas[i]==this.geneColumn){
-						index=i;
-						break;
-					}
-				}
-				var resultArr=[];
-				for(var i=1;i<this.fileData.content.length;i++){
-					resultArr.push(this.fileData.content[i][index]);
-				}
-				return resultArr;
-			},
 			title_size: {
 			    get: function () {
 			      return this.title_size_sel;
@@ -68,16 +41,15 @@ $(function(){
 			       $("#title_font").selectpicker("val",newValue);
 			    }
 			},
-			legendX:{
+		  	legendX:{
 			  	get: function () {
 			      return this.legendX_sel;
 			   },
 			    set: function (newValue) {
-			    	if(!newValue) return;
 			    	this.legendX_sel = newValue;
 			       $("#legendX").selectpicker("val",newValue);
 			    }
-			  },
+			},
 			legendY:{
 			  	get: function () {
 			      return this.legendY_sel;
@@ -87,7 +59,16 @@ $(function(){
 			       $("#legendY").selectpicker("val",newValue);
 			    }
 			},
-			titleX:{
+			legendLayout:{
+			  	get: function () {
+			      return this.legendLayout_sel;
+			   },
+			    set: function (newValue) {
+			    	this.legendLayout_sel = newValue;
+			       $("#legendLayout").selectpicker("val",newValue);
+			    }
+			},
+		  	titleX:{
 			  	get: function () {
 			      return this.titleX_sel;
 			   },
@@ -100,91 +81,32 @@ $(function(){
 			titleY:{
 			  	get: function () {
 			      return this.titleY_sel;
-			   },
+			   	},
 			    set: function (newValue) {
 			    	if(!newValue) return;
 			    	this.titleY_sel = newValue;
 			       $("#titleY").selectpicker("val",newValue);
-			    }
-			  },
-			legendLayout:{
-			  	get: function () {
-			      return this.legendLayout_sel;
-			   },
-			    set: function (newValue) {
-			    	this.legendLayout_sel = newValue;
-			       $("#legendLayout").selectpicker("val",newValue);
-			    }
-			},
-			geneColumn:{
-			  	get: function () {
-			      return this.geneColumn_sel;
-			    },
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.geneColumn_sel = newValue;
-			        $("#geneColumn").selectpicker("val",newValue);
-			    }
-			},
-			radius:function(){
-				if(this.pieType=="标准饼图"){
-					return "55%";
-				}else if(this.pieType=="环形图"){
-					return ["30%","50%"];
-				}else if(this.pieType=="南丁格尔玫瑰图"){
-					return [20, 110];
-				}else{
-					alert("不存在的饼图类型");
-				}
-			},
-			funColumn:{
-			  	get: function () {
-			      return this.funColumn_sel;
-			    },
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.funColumn_sel = newValue;
-			        $("#funColumn").selectpicker("val",newValue);
 			    }
 			}
 		},
 		watch:{
 			input:function(val,oldVal){
 				$.ajax({
-					url: 'public/draw/json/pieDrawFileData.json',  
+					url: 'public/draw/json/chinaPieMapDrawFileData.json',  
 					type:'get',
 					data:{
 						fileName:val
 					},
 					dataType: "json",
 					success:function(data) {
-						 vue["fileData"]=data;
+						 vue["fileData"]=data; 
 					},    
 					error : function(XMLHttpRequest) {
 						//alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 					}
 				});
 			},
-			
 			fileData:function(val,oldVal){
-				this.$nextTick(function(){
-					$('#geneColumn').selectpicker('refresh');				
-					this.geneColumn_sel=$('#geneColumn').selectpicker("val");
-					$('#funColumn').selectpicker('refresh');
-					this.funColumn=$('#funColumn').selectpicker("val");
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			},
-			geneColumn:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			},
-			funColumn:function(val,oldVal){
 				this.$nextTick(function(){
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
@@ -201,8 +123,8 @@ $(function(){
 		}
 	});
 
-	 // 指定图表的配置项和数据
-   	var myChart = echarts.init(document.getElementById('main')); 
+ 	var myChart = echarts.init(document.getElementById('main'));
+        // 指定图表的配置项和数据
     var option = {
     	backgroundColor: '#fff',
 	    title: {
@@ -214,76 +136,65 @@ $(function(){
 	        },
 	        x:vue.titleX,
 	        y:vue.titleY,
-	        top:10
-	       
+	        top:30
 	    },
-	    tooltip : {
-	        trigger: 'item',
-        	formatter: "{a} <br/>{b} : {c} ({d}%)"
-	    },
+		tooltip: {
+		    trigger: 'item'
+		},
 	    legend: {
 	    	data: [],
 	    	y:vue.legendY,
 			x:vue.legendX,
 			orient:vue.legendLayout
 		},
-		series : [
-	        {
-	            name: ' ',
-	            type: 'pie',
-	            radius : vue.radius,
-	            center: ['50%', '60%'],
-	            data:[],
-	            itemStyle: {
-	                emphasis: {
-	                    shadowBlur: 10,
-	                    shadowOffsetX: 0,
-	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-	                }
+		width:440,
+		geo: {
+	        map: 'china',
+	        label: {
+	        	normal:{
+	        		show:false
+	        	},
+	            emphasis: {
+	                show: true
+	            }
+	        },
+	        itemStyle: {
+	            normal: {
+	            	color:"#ccc",
+	                areaColor: '#fff',
+	                borderColor: '#111'
+	            },
+	            emphasis: {
+	                areaColor: '#fff'
 	            }
 	        }
-	    ]
+		},
+		series:[]
 	};
 	
-	//点击柱子，对应的数据高亮显示
-	myChart.on('click', function (parmas) {
-		$('#appTabLeft li:eq(0) a').tab('show');
-		var tr=$("#file table tr").first();
-		var ths=$(tr).children("th");
-		//取到x轴名字
-		var geneText=vue.geneColumn;
-		var index;
-		for(var i=0;i<ths.length;i++){
-			if(ths[i].innerText==geneText){
-				index=i;
-				break;
-			}									
-		}
-		$("#file table tr").each(function(){
-			if($(this).children("td:eq("+index+")").text()==parmas.name){
-				$(this).addClass("active");
-				$(this).siblings("tr").removeClass("active");
-			}			
-		})
-	});
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
+
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
-	})
+	});
+//	//颜色控件初始化开始
+	vue.color=["#b09b84","#da9034","#4ab1c9"];
+	//颜色控件初始化结束
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){
 			vue.color=color1;
 		}else if($(this).selectpicker("val")=="project2"){
 			vue.color=color2;
-		}else{
+		}
+		else{
 			vue.color=color3;
 		}
 	});
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
-			url: 'public/draw/json/pieDraw.json',  
+			url: 'public/draw/json/chinaPieMapDraw.json',  
 			type:'get',
 			data:tool_id,
 			dataType: "json",
@@ -298,7 +209,6 @@ $(function(){
 			}
 		});
 	});
-
 	//提交参数
 	$("#submit_paras").click(function(){
 		var formData =  allParams();//取form表单参数
@@ -308,7 +218,7 @@ $(function(){
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
 			myChart.showLoading();
 			$.ajax({
-				url: 'public/draw/json/pieDrawFileData.json',  
+				url: 'public/draw/json/chinaPieMapDrawFileData.json',  
 				type:'get',
 				data:{
 					fileName:formData.input
@@ -316,20 +226,185 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.geneColumn,vue.funColumn);
+					updateEchartsData(myChart,formData,data["content"]);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
 				}
-			});			
+			});
 		}
-		
 	});
+
 	//支持下载png格式
 	$("#btnPng").click(function(){
 		downloadPic(myChart);
 	});
-	function downloadPic(myChart){
+  	
+	//与后台交互时冻结窗口
+	$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
+});
+function updateEcharts(echarts,data){
+	var color = [];
+	$(".spectrum").each(function(){
+		var colorStr = $(this).val();
+		color.push(colorStr);
+	});
+
+	echarts.setOption({
+		title:{
+			text:data.title,
+			textStyle:buildTextStyle(data.title_font,data.title_size),
+			x:data.titleX,
+			y:data.titleY,
+		},
+		legend:{
+			x:data.legendX,
+			y:data.legendY,
+			orient:data.legendLayout
+		},
+	   	color:color
+	});
+}
+
+function buildTextStyle(font,fontSize){
+	var fontStyle,fontWeight;
+	if(font=="bold"){
+		fontWeight = 'bolder';
+		fontStyle= 'normal';
+	}else if(font=="italic"){
+		fontWeight = 'normal';
+		fontStyle= 'italic';
+	}else{
+		fontWeight = 'normal';
+		fontStyle= 'normal';	
+	}
+	return {
+		fontStyle:fontStyle,
+		fontWeight:fontWeight,
+		fontSize:fontSize	
+	}
+}
+function updateEchartsData(echartsInstance,echartsStyle,echartsData){
+
+	if(echartsData&&echartsData.length>0){
+		var option = {
+			series:[],
+		   	legend: {
+		   		x:echartsStyle.legendX,
+				y:echartsStyle.legendY,
+				orient:echartsStyle.legendLayout,
+		        data:[]
+		    }
+		};
+		var dataIndexMap = {};//数据列名列索引映射 {"地名":0,"经度":1,"维度":2}
+		var placeNameIndex = -1,
+			lonIndex =-1,
+			latIndex=-1;
+
+		var headers = echartsData[0];//获取表头行
+		for(var i=0;i<headers.length;i++){//遍历表头行
+			var head = headers[i];//获取到一个表头	
+			if(head == "地名"){
+				placeNameIndex = i;
+				
+			}else if(head == "经度"){
+				latIndex = i;
+			}else if(head == "纬度"){
+				lonIndex = i;
+			}else{
+				dataIndexMap[head] = i;
+				var mapSerie={
+					name:head,
+		            type: 'map',
+		            mapType: 'china',
+		            label: {
+		                normal: {
+		                    show: false
+		                }
+		            },
+		            showLegendSymbol:false,
+		            data:[]
+				}
+				
+//				mapSerieMap[head] = mapSerie;
+				option.legend.data.push(head);
+				option.series.push(mapSerie);
+//				option.visualMap.seriesIndex.push(option.series.length-1);
+				
+			}
+		}
+		if(lonIndex == -1){
+			alert("维度数据不存在");
+			return;
+		}
+		if(latIndex == -1){
+			alert("经度数据不存在");
+			return;
+		}
+		
+		for(var i=1;i<echartsData.length;i++){//遍历数据
+			var rowData = echartsData[i];
+			//新定义一个option 饼图
+			var lat = rowData[latIndex];
+			var lon =  rowData[lonIndex];
+			var xy = echartsInstance.convertToPixel('geo', [lat,lon]);
+			var  placeName = rowData[placeNameIndex];
+			if(!xy){
+				alert(placeName+"("+lat+","+lon+")"+不在中国范围内);
+				continue;
+			}
+		   	var pieData = { 
+				        	name:placeName,
+				            type: 'pie',
+				            radius : '5%',
+				            center: xy,
+				            labelLine: {
+				            	normal: {
+									show: false
+								}
+				            },
+				            label: {
+				            	normal: {
+									show: false
+								}
+				            },
+				            data:[]
+				        };
+			
+			var coordSysList = echartsInstance._coordSysMgr.getCoordinateSystems();
+			if(coordSysList&&coordSysList.length>0){
+			 	if(coordSysList[0]&&coordSysList[0].getRegionByCoord){
+			 		var region =  coordSysList[0].getRegionByCoord([lat,lon]);
+			 		if(region){
+			 			placeName=region.name;
+			 		}
+			 	}
+			}
+			for(name in dataIndexMap){
+				var index = dataIndexMap[name];
+				var value = rowData[index];
+				
+				//将  name 和 value加入到option的data中
+				pieData.data.push({
+					'name':name,
+					'value':value
+				});
+				
+			}
+			
+			var numWidth=parseInt(echartsStyle.legendWidth);
+			option.legend.itemWidth=numWidth;
+			var numHeight=parseInt(echartsStyle.legendHeight);
+			option.legend.itemHeight=numHeight;
+			option.series.push(pieData);	
+		}
+
+		echartsInstance.setOption(option);
+	}
+}
+
+function downloadPic(myChart){
 		var $a = document.createElement('a');
 		var type = 'png';
 		var title = myChart.getModel().get('title.0.text') || 'echarts';
@@ -338,7 +413,7 @@ $(function(){
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
 	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
-	        pixelRatio: 10,
+	        pixelRatio: 7,
 	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;
@@ -360,108 +435,22 @@ $(function(){
             var tab = window.open();
             tab.document.write(html);
         }
-	}
-	//与后台交互时冻结窗口
-	$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
-
-});
-
-function updateEcharts(echarts,data){
-	var color = [];
-	$(".spectrum").each(function(){
-		var colorStr = $(this).val();
-		color.push(colorStr);
-	});
-
-	echarts.setOption({
-		title:{
-			text:data.title,
-			x:data.titleX,
-			y:data.titleY,
-			textStyle:buildTextStyle(data.title_font,data.title_size)
-		},
-		legend:{
-			x:data.legendX,
-			y:data.legendY,
-			orient:data.legendLayout
-		},
-		color:color,
-		series : [
-	        {
-	            name: ' ',
-	            radius : vue.radius,
-	        }
-	    ]
-	});
-}
-
-function buildTextStyle(font,fontSize){
-	var fontStyle,fontWeight;
-	if(font=="bold"){
-		fontWeight = 'bolder';
-		fontStyle= 'normal';
-	}else if(font=="italic"){
-		fontWeight = 'normal';
-		fontStyle= 'italic';
-	}else{
-		fontWeight = 'normal';
-		fontStyle= 'normal';	
-	}
-	return {
-		fontStyle:fontStyle,
-		fontWeight:fontWeight,
-		fontSize:fontSize
-	}
-}
-function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField,funColumnField){
-	if(echartsData&&echartsData.length>0){
-		var option = {
-			series:[{
-				type:"pie",
-				radius : vue.radius,
-            	center: ['50%', '60%'],
-				data:[]
-			}],
-			legend: {
-				data:[]
-			}
-		};
-
-		if(vue.radius[0]==20){
-			option.series[0].roseType='radius';
-		}else{
-			option.series[0].roseType='';
-		}
-
-		var geneIndex,funIndex;
-		for(var i=0;i<echartsData[0].length;i++){
-			if(echartsData[0][i]==geneColumnField){
-				geneIndex=i;	
-			}
-			if(echartsData[0][i]==funColumnField){
-				funIndex=i;	
-			}
-		}
-		
-		for(var i=1;i<echartsData.length;i++){
-			option.series[0].data.push({
-				name:echartsData[i][geneIndex],
-				value:echartsData[i][funIndex]
-			});
-			option.legend.data.push(echartsData[i][geneIndex]);
-			var numWidth=parseInt(echartsStyle.legendWidth);
-			option.legend.itemWidth=numWidth;
-			var numHeight=parseInt(echartsStyle.legendHeight);
-			option.legend.itemHeight=numHeight;
-		}
-
-		echarts.setOption(option);
-	}
-	
-}
-
+  	}
 //---------------------------------------------------函数---------------------------
-
+   	//支持下载pdf格式
+    function convertCanvasToImage() {
+        html2canvas(document.getElementById('main'), {
+            onrendered: function(canvas) {
+                document.body.appendChild(canvas);
+                createPDFObject(canvas.toDataURL("image/jpeg"));
+            }
+        });
+    }
+    function createPDFObject(imgData) {
+        var doc = new jsPDF('p', 'pt');
+        doc.addImage(imgData, 10, 10, 500, 340, 'img');
+        doc.save('test.pdf');
+    }
 //参数组装
 function allParams(){
 

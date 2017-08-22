@@ -285,6 +285,11 @@ $(function(){
             	axisLine:{
             		show:false
             	},
+            	axisLabel:{
+			       	rotate:-60,
+			       	margin:6,
+			       	interval:0
+		       },
 				type : 'category'
 	        }
 	    ],
@@ -311,7 +316,8 @@ $(function(){
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
-	    	top:60
+	    	top:60,
+	    	bottom:80
 	    	
 	    },
 		legend: {
