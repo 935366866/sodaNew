@@ -246,7 +246,7 @@ $(function(){
 	            type : 'value',
 	            scale:true,
 	            nameLocation:'middle',
-		    nameGap:35,
+		   		nameGap:35,
 	            splitLine:{
                 	show:false,
 

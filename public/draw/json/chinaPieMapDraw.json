@@ -5,12 +5,13 @@
     "title_font": "bold",
     "titleX":"center",
     "titleY":"top",
+    "longitude":2,
+    "latitude":3,
+    "placeName":1,
     "legendWidth":25,  
     "legendHeight":14,
     "legendX":"left",
     "legendY":"top",
-    "legendLayout":"vertical",
-    "geneColumn":1,
-    "funColumn":2,
-    "pieType": "环形图"
+    "legendLayout":"vertical"
+
 }

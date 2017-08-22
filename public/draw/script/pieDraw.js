@@ -222,7 +222,6 @@ $(function(){
         	formatter: "{a} <br/>{b} : {c} ({d}%)"
 	    },
 	    legend: {
-	    	orient: 'vertical',
 	    	data: [],
 	    	y:vue.legendY,
 			x:vue.legendX,
@@ -373,10 +372,7 @@ function updateEcharts(echarts,data){
 		var colorStr = $(this).val();
 		color.push(colorStr);
 	});
-	$(".spectrum").each(function(){
-		var colorStr = $(this).val();
-		color.push(colorStr);
-	});
+
 	echarts.setOption({
 		title:{
 			text:data.title,
