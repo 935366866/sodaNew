@@ -359,6 +359,7 @@ $(function(){
 	    },
 		tooltip: {
 //		    trigger: 'item'
+			formatter: '{b} : <br/>{c}'
 		},
 		geo: {
 	        map: 'world',
@@ -625,7 +626,10 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,dataCol){
 				if(key == dataCol){
 					var index = dataIndexMap[key];
 					var data = rowData[index];
-					mapSerieMap[key].data.push([lat,lon,data]);
+					mapSerieMap[key].data.push({
+						name:rowData[placeNameIndex],
+						value:[lat,lon,data]
+					});
 				}
 				
 			}
