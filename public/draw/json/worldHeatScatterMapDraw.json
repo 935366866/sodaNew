@@ -6,6 +6,10 @@
     "titleX":"center",
     "titleY":"top",
     "minValue":0,
-    "middleValue":15,
-    "maxValue":30 
+    "maxValue":10 ,
+    "legendWidth":20,  
+    "legendHeight":140,
+    "legendX":"left",
+    "legendY":"bottom",
+    "legendLayout":"vertical"
 }

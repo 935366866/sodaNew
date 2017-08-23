@@ -6,6 +6,5 @@
     "titleX":"center",
     "titleY":"top",
     "minValue":0,
-    "middleValue":15,
-    "maxValue":30 
+    "maxValue":10 
 }

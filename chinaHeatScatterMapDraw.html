@@ -8,29 +8,12 @@
     <link href="public/css/reset.css" rel="stylesheet" />
     <link href="public/css/bootstrap.min.css" rel="stylesheet">
     <link href="public/css/bootstrap-table.css" rel="stylesheet">
-    <link href="public/draw/style/prettify.css" rel="stylesheet" />
-    <!--<link href="public/draw/style/bootstrap-colorpicker.min.css"  rel="stylesheet"/>-->
-    <!--<link href="public/draw/style/bootstrap-responsive.css" rel="stylesheet" />-->
     <link href="public/css/jquery.fileupload.css" rel="stylesheet"> 
     <link href="public/css/bootstrap-select.css" rel="stylesheet">
     <link href="public/css/long_common.css" rel="stylesheet" />
     <link href="public/draw/style/app.css" rel="stylesheet" >
     <link href="css/soda_common.css" rel="stylesheet">
     <link href="public/draw/style/spectrum.css" rel="stylesheet"/>
-    <style>
-    	.venntooltip {
-		  position: absolute;
-		  text-align: center;
-		  width: 128px;
-		  height: 20px;
-		  background: #333;
-		  color: #ddd;
-		  padding: 2px;
-		  border: 0px;
-		  border-radius: 8px;
-		  opacity: 0;
-		}
-    </style>
 </head>
 
 <body style="background-color:#fff;">
@@ -94,7 +77,7 @@
 
     <div class="center_box" style="float:left;width:100%;">
 		<div class="app_title">
-			<p>维恩图绘制工具</p>
+			<p>中国热力点图绘制工具</p>
 		</div>
         <div class="change_box" style="padding-left: 0px; padding-right:0px;padding-bottom:50px;" id='taskPanel'> </div>       
         <div class="myTab">
@@ -122,33 +105,116 @@
 							<a id="use_default">使用示例文件</a>
 						</div>				
 						<div class="panel-body" style="height: 439px;">
-							<div id="parameter" style="margin-left: 30px;">
+							<form id="parameter">
 								<!--输入文件-->
-								<div class="part" v-for="(item,index) in sampleList" style="background: #F5F5F5;padding: 20px;width: 500px;">
-										<div style="margin-bottom: 10px;">样本{{index+1}}
-											<button type="button" class="close" v-on:click="delSample(index)">&times;</button>
-										</div>
-										<div class="input_a_m">
-											<input type="text" v-model="item.file" class="form-control" id="input" name="input" placeholder="输入文件">
-										</div>
-										<div class="input_a_r" style="width: auto;">
-											<a onclick="openUrl('#input','file')">
-												<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
-											</a>
-											<span class="fileinput-button btn " style="padding: 0 10px;" >
-												<img src="public/draw/imgs/app_02.png" alt=""  style="width: 29px;">
-												<input id="upload_input"  name="upload_input" onclick="uploadFile('json/upload.json','upload_input','#input')" type="file">
-											</span>
-										</div>
-										<div class="input_a_m" style="margin-top: 10px;">
-											<input v-model="item.sampleName" type="text" class="form-control"  name="input" placeholder="设置样本名">
-										</div>
+								<div class="part">
+									<div class="input_a_l">输入文件:</div>
+									<div class="input_a_m">
+										<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
+									</div>
+									<div class="input_a_r">
+										<a onclick="openUrl('#input','file')">
+											<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
+										</a>
+										<span class="fileinput-button btn " style="padding: 0 10px;" >
+											<img src="public/draw/imgs/app_02.png" alt=""  style="width: 29px;">
+											<input id="upload_input" name="upload_input" onclick="uploadFile('json/upload.json','upload_input','#input')" type="file">
+										</span>
+									</div>
 								</div>
-					
-								<div>
-									<button v-on:click.stop="addSample" class="btn btn-primary" style="margin-top: 10px;">添加样本</button>
+								<div class="part">
+									<div class="input_a_l">标题名称:</div>
+									<div class="input_b_2">
+										<input v-model="title" type="text" class="form-control" id="title" name="title" placeholder=""/>
+									</div>
+									<div class="input_b_3">
+										<select v-model="title_size"  id="title_size" name="title_size" class="selectpicker select_width" autocomplete="off" >
+											<option value="10">10</option>
+											<option value="18">18</option>
+											<option value="30">30</option>
+										</select>
+									</div>		
+									<div class="input_b_t1">大小:</div>	
+									<div class="input_b_3">
+										<select v-model="title_font" id="title_font" name="title_font" class="selectpicker select_width" autocomplete="off" >
+											<option value="normal">常规</option>
+											<option value="bold">加粗</option>
+											<option value="italic">斜体</option>
+										</select>
+									</div>											
+									<div class="input_b_t1">字体:</div>
 								</div>
-							</div>
+								<div class="part">
+									<div class="input_a_l">标题位置:</div>
+									<div class="input_b_t1" style="float: left;">水平:</div>	
+									<div class="input_b_3" style="float: left;width: 105px;">
+										<select v-model="titleX" id="titleX"  name="titleX" class="selectpicker select_width" autocomplete="off" >
+											<option value="center">Center</option>
+											<option value="left">Left</option>
+											<option value="right">Right</option>
+										</select>
+									</div>		
+									<div class="input_b_t1" style="float: left;margin-left: 55px;">垂直:</div>
+									<div class="input_b_3" style="float: left;width: 105px;">
+										<select v-model="titleY" id="titleY" name="titleY" class="selectpicker select_width" autocomplete="off" >
+											<option value="top">Top</option>
+											<option value="center">Center</option>
+											<option value="bottom">Bottom</option>
+										</select>
+									</div>										
+								</div>							
+								<div class="line"></div>
+								<div class="part">
+									<div class="input_a_l">颜色方案:</div>
+									<div class="input_b_3" style="float: left;width: 30%;">
+										<select id="colorProject"  name="colorProject" class="selectpicker select_width" autocomplete="off" >
+											<option value="project1">NPG</option>
+											<option value="project2">AAAS</option>
+											<option value="project3">IGV</option>
+										</select>
+									</div>									
+								</div>
+								<div class="part">
+									<div class="input_e_1">						
+											最小值:
+									</div>
+									<div class="input_a_m" style="width: 20%;margin-right: 10px;">
+										<input v-model="minValue" type="text" class="form-control" />
+									</div>
+									
+								</div>
+								<div class="part">
+									<div class="input_e_1">						
+											最大值:
+									</div>
+									<div class="input_a_m" style="width: 20%;margin-right: 10px;">
+										<input v-model="maxValue" type="text" class="form-control" />
+									</div>
+
+									
+								</div>
+								<div class="part">
+									<div class="input_e_2 colorInput">
+										最小值颜色:
+									</div>
+									<div class="input_c_4">
+										<input v-model="color[0]" type="text" class="form-control spectrum">
+									</div>
+									<div class="input_e_2 colorInput" style="margin-left: 10px;">
+										中间颜色:
+									</div>
+									<div class="input_c_4">
+										<input v-model="color[1]" type="text" class="form-control spectrum">
+									</div>
+									<div class="input_e_2 colorInput" style="margin-left: 10px;">
+										最大值颜色:
+									</div>
+									<div class="input_c_4">
+										<input v-model="color[2]" type="text" class="form-control spectrum">
+									</div>
+								</div>
+	
+							</form>
 						</div>
 						<div class="panel-footer" style="height: 51px;">
 							<button id="submit_paras" type="button" class="btn btn-success">开始绘图</button>
@@ -190,11 +256,11 @@
 							</div>
 						</div>
 						<div class="panel-body">
-							
-							<div id="main" style="width: 450px;height: 450px;">	</div>
+							<div id="main" style="width: 560px;height: 420px;margin-left: 0;padding-left: 0;"></div>
 						</div>
 					</div>
 				</div>
+	
 			<!-- 使用说明 -->
 				<div class="tab-pane" id="direction">
 					<div class="panel panel-default">
@@ -227,8 +293,8 @@
 				</div>
 			</div>
 		
-   </div>
-        <div id="venn"></div>
+    	</div>
+        
 	<!-- 标签切换 -->
 	
 	
@@ -255,6 +321,7 @@
 					<table data-toggle="table" data-url="json/jobUrl.json" data-minimum-count-columns="2" data-id-field="id" data-show-footer="false"
 						data-height="300" data-sort-name="id" data-click-to-select="true"  id="urlTable"
 						style="bottom:20px;">
+
 						<thead>
 							<tr>
 								<th data-field="state" data-checkbox="true"></th>
@@ -278,7 +345,6 @@
 					<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">
 					关闭
 					</button>
-
 				</div>
 			</div>
 		</div>
@@ -307,38 +373,14 @@
     <script src="public/js/defaults-zh_CN.js"></script>
     <script src="public/draw/script/html2canvas.min.js"></script>
     <script src="public/draw/script/jspdf.min.js"></script>
+    <script src="public/js/echarts.min.js"></script>
+    <script src="public/draw/script/world.js"></script>
+    <script src="public/draw/script/china.js"></script>
     <script src="public/js/long_common.js"></script>
     <script src="public/js/vue.js"></script>
+    <script src="public/draw/script/spectrum.js"></script>
+    <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
     <script src="js/common.js"></script>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="public/draw/script/bootstrap-colorpicker.min.js"></script>
-    <script src="public/draw/script/canvas2svg.js"></script>
-    <script src="public/draw/script/jvenn.js"></script>
-    <!--<script src="public/draw/script/venn.js"></script>-->
-    <script src="public/draw/script/vennDraw.js"></script> 
-    <script type="text/javascript">
-//获取Canvas对象(画布)
-var canvas = document.getElementById("myCanvas");
-//简单地检测当前浏览器是否支持Canvas对象，以免在一些不支持html5的浏览器中提示语法错误
-if(canvas.getContext){  
-    //获取对应的CanvasRenderingContext2D对象(画笔)
-    var ctx = canvas.getContext("2d");  
-    
-    //开始一个新的绘制路径
-    ctx.beginPath();
-    //设置弧线的颜色为蓝色
-    ctx.strokeStyle = "blue";
-    var circle = {
-        x : 100,    //圆心的x轴坐标值
-        y : 100,    //圆心的y轴坐标值
-        r : 50      //圆的半径
-    };
-    //沿着坐标点(100,100)为圆心、半径为50px的圆的顺时针方向绘制弧线
-    ctx.arc(circle.x, circle.y, circle.r, 0, Math.PI / 2, false);    
-    //按照指定的路径绘制弧线
-    ctx.stroke();
-}
-</script>
+    <script src="public/draw/script/chinaHeatScatterMapDraw.js"></script>   
 </body>
-
 </html>

@@ -291,8 +291,7 @@ $(function(){
 	        y:vue.titleY,
 	        top:30
 	    },
-		tooltip: {
-		},
+		tooltip: {},
 		geo: {
 	        map: 'world',
 	        nameMap:nameMap,
@@ -310,14 +309,14 @@ $(function(){
 	                areaColor: '#fff',
 	                borderColor: '#111'
 	            },
-            emphasis:{
-                areaColor: null,
-                shadowOffsetX: 0,
-                shadowOffsetY: 0,
-                shadowBlur: 20,
-                borderWidth: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-            }
+	            emphasis:{
+	                areaColor: null,
+	                shadowOffsetX: 0,
+	                shadowOffsetY: 0,
+	                shadowBlur: 20,
+	                borderWidth: 0,
+	                shadowColor: 'rgba(0, 0, 0, 0.5)'
+	            }
 	            
 	        },
 			label:{
@@ -345,7 +344,7 @@ $(function(){
 	});
 	//颜色控件初始化开始
 	vue.color=["#fff","pink","#4357a5"];
-	console.info("341初始化");
+
 	//颜色控件初始化结束
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){

@@ -1,6 +1,6 @@
 {
     "input": "/whx/abc/1.txt",
-    "title": "中国-饼图",
+    "title": "title1",
     "title_size": "18",
     "title_font": "bold",
     "titleX":"center",
@@ -9,7 +9,7 @@
     "latitude":3,
     "placeName":1,
     "legendWidth":25,  
-    "legendHeight":15,
+    "legendHeight":14,
     "legendX":"left",
     "legendY":"top",
     "legendLayout":"vertical"

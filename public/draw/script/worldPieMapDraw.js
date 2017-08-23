@@ -106,7 +106,7 @@ $(function(){
 		watch:{
 			input:function(val,oldVal){
 				$.ajax({
-					url: 'public/draw/json/chinaMapDrawFileData.json',  
+					url: 'public/draw/json/worldMapDrawFileData.json',  
 					type:'get',
 					data:{
 						fileName:val
@@ -137,6 +137,187 @@ $(function(){
 		}
 	});
 
+	var nameMap = {
+	    'Afghanistan':'阿富汗(Afghanistan)',
+	    'Angola':'安哥拉(Angola)',
+	    'Albania':'阿尔巴尼亚(Albania)',
+	    'United Arab Emirates':'阿联酋(United Arab Emirates)',
+	    'Argentina':'阿根廷(Argentina)',
+	    'Armenia':'亚美尼亚(Armenia)',
+	    'French Southern and Antarctic Lands':'法属南半球和南极领地(French Southern and Antarctic Lands)',
+	    'Australia':'澳大利亚(Australia)',
+	    'Austria':'奥地利(Austria)',
+	    'Azerbaijan':'阿塞拜疆(Azerbaijan)',
+	    'Burundi':'布隆迪(Burundi)',
+	    'Belgium':'比利时(Belgium)',
+	    'Benin':'贝宁(Benin)',
+	    'Burkina Faso':'布基纳法索(Burkina Faso)',
+	    'Bangladesh':'孟加拉国(Bangladesh)',
+	    'Bulgaria':'保加利亚(Bulgaria)',
+	    'The Bahamas':'巴哈马(The Bahamas)',
+	    'Bosnia and Herzegovina':'波斯尼亚和黑塞哥维那(Bosnia and Herzegovina)',
+	    'Belarus':'白俄罗斯(Belarus)',
+	    'Belize':'伯利兹(Belize)',
+	    'Bermuda':'百慕大(Bermuda)',
+	    'Bolivia':'玻利维亚(Bolivia)',
+	    'Brazil':'巴西(Brazil)',
+	    'Brunei':'文莱(Brunei)',
+	    'Bhutan':'不丹(Bhutan)',
+	    'Botswana':'博茨瓦纳(Botswana)',
+	    'Central African Rep.':'中非共和国(Central African Rep.)',
+	    'Canada':'加拿大(Canada)',
+	    'Switzerland':'瑞士()',
+	    'Chile':'智利()',
+	    'China':'中国(China)',
+	    'Ivory Coast':'象牙海岸(Ivory Coast)',
+	    'Cameroon':'喀麦隆(Cameroon)',
+	    'Dem. Rep. Congo':'刚果民主共和国(Dem. Rep. Congo)',
+	    'Congo':'刚果(Congo)',
+	    'Colombia':'哥伦比亚(Colombia)',
+	    'Costa Rica':'哥斯达黎加(Costa Rica)',
+	    'Cuba':'古巴(Cuba)',
+	    'Northern Cyprus':'北塞浦路斯(Northern Cyprus)',
+	    'Cyprus':'塞浦路斯(Cyprus)',
+	    'Czech Republic':'捷克共和国(Czech Republic)',
+	    'Germany':'德国(Germany)',
+	    'Djibouti':'吉布提(Djibouti)',
+	    'Denmark':'丹麦(Denmark)',
+	    'Dominican Republic':'多明尼加共和国(Dominican Republic)',
+	    'Algeria':'阿尔及利亚(Algeria)',
+	    'Ecuador':'厄瓜多尔(Ecuador)',
+	    'Egypt':'埃及(Egypt)',
+	    'Eritrea':'厄立特里亚(Eritrea)',
+	    'Spain':'西班牙(Spain)',
+	    'Estonia':'爱沙尼亚(Estonia)',
+	    'Ethiopia':'埃塞俄比亚(Ethiopia)',
+	    'Finland':'芬兰(Finland)',
+	    'Fiji':'斐(Fiji)',
+	    'Falkland Islands':'福克兰群岛(Falkland Islands)',
+	    'France':'法国(France)',
+	    'Gabon':'加蓬(Gabon)',
+	    'United Kingdom':'英国(United Kingdom)',
+	    'Georgia':'格鲁吉亚(Georgia)',
+	    'Ghana':'加纳(Ghana)',
+	    'Guinea':'几内亚(Guinea)',
+	    'Gambia':'冈比亚(Gambia)',
+	    'Guinea Bissau':'几内亚比绍(Guinea Bissau)',
+	    'Equatorial Guinea':'赤道几内亚(Equatorial Guinea)',
+	    'Greece':'希腊(Greece)',
+	    'Greenland':'格陵兰(Greenland)',
+	    'Guatemala':'危地马拉(Guatemala)',
+	    'French Guiana':'法属圭亚那(French Guiana)',
+	    'Guyana':'圭亚那(Guyana)',
+	    'Honduras':'洪都拉斯(Honduras)',
+	    'Croatia':'克罗地亚(Croatia)',
+	    'Haiti':'海地(Haiti)',
+	    'Hungary':'匈牙利(Hungary)',
+	    'Indonesia':'印尼(Indonesia)',
+	    'India':'印度(India)',
+	    'Ireland':'爱尔兰(Ireland)',
+	    'Iran':'伊朗(Iran)',
+	    'Iraq':'伊拉克(Iraq)',
+	    'Iceland':'冰岛(Iceland)',
+	    'Israel':'以色列(Israel)',
+	    'Italy':'意大利(Italy)',
+	    'Jamaica':'牙买加(Jamaica)',
+	    'Jordan':'约旦(Jordan)',
+	    'Japan':'日本(Japan)',
+	    'Kazakhstan':'哈萨克斯坦(Kazakhstan)',
+	    'Kenya':'肯尼亚(Kenya)',
+	    'Kyrgyzstan':'吉尔吉斯斯坦(Kyrgyzstan)',
+	    'Cambodia':'柬埔寨(Cambodia)',
+	    'Korea':'韩国(Korea)',
+	    'Dem. Rep. Korea':'朝鲜(Dem. Rep. Korea)',
+	    'Kosovo':'科索沃(Kosovo)',
+	    'Kuwait':'科威特(Kuwait)',
+	    'Lao PDR':'老挝(Lao PDR)',
+	    'Lebanon':'黎巴嫩(Lebanon)',
+	    'Liberia':'利比里亚(Liberia)',
+	    'Libya':'利比亚(Libya)',
+	    'Sri Lanka':'斯里兰卡(Sri Lanka)',
+	    'Lesotho':'莱索托(Lesotho)',
+	    'Lithuania':'立陶宛(Lithuania)',
+	    'Luxembourg':'卢森堡(Luxembourg)',
+	    'Latvia':'拉脱维亚(Latvia)',
+	    'Morocco':'摩洛哥(Morocco)',
+	    'Moldova':'摩尔多瓦(Moldova)',
+	    'Madagascar':'马达加斯加(Madagascar)',
+	    'Mexico':'墨西哥(Mexico)',
+	    'Macedonia':'马其顿(Macedonia)',
+	    'Mali':'马里(Mali)',
+	    'Myanmar':'缅甸(Myanmar)',
+	    'Montenegro':'黑山(Montenegro)',
+	    'Mongolia':'蒙古(Mongolia)',
+	    'Mozambique':'莫桑比克(Mozambique)',
+	    'Mauritania':'毛里塔尼亚(Mauritania)',
+	    'Malawi':'马拉维(Malawi)',
+	    'Malaysia':'马来西亚(Malaysia)',
+	    'Namibia':'纳米比亚(Namibia)',
+	    'New Caledonia':'新喀里多尼亚(New Caledonia)',
+	    'Niger':'尼日尔(Niger)',
+	    'Nigeria':'尼日利亚(Nigeria)',
+	    'Nicaragua':'尼加拉瓜(Nicaragua)',
+	    'Netherlands':'荷兰(Netherlands)',
+	    'Norway':'挪威(Norway)',
+	    'Nepal':'尼泊尔(Nepal)',
+	    'New Zealand':'新西兰(New Zealand)',
+	    'Oman':'阿曼(Oman)',
+	    'Pakistan':'巴基斯坦(Pakistan)',
+	    'Panama':'巴拿马(Panama)',
+	    'Peru':'秘鲁(Peru)',
+	    'Philippines':'菲律宾(Philippines)',
+	    'Papua New Guinea':'巴布亚新几内亚(Papua New Guinea)',
+	    'Poland':'波兰(Poland)',
+	    'Puerto Rico':'波多黎各(Puerto Rico)',
+	    'North Korea':'北朝鲜(North Korea)',
+	    'Portugal':'葡萄牙(Portugal)',
+	    'Paraguay':'巴拉圭(Paraguay)',
+	    'Qatar':'卡塔尔(Qatar)',
+	    'Romania':'罗马尼亚(Romania)',
+	    'Russia':'俄罗斯(Russia)',
+	    'Rwanda':'卢旺达(Rwanda)',
+	    'Western Sahara':'西撒哈拉()',
+	    'Western Sahara':'西撒哈拉()',
+	    'Saudi Arabia':'沙特阿拉伯(Saudi Arabia)',
+	    'Sudan':'苏丹(Sudan)',
+	    'S. Sudan':'南苏丹(S. Sudan)',
+	    'Senegal':'塞内加尔(Senegal)',
+	    'Solomon Islands':'所罗门群岛(Solomon Islands)',
+	    'Sierra Leone':'塞拉利昂(Sierra Leone)',
+	    'El Salvador':'萨尔瓦多(El Salvador)',
+	    'Somaliland':'索马里兰(Somaliland)',
+	    'Somalia':'索马里(Somalia)',
+	    'Serbia':'塞尔维亚共和国(Serbia)',
+	    'Suriname':'苏里南(Suriname)',
+	    'Slovakia':'斯洛伐克(Slovakia)',
+	    'Slovenia':'斯洛文尼亚(Slovenia)',
+	    'Sweden':'瑞典(Sweden)',
+	    'Swaziland':'斯威士兰(Swaziland)',
+	    'Syria':'叙利亚(Syria)',
+	    'Chad':'乍得(Chad)',
+	    'Togo':'多哥(Togo)',
+	    'Thailand':'泰国(Thailand)',
+	    'Tajikistan':'塔吉克斯坦(Tajikistan)',
+	    'Turkmenistan':'土库曼斯坦(Turkmenistan)',
+	    'East Timor':'东帝汶(East Timor)',
+	    'Trinidad and Tobago':'特里尼达和多巴哥(Trinidad and Tobago)',
+	    'Tunisia':'突尼斯(Tunisia)',
+	    'Turkey':'土耳其(Turkey)',
+	    'Tanzania':'坦桑尼亚联合共和国(Tanzania)',
+	    'Uganda':'乌干达(Uganda)',
+	    'Ukraine':'乌克兰(Ukraine)',
+	    'Uruguay':'乌拉圭(Uruguay)',
+	    'United States':'美国(America)',
+	    'Uzbekistan':'乌兹别克斯坦(Uzbekistan)',
+	    'Venezuela':'委内瑞拉(Venezuela)',
+	    'Vietnam':'越南(Vietnam)',
+	    'Vanuatu':'瓦努阿图(Vanuatu)',
+	    'West Bank':'西岸(West Bank)',
+	    'Yemen':'也门(Yemen)',
+	    'South Africa':'南非(South Africa)',
+	    'Zambia':'赞比亚(Zambia)',
+	    'Zimbabwe':'津巴布韦(Zimbabwe)'
+	};
  	var myChart = echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
     var option = {
@@ -153,7 +334,6 @@ $(function(){
 	        top:30
 	    },
 		tooltip: {
-		    trigger: 'item'
 		},
 	    legend: {
 	    	data: [],
@@ -163,10 +343,14 @@ $(function(){
 		},
 		width:440,
 		geo: {
-	        map: 'china',
+	        map: 'world',
+	        nameMap:nameMap,
 	        label: {
 	        	normal:{
-	        		show:false
+	        		show:false,
+	        		formatter: function (params) {
+                        return nameMap[params.name];
+                    }
 	        	},
 	            emphasis: {
 	                show: true
@@ -208,7 +392,7 @@ $(function(){
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
-			url: 'public/draw/json/chinaPieMapDraw.json',  
+			url: 'public/draw/json/worldPieMapDraw.json',  
 			type:'get',
 			data:tool_id,
 			dataType: "json",
@@ -232,7 +416,7 @@ $(function(){
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
 			myChart.showLoading();
 			$.ajax({
-				url: 'public/draw/json/chinaMapDrawFileData.json',  
+				url: 'public/draw/json/worldMapDrawFileData.json',  
 				type:'get',
 				data:{
 					fileName:formData.input
@@ -331,7 +515,8 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 				var mapSerie={
 					name:head,
 		            type: 'map',
-		            mapType: 'china',
+		            geoIndex: 0,
+		            mapType: 'world',
 		            label: {
 		                normal: {
 		                    show: false
@@ -341,9 +526,10 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 		            data:[]
 				}
 				
-
+//				mapSerieMap[head] = mapSerie;
 				option.legend.data.push(head);
 				option.series.push(mapSerie);
+//				option.visualMap.seriesIndex.push(option.series.length-1);
 				
 			}
 		}
