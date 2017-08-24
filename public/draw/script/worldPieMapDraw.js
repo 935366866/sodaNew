@@ -7,20 +7,20 @@ $(function(){
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"",
+			title:"世界-饼图",
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"",
-			title_font_sel:"",
+			title_size_sel:"18",
+			title_font_sel:"bold",
 			titleX_sel:"",
 			titleY_sel:"",
 			color:color1,
-			legendWidth:"",
-			legendHeight:"",
+			legendWidth:"25",
+			legendHeight:"15",
 			legendX_sel:"",
 			legendY_sel:"",
-			legendLayout_sel:""
+			legendLayout_sel:"vertical"
 		},
 		computed: {
 			dataColumn:function(){
@@ -512,24 +512,10 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 				lonIndex = i;
 			}else{
 				dataIndexMap[head] = i;
-				var mapSerie={
-					name:head,
-		            type: 'map',
-		            geoIndex: 0,
-		            mapType: 'world',
-		            label: {
-		                normal: {
-		                    show: false
-		                }
-		            },
-		            showLegendSymbol:false,
-		            data:[]
-				}
+	
 				
-//				mapSerieMap[head] = mapSerie;
+
 				option.legend.data.push(head);
-				option.series.push(mapSerie);
-//				option.visualMap.seriesIndex.push(option.series.length-1);
 				
 			}
 		}
@@ -542,6 +528,8 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 			return;
 		}
 		
+		var minValue;
+		var maxValue;
 		for(var i=1;i<echartsData.length;i++){//遍历数据
 			var rowData = echartsData[i];
 			//新定义一个option 饼图
@@ -553,7 +541,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 				alert(placeName+"("+lat+","+lon+")"+不在中国范围内);
 				continue;
 			}
-		   	var pieData = { 
+		   	var pieSerie = { 
 				        	name:placeName,
 				            type: 'pie',
 				            radius : '5%',
@@ -580,25 +568,45 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 			 		}
 			 	}
 			}
+			var rowValueSum = 0;
 			for(name in dataIndexMap){
 				var index = dataIndexMap[name];
-				var value = rowData[index];
-				
+				var value = Number(rowData[index]);
+				rowValueSum+=value;
 				//将  name 和 value加入到option的data中
-				pieData.data.push({
+				pieSerie.data.push({
 					'name':name,
 					'value':value
 				});
 				
+			}
+			pieSerie.valueSum = rowValueSum;
+			if(!minValue){
+				minValue = rowValueSum;
+			}else if(minValue>rowValueSum){
+				minValue = rowValueSum;
+			}
+			if(!maxValue){
+				maxValue = rowValueSum;
+			}else if(maxValue<rowValueSum){
+				maxValue = rowValueSum;
 			}
 			
 			var numWidth=parseInt(echartsStyle.legendWidth);
 			option.legend.itemWidth=numWidth;
 			var numHeight=parseInt(echartsStyle.legendHeight);
 			option.legend.itemHeight=numHeight;
-			option.series.push(pieData);	
+			option.series.push(pieSerie);	
 		}
-
+		for(var i=0;i<option.series.length;i++){
+			var pieSerie = option.series[i];
+			var radius = 5;
+			if(maxValue>minValue){
+				radius = 5+(pieSerie.valueSum-minValue)/(maxValue-minValue)*5;
+			}
+			pieSerie.radius = radius+"%";
+		}
+		
 		echartsInstance.setOption(option);
 	}
 }

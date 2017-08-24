@@ -1,10 +1,16 @@
 {
     "input": "/whx/abc/1.txt",
-    "title": "title",
+    "title": "中国-热图-点图",
     "title_size": "18",
     "title_font": "bold",
     "titleX":"center",
     "titleY":"top",
     "minValue":0,
-    "maxValue":10 
+    "maxValue":10,
+    "legendWidth":20,  
+    "legendHeight":140,
+    "legendX":"left",
+    "legendY":"bottom",
+    "legendLayout":"vertical",
+    "pointsize": "10"
 }

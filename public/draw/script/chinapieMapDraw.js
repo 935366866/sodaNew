@@ -7,20 +7,20 @@ $(function(){
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"",
+			title:"中国-饼图",
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"",
-			title_font_sel:"",
+			title_size_sel:"18",
+			title_font_sel:"bold",
 			titleX_sel:"",
 			titleY_sel:"",
 			color:color1,
-			legendWidth:"",
-			legendHeight:"",
+			legendWidth:"25",
+			legendHeight:"15",
 			legendX_sel:"",
 			legendY_sel:"",
-			legendLayout_sel:""
+			legendLayout_sel:"vertical"
 		},
 		computed: {
 			dataColumn:function(){
@@ -172,7 +172,6 @@ $(function(){
 	                show: true
 	            }
 	        },
-	        roam:true,
 	        itemStyle: {
 	            normal: {
 	            	color:"#ccc",
@@ -394,7 +393,10 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 				});
 				
 			}
+			var r=Math.sqrt(rowValueSum/Math.PI);
+			console.log(r)
 			pieSerie.valueSum = rowValueSum;
+
 			if(!minValue){
 				minValue = rowValueSum;
 			}else if(minValue>rowValueSum){

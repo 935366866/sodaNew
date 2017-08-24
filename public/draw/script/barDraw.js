@@ -286,7 +286,7 @@ $(function(){
             		show:false
             	},
             	axisLabel:{
-			       	rotate:-60,
+			       	rotate:0,
 			       	margin:6,
 			       	interval:0
 		       },
@@ -455,7 +455,7 @@ $(function(){
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
 	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
-	        pixelRatio: 10,
+	        pixelRatio: 8,
 	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;
@@ -541,7 +541,11 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine)
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
-			xAxis:{},
+			xAxis:{
+				axisLabel:{
+					rotate:0
+				}
+			},
 			legend: {
 				data:[]
 			}
@@ -565,6 +569,11 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine)
 			row.shift();
 			var data = row;	
 			if(head == xAxisField){
+				for(var j=0;j<data.length;j++){
+					if(data[i].length>5){
+					option.xAxis.axisLabel.rotate=-60;
+					}
+				}
 				option.xAxis.data=data;
 			}else if(head==markLine){
 				option.series.push({

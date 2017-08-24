@@ -1,45 +1,76 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 	var color1=["#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
 	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
-	var color3=["#4357a5","#c43c32","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
+	var color3=["#4357a5","#eae185","#c43c32","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
 $(function(){
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"",
+			title:"世界-热图-点图",
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"",
-			title_font_sel:"",
+			title_size_sel:"18",
+			title_font_sel:"bold",
 			titleX_sel:"",
 			titleY_sel:"",
+			legendWidth:"20",
+			legendHeight:"140",
+			legendX_sel:"center",
+			legendY_sel:"bottom",
+			legendLayout_sel:"horizontal",
+			pointsize:"10",
+			dataCol_sel:null,
 			color:[],
 			minValue:0,
 			middleValue:15,
 			maxValue:30
 		},
 		computed: {
-		  title_size: {
-		    get: function () {
-		      return this.title_size_sel;
-		    },
-		    set: function (newValue) {
-		       this.title_size_sel = newValue;
-		       $("#title_size").selectpicker("val",newValue);
-		    }
-		  },
-		  title_font:{
-		  	get: function () {
-		      return this.title_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.title_font_sel = newValue;
-		       $("#title_font").selectpicker("val",newValue);
-		    }
-		  },
-		  titleX:{
+			dataColumn:function(){
+				if(this.fileData.content.length<=0){
+					return [];
+				}
+				var heads = this.fileData.content[0];
+				var result = [];
+				for(var i=0;i<heads.length;i++){
+					if(heads[i]=='地名'||heads[i]=='经度'||heads[i]=='纬度'){
+						continue;
+					}
+					result.push(heads[i]);
+				}
+				return result;
+			},
+			dataCol:{
+			  	get: function () {
+			      return this.dataCol_sel;
+			    },
+			    set: function (newValue) {
+			    	if(!newValue) return;
+			    	this.dataCol_sel = newValue;
+			        $("#dataCol").selectpicker("val",newValue);
+			    }
+			},
+			title_size: {
+			    get: function () {
+			      return this.title_size_sel;
+			    },
+			    set: function (newValue) {
+			       this.title_size_sel = newValue;
+			       $("#title_size").selectpicker("val",newValue);
+			    }
+			},
+			title_font:{
+			  	get: function () {
+			      return this.title_font_sel;
+			    },
+			    set: function (newValue) {
+			    	this.title_font_sel = newValue;
+			       $("#title_font").selectpicker("val",newValue);
+			    }
+			},
+		  	titleX:{
 			  	get: function () {
 			      return this.titleX_sel;
 			   },
@@ -57,6 +88,33 @@ $(function(){
 			    	if(!newValue) return;
 			    	this.titleY_sel = newValue;
 			       $("#titleY").selectpicker("val",newValue);
+			    }
+			},
+			legendX:{
+			  	get: function () {
+			      return this.legendX_sel;
+			   },
+			    set: function (newValue) {
+			    	this.legendX_sel = newValue;
+			       $("#legendX").selectpicker("val",newValue);
+			    }
+			},
+			legendY:{
+			  	get: function () {
+			      return this.legendY_sel;
+			   },
+			    set: function (newValue) {
+			    	this.legendY_sel = newValue;
+			       $("#legendY").selectpicker("val",newValue);
+			    }
+			},
+			legendLayout:{
+			  	get: function () {
+			      return this.legendLayout_sel;
+			   },
+			    set: function (newValue) {
+			    	this.legendLayout_sel = newValue;
+			       $("#legendLayout").selectpicker("val",newValue);
 			    }
 			}
 		},
@@ -79,6 +137,15 @@ $(function(){
 			},
 			fileData:function(val,oldVal){
 				this.$nextTick(function(){
+					$('#dataCol').selectpicker('refresh');				
+					this.dataCol_sel=$('#dataCol').selectpicker("val");
+					$(".spectrum").spectrum({
+						preferredFormat: "hex3"
+					});
+				});
+			},
+			dataCol:function(val,oldVal){
+				this.$nextTick(function(){
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
 					});
@@ -93,7 +160,6 @@ $(function(){
 			}
 		}
 	});
-	
 	
  	var myChart = echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
@@ -111,10 +177,11 @@ $(function(){
 	        top:30
 	    },
 		tooltip: {
-		    trigger: 'item'
+			formatter: '{b} : <br/>{c}'
 		},
 		geo: {
 	        map: 'china',
+	        roam: true,
 	        label: {
 	        	normal:{
 	        		show:false
@@ -152,7 +219,6 @@ $(function(){
 	});
 	//颜色控件初始化开始
 	vue.color=["#da9034","#4ab1c9","#0f9a82"];
-	console.info("341初始化");
 	//颜色控件初始化结束
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){
@@ -199,7 +265,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"]);
+					updateEchartsData(myChart,formData,data["content"],vue.dataCol);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -277,7 +343,7 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize	
 	}
 }
-function updateEchartsData(echartsInstance,echartsStyle,echartsData){
+function updateEchartsData(echartsInstance,echartsStyle,echartsData,dataCol){
 	var dcolor = [];
 	$(".spectrum").each(function(){
 		var colorStr = $(this).spectrum("get").toHexString();
@@ -291,9 +357,12 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 		        min: Number(vue.minValue),
 		        max: Number(vue.maxValue),
 		        calculable: true,
-		        text: ['高','低'],  
-		        left: '20',
-		        top: 'bottom',
+		        text: ['High','Low'],  
+		        itemWidth:echartsStyle.legendWidth,
+		        itemHeight:echartsStyle.legendHeight,
+		        orient: echartsStyle.legendLayout,
+		        x:echartsStyle.legendX,
+		        y:echartsStyle.legendY,
 		        precision:0,
 		        inRange: {
 		            color: dcolor
@@ -323,8 +392,9 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 				var seriesItem = {
 					name:head,
 					type:"scatter",
+					symbolSize: echartsStyle.pointsize,
 				    roam: true,
-				     coordinateSystem: 'geo',
+				    coordinateSystem: 'geo',
 		            itemStyle:{
 		                emphasis:{
 		                	label:{
@@ -347,18 +417,26 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 			alert("经度数据不存在");
 			return;
 		}
+
 		for(var i=1;i<echartsData.length;i++){//遍历数据
 			var rowData = echartsData[i];
+			console.log(rowData[placeNameIndex])
+			
 			var lat = rowData[latIndex];
 			var lon =  rowData[lonIndex];
-		
 			for(key in dataIndexMap){
-				var index = dataIndexMap[key];
-				var data = rowData[index];
-				mapSerieMap[key].data.push([lat,lon,data]);
+				if(key == dataCol){
+					var index = dataIndexMap[key];
+					var data = rowData[index];
+					mapSerieMap[key].data.push({
+						name:rowData[placeNameIndex],
+						value:[lat,lon,data]
+					});
+				}
+				
 			}
 		}
-		console.info(option)
+
 		echartsInstance.setOption(option);
 	}
 }

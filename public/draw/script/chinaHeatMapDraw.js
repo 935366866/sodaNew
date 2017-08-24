@@ -1,20 +1,25 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
-	var color1=["#fff","pink","#4357a5"];
-	var color2=["#fbfb92","#ea9100","#a50f00"];
-	var color3=["#fff","#a0f8f0","#006edf"];
+	var color1=["#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
+	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
+	var color3=["#4357a5","#eae185","#c43c32","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
 $(function(){
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"",
+			title:"中国-热图",
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"",
-			title_font_sel:"",
+			title_size_sel:"18",
+			title_font_sel:"bold",
 			titleX_sel:"",
 			titleY_sel:"",
+			legendWidth:"20",
+			legendHeight:"140",
+			legendX_sel:"center",
+			legendY_sel:"bottom",
+			legendLayout_sel:"horizontal",
 			color:[],
 			minValue:0,
 			middleValue:15,
@@ -58,6 +63,33 @@ $(function(){
 			    	this.titleY_sel = newValue;
 			       $("#titleY").selectpicker("val",newValue);
 			    }
+			},
+			legendX:{
+			  	get: function () {
+			      return this.legendX_sel;
+			   },
+			    set: function (newValue) {
+			    	this.legendX_sel = newValue;
+			       $("#legendX").selectpicker("val",newValue);
+			    }
+			},
+			legendY:{
+			  	get: function () {
+			      return this.legendY_sel;
+			   },
+			    set: function (newValue) {
+			    	this.legendY_sel = newValue;
+			       $("#legendY").selectpicker("val",newValue);
+			    }
+			},
+			legendLayout:{
+			  	get: function () {
+			      return this.legendLayout_sel;
+			   },
+			    set: function (newValue) {
+			    	this.legendLayout_sel = newValue;
+			       $("#legendLayout").selectpicker("val",newValue);
+			    }
 			}
 		},
 		watch:{
@@ -94,7 +126,7 @@ $(function(){
 		}
 	});
 	
-	
+
  	var myChart = echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
     var option = {
@@ -121,6 +153,7 @@ $(function(){
 	                show: true
 	            }
 	        },
+	        roam: true,
 	        itemStyle: {
 	            normal: {
 	            	color:"#ccc",
@@ -159,7 +192,7 @@ $(function(){
 	});
 	//颜色控件初始化开始
 	vue.color=["#fff","pink","#4357a5"];
-	console.info("341初始化");
+
 	//颜色控件初始化结束
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){
@@ -174,7 +207,7 @@ $(function(){
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
-			url: 'public/draw/json/chinaMapDraw.json',  
+			url: 'public/draw/json/chinaHeartMapDraw.json',  
 			type:'get',
 			data:tool_id,
 			dataType: "json",
@@ -263,6 +296,7 @@ function updateEcharts(echarts,data){
 			x:data.titleX,
 			y:data.titleY,
 		}
+
 	});
 }
 
@@ -298,9 +332,12 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 		        min: Number(vue.minValue),
 		        max: Number(vue.maxValue),
 		        calculable: true,
-		        text: ['高','低'],  
-		        left: '20',
-		        top: 'bottom',
+		        text: ['High','Low'],  
+			    itemWidth:echartsStyle.legendWidth,
+		        itemHeight:echartsStyle.legendHeight,
+		        orient: echartsStyle.legendLayout,
+		        x:echartsStyle.legendX,
+		        y:echartsStyle.legendY,
 		        precision:0,
 		        inRange: {
 		            color: dcolor
@@ -371,7 +408,6 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 				});
 			}
 		}
-		console.info(JSON.stringify(option));
 		echartsInstance.setOption(option);
 	}
 }

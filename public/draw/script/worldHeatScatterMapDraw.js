@@ -7,19 +7,20 @@ $(function(){
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"",
+			title:"世界-热图-点图",
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"",
-			title_font_sel:"",
+			title_size_sel:"18",
+			title_font_sel:"bold",
 			titleX_sel:"",
 			titleY_sel:"",
-			legendWidth:"",
-			legendHeight:"",
-			legendX_sel:"",
-			legendY_sel:"",
-			legendLayout_sel:"",
+			legendWidth:"20",
+			legendHeight:"140",
+			legendX_sel:"center",
+			legendY_sel:"bottom",
+			legendLayout_sel:"horizontal",
+			pointsize:"10",
 			dataCol_sel:null,
 			color:[],
 			minValue:0,
@@ -358,7 +359,6 @@ $(function(){
 	        top:30
 	    },
 		tooltip: {
-//		    trigger: 'item'
 			formatter: '{b} : <br/>{c}'
 		},
 		geo: {
@@ -507,19 +507,7 @@ function updateEcharts(echarts,data){
 			textStyle:buildTextStyle(data.title_font,data.title_size),
 			x:data.titleX,
 			y:data.titleY,
-		},
-		toolbox: {
-	        show: true,
-	        orient: 'vertical',
-	        right:20,
-	        itemGap: 18,
-	        top: 'center',
-	        feature: {
-	            dataView: {readOnly: false},
-	            restore: {},
-	            saveAsImage: {}
-	        }
-	   }
+		}
 	});
 }
 
@@ -590,6 +578,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,dataCol){
 				var seriesItem = {
 					name:head,
 					type:"scatter",
+					symbolSize: echartsStyle.pointsize,
 					geoIndex: 0,
 				    roam: true,
 				    coordinateSystem: 'geo',
@@ -618,8 +607,6 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,dataCol){
 
 		for(var i=1;i<echartsData.length;i++){//遍历数据
 			var rowData = echartsData[i];
-			console.log(rowData[placeNameIndex])
-			
 			var lat = rowData[latIndex];
 			var lon =  rowData[lonIndex];
 			for(key in dataIndexMap){

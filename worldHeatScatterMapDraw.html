@@ -77,7 +77,7 @@
 
     <div class="center_box" style="float:left;width:100%;">
 		<div class="app_title">
-			<p>世界热力点图绘制工具</p>
+			<p>世界-热图-点图绘制工具</p>
 		</div>
         <div class="change_box" style="padding-left: 0px; padding-right:0px;padding-bottom:50px;" id='taskPanel'> </div>       
         <div class="myTab">
@@ -121,7 +121,22 @@
 											<input id="upload_input" name="upload_input" onclick="uploadFile('json/upload.json','upload_input','#input')" type="file">
 										</span>
 									</div>
+								</div>								
+								<div class="part"> 
+									<div class="input_a_l">绘图列数:</div>	
+									<div class="selectLeft" >
+										<div class="input_a_m">
+											<select v-model="dataCol" id="dataCol"  name="dataCol" class=" select_width" autocomplete="off" >
+												<option v-for="(item,index) in dataColumn" :value="item">{{item}}</option>
+											</select>
+										</div>	
+									</div>
+									<div class="input_a_l" style="margin-left: 42px;width: 80px;">散点大小:</div>
+									<div class="input_f_2" style="width:153px;">
+										<input v-model="pointsize" type="text" class="form-control" style="width:153px;" id="pointsize" name="pointsize" placeholder="">
+									</div>
 								</div>
+								<div class="line"></div>
 								<div class="part">
 									<div class="input_a_l">标题名称:</div>
 									<div class="input_b_2">
@@ -146,7 +161,7 @@
 								</div>
 								<div class="part">
 									<div class="input_a_l">标题位置:</div>
-									<div class="input_b_t1" style="float: left;">水平:</div>	
+									<div class="input_b_t1" style="float: left;width: 55px;">水平:</div>	
 									<div class="input_b_3" style="float: left;width: 105px;">
 										<select v-model="titleX" id="titleX"  name="titleX" class="selectpicker select_width" autocomplete="off" >
 											<option value="center">Center</option>
@@ -154,7 +169,7 @@
 											<option value="right">Right</option>
 										</select>
 									</div>		
-									<div class="input_b_t1" style="float: left;margin-left: 55px;">垂直:</div>
+									<div class="input_b_t1" style="float: left;margin-left: 35px;">垂直:</div>
 									<div class="input_b_3" style="float: left;width: 105px;">
 										<select v-model="titleY" id="titleY" name="titleY" class="selectpicker select_width" autocomplete="off" >
 											<option value="top">Top</option>
@@ -162,18 +177,6 @@
 											<option value="bottom">Bottom</option>
 										</select>
 									</div>										
-								</div>
-								<div class="line"></div>
-								<div class="part"> 
-									<div class="input_a_l">绘图列数:</div>	
-									<div class="selectLeft" >
-										<div class="input_a_l" style="width: 65px;">数据列</div>
-										<div class="input_a_m" style="width: 100px;">
-											<select v-model="dataCol" id="dataCol"  name="dataCol" class=" select_width" autocomplete="off" >
-												<option v-for="(item,index) in dataColumn" :value="item">{{item}}</option>
-											</select>
-										</div>	
-									</div>
 								</div>
 								<div class="line"></div>
 								<div class="part">
@@ -190,7 +193,7 @@
 									<div class="input_e_1">						
 											最小值:
 									</div>
-									<div class="input_a_m" style="width: 20%;margin-right: 10px;">
+									<div class="input_a_m" style="margin-right: 10px;">
 										<input v-model="minValue" type="text" class="form-control" />
 									</div>
 								</div>
@@ -198,7 +201,7 @@
 									<div class="input_e_1">						
 											最大值:
 									</div>
-									<div class="input_a_m" style="width: 20%;margin-right: 10px;">
+									<div class="input_a_m" style="margin-right: 10px;">
 										<input v-model="maxValue" type="text" class="form-control" />
 									</div>
 								</div>
@@ -209,33 +212,33 @@
 									<div class="input_c_4">
 										<input v-model="color[0]" type="text" class="form-control spectrum">
 									</div>
-									<div class="input_e_2 colorInput" style="margin-left: 10px;">
+									<div class="input_e_2 colorInput" style="margin-left: 20px;">
 										中间颜色:
 									</div>
 									<div class="input_c_4">
 										<input v-model="color[1]" type="text" class="form-control spectrum">
 									</div>
-									<div class="input_e_2 colorInput" style="margin-left: 10px;">
+									<div class="input_e_2 colorInput" style="margin-left: 20px;">
 										最大值颜色:
 									</div>
 									<div class="input_c_4">
 										<input v-model="color[2]" type="text" class="form-control spectrum">
 									</div>
 								</div>
-									<div class="line"></div>
+								<div class="line"></div>
 								<div class="part">
 									<div class="input_a_l">图例宽度:</div>
 									<div class="input_b_2">
 										<input v-model="legendWidth" type="text" class="form-control" id="legendWidth" name="legendWidth" placeholder="">
 									</div>
-									<div class="input_a_l" style="width: 15%;margin-left: 30px;">图例高度:</div>
-									<div class="input_b_2">
-										<input v-model="legendHeight" type="text" class="form-control" id="legendHeight" name="legendHeight" placeholder="">
+									<div class="input_a_l" style="width:80px;margin-left: 42px;">图例高度:</div>
+									<div class="input_b_2" style="width: 153px;">
+										<input v-model="legendHeight" type="text" class="form-control" style="width: 153px;" id="legendHeight" name="legendHeight" placeholder="">
 									</div>
 								</div>
 								<div class="part">
 									<div class="input_a_l">图例位置:</div>
-									<div class="input_b_t1" style="float: left;">水平:</div>	
+									<div class="input_b_t1" style="float: left;width: 55px;">水平:</div>	
 									<div class="input_b_3" style="float: left;width: 105px;">
 										<select v-model="legendX" id="legendX"  name="legendX" class="selectpicker select_width" autocomplete="off" >
 											<option value="left">Left</option>
@@ -243,7 +246,7 @@
 											<option value="right">Right</option>
 										</select>
 									</div>		
-									<div class="input_b_t1" style="float: left;margin-left: 55px;">垂直:</div>
+									<div class="input_b_t1" style="float: left;margin-left: 35px;">垂直:</div>
 									<div class="input_b_3" style="float: left;width: 105px;">
 										<select v-model="legendY" id="legendY" name="legendY" class="selectpicker select_width" autocomplete="off" >
 											<option value="top">Top</option>
@@ -395,7 +398,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
     <!--页脚-->
     <div id="footer_style">
@@ -433,5 +435,6 @@
     		$("#dataCol").selectpicker({noneSelectedText:'请选择'});
     	})
     </script>
+
 </body>
 </html>
