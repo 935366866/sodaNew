@@ -1,7 +1,7 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
 	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
-	var color3=["#4357a5","#c43c32","#719657","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
+	var color3=["#4357a5","pink","#c43c32","#719657","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
 $(function(){
 	vue=new Vue({
 		el:"#myTabContent",
@@ -11,6 +11,7 @@ $(function(){
 			fileData:{
 				content:[]
 			},
+			zoom:0.5,
 			title_size_sel:"18",
 			title_font_sel:"bold",
 			titleX_sel:"",
@@ -164,6 +165,7 @@ $(function(){
 		width:440,
 		geo: {
 	        map: 'china',
+	        roam:true,
 	        label: {
 	        	normal:{
 	        		show:false
@@ -188,10 +190,15 @@ $(function(){
 	
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
-
+	myChart.on('georoam', function (params) {
+   		var formData =  allParams();//取form表单参数
+   		vue.zoom = vue.zoom*params.zoom;
+		updateEchartsData(myChart,formData,vue.fileData["content"]);
+	});
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
 	});
+
 //	//颜色控件初始化开始
 	vue.color=["#b09b84","#da9034","#4ab1c9"];
 	//颜色控件初始化结束
@@ -230,22 +237,8 @@ $(function(){
 			alert("请输入文件");
 		}else{
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
-			myChart.showLoading();
-			$.ajax({
-				url: 'public/draw/json/chinaMapDrawFileData.json',  
-				type:'get',
-				data:{
-					fileName:formData.input
-				},
-				dataType: "json",
-				success:function(data) {
-					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"]);
-				},    
-				error : function(XMLHttpRequest) {
-					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
-				}
-			});
+			
+			updateEchartsData(myChart,formData,vue.fileData["content"]);
 		}
 	});
 
@@ -300,7 +293,7 @@ function buildTextStyle(font,fontSize){
 	}
 }
 function updateEchartsData(echartsInstance,echartsStyle,echartsData){
-
+	
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
@@ -417,21 +410,28 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 		for(var i=0;i<option.series.length;i++){
 			var pieSerie = option.series[i];
 			var radius = 5;
-
+			var s = calcSbyR(5);
 			if(maxValue>minValue){
-				console.info(pieSerie.valueSum+"\t"+minValue+"\t"+maxValue)
-				radius = 5+(pieSerie.valueSum-minValue)/(maxValue-minValue)*5;
+				s = pieSerie.valueSum/minValue*s;
 			}
-	
+			console.info(pieSerie.name+":"+s);
+			radius = calcRbyS(s*vue.zoom);
 			pieSerie.radius = radius+"%";
 		}
 		
 			console.info(option);
 		echartsInstance.setOption(option);
-		echartsInstance.on("mousewheel",function(){
-			alert();
-		})
+		
+
 	}
+}
+
+function calcSbyR(r){
+	return Math.PI*r*r;
+}
+
+function calcRbyS(s){
+	return Math.sqrt(s/Math.PI);
 }
 
 function downloadPic(myChart){

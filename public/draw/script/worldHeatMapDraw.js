@@ -584,7 +584,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,dataCol){
 				latIndex = i;
 			}else if(head == "纬度"){
 				lonIndex = i;
-			}else{
+			}else if(head == dataCol){
 				dataIndexMap[head] = i;
 				var seriesItem = {
 					name:head,
@@ -619,21 +619,19 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,dataCol){
 			 		}
 			 	}
 			}
-			console.log(dataIndexMap)
+
 			for(key in dataIndexMap){
-				var index = dataIndexMap[key];
-				var data = rowData[index];
-				if(key == dataCol){
+				
+					var index = dataIndexMap[key];
+					var data = rowData[index];
 					mapSerieMap[key].data.push({
 						name:placeName,
 						value:data
 					});
-				}
 				
-
+				
 			}
 		}
-		console.info(JSON.stringify(option));
 		echartsInstance.setOption(option);
 	}
 }
