@@ -1,29 +1,30 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
-	var color1=["#fff","#4357a5"];
-	var color2=["#f9f98c","#a50026"];
-	var color3=["#a0f8f0","#006edf"];
+	var color1=["#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
+	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
+	var color3=["#4357a5","#eae185","#c43c32","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
 $(function(){
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"",
+			title:"热图",
 			xlab:"",
 			ylab:"",
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"",
-			title_font_sel:"",
-			xlab_size_sel:"",
-			xlab_font_sel:"",
-			ylab_size_sel:"",
-			ylab_font_sel:"",
+			title_size_sel:"18",
+			title_font_sel:"bold",
 			titleX_sel:"",
 			titleY_sel:"",
 			color:color1,
 			minValue:0,
-			maxValue:1
+			maxValue:30,
+			legendWidth:"20",
+			legendHeight:"140",
+			legendX_sel:"center",
+			legendY_sel:"bottom",
+			legendLayout_sel:"horizontal"
 		},
 		computed: {
 		  title_size: {
@@ -44,42 +45,6 @@ $(function(){
 		       $("#title_font").selectpicker("val",newValue);
 		    }
 		  },
-		  xlab_size:{
-		  	get: function () {
-		      return this.xlab_size_sel;
-		    },
-		    set: function (newValue) {
-		    	this.xlab_size_sel = newValue;
-		       $("#xlab_size").selectpicker("val",newValue);
-		    }
-		  },
-		  xlab_font:{
-		  	get: function () {
-		      return this.xlab_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.xlab_font_sel = newValue;
-		       $("#xlab_font").selectpicker("val",newValue);
-		    }
-		  },
-		  ylab_size:{
-		  	get: function () {
-		      return this.ylab_size_sel;
-		    },
-		    set: function (newValue) {
-		    	this.ylab_size_sel = newValue;
-		       $("#ylab_size").selectpicker("val",newValue);
-		    }
-		  },
-		  ylab_font:{
-		  	get: function () {
-		      return this.ylab_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.ylab_font_sel = newValue;
-		       $("#ylab_font").selectpicker("val",newValue);
-		    }
-		  },
 		  titleX:{
 			  	get: function () {
 			      return this.titleX_sel;
@@ -98,6 +63,33 @@ $(function(){
 			    	if(!newValue) return;
 			    	this.titleY_sel = newValue;
 			       $("#titleY").selectpicker("val",newValue);
+			    }
+			},
+			legendX:{
+			  	get: function () {
+			      return this.legendX_sel;
+			   },
+			    set: function (newValue) {
+			    	this.legendX_sel = newValue;
+			       $("#legendX").selectpicker("val",newValue);
+			    }
+			},
+			legendY:{
+			  	get: function () {
+			      return this.legendY_sel;
+			   },
+			    set: function (newValue) {
+			    	this.legendY_sel = newValue;
+			       $("#legendY").selectpicker("val",newValue);
+			    }
+			},
+			legendLayout:{
+			  	get: function () {
+			      return this.legendLayout_sel;
+			   },
+			    set: function (newValue) {
+			    	this.legendLayout_sel = newValue;
+			       $("#legendLayout").selectpicker("val",newValue);
 			    }
 			}
 		},
@@ -185,14 +177,14 @@ $(function(){
 	    	bottom:80
 	    }
 	};
+
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
 	});
 	//颜色控件初始化开始
-	vue.color=["#fff","#4357a5"];
-	//颜色控件初始化结束
+	vue.color=["#da9034","#4ab1c9","#0f9a82"];
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){
 			vue.color=color1;
@@ -294,15 +286,7 @@ function updateEcharts(echarts,data){
 			textStyle:buildTextStyle(data.title_font,data.title_size),
 			x:data.titleX,
 			y:data.titleY,
-		},
-		xAxis :{
-			name:data.xlab,
-			nameTextStyle:buildTextStyle(data.xlab_font,data.xlab_size)
-		},
-		yAxis :{
-			name:data.ylab,
-			nameTextStyle:buildTextStyle(data.ylab_font,data.ylab_size)
-		} 
+		}
 	});
 }
 
@@ -359,13 +343,15 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 			visualMap: {
 		        min: minNum,
 		        max: maxNum,
+		        itemWidth:echartsStyle.legendWidth,
+		        itemHeight:echartsStyle.legendHeight,
+		        orient: echartsStyle.legendLayout,
+		        x:echartsStyle.legendX,
+		        y:echartsStyle.legendY,
 		        calculable: true,
-		        orient: 'horizontal',
-		        left: 'center',
-		        bottom: '-10',
 		        inRange: {
 		            color: dcolor
-		        } ,
+		        },
 		        formatter:function(value){
                 	return value;
             	}

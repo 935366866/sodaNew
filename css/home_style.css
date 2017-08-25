@@ -689,6 +689,9 @@ a:hover {
   margin-left: 0px;/*10*/
   color: #000;
 }
+.news-list .news li.news-1 .info h3{
+	margin-top: 0 !important;
+}
 .news-list .news li.news-1 .info a {/*h3*/
   font-size: 20px;/*24*/
   font-weight: bold;/**/

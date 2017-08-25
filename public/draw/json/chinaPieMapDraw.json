@@ -12,6 +12,7 @@
     "legendHeight":15,
     "legendX":"left",
     "legendY":"top",
-    "legendLayout":"vertical"
+    "legendLayout":"vertical",
+    "zoom":0.8
 
 }

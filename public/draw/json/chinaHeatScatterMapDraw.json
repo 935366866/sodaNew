@@ -12,5 +12,6 @@
     "legendX":"left",
     "legendY":"bottom",
     "legendLayout":"vertical",
-    "pointsize": "10"
+    "pointsize": "10",
+    "dataCol":"亚群1"
 }

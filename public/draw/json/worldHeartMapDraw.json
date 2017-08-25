@@ -12,5 +12,6 @@
     "legendHeight":140,
     "legendX":"left",
     "legendY":"bottom",
-    "legendLayout":"vertical"
+    "legendLayout":"vertical",
+    "dataCol":"亚群1"
 }

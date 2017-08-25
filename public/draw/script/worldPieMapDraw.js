@@ -1,7 +1,7 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
 	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
-	var color3=["#4357a5","#c43c32","#719657","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
+	var color3=["#c43c32","#719657","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
 $(function(){
 	vue=new Vue({
 		el:"#myTabContent",
@@ -11,6 +11,7 @@ $(function(){
 			fileData:{
 				content:[]
 			},
+			zoom:1,
 			title_size_sel:"18",
 			title_font_sel:"bold",
 			titleX_sel:"",
@@ -136,7 +137,6 @@ $(function(){
 			}
 		}
 	});
-
 	var nameMap = {
 	    'Afghanistan':'阿富汗(Afghanistan)',
 	    'Angola':'安哥拉(Angola)',
@@ -334,6 +334,7 @@ $(function(){
 	        top:30
 	    },
 		tooltip: {
+		    trigger: 'item'
 		},
 	    legend: {
 	    	data: [],
@@ -345,6 +346,7 @@ $(function(){
 		geo: {
 	        map: 'world',
 	        nameMap:nameMap,
+//	        roam:true,
 	        label: {
 	        	normal:{
 	        		show:false,
@@ -372,10 +374,15 @@ $(function(){
 	
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
-
+	myChart.on('georoam', function (params) {
+   		var formData =  allParams();//取form表单参数
+   		vue.zoom = vue.zoom*params.zoom;
+		updateEchartsData(myChart,formData,vue.fileData["content"]);
+	});
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
 	});
+
 //	//颜色控件初始化开始
 	vue.color=["#b09b84","#da9034","#4ab1c9"];
 	//颜色控件初始化结束
@@ -414,22 +421,8 @@ $(function(){
 			alert("请输入文件");
 		}else{
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
-			myChart.showLoading();
-			$.ajax({
-				url: 'public/draw/json/worldMapDrawFileData.json',  
-				type:'get',
-				data:{
-					fileName:formData.input
-				},
-				dataType: "json",
-				success:function(data) {
-					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"]);
-				},    
-				error : function(XMLHttpRequest) {
-					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
-				}
-			});
+			
+			updateEchartsData(myChart,formData,vue.fileData["content"]);
 		}
 	});
 
@@ -445,7 +438,7 @@ $(function(){
 function updateEcharts(echarts,data){
 	var color = [];
 	$(".spectrum").each(function(){
-		var colorStr = $(this).val();
+		var colorStr = $(this).spectrum("get").toHexString();
 		color.push(colorStr);
 	});
 
@@ -484,7 +477,7 @@ function buildTextStyle(font,fontSize){
 	}
 }
 function updateEchartsData(echartsInstance,echartsStyle,echartsData){
-
+	
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
@@ -512,9 +505,6 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 				lonIndex = i;
 			}else{
 				dataIndexMap[head] = i;
-	
-				
-
 				option.legend.data.push(head);
 				
 			}
@@ -538,13 +528,14 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 			var xy = echartsInstance.convertToPixel('geo', [lat,lon]);
 			var  placeName = rowData[placeNameIndex];
 			if(!xy){
-				alert(placeName+"("+lat+","+lon+")"+不在中国范围内);
+				alert(placeName+"("+lat+","+lon+")"+不在世界范围内);
 				continue;
 			}
 		   	var pieSerie = { 
 				        	name:placeName,
 				            type: 'pie',
 				            radius : '5%',
+				            geoIndex: 0,
 				            center: xy,
 				            labelLine: {
 				            	normal: {
@@ -580,7 +571,9 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 				});
 				
 			}
+			var r=Math.sqrt(rowValueSum/Math.PI);
 			pieSerie.valueSum = rowValueSum;
+
 			if(!minValue){
 				minValue = rowValueSum;
 			}else if(minValue>rowValueSum){
@@ -591,7 +584,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 			}else if(maxValue<rowValueSum){
 				maxValue = rowValueSum;
 			}
-			
+
 			var numWidth=parseInt(echartsStyle.legendWidth);
 			option.legend.itemWidth=numWidth;
 			var numHeight=parseInt(echartsStyle.legendHeight);
@@ -600,15 +593,27 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 		}
 		for(var i=0;i<option.series.length;i++){
 			var pieSerie = option.series[i];
-			var radius = 5;
+			var radius = 4;
+			var s = calcSbyR(radius);
 			if(maxValue>minValue){
-				radius = 5+(pieSerie.valueSum-minValue)/(maxValue-minValue)*5;
+				s = pieSerie.valueSum/minValue*s;
 			}
+			radius = calcRbyS(s*vue.zoom);
 			pieSerie.radius = radius+"%";
 		}
 		
 		echartsInstance.setOption(option);
+		
+
 	}
+}
+
+function calcSbyR(r){
+	return Math.PI*r*r;
+}
+
+function calcRbyS(s){
+	return Math.sqrt(s/Math.PI);
 }
 
 function downloadPic(myChart){

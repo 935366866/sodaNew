@@ -1,7 +1,7 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
 	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
-	var color3=["#4357a5","pink","#c43c32","#719657","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
+	var color3=["#c43c32","#719657","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
 $(function(){
 	vue=new Vue({
 		el:"#myTabContent",
@@ -11,7 +11,7 @@ $(function(){
 			fileData:{
 				content:[]
 			},
-			zoom:0.5,
+			zoom:1,
 			title_size_sel:"18",
 			title_font_sel:"bold",
 			titleX_sel:"",
@@ -165,7 +165,7 @@ $(function(){
 		width:440,
 		geo: {
 	        map: 'china',
-	        roam:true,
+//	        roam:true,
 	        label: {
 	        	normal:{
 	        		show:false
@@ -254,7 +254,7 @@ $(function(){
 function updateEcharts(echarts,data){
 	var color = [];
 	$(".spectrum").each(function(){
-		var colorStr = $(this).val();
+		var colorStr = $(this).spectrum("get").toHexString();
 		color.push(colorStr);
 	});
 
@@ -387,7 +387,6 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 				
 			}
 			var r=Math.sqrt(rowValueSum/Math.PI);
-			console.log(r)
 			pieSerie.valueSum = rowValueSum;
 
 			if(!minValue){
@@ -409,17 +408,15 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 		}
 		for(var i=0;i<option.series.length;i++){
 			var pieSerie = option.series[i];
-			var radius = 5;
-			var s = calcSbyR(5);
+			var radius = 4;
+			var s = calcSbyR(radius);
 			if(maxValue>minValue){
 				s = pieSerie.valueSum/minValue*s;
 			}
-			console.info(pieSerie.name+":"+s);
 			radius = calcRbyS(s*vue.zoom);
 			pieSerie.radius = radius+"%";
 		}
 		
-			console.info(option);
 		echartsInstance.setOption(option);
 		
 

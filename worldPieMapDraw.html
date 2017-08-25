@@ -79,7 +79,7 @@
 		<div class="app_title">
 			<p>世界-饼图绘制工具</p>
 		</div>
-        <div class="change_box" style="padding-left: 0px; padding-right:0px;padding-bottom:50px;" id='taskPanel'> </div>       
+        <div class="change_box" id='taskPanel'> </div>       
         <div class="myTab">
         	<div style="width: 1200px;margin: 0 auto;height: 100%;">
 				<div class="tabs" style="margin-left: 10px;">
@@ -108,8 +108,8 @@
 							<form id="parameter">
 								<!--输入文件-->
 								<div class="part">
-									<div class="input_a_l">输入文件:</div>
-									<div class="input_a_m">
+									<div class="input_a_l titleNameLeft">输入文件:</div>
+									<div class="input_a_m inputLeft">
 										<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
 									</div>
 									<div class="input_a_r">
@@ -123,50 +123,56 @@
 									</div>
 								</div>
 								<div class="part">
-									<div class="input_a_l">标题名称:</div>
-									<div class="input_b_2">
+									<div class="input_a_l titleNameLeft">标题名称:</div>
+									<div class="input_b_2 inputLeft">
 										<input v-model="title" type="text" class="form-control" id="title" name="title" placeholder=""/>
 									</div>
-									<div class="input_b_3">
-										<select v-model="title_size"  id="title_size" name="title_size" class="selectpicker select_width" autocomplete="off" >
-											<option value="10">10</option>
-											<option value="18">18</option>
-											<option value="30">30</option>
-										</select>
-									</div>		
-									<div class="input_b_t1">大小:</div>	
-									<div class="input_b_3">
-										<select v-model="title_font" id="title_font" name="title_font" class="selectpicker select_width" autocomplete="off" >
-											<option value="normal">常规</option>
-											<option value="bold">加粗</option>
-											<option value="italic">斜体</option>
-										</select>
-									</div>											
-									<div class="input_b_t1">字体:</div>
+									<div class="right">
+										<div class="input_b_t1">字体:</div>
+										<div class="input_b_3">
+											<select v-model="title_font" id="title_font" name="title_font" class="selectpicker select_width" autocomplete="off" >
+												<option value="normal">常规</option>
+												<option value="bold">加粗</option>
+												<option value="italic">斜体</option>
+											</select>
+										</div>	
+										<div class="input_b_t1">大小:</div>	
+										<div class="input_b_3">
+											<select v-model="title_size"  id="title_size" name="title_size" class="selectpicker select_width" autocomplete="off" >
+												<option value="10">10</option>
+												<option value="18">18</option>
+												<option value="30">30</option>
+											</select>
+										</div>	
+									</div>
 								</div>
 								<div class="part">
-									<div class="input_a_l">标题位置:</div>
-									<div class="input_b_t1" style="float: left;">水平:</div>	
-									<div class="input_b_3" style="float: left;width: 105px;">
-										<select v-model="titleX" id="titleX"  name="titleX" class="selectpicker select_width" autocomplete="off" >
-											<option value="center">Center</option>
-											<option value="left">Left</option>
-											<option value="right">Right</option>
-										</select>
-									</div>		
-									<div class="input_b_t1" style="float: left;margin-left: 55px;">垂直:</div>
-									<div class="input_b_3" style="float: left;width: 105px;">
-										<select v-model="titleY" id="titleY" name="titleY" class="selectpicker select_width" autocomplete="off" >
-											<option value="top">Top</option>
-											<option value="center">Center</option>
-											<option value="bottom">Bottom</option>
-										</select>
-									</div>										
+									<div class="input_a_l titleNameLeft">标题位置:</div>
+									<div class="inputLeft">
+										<div class="input_b_t1 titleA">水平:</div>	
+										<div class="input_b_3 inputA">
+											<select v-model="titleX" id="titleX"  name="titleX" class="selectpicker select_width" autocomplete="off" >
+												<option value="center">Center</option>
+												<option value="left">Left</option>
+												<option value="right">Right</option>
+											</select>
+										</div>
+									</div>
+									<div class="right">
+										<div class="input_b_t1">垂直:</div>
+										<div class="input_b_3" style="width: 108px;">
+											<select v-model="titleY" id="titleY" name="titleY" class="selectpicker select_width" autocomplete="off" >
+												<option value="top">Top</option>
+												<option value="center">Center</option>
+												<option value="bottom">Bottom</option>
+											</select>
+										</div>	
+									</div>
 								</div>							
 								<div class="line"></div>
 								<div class="part">
-									<div class="input_a_l">颜色方案:</div>
-									<div class="input_b_3" style="float: left;width: 30%;">
+									<div class="input_a_l  titleNameLeft">颜色方案:</div>
+									<div class="input_b_3 inputLeft">
 										<select id="colorProject"  name="colorProject" class="selectpicker select_width" autocomplete="off" >
 											<option value="project1">NPG</option>
 											<option value="project2">AAAS</option>
@@ -178,7 +184,7 @@
 									<div class="input_e_1" >						
 											{{item}}:
 									</div>
-									<div class="input_e_2 colorInput">
+									<div class="input_e_2 colorInput" style="width: 20%;">
 										自定义颜色:
 									</div>
 									<div class="input_c_4">
@@ -188,42 +194,55 @@
 								</div>
 								<div class="line"></div>
 								<div class="part">
-									<div class="input_a_l">图例宽度:</div>
-									<div class="input_b_2">
-										<input v-model="legendWidth" type="text" class="form-control" id="legendWidth" name="legendWidth" placeholder="">
+									<div class="input_a_l titleNameLeft">图例宽度:</div>
+									<div class="input_b_2 inputLeft">
+										<input v-model="legendWidth" type="text" class="form-control inputLeft" id="legendWidth" name="legendWidth" placeholder="">
 									</div>
-									<div class="input_a_l" style="width: 15%;margin-left: 30px;">图例高度:</div>
-									<div class="input_b_2">
-										<input v-model="legendHeight" type="text" class="form-control" id="legendHeight" name="legendHeight" placeholder="">
+									<div class="right">
+										<div class="input_a_l">图例高度:</div>
+										<div class="input_b_2">
+											<input v-model="legendHeight" type="text" class="form-control" style="width: 153px;" id="legendHeight" name="legendHeight" placeholder="">
+										</div>
 									</div>
 								</div>
 								<div class="part">
-									<div class="input_a_l">图例位置:</div>
-									<div class="input_b_t1" style="float: left;">水平:</div>	
-									<div class="input_b_3" style="float: left;width: 105px;">
-										<select v-model="legendX" id="legendX"  name="legendX" class="selectpicker select_width" autocomplete="off" >
-											<option value="left">Left</option>
-											<option value="center">Center</option>
-											<option value="right">Right</option>
-										</select>
-									</div>		
-									<div class="input_b_t1" style="float: left;margin-left: 55px;">垂直:</div>
-									<div class="input_b_3" style="float: left;width: 105px;">
-										<select v-model="legendY" id="legendY" name="legendY" class="selectpicker select_width" autocomplete="off" >
-											<option value="top">Top</option>
-											<option value="center">Center</option>
-											<option value="bottom">Bottom</option>
-										</select>
-									</div>										
+									<div class="input_a_l titleNameLeft">图例位置:</div>
+									<div class="inputLeft">
+										<div class="input_b_t1 titleA">水平:</div>	
+										<div class="input_b_3 inputA">
+											<select v-model="legendX" id="legendX"  name="legendX" class="selectpicker select_width" autocomplete="off" >
+												<option value="left">Left</option>
+												<option value="center">Center</option>
+												<option value="right">Right</option>
+											</select>
+										</div>	
+									</div>	
+									<div class="right">
+										<div class="input_b_t1">垂直:</div>
+										<div class="input_b_3" style="width: 108px;">
+											<select v-model="legendY" id="legendY" name="legendY" class="selectpicker select_width" autocomplete="off" >
+												<option value="top">Top</option>
+												<option value="center">Center</option>
+												<option value="bottom">Bottom</option>
+											</select>
+										</div>
+									</div>
 								</div>
 								<div class="part">
-									<div class="input_a_l">图例布局:</div>
-									<div class="input_b_3" style="float: left;width: 30%;">
+									<div class="input_a_l titleNameLeft">图例布局:</div>
+									<div class="input_b_3 inputLeft">
 										<select v-model="legendLayout" id="legendLayout"  name="legendLayout" class="selectpicker select_width" autocomplete="off" >
 											<option value="horizontal">Horizontal</option>
 											<option value="vertical">Vertical</option>
 										</select>
 									</div>	
+								</div>
+								<div class="line"></div>
+								<div class="part">
+									<div class="input_a_l titleNameLeft">圆的大小:</div>
+									<div class="input_f_2">
+										<input v-model="zoom" type="text" class="form-control inputLeft" id="zoom" name="zoom" placeholder="">
+									</div>
 								</div>
 	
 							</form>
@@ -391,6 +410,6 @@
     <script src="public/draw/script/spectrum.js"></script>
     <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
     <script src="js/common.js"></script>
-    <script src="public/draw/script/worldPieMapDraw.js"></script>   
+    <script src="public/draw/script/worldpieMapDraw.js"></script>   
 </body>
 </html>

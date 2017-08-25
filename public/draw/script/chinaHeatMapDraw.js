@@ -23,28 +23,55 @@ $(function(){
 			color:[],
 			minValue:0,
 			middleValue:15,
-			maxValue:30
+			maxValue:30,
+			dataCol_sel:null
 		},
 		computed: {
-		  title_size: {
-		    get: function () {
-		      return this.title_size_sel;
-		    },
-		    set: function (newValue) {
-		       this.title_size_sel = newValue;
-		       $("#title_size").selectpicker("val",newValue);
-		    }
-		  },
-		  title_font:{
-		  	get: function () {
-		      return this.title_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.title_font_sel = newValue;
-		       $("#title_font").selectpicker("val",newValue);
-		    }
-		  },
-		  titleX:{
+			dataColumn:function(){
+				if(this.fileData.content.length<=0){
+					return [];
+				}
+				var heads = this.fileData.content[0];
+				console.log(heads)
+				var result = [];
+				for(var i=0;i<heads.length;i++){
+					if(heads[i]=='地名'||heads[i]=='经度'||heads[i]=='纬度'){
+						continue;
+					}
+					result.push(heads[i]);
+				}
+				return result;
+				console.log(result)
+			},
+			dataCol:{
+			  	get: function () {
+			      return this.dataCol_sel;
+			    },
+			    set: function (newValue) {
+			    	if(!newValue) return;
+			    	this.dataCol_sel = newValue;
+			        $("#dataCol").selectpicker("val",newValue);
+			    }
+			},
+			title_size: {
+			    get: function () {
+			      return this.title_size_sel;
+			    },
+			    set: function (newValue) {
+			       this.title_size_sel = newValue;
+			       $("#title_size").selectpicker("val",newValue);
+			    }
+			},
+			title_font:{
+			  	get: function () {
+			      return this.title_font_sel;
+			    },
+			    set: function (newValue) {
+			    	this.title_font_sel = newValue;
+			       $("#title_font").selectpicker("val",newValue);
+			    }
+			},
+			titleX:{
 			  	get: function () {
 			      return this.titleX_sel;
 			   },
@@ -111,6 +138,15 @@ $(function(){
 			},
 			fileData:function(val,oldVal){
 				this.$nextTick(function(){
+					$('#dataCol').selectpicker('refresh');				
+					this.dataCol_sel=$('#dataCol').selectpicker("val");
+					$(".spectrum").spectrum({
+						preferredFormat: "hex3"
+					});
+				});
+			},
+			dataCol:function(val,oldVal){
+				this.$nextTick(function(){
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
 					});
@@ -126,7 +162,6 @@ $(function(){
 		}
 	});
 	
-
  	var myChart = echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
     var option = {
@@ -191,7 +226,7 @@ $(function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
 	});
 	//颜色控件初始化开始
-	vue.color=["#fff","pink","#4357a5"];
+	vue.color=["#da9034","#4ab1c9","#0f9a82"];
 
 	//颜色控件初始化结束
 	$("#colorProject").on("change.bs.select",function(){
@@ -239,7 +274,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"]);
+					updateEchartsData(myChart,formData,data["content"],vue.dataCol);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -318,7 +353,7 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize	
 	}
 }
-function updateEchartsData(echartsInstance,echartsStyle,echartsData){
+function updateEchartsData(echartsInstance,echartsStyle,echartsData,dataCol){
 	var dcolor = [];
 	$(".spectrum").each(function(){
 		var colorStr = $(this).spectrum("get").toHexString();
@@ -363,7 +398,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 				latIndex = i;
 			}else if(head == "纬度"){
 				lonIndex = i;
-			}else{
+			}else if(head == dataCol){
 				dataIndexMap[head] = i;
 				var seriesItem = {
 					name:head,
@@ -398,14 +433,17 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 			 		}
 			 	}
 			}
-			
+
 			for(key in dataIndexMap){
-				var index = dataIndexMap[key];
-				var data = rowData[index];
-				mapSerieMap[key].data.push({
-					name:placeName,
-					value:data
-				});
+				
+					var index = dataIndexMap[key];
+					var data = rowData[index];
+					mapSerieMap[key].data.push({
+						name:placeName,
+						value:data
+					});
+				
+				
 			}
 		}
 		echartsInstance.setOption(option);

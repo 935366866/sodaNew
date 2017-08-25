@@ -1,4 +1,9 @@
 @charset "utf-8";
+#taskPanel{
+	padding-left: 0px; 
+	padding-right:0px;
+	padding-bottom:50px;
+}
 .myTab {
   min-width: 1000px;
   float: left;
@@ -12,6 +17,7 @@
   height: 67px;
   float: left;
   text-align: center;
+  margin-left: 20px;
 }
 .myTab .tabs .nav {
   float: left;
@@ -270,7 +276,43 @@
 }
 #parameter .inputLeft {
 	float: left;
-  width: 165px;
+  width: 163px;
+}
+#parameter .inputLeft>.titleA{
+	float: left;
+  width: 55px;
+}
+#parameter .inputLeft>.inputA{
+	float: left;
+  width: 107px;
+}
+#parameter .right{
+  float: left;
+  width: 240px;
+  margin-left: 30px;
+}
+#parameter .right>.subTitle{
+  float: left !important;
+  width: 50px;
+}
+#parameter .right>.subInput{
+  float: left !important;
+  
+}
+#parameter .right>.input_b_t1{
+	 width: 50px;
+	 padding-left: 0;
+	 float: left !important;
+}
+#parameter .right>.input_b_3{
+	 float: left !important;
+	 width: 70px;
+}
+#parameter .right>.input_a_l{
+	 width: 80px;
+}
+#parameter .right>.input_b_2{
+	 width: 153px;
 }
 .line {
   float: left;
