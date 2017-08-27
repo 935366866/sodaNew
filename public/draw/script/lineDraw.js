@@ -299,9 +299,11 @@ $(function(){
 			orient:vue.legendLayout
 		}
 	};
-	
-	myChart.on('brushSelected', renderBrushed);
-	function renderBrushed(params) {
+	 // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    
+    
+	myChart.on('brushSelected', function (params) {
 		var tr=$("#file table tr").first();
 		var ths=$(tr).children("th");
 		//取到x轴名字
@@ -333,7 +335,8 @@ $(function(){
 	            }
 	        }
 	    });
-	}
+	});
+	
 	
 	//点击柱子，对应的数据高亮显示
 	myChart.on('click', function (parmas) {
@@ -357,8 +360,7 @@ $(function(){
 		})
 //		console.log(parmas.seriesName)
 	});
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+   
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
 	});
@@ -397,6 +399,9 @@ $(function(){
 		if(formData.input==""){
 			alert("请输入文件");
 		}else{
+			myChart.clear();
+			myChart.setOption(option);
+			
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
 			myChart.showLoading();
 			$.ajax({

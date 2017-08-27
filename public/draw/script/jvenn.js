@@ -2061,6 +2061,17 @@
 			var select_form = $("#"+cpref+"-export-menu");
 			var ceColorOri = $("#"+cpref+"-canvasExport").css('background');
 			$("#"+cpref+"-format-png").click(function(event) {
+				/*var type = getVennType(); 
+				clearCanvas();
+	            	if (opts.displayMode == 'edwards') {
+	                   	placeEdwardsVenn(type[1]);
+	                } else {
+	                   	placeClassicVenn(type[1]);
+	                }
+	            	if (opts.displayStat) {
+	            		placeStat(type[1]);
+	                }*/
+				
 				$("#"+cpref+"-canvasExport").css('background', ceColorOri);
 				$("#"+cpref+"-canvasExport").css('border-color', "white");
 				$("#"+cpref+"-canvasExport").hover(function() {

@@ -266,6 +266,7 @@ $(function(){
 	    	bottom:80
 	    },
 		legend: {
+			align:'left',
 			y:vue.legendY,
 			x:vue.legendX,
 			orient:vue.legendLayout
