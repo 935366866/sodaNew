@@ -346,7 +346,7 @@ $(function(){
 		geo: {
 	        map: 'world',
 	        nameMap:nameMap,
-//	        roam:true,
+	        roam:true,
 	        label: {
 	        	normal:{
 	        		show:false,
@@ -363,9 +363,6 @@ $(function(){
 	            	color:"#ccc",
 	                areaColor: '#fff',
 	                borderColor: '#111'
-	            },
-	            emphasis: {
-	                areaColor: '#fff'
 	            }
 	        }
 		},
@@ -376,8 +373,14 @@ $(function(){
     myChart.setOption(option);
 	myChart.on('georoam', function (params) {
    		var formData =  allParams();//取form表单参数
-   		vue.zoom = vue.zoom*params.zoom;
+   		if(params.zoom){
+   			vue.zoom = vue.zoom*params.zoom;
+   		}
 		updateEchartsData(myChart,formData,vue.fileData["content"]);
+	});
+	myChart.on('legendselectchanged', function (params) {
+		var formData =  allParams();//取form表单参数
+		updateEchartsData(myChart,formData,vue.fileData["content"],params.selected);
 	});
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
@@ -416,12 +419,22 @@ $(function(){
 	});
 	//提交参数
 	$("#submit_paras").click(function(){
+		if(vue.zoom<=0){
+			alert('圆的大小必须大于0!');
+			vue.zoom=1;
+		}
 		var formData =  allParams();//取form表单参数
 		if(formData.input==""){
 			alert("请输入文件");
 		}else{
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
-			
+			var option = {
+				geo:{
+					center:null,
+					zoom:1
+				}
+			};
+			myChart.setOption(option);
 			updateEchartsData(myChart,formData,vue.fileData["content"]);
 		}
 	});
@@ -476,8 +489,10 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize	
 	}
 }
-function updateEchartsData(echartsInstance,echartsStyle,echartsData){
-	
+function updateEchartsData(echartsInstance,echartsStyle,echartsData,selected){
+	if(!selected&&echartsInstance.getOption().legend){
+		selected = echartsInstance.getOption().legend[0].selected;
+	}
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
@@ -488,6 +503,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 		        data:[]
 		    }
 		};
+		echartsInstance.setOption(option);
 		var dataIndexMap = {};//数据列名列索引映射 {"地名":0,"经度":1,"维度":2}
 		var placeNameIndex = -1,
 			lonIndex =-1,
@@ -563,7 +579,9 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 			for(name in dataIndexMap){
 				var index = dataIndexMap[name];
 				var value = Number(rowData[index]);
-				rowValueSum+=value;
+				if(!selected||!(selected[name]===false)){
+					rowValueSum+=value;
+				}
 				//将  name 和 value加入到option的data中
 				pieSerie.data.push({
 					'name':name,
@@ -603,7 +621,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 		}
 		
 		echartsInstance.setOption(option);
-		
+	console.log(echartsInstance.getModel().get('geo.0'))	
 
 	}
 }

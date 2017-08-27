@@ -361,7 +361,7 @@ $(function(){
 	    });
 	}
 	
-	//点击柱子，对应的数据高亮显示
+	//点击数据，对应的数据高亮显示
 	myChart.on('click', function (parmas) {
 		$('#appTabLeft li:eq(0) a').tab('show');
 		var tr=$("#file table tr").first();

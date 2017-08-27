@@ -178,6 +178,7 @@ $(function(){
 	    }
 	};
 
+
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 	$("select").on("change.bs.select",function(){
@@ -195,6 +196,25 @@ $(function(){
 			vue.color=color3;
 		}
 	});
+	
+	//点击数据，对应的数据高亮显示
+	myChart.on('click', function (parmas) {
+		console.log(parmas.value)
+		$('#appTabLeft li:eq(0) a').tab('show');
+		var trs=$("#file tbody tr");
+		for(var j=1;j<trs.length;j++){
+			if(j==parmas.value[1]+1){
+				var tds=trs[j].childNodes;
+				for(var i=1;i<tds.length;i++){
+					if(parmas.value[2]==tds[i].innerText&&parmas.value[0]+1==i){						
+						$("td").css("background","#fff")
+						tds[i].style.background="#f5f5f5";
+					}
+				}
+			}
+		}	
+	});
+	
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
@@ -326,7 +346,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData){
 			row.shift();//删除第一列
 			var tempdata=[];
 			for(var j=0;j<row.length;j++){
-				heatMapData.push([i-1,j,row[j]]);
+				heatMapData.push([j,i-1,row[j]]);
 			}
 						
 		}

@@ -57629,12 +57629,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                selectMode
 	                            );
 
-	                            itemGroup.on('click', curry(dispatchSelectAction, name, api))
+	                            itemGroup.on('click', curry(dispatchSelectAction, name, api));
 	                                // FIXME Should not specify the series name
-	                                .on('mouseover', curry(dispatchHighlightAction, seriesModel, name, api))
-	                                .on('mouseout', curry(dispatchDownplayAction, seriesModel, name, api));
+	                                
 
 	                            legendDrawedMap.set(name, true);
+	                            ecModel.eachRawSeries(function (seriesModel1) {
+			                       
+			                        if (seriesModel.legendDataProvider) {
+			                            var data = seriesModel.legendDataProvider();
+			                            var idx = data.indexOfName(name);
+			                            if (idx < 0) {
+			                                return;
+			                            }
+
+			                            itemGroup
+			                                // FIXME Should not specify the series name
+			                                .on('mouseover', curry(dispatchHighlightAction, seriesModel1, name, api))
+			                                .on('mouseout', curry(dispatchDownplayAction, seriesModel1, name, api));
+		
+			        
+			                        }
+			                    }, this);
+	                            
+	                            
 	                        }
 	                    }, this);
 	                }

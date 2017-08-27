@@ -7,7 +7,7 @@ $(function(){
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"世界-热图-点图",
+			title:"中国-热图-点图",
 			fileData:{
 				content:[]
 			},

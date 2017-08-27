@@ -141,6 +141,30 @@
 								</div>
 								<div class="line"></div>
 								<div class="part">
+									<div class="input_a_l titleNameLeft">标题名称:</div>
+									<div class="input_b_2 inputLeft">
+										<input v-model="title" type="text" class="form-control" id="title" name="title" placeholder=""/>
+									</div>
+									<div class="right">
+										<div class="input_b_t1">字体:</div>
+										<div class="input_b_3">
+											<select v-model="title_font" id="title_font" name="title_font" class="selectpicker select_width" autocomplete="off" >
+												<option value="normal">常规</option>
+												<option value="bold">加粗</option>
+												<option value="italic">斜体</option>
+											</select>
+										</div>	
+										<div class="input_b_t1">大小:</div>	
+										<div class="input_b_3">
+											<select v-model="title_size"  id="title_size" name="title_size" class="selectpicker select_width" autocomplete="off" >
+												<option value="10">10</option>
+												<option value="18">18</option>
+												<option value="30">30</option>
+											</select>
+										</div>	
+									</div>
+								</div>
+								<div class="part">
 									<div class="input_a_l">标题位置:</div>
 									<div class="inputLeft">
 										<div class="input_b_t1 titleA">水平:</div>	
