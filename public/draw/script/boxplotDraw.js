@@ -232,13 +232,10 @@ $(function(){
 		           	show: true
 				},
             	axisTick:{
-            		inside: true
+            		show:false 
             	},
             	axisLine:{
             		show:false
-            	},
-            	axisLabel:{
-           			formatter: 'expr {value}'
             	},
 				type : 'category'
 	        }
@@ -455,7 +452,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField){
 		var option = {
 			series:[],
 			xAxis:{},
-			legend: {
+			legend:{
 				data:[]
 			}
 		};
@@ -472,15 +469,17 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField){
 				resultData[j][i]=record;
 			}
 		}
-
-		for(var i=0;i<resultData.length;i++){
+		resultData.shift();
+		console.log(resultData)
+		
+		/*for(var i=0;i<resultData.length;i++){
 			var row = resultData[i];
 			var head = row[0];
 			row.shift();
 			var data = row;
-			var data1 = echarts.dataTool.prepareBoxplotData([data]);
+			var boxData = echarts.dataTool.prepareBoxplotData([data]);
 			if(head == xAxisField){
-				option.xAxis.data=data1.axisData;
+				option.xAxis.data=boxData.axisData;
 			}else{
 				option.series.push({
 					type:"boxplot",
@@ -491,15 +490,39 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField){
 							borderWidth: 2
 						}			
 					},
-					data:data1.boxData
+					data:boxData.boxData
 				});
 				option.legend.data.push(head);
-				var numWidth=parseInt(echartsStyle.legendWidth);
-				var numHeight=parseInt(echartsStyle.legendHeight);
-				option.legend.itemHeight=numHeight;
-				option.legend.itemWidth=numWidth;
+				
 			}
+		}*/
+		var heads = [];
+		for(var i=0;i<resultData.length;i++){
+			var row = resultData[i];
+			var head = row[0];
+			option.legend.data.push(head)
+			heads.push(head);
+			row.shift();
 		}
+		console.log(heads)
+		var boxplotData = echarts.dataTool.prepareBoxplotData(resultData);
+		var axisData = boxplotData.axisData;
+		option.xAxis.data = heads;
+		var boxData = boxplotData.boxData;
+		console.log(boxData)
+		option.series.push({
+					type:"boxplot",
+					blurSize: 10,
+					data:boxData
+				});
+		option.series.push({
+            name: 'outlier',
+            type: 'scatter',
+            data: boxplotData.outliers
+        });		
+				
+		
+		console.log(option);
 		echartsInstance.setOption(option);
 	}
 	
