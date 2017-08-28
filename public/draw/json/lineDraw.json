@@ -1,16 +1,16 @@
 {
     "input": "/whx/abc/1.txt",
-    "title": "title1",
+    "title": "折线图",
     "title_size": "18",
     "title_font": "bold",
-    "titleX":"left",
+    "titleX":"center",
     "titleY":"top",
     "xlab": "xxx",
-    "xlab_size": "13",
-    "xlab_font": "italic",
+    "xlab_size": "12",
+    "xlab_font": "normal",
     "ylab": "yyy",
-    "ylab_size": "13",
-    "ylab_font": "italic",
+    "ylab_size": "12",
+    "ylab_font": "normal",
     "lineWidth": "2",
     "xColumnField":"#percent",
     "legendWidth":25,  
@@ -18,6 +18,6 @@
     "legendY":"bottom",
     "legendX":"center",
     "legendLayout":"horizontal",
-    "Xgrid": "hide",
-    "Ygrid": "hide" 
+    "Xgrid": "show",
+    "Ygrid": "show" 
 }

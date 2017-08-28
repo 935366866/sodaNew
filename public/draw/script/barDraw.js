@@ -485,7 +485,7 @@ $(function(){
 function updateEcharts(echarts,data){
 	var color = [];
 	$(".spectrum").each(function(){
-		var colorStr = $(this).val();
+		var colorStr = $(this).spectrum("get").toHexString();
 		color.push(colorStr);
 	});
 	echarts.setOption({

@@ -11,5 +11,5 @@
     "legendY":"bottom",
     "legendLayout":"horizontal",
     "minValue":0,
-    "maxValue":30 
+    "maxValue":1 
 }

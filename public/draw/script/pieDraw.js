@@ -1,4 +1,4 @@
-var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
+var paramUrl = 'public/draw/json/jobUrl'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 
 $(function(){	
 	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
@@ -9,22 +9,21 @@ $(function(){
 		data:{
 			pieType:'标准饼图',
 			input:"",
-			title:"",
-			t:null,
-			legendWidth:"",
-			legendHeight:"",
-			legendX_sel:"",
-			legendY_sel:"",
-			titleX_sel:"",
-			titleY_sel:"",
-			legendLayout_sel:"",
+			title:"饼图",
+			legendWidth:"10",
+			legendHeight:"10",
+			legendX_sel:"left",
+			legendY_sel:"bottom",
+			titleX_sel:"center",
+			titleY_sel:"top",
+			legendLayout_sel:"vertical",
 			geneColumn_sel:null,
 			funColumn_sel:null,
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"",
-			title_font_sel:"",
+			title_size_sel:"18",
+			title_font_sel:"bold",
 			color:color1
 		},
 		computed: {
@@ -32,23 +31,29 @@ $(function(){
 				if(!this.geneColumn){
 					return new Array();
 				}
-				//
 				var datas=this.fileData.content[0];
 				if(!datas){
 					return new Array();
 				}
-				var index;
+				var geneColumnIndex;
+				var dataColumnIndex;
 				for(var i=0;i<datas.length;i++){
 					if(datas[i]==this.geneColumn){
-						index=i;
-						break;
+						geneColumnIndex=i;
+						
+					}else if(datas[i]==this.funColumn){
+						dataColumnIndex = i;
 					}
 				}
 				var resultArr=[];
 				for(var i=1;i<this.fileData.content.length;i++){
-					resultArr.push(this.fileData.content[i][index]);
+					if(Number(this.fileData.content[i][dataColumnIndex])>=40000){
+						resultArr.push(this.fileData.content[i][geneColumnIndex]);
+					}	
 				}
+				resultArr.push("others");
 				return resultArr;
+
 			},
 			title_size: {
 			    get: function () {
@@ -369,7 +374,7 @@ $(function(){
 function updateEcharts(echarts,data){
 	var color = [];
 	$(".spectrum").each(function(){
-		var colorStr = $(this).val();
+		var colorStr = $(this).spectrum("get").toHexString();
 		color.push(colorStr);
 	});
 
@@ -426,7 +431,6 @@ function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField,funC
 				data:[]
 			}
 		};
-
 		if(vue.radius[0]==20){
 			option.series[0].roseType='radius';
 		}else{
@@ -442,19 +446,35 @@ function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField,funC
 				funIndex=i;	
 			}
 		}
-		
-		for(var i=1;i<echartsData.length;i++){
-			option.series[0].data.push({
-				name:echartsData[i][geneIndex],
-				value:echartsData[i][funIndex]
-			});
-			option.legend.data.push(echartsData[i][geneIndex]);
-			var numWidth=parseInt(echartsStyle.legendWidth);
-			option.legend.itemWidth=numWidth;
-			var numHeight=parseInt(echartsStyle.legendHeight);
-			option.legend.itemHeight=numHeight;
-		}
 
+		var otherSum=0;
+		var indexs=[];
+		for(var i=1;i<echartsData.length;i++){
+			if(Number(echartsData[i][funIndex])<40000){
+				otherSum+=Number(echartsData[i][funIndex]);
+				indexs.push(i)
+			}
+		}
+		for(var i=1;i<echartsData.length;i++){
+			if(Number(echartsData[i][funIndex])>=40000){
+				option.series[0].data.push({
+					name:echartsData[i][geneIndex],
+					value:echartsData[i][funIndex]
+				});
+			}
+			
+			for(var k=0;k<indexs.length;k++){
+				if(indexs[k]!=i){
+					option.legend.data.push(echartsData[i][geneIndex]);
+					var numWidth=parseInt(echartsStyle.legendWidth);
+					option.legend.itemWidth=numWidth;
+					var numHeight=parseInt(echartsStyle.legendHeight);
+					option.legend.itemHeight=numHeight;
+				}
+			}
+		}
+		option.series[0].data.push({name:"others",value:otherSum});
+		option.legend.data.push("others");
 		echarts.setOption(option);
 	}
 	

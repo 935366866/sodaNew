@@ -8,29 +8,29 @@ $(function(){
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"",
-			xlab:"",
-			ylab:"",
-			pointsize:"",
+			title:"散点图",
+			xlab:"X轴标题",
+			ylab:"Y轴标题",
+			pointsize:"5",
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"",
-			title_font_sel:"",
-			xlab_size_sel:"",
-			xlab_font_sel:"",
-			ylab_size_sel:"",
-			ylab_font_sel:"",
+			title_size_sel:"18",
+			title_font_sel:"bold",
+			xlab_size_sel:"12",
+			xlab_font_sel:"normal",
+			ylab_size_sel:"12",
+			ylab_font_sel:"normal",
 			titleX_sel:"",
 			titleY_sel:"",
-			legendDiameter:"",
-			legendX_sel:"",
-			legendY_sel:"",
-			legendLayout_sel:"",
+			legendDiameter:"14",
+			legendX_sel:"center",
+			legendY_sel:"bottom",
+			legendLayout_sel:"horizontal",
 			xColumnField_sel:null,
 			color:color1,
-			Xgrid:"hide",
-			Ygrid:"hide"
+			Xgrid:"show",
+			Ygrid:"show"
 		},
 		computed: {
 		  title_size: {
@@ -242,7 +242,8 @@ $(function(){
 	    xAxis : [
 	        {
 	            scale:true,
-	            nameLocation:'end',
+	            nameLocation:'middle',
+	            nameGap: 23,
 	            splitLine:{
                 	show:vue.gridX,
                 	lineStyle:{
@@ -262,7 +263,8 @@ $(function(){
 	        {
 	            type : 'value',
 	            scale:true,
-	            nameLocation:'end',
+	            nameLocation:'middle',
+	            nameGap: 40,
 	            splitLine:{
                 	show:vue.gridY,
                 	lineStyle:{
@@ -412,7 +414,7 @@ $(function(){
 function updateEcharts(echarts,data){
 	var color = [];
 	$(".spectrum").each(function(){
-		var colorStr = $(this).val();
+		var colorStr = $(this).spectrum("get").toHexString();
 		color.push(colorStr);
 	});
 	echarts.setOption({

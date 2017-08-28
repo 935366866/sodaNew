@@ -1,4 +1,4 @@
-var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
+var paramUrl = 'public/draw/json/jobUrl'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 
 $(function(){
 	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
@@ -8,30 +8,30 @@ $(function(){
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"",
-			xlab:"",
-			ylab:"",
-			lineWidth:"",
-			legendWidth:"",
-			legendHeight:"",
+			title:"折线图",
+			xlab:"无",
+			ylab:"Y轴标题",
+			lineWidth:"2",
+			legendWidth:"25",
+			legendHeight:"15",
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"",
-			title_font_sel:"",
-			xlab_size_sel:"",
-			xlab_font_sel:"",
-			ylab_size_sel:"",
-			ylab_font_sel:"",
+			title_size_sel:"18",
+			title_font_sel:"bold",
+			xlab_size_sel:"12",
+			xlab_font_sel:"normal",
+			ylab_size_sel:"12",
+			ylab_font_sel:"normal",
 			xColumnField_sel:null,
-			legendX_sel:"",
-			legendY_sel:"",
+			legendX_sel:"right",
+			legendY_sel:"bottom",
 			titleX_sel:"",
 			titleY_sel:"",
 			color:color1,
-			legendLayout_sel:"",
-			Xgrid:"hide",
-			Ygrid:"hide"
+			legendLayout_sel:"horizontal",
+			Xgrid:"show",
+			Ygrid:"show"
 		},
 		computed: {
 		  title_size: {
@@ -251,7 +251,8 @@ $(function(){
 	    xAxis : [
 	        {
 	            scale:true,
-	            nameLocation:'end',
+	            nameLocation:'middle',
+	            nameGap: 23,
 	            splitLine:{
                 	show:vue.gridX,
                 	lineStyle:{
@@ -271,7 +272,8 @@ $(function(){
 	        {
 	            type : 'value',
 	            scale:true,
-	            nameLocation:'end',
+	            nameLocation:'middle',
+	            nameGap: 40,
 	            splitLine:{
                 	show:vue.gridY,
                 	lineStyle:{
@@ -294,6 +296,7 @@ $(function(){
 	    	
 	    },
 		legend: {
+			align:'left',
 			y:vue.legendY,
 			x:vue.legendX,
 			orient:vue.legendLayout
@@ -464,7 +467,7 @@ $(function(){
 function updateEcharts(echarts,data){
 	var color = [];
 	$(".spectrum").each(function(){
-		var colorStr = $(this).val();
+		var colorStr = $(this).spectrum("get").toHexString();
 		color.push(colorStr);
 	});
 	echarts.setOption({

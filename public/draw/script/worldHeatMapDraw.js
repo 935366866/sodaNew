@@ -413,7 +413,6 @@ $(function(){
 	});
 	//颜色控件初始化开始
 	vue.color=["#da9034","#4ab1c9","#0f9a82"];
-
 	//颜色控件初始化结束
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){

@@ -174,7 +174,7 @@ $(function(){
 	    	show:true,
 	    	borderColor:'#000',
 	    	left:110,
-	    	bottom:80
+	    	bottom:90
 	    }
 	};
 

@@ -8,28 +8,28 @@ $(function(){
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"",
-			xlab:"",
-			ylab:"",
-			legendWidth:"",
-			legendHeight:"",
+			title:"箱线图",
+			xlab:"无",
+			ylab:"Y轴标题",
+			legendWidth:"25",
+			legendHeight:"15",
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"",
-			title_font_sel:"",
+			title_size_sel:"18",
+			title_font_sel:"bold",
 			xlab_size_sel:"",
 			xlab_font_sel:"",
 			ylab_size_sel:"",
 			ylab_font_sel:"",
 			xColumnField_sel:null,
-			legendX_sel:"",
-			legendY_sel:"",
+			legendX_sel:"right",
+			legendY_sel:"center",
 			titleX_sel:"",
 			titleY_sel:"",
 			color:color1,
-			legendLayout_sel:"",
-			Ygrid:"hide"
+			legendLayout_sel:"vertical",
+			Ygrid:"show"
 		},
 		computed: {
 		  title_size: {
@@ -226,6 +226,8 @@ $(function(){
                 		type:'solid'
                 	}
             	},
+            	boundaryGap: true,
+        		nameGap: 22,
 	    		splitArea: {
 		           	show: true
 				},
@@ -236,7 +238,7 @@ $(function(){
             		show:false
             	},
             	axisLabel:{
-            		show:false
+           			formatter: 'expr {value}'
             	},
 				type : 'category'
 	        }
@@ -263,7 +265,9 @@ $(function(){
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
-	    	bottom:80
+	    	bottom:80,
+	    	right:70,
+	    	left:70
 	    },
 		legend: {
 			align:'left',
@@ -293,7 +297,6 @@ $(function(){
 				$(this).siblings("tr").removeClass("active");
 			}			
 		})
-//		console.log(parmas.seriesName)
 	});
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
@@ -397,7 +400,7 @@ $(function(){
 function updateEcharts(echarts,data){
 	var color = [];
 	$(".spectrum").each(function(){
-		var colorStr = $(this).val();
+		var colorStr = $(this).spectrum("get").toHexString();
 		color.push(colorStr);
 	});
 	echarts.setOption({
@@ -469,7 +472,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField){
 				resultData[j][i]=record;
 			}
 		}
-	
+
 		for(var i=0;i<resultData.length;i++){
 			var row = resultData[i];
 			var head = row[0];
@@ -489,7 +492,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField){
 						}			
 					},
 					data:data1.boxData
-				});				
+				});
 				option.legend.data.push(head);
 				var numWidth=parseInt(echartsStyle.legendWidth);
 				var numHeight=parseInt(echartsStyle.legendHeight);

@@ -314,6 +314,12 @@
 #parameter .right>.input_b_2{
 	 width: 153px;
 }
+#parameter #radioArea{
+	 width: auto !important;
+}
+#parameter #radioArea .radio{
+	 display: inline-block !important;
+}
 .line {
   float: left;
   width: 100%;
