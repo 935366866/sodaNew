@@ -121,6 +121,9 @@
 #myTabContent #file table .active{
 	/*font-weight: bold;*/
 }
+#myTabContent #file table tr td.active{
+	background: #f5f5f5;
+}
 #parameter {
   height: auto;
 }

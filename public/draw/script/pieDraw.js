@@ -24,7 +24,8 @@ $(function(){
 			},
 			title_size_sel:"18",
 			title_font_sel:"bold",
-			color:color1
+			color:color1,
+			otherRange:"40000"
 		},
 		computed: {
 			seriesData:function(){
@@ -46,8 +47,13 @@ $(function(){
 					}
 				}
 				var resultArr=[];
+				var sum=0;
 				for(var i=1;i<this.fileData.content.length;i++){
-					if(Number(this.fileData.content[i][dataColumnIndex])>=40000){
+					sum+=Number(this.fileData.content[i][dataColumnIndex]);
+				}
+				sum=sum*0.05;
+				for(var i=1;i<this.fileData.content.length;i++){
+					if(Number(this.fileData.content[i][dataColumnIndex])>=Number(this.otherRange)){
 						resultArr.push(this.fileData.content[i][geneColumnIndex]);
 					}	
 				}
@@ -321,7 +327,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.geneColumn,vue.funColumn);
+					updateEchartsData(myChart,formData,data["content"],vue.geneColumn,vue.funColumn,vue.otherRange);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -418,7 +424,7 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField,funColumnField){
+function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField,funColumnField,otherRange){
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[{
@@ -450,13 +456,13 @@ function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField,funC
 		var otherSum=0;
 		var indexs=[];
 		for(var i=1;i<echartsData.length;i++){
-			if(Number(echartsData[i][funIndex])<40000){
+			if(Number(echartsData[i][funIndex])<Number(otherRange)){
 				otherSum+=Number(echartsData[i][funIndex]);
 				indexs.push(i)
 			}
 		}
 		for(var i=1;i<echartsData.length;i++){
-			if(Number(echartsData[i][funIndex])>=40000){
+			if(Number(echartsData[i][funIndex])>=Number(otherRange)){
 				option.series[0].data.push({
 					name:echartsData[i][geneIndex],
 					value:echartsData[i][funIndex]

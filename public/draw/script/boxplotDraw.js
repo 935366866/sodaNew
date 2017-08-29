@@ -1,9 +1,7 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 
 $(function(){
-	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
-	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
-	var color3=["#4357a5","#c43c32","#719657","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
+	var color=["#b41505","#37458b","#72be68"];
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
@@ -11,8 +9,6 @@ $(function(){
 			title:"箱线图",
 			xlab:"无",
 			ylab:"Y轴标题",
-			legendWidth:"25",
-			legendHeight:"15",
 			fileData:{
 				content:[]
 			},
@@ -23,13 +19,13 @@ $(function(){
 			ylab_size_sel:"",
 			ylab_font_sel:"",
 			xColumnField_sel:null,
-			legendX_sel:"right",
-			legendY_sel:"center",
 			titleX_sel:"",
 			titleY_sel:"",
-			color:color1,
-			legendLayout_sel:"vertical",
-			Ygrid:"show"
+			color:color,
+			Ygrid:"show",
+			showMode:"horizontal",
+			lineWidth:"2",
+			pointsize:"8"
 		},
 		computed: {
 		  title_size: {
@@ -86,25 +82,6 @@ $(function(){
 		       $("#ylab_font").selectpicker("val",newValue);
 		    }
 		  },
-		  legendX:{
-		  	get: function () {
-		      return this.legendX_sel;
-		   },
-		    set: function (newValue) {
-		    	if(!newValue) return;
-		    	this.legendX_sel = newValue;
-		       $("#legendX").selectpicker("val",newValue);
-		    }
-		  },
-		  legendY:{
-		  	get: function () {
-		      return this.legendY_sel;
-		   },
-		    set: function (newValue) {
-		    	this.legendY_sel = newValue;
-		       $("#legendY").selectpicker("val",newValue);
-		    }
-		  },
 		  titleX:{
 			  	get: function () {
 			      return this.titleX_sel;
@@ -134,22 +111,6 @@ $(function(){
 			    	this.xColumnField_sel = newValue;		    	
 			        $("#xColumnField").selectpicker("val",newValue);
 			    }
-			},
-			legendLayout:{
-			  	get: function () {
-			      return this.legendLayout_sel;
-			   	},
-			    set: function (newValue) {
-			    	this.legendLayout_sel = newValue;
-			       $("#legendLayout").selectpicker("val",newValue);
-			    }
-			},
-			gridY:function(){
-				if(this.Ygrid=="show"){
-					return true;
-				}else{
-					return false;
-				}
 			}
 		},
 		watch:{
@@ -220,7 +181,6 @@ $(function(){
 	        {
 	            scale:true,	           
 		    	nameLocation:'middle',
-	            nameGap:12,
 	            splitLine:{
                 	lineStyle:{
                 		type:'solid'
@@ -261,26 +221,18 @@ $(function(){
 	    ],
 	    grid:{
 	    	show:true,
-	    	borderColor:'#000',
-	    	bottom:80,
-	    	right:70,
-	    	left:70
-	    },
-		legend: {
-			align:'left',
-			y:vue.legendY,
-			x:vue.legendX,
-			orient:vue.legendLayout
-		}
+	    	borderColor:'#000'
+	    }
 	};
 	
-	//点击柱子，对应的数据高亮显示
+	//点击数据，对应的数据高亮显示
 	myChart.on('click', function (parmas) {
+		console.log(parmas.name)
 		$('#appTabLeft li:eq(0) a').tab('show');
 		var tr=$("#file table tr").first();
 		var ths=$(tr).children("th");
 		//取到x轴名字
-		var xText=vue.xColumnField;
+		var xText=parmas.name;
 		var index;
 		for(var i=0;i<ths.length;i++){
 			if(ths[i].innerText==xText){
@@ -289,10 +241,8 @@ $(function(){
 			}									
 		}
 		$("#file table tr").each(function(){
-			if($(this).children("td:eq("+index+")").text()==parmas.name){
-				$(this).addClass("active");
-				$(this).siblings("tr").removeClass("active");
-			}			
+			$(this).children("td:eq("+index+")").addClass("active");
+			$(this).children("td:eq("+index+")").siblings("td").removeClass("active");
 		})
 	});
     // 使用刚指定的配置项和数据显示图表。
@@ -300,14 +250,15 @@ $(function(){
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
 	});
+	vue.color=["#b41505"];
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){
-			vue.color=color1;
+			vue.color=color[0];
 		}else if($(this).selectpicker("val")=="project2"){
-			vue.color=color2;
+			vue.color=color[1];
 		}
 		else{
-			vue.color=color3;
+			vue.color=color[2];
 		}
 	});
 	//点击示例文件，加载已有参数
@@ -345,7 +296,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.xColumnField);	
+					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.showMode);	
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -418,11 +369,6 @@ function updateEcharts(echarts,data){
             	show:data.YgridShow
         	}
 		},
-		legend:{
-			x:data.legendX,
-			y:data.legendY,
-			orient:data.legendLayout
-		},
 		color:color
 		
 	});
@@ -447,11 +393,12 @@ function buildTextStyle(font,fontSize){
 	}
 }
 
-function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField){
+function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField,showMode){
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
 			xAxis:{},
+			yAxis:{},
 			legend:{
 				data:[]
 			}
@@ -470,8 +417,129 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField){
 			}
 		}
 		resultData.shift();
-		console.log(resultData)
+
+		var heads = [];
+		for(var i=0;i<resultData.length;i++){
+			var row = resultData[i];
+			var head = row[0];
+			option.legend.data.push(head)
+			heads.push(head);
+			row.shift();
+		}
 		
+		if(showMode=="horizontal"){
+			var boxplotData = echarts.dataTool.prepareBoxplotData(resultData);
+			var axisData = boxplotData.axisData;
+			option.yAxis={
+				name:echartsStyle.ylab,
+				nameLocation:'middle',
+				nameGap:35,
+				type :"value",
+				splitLine:{
+                	show:false
+            	}
+			}
+			option.xAxis ={
+				name:echartsStyle.xlab,
+				nameLocation:'middle',
+				nameGap:24,
+				type:"category",
+				data:heads,
+	            splitLine:{
+                	show:false
+            	},
+	    		splitArea: {
+		           	show: true
+				},
+            	axisTick:{
+            		show:false 
+            	},
+            	axisLine:{
+            		show:false
+            	},
+				type : 'category'
+			};
+			var boxData = boxplotData.boxData;
+			option.series.push({
+						type:"boxplot",
+						blurSize: 10,
+						data:boxData,
+						itemStyle: {
+							normal: {
+								borderWidth: echartsStyle.lineWidth,
+								borderColor: echartsStyle.color
+							}			
+						}
+					});
+			option.series.push({
+	            name: 'outlier',
+	            type: 'scatter',
+	            data: boxplotData.outliers,
+	            symbolSize:echartsStyle.pointsize,
+	            itemStyle: {
+					normal: {	
+						color:echartsStyle.color
+					}
+				}
+	       });		
+		}else{
+			var boxplotData = echarts.dataTool.prepareBoxplotData(resultData,{layout: 'vertical'});
+			var axisData = boxplotData.axisData;
+			option.yAxis ={
+				type:"category",
+				name:echartsStyle.ylab,
+				nameLocation:'middle',
+				nameGap:45,
+				data:heads,
+	            splitLine:{
+                	lineStyle:{
+                		type:'solid'
+                	}
+            	},
+	    		splitArea: {
+		           	show: true
+				},
+            	axisTick:{
+            		show:false 
+            	},
+            	axisLine:{
+            		show:false
+            	},
+				type : 'category'
+			};
+			option.xAxis={
+				name:echartsStyle.xlab,
+				nameLocation:'middle',
+				nameGap:22,
+				type :"value",
+				splitLine:{
+                	show:false
+            	}
+			}
+			var boxData = boxplotData.boxData;
+			option.series.push({
+						type:"boxplot",
+						blurSize: 10,
+						data:boxData,
+						itemStyle: {
+							normal: {
+								borderWidth: echartsStyle.lineWidth,
+								borderColor: echartsStyle.color
+							}			
+						}
+					});
+			option.series.push({
+	            name: 'outlier',
+	            type: 'scatter',
+	            data: boxplotData.outliers,
+	            symbolSize:echartsStyle.pointsize,
+	            itemStyle: {
+					normal: {	
+						color:echartsStyle.color
+					}
+				}
+	      });
+		}
 		/*for(var i=0;i<resultData.length;i++){
 			var row = resultData[i];
 			var head = row[0];
@@ -496,33 +564,6 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField){
 				
 			}
 		}*/
-		var heads = [];
-		for(var i=0;i<resultData.length;i++){
-			var row = resultData[i];
-			var head = row[0];
-			option.legend.data.push(head)
-			heads.push(head);
-			row.shift();
-		}
-		console.log(heads)
-		var boxplotData = echarts.dataTool.prepareBoxplotData(resultData);
-		var axisData = boxplotData.axisData;
-		option.xAxis.data = heads;
-		var boxData = boxplotData.boxData;
-		console.log(boxData)
-		option.series.push({
-					type:"boxplot",
-					blurSize: 10,
-					data:boxData
-				});
-		option.series.push({
-            name: 'outlier',
-            type: 'scatter',
-            data: boxplotData.outliers
-        });		
-				
-		
-		console.log(option);
 		echartsInstance.setOption(option);
 	}
 	

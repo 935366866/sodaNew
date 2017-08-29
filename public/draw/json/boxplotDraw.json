@@ -12,11 +12,8 @@
     "ylab_size": "12",
     "ylab_font": "normal",
     "xColumnField":"#geneID",
-    "legendWidth":25,  
-    "legendHeight":14,
-    "legendY":"bottom",
-    "legendX":"center",
-    "legendLayout":"horizontal",
     "Xgrid": "show",
-    "Ygrid": "show"       
+    "Ygrid": "show",
+    "lineWidth":2,
+    "pointsize":8       
 }

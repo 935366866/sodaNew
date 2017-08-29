@@ -216,8 +216,7 @@ $(function(){
 	        },
 	        x:vue.titleX,
 	        y:vue.titleY,
-	        top:20
-	       
+	        padding:-10
 	    },
 		brush: {
 	        toolbox: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
@@ -292,8 +291,7 @@ $(function(){
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
-		top:60
-	    	
+			top:60	
 	    },
 		legend: {
 			align:'left',
@@ -325,19 +323,6 @@ $(function(){
 	        rawIndices = brushComponent.selected[sIdx].dataIndex;
 	        brushed.push('['+legendName[sIdx] +'] '+ rawIndices.join(', '));
 	    }	
-	    myChart.setOption({
-	        title: {
-	            backgroundColor: '#333',
-	            text:brushed.join('\n'),
-	            bottom:0,
-	            right: 0,
-	            width: 80,
-	            textStyle: {
-	                fontSize: 12,
-	                color: '#fff'
-	            }
-	        }
-	    });
 	});
 	
 	
