@@ -221,7 +221,8 @@ $(function(){
 	    ],
 	    grid:{
 	    	show:true,
-	    	borderColor:'#000'
+	    	borderColor:'#000',
+	    	left:80
 	    }
 	};
 	
@@ -489,7 +490,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField,s
 				type:"category",
 				name:echartsStyle.ylab,
 				nameLocation:'middle',
-				nameGap:45,
+				nameGap:50,
 				data:heads,
 	            splitLine:{
                 	lineStyle:{
@@ -510,7 +511,7 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField,s
 			option.xAxis={
 				name:echartsStyle.xlab,
 				nameLocation:'middle',
-				nameGap:22,
+				nameGap:30,
 				type :"value",
 				splitLine:{
                 	show:false

@@ -1,25 +1,13 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
-	var color1=["#fff","#4357a5"];
-	var color2=["#f9f98c","#a50026"];
-	var color3=["#a0f8f0","#006edf"];
 $(function(){
-	
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
+			colorDefault:["#006600", "#5a9bd4", "#f15a60", "#cfcf1b", "#ff7500", "#c09853"] ,
 			fileData:{
 				content:[]
 			},
-			sampleList:[
-				{
-					file:"",
-					sampleName:""
-				},
-				{
-					file:"",
-					sampleName:""
-				}
-			],
+			sampleList:[],
 			show:false
 		},
 		methods:{
@@ -30,12 +18,15 @@ $(function(){
 				}
 				this.sampleList.push({
 					file:"",
-					sampleName:""
+					sampleName:"",
+					color:""
+				});
+				$(".spectrum").spectrum({
+					preferredFormat: "hex3"
 				});
 			},
 			delSample:function(index){
 				if(this.sampleList.length ==2){
-					alert();
 					return;
 				}
 				this.sampleList.splice(index, 1);
@@ -45,11 +36,27 @@ $(function(){
 		
 		},
 		watch:{
-			
+			sampleList:function(val,oldVal){
+				this.$nextTick(function(){
+					$(".spectrum").spectrum({
+						preferredFormat: "hex3"
+					});
+				});
+			}
 		}
 	});
-
-
+	vue.sampleList=[
+				{
+					file:"",
+					sampleName:"",
+					color:""
+				},
+				{
+					file:"",
+					sampleName:"",
+					color:""
+				}
+			];
 	
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
@@ -68,9 +75,7 @@ $(function(){
 						vue[item]=data[item];
 					}
 					
-				}
-				
-				
+				}				
 			},    
 			error : function(XMLHttpRequest) {
 				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
@@ -112,6 +117,8 @@ $(function(){
 
 });
 
+
+
 function updateVennData(el,filesVal,sampleList){
 	var sets=[];
 	var files = [];
@@ -135,19 +142,15 @@ function updateVennData(el,filesVal,sampleList){
 			data: files[i].fileContent
 		});
 	}
-	var colorDefault = ["#006600", "#5a9bd4", "#f15a60", "#cfcf1b", "#ff7500", "#c09853"]
-	
-	var colorsTable = new Array();
-	colorsTable.push("rgb(0, 102, 0)");
-	colorsTable.push("rgb(102, 102, 0)");
-	colorsTable.push("rgb(175, 11, 42)");
-	colorsTable.push("rgb(11, 102, 212)");
-	colorsTable.push("rgb(0, 102, 0)");
-	colorsTable.push("rgb(0, 102, 0)");
-	
+	var color = [];
+	$(".spectrum").each(function(){
+		var colorStr = $(this).spectrum("get").toHexString().colorRgb();
+		color.push(colorStr);
+	});
+
 	var fontSize = 24;
 	var fontFamily="Arial"
-	
+
 	var displayMode = "classic";
 	//var displayMode = "edwards";
 	var shortNumber = true;// true or false
@@ -155,7 +158,7 @@ function updateVennData(el,filesVal,sampleList){
 	var displaySwitch = true; // true or false
 	$("#main").jvenn({
 		series: seriesTable,
-		colors: colorsTable,
+		colors: color,
 		fontSize:   fontSize,
 		fontFamily: fontFamily,
 		displayMode:   displayMode,
@@ -176,10 +179,8 @@ function updateVennData(el,filesVal,sampleList){
 			for (val in this.list) {
 				value += this.list[val] + "\n";
 			}
-			console.log(value);
 		}
 	});
-//	$("#main-canvasExport").hide();
 
 }
 
@@ -188,7 +189,28 @@ function updateVennData(el,filesVal,sampleList){
 
 
 //---------------------------------------------------函数---------------------------
-
+	//十六进制颜色转换成rgb
+	var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;  
+	String.prototype.colorRgb = function(){  
+	    var sColor = this.toLowerCase();  
+	    if(sColor && reg.test(sColor)){  
+	        if(sColor.length === 4){  
+	            var sColorNew = "#";  
+	            for(var i=1; i<4; i+=1){  
+	                sColorNew += sColor.slice(i,i+1).concat(sColor.slice(i,i+1));     
+	            }  
+	            sColor = sColorNew;  
+	        }  
+	        //处理六位的颜色值  
+	        var sColorChange = [];  
+	        for(var i=1; i<7; i+=2){  
+	            sColorChange.push(parseInt("0x"+sColor.slice(i,i+2)));    
+	        }  
+	        return "RGB(" + sColorChange.join(",") + ")";  
+	    }else{  
+	        return sColor;    
+	    }  
+	};
 //参数组装
 function allParams(){
 	var app = $("#parameter").serializeArray();

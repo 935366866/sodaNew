@@ -87,7 +87,7 @@
 		<div class="app_title">
 			<p>维恩图绘制工具</p>
 		</div>
-        <div class="change_box" style="padding-left: 0px; padding-right:0px;padding-bottom:50px;" id='taskPanel'> </div>       
+        <div class="change_box" id='taskPanel'> </div>       
         <div class="myTab">
         	<div style="width: 1200px;margin: 0 auto;height: 100%;">
 				<div class="tabs" style="margin-left: 10px;">
@@ -136,7 +136,26 @@
 										</div>
 										<div style="margin-top: 10px;float: left;width: 58%;">
 											<span>自定义颜色：</span>
-											<input type="text" class="form-control spectrum" style="width: 177px;display: inline-block;">
+											<input  type="text" class="form-control spectrum" style="width: 177px;display: inline-block;" :value="colorDefault[index]" >
+										</div>
+										<div class="right" style="margin-top: 10px;margin-left: 0;">
+											<div class="input_b_t1">字体:</div>
+											<div class="input_b_3">
+												<select v-model="title_font" id="title_font" name="title_font" class="selectpicker select_width" autocomplete="off" >
+													<option value="normal">常规</option>
+													<option value="bold">加粗</option>
+													<option value="italic">斜体</option>
+												</select>
+											</div>	
+											<div class="input_b_t1">大小:</div>	
+											<div class="input_b_3">
+												<select v-model="title_size"  id="title_size" name="title_size" class="selectpicker select_width" autocomplete="off" >
+													<option value="10">10</option>
+													<option value="12">12</option>
+													<option value="14">14</option>
+													<option value="16">16</option>
+												</select>
+											</div>	
 										</div>
 								</div>
 								<div>
@@ -222,7 +241,6 @@
 			</div>
 		
    </div>
-        <div id="venn"></div>
 	<!-- 标签切换 -->
 	
 	
@@ -306,8 +324,9 @@
     <script src="public/draw/script/jspdf.min.js"></script>
     <script src="public/js/long_common.js"></script>
     <script src="public/js/vue.js"></script>
+    <script src="public/draw/script/spectrum.js"></script>
+    <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
     <script src="js/common.js"></script>
     <script src="public/draw/script/jvennDraw.js"></script> 
-    
 </body>
 </html>

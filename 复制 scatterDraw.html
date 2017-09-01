@@ -77,7 +77,7 @@
 
     <div class="center_box" style="float:left;width:100%;">
 		<div class="app_title">
-			<p>折线图绘制工具</p>
+			<p>散点图绘制工具</p>
 		</div>
         <div class="change_box" id='taskPanel'> </div>       
         <div class="myTab">
@@ -125,17 +125,37 @@
 								<div class="part"> 
 									<div class="input_a_l titleNameLeft">绘图列数:</div>	
 									<div class="inputLeft">
-										<div class="input_a_l titleA">x轴数据</div>
-										<div class="input_a_m inputA">
-											<select v-model="xColumnField" id="xColumnField"  name="xColumnField" class="select_width" autocomplete="off" >
-												<option v-for="item in fileData['content'][0]" :value="item">{{item}}</option>
+										<div class="input_a_l" style="width: 70px;">x轴数据：</div>
+										<div class="input_a_m" style="width: 93px;">
+											<select v-model="xColumnField" id="xColumnField"  name="xColumnField" class="selectpicker  select_width" autocomplete="off">
+												<option v-for="item in xColumnData" :value="item">{{item}}</option>
 											</select>
-										</div>
+										</div>	
 									</div>	
 									<div class="right">
-										<div class="input_a_l" style="width: 80px;">线条宽度:</div>
+										<div class="input_a_l">y轴数据:</div>
+										<div class="input_b_2" style="width: 158px;">
+											<select v-model="yColumnField" id="yColumnField"  name="yColumnField" class="selectpicker  select_width" autocomplete="off"  >
+												<option v-for="item in yColumnData" :value="item">{{item}}</option>
+												
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="part">
+									<div class="input_a_l titleNameLeft">颜色分组:</div>	
+									<div class="inputLeft">
+										<div class="input_a_l titleA">Group：</div>
+										<div class="input_a_m inputA">
+											<select v-model="groupColumnField" id="groupColumnField"  name="groupColumnField" class="selectpicker  select_width" autocomplete="off" >
+												<option v-for="item in groupColumnData" :value="item">{{item}}</option>
+											</select>
+										</div>	
+									</div>
+									<div class="right">
+										<div class="input_a_l" style="width: 80px;">散点大小:</div>
 										<div class="input_f_2" style="width: 158px;">
-											<input v-model="lineWidth" type="text" class="form-control" id="lineWidth" name="lineWidth" placeholder="">
+											<input v-model="pointsize" type="text" class="form-control" id="pointsize" name="pointsize" placeholder="">
 										</div>
 									</div>
 								</div>
@@ -186,7 +206,7 @@
 											</select>
 										</div>	
 									</div>
-								</div>											
+								</div>			
 								<div class="line"></div>
 								<div class="part">
 									<div class="input_a_l titleNameLeft">X轴名称:</div>
@@ -247,7 +267,7 @@
 										</select>
 									</div>									
 								</div>
-								<div v-for="(item,index) in fileData['content'][0]" v-if="item!=xColumnField" class="part">
+								<div v-for="(item,index) in groupColorName" class="part">
 									<div class="input_e_1">						
 											{{item}}:
 									</div>
@@ -255,20 +275,22 @@
 										自定义颜色:
 									</div>
 									<div class="input_c_4">
-										<input v-bind:value="color[index-1]" type="text" class="form-control spectrum">
+										<input v-bind:value="color[index]" type="text" class="form-control spectrum">
 									</div>	
+									<div class="input_c_4">
+										<select class="selectpicker select_width">
+											<option value="Top">Top</option>
+											<option value="Bottom">Bottom</option>
+											<option value="Left">Left</option>
+											<option value="Right">Right</option>
+										</select>
+									</div>
 								</div>
 								<div class="line"></div>
 								<div class="part">
-									<div class="input_a_l titleNameLeft">图例宽度:</div>
+									<div class="input_a_l titleNameLeft">图例直径:</div>
 									<div class="input_b_2 inputLeft">
-										<input v-model="legendWidth" type="text" class="form-control" id="legendWidth" name="legendWidth" placeholder="">
-									</div>
-									<div class="right">
-										<div class="input_a_l">图例高度:</div>
-										<div class="input_b_2">
-											<input v-model="legendHeight" type="text" class="form-control" id="legendHeight" name="legendHeight" placeholder="">
-										</div>
+										<input v-model="legendDiameter" type="text" class="form-control" id="legendDiameter" name="legendDiameter" placeholder="">
 									</div>
 								</div>
 								<div class="part">
@@ -355,7 +377,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(item,index) in fileData.content" v-if="index!=0">
-                                        <td v-for="item1 in item">{{item1 }}</td>
+                                        <td v-for="item1 in item">{{item1}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -376,7 +398,7 @@
 							</div>
 						</div>
 						<div class="panel-body">
-							<div id="main" style="width: 520px;height: 440px;margin-top: 10px;"></div>
+								<div id="main" style="width: 520px;height: 420px;margin-top: 20px;"></div>
 						</div>
 					</div>
 				</div>
@@ -492,34 +514,21 @@
     <script src="public/js/jquery.blockUI.js" type="text/javascript"></script>
     <script src="public/js/bootstrap-select.js"></script>
     <script src="public/js/defaults-zh_CN.js"></script>
+    <script src="public/js/vue.js"></script>
     <script src="public/draw/script/html2canvas.min.js"></script>
     <script src="public/draw/script/jspdf.min.js"></script>
-    <script src="public/js/echarts.min.js"></script>
+    <script src="public/js/echarts.js"></script>
     <script src="public/js/long_common.js"></script>
-    <script src="public/js/vue.js"></script>
     <script src="public/draw/script/spectrum.js"></script>
     <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
     <script src="js/common.js"></script>
-    <script src="public/draw/script/lineDraw.js"></script>
+    <script src="public/draw/script/scatterDraw1.js"></script>  
     <script>
     	$(function(){
     		$("#xColumnField").selectpicker({noneSelectedText:'请选择'});
-    		$("#markLine").selectpicker({noneSelectedText:'请选择'});
+    		$("#yColumnField").selectpicker({noneSelectedText:'请选择'});
+    		$("#groupColumnField").selectpicker({noneSelectedText:'请选择'});
     	})
-   	//支持下载pdf格式
-    function convertCanvasToImage() {
-        html2canvas(document.getElementById('main'), {
-            onrendered: function(canvas) {
-                document.body.appendChild(canvas);
-                createPDFObject(canvas.toDataURL("image/jpeg"));
-            }
-        });
-    }
-    function createPDFObject(imgData) {
-        var doc = new jsPDF('p', 'pt');
-        doc.addImage(imgData, 10, 10, 500, 340, 'img');
-        doc.save('test.pdf');
-    }
     </script>
 </body>
 

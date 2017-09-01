@@ -28,65 +28,66 @@ $(function(){
 			legendY_sel:"bottom",
 			legendLayout_sel:"horizontal",
 			xColumnField_sel:null,
+			yColumnField_sel:null,
 			color:color1,
 			Xgrid:"show",
 			Ygrid:"show"
 		},
 		computed: {
-		  title_size: {
-		    get: function () {
-		      return this.title_size_sel;
-		    },
-		    set: function (newValue) {
-		       this.title_size_sel = newValue;
-		       $("#title_size").selectpicker("val",newValue);
-		    }
-		  },
-		  title_font:{
-		  	get: function () {
-		      return this.title_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.title_font_sel = newValue;
-		       $("#title_font").selectpicker("val",newValue);
-		    }
-		  },
-		  xlab_size:{
-		  	get: function () {
-		      return this.xlab_size_sel;
-		    },
-		    set: function (newValue) {
-		    	this.xlab_size_sel = newValue;
-		       $("#xlab_size").selectpicker("val",newValue);
-		    }
-		  },
-		  xlab_font:{
-		  	get: function () {
-		      return this.xlab_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.xlab_font_sel = newValue;
-		       $("#xlab_font").selectpicker("val",newValue);
-		    }
-		  },
-		  ylab_size:{
-		  	get: function () {
-		      return this.ylab_size_sel;
-		    },
-		    set: function (newValue) {
-		    	this.ylab_size_sel = newValue;
-		       $("#ylab_size").selectpicker("val",newValue);
-		    }
-		  },
-		  ylab_font:{
-		  	get: function () {
-		      return this.ylab_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.ylab_font_sel = newValue;
-		       $("#ylab_font").selectpicker("val",newValue);
-		    }
-		  },
+			title_size: {
+			    get: function () {
+			      return this.title_size_sel;
+			    },
+			    set: function (newValue) {
+			       this.title_size_sel = newValue;
+			       $("#title_size").selectpicker("val",newValue);
+			    }
+			},
+			title_font:{
+			  	get: function () {
+			      return this.title_font_sel;
+			    },
+			    set: function (newValue) {
+			    	this.title_font_sel = newValue;
+			       $("#title_font").selectpicker("val",newValue);
+			    }
+			},
+			xlab_size:{
+			  	get: function () {
+			      return this.xlab_size_sel;
+			    },
+			    set: function (newValue) {
+			    	this.xlab_size_sel = newValue;
+			       $("#xlab_size").selectpicker("val",newValue);
+			    }
+			},
+			xlab_font:{
+			  	get: function () {
+			      return this.xlab_font_sel;
+			    },
+			    set: function (newValue) {
+			    	this.xlab_font_sel = newValue;
+			       $("#xlab_font").selectpicker("val",newValue);
+			    }
+			},
+			ylab_size:{
+			 	get: function () {
+			      return this.ylab_size_sel;
+			    },
+			    set: function (newValue) {
+			    	this.ylab_size_sel = newValue;
+			       $("#ylab_size").selectpicker("val",newValue);
+			    }
+			},
+			ylab_font:{
+			  	get: function () {
+			      return this.ylab_font_sel;
+			    },
+			    set: function (newValue) {
+			    	this.ylab_font_sel = newValue;
+			       $("#ylab_font").selectpicker("val",newValue);
+			    }
+			},
 		  titleX:{
 			  	get: function () {
 			      return this.titleX_sel;
@@ -145,6 +146,16 @@ $(function(){
 			        $("#xColumnField").selectpicker("val",newValue);
 			    }
 			},
+			yColumnField:{
+			  	get: function () {
+			      return this.yColumnField_sel;
+			    },
+			    set: function (newValue) {
+			    	if(!newValue) return;
+			    	this.yColumnField_sel = newValue;
+			        $("#yColumnField").selectpicker("val",newValue);
+			    }
+			},
 			gridX:function(){
 				if(this.Xgrid=="show"){
 					return true;
@@ -179,6 +190,7 @@ $(function(){
 			},
 			fileData:function(val,oldVal){
 				this.$nextTick(function(){
+					$('#yColumnField').selectpicker('refresh');
 					$('#xColumnField').selectpicker('refresh');
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
@@ -186,6 +198,13 @@ $(function(){
 				});
 			},
 			xColumnField:function(val,oldVal){
+				this.$nextTick(function(){
+					$(".spectrum").spectrum({
+						preferredFormat: "hex3"
+					});
+				});
+			},
+			yColumnField:function(val,oldVal){
 				this.$nextTick(function(){
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
@@ -363,7 +382,7 @@ $(function(){
 				success:function(data) {
 					myChart.hideLoading();
 					
-					updateEchartsData(myChart,formData,data["content"],vue.xColumnField);
+					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.yColumnField);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -466,7 +485,7 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
+function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yColumnField){
 	
 	if(echartsData&&echartsData.length>0){
 		var option = echarts.getOption();

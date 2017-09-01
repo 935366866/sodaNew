@@ -25,7 +25,7 @@ $(function(){
 			title_size_sel:"18",
 			title_font_sel:"bold",
 			color:color1,
-			otherRange:"40000"
+			otherRange:5
 		},
 		computed: {
 			seriesData:function(){
@@ -51,13 +51,22 @@ $(function(){
 				for(var i=1;i<this.fileData.content.length;i++){
 					sum+=Number(this.fileData.content[i][dataColumnIndex]);
 				}
-				sum=sum*0.05;
+				var  range=sum*this.otherRange/100;
+				var indexs=[];
 				for(var i=1;i<this.fileData.content.length;i++){
-					if(Number(this.fileData.content[i][dataColumnIndex])>=Number(this.otherRange)){
-						resultArr.push(this.fileData.content[i][geneColumnIndex]);
-					}	
+					if(Number(this.fileData.content[i][dataColumnIndex])<range){
+						indexs.push(i)
+					}
 				}
-				resultArr.push("others");
+				for(var i=1;i<this.fileData.content.length;i++){
+					if(Number(this.fileData.content[i][dataColumnIndex])>=range){
+						resultArr.push(this.fileData.content[i][geneColumnIndex]);
+					}
+				}
+				if(indexs.length>0){
+					resultArr.push("others");
+				}
+				
 				return resultArr;
 
 			},
@@ -176,7 +185,13 @@ $(function(){
 					}
 				});
 			},
-			
+			otherRange:function(val,oldVal){
+				this.$nextTick(function(){
+					$(".spectrum").spectrum({
+						preferredFormat: "hex3"
+					});
+				});
+			},
 			fileData:function(val,oldVal){
 				this.$nextTick(function(){
 					$('#geneColumn').selectpicker('refresh');				
@@ -455,32 +470,53 @@ function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField,funC
 
 		var otherSum=0;
 		var indexs=[];
+		var sum=0;
 		for(var i=1;i<echartsData.length;i++){
-			if(Number(echartsData[i][funIndex])<Number(otherRange)){
+			sum+=Number(echartsData[i][funIndex])
+		}
+		var range=sum*otherRange/100;
+		for(var i=1;i<echartsData.length;i++){
+			if(Number(echartsData[i][funIndex])<range){
 				otherSum+=Number(echartsData[i][funIndex]);
 				indexs.push(i)
 			}
 		}
-		for(var i=1;i<echartsData.length;i++){
-			if(Number(echartsData[i][funIndex])>=Number(otherRange)){
-				option.series[0].data.push({
-					name:echartsData[i][geneIndex],
-					value:echartsData[i][funIndex]
-				});
-			}
-			
-			for(var k=0;k<indexs.length;k++){
-				if(indexs[k]!=i){
-					option.legend.data.push(echartsData[i][geneIndex]);
-					var numWidth=parseInt(echartsStyle.legendWidth);
-					option.legend.itemWidth=numWidth;
-					var numHeight=parseInt(echartsStyle.legendHeight);
-					option.legend.itemHeight=numHeight;
+		if(indexs.length>0){
+			for(var i=1;i<echartsData.length;i++){
+				if(Number(echartsData[i][funIndex])>=range){
+					option.series[0].data.push({
+						name:echartsData[i][geneIndex],
+						value:echartsData[i][funIndex]
+					});
+				}
+				
+				for(var k=0;k<indexs.length;k++){
+					if(indexs[k]!=i){
+						option.legend.data.push(echartsData[i][geneIndex]);
+						var numWidth=parseInt(echartsStyle.legendWidth);
+						option.legend.itemWidth=numWidth;
+						var numHeight=parseInt(echartsStyle.legendHeight);
+						option.legend.itemHeight=numHeight;
+					}
 				}
 			}
+			option.series[0].data.push({name:"others",value:otherSum});
+			option.legend.data.push("others");
+		}else{
+			for(var i=1;i<echartsData.length;i++){
+				option.series[0].data.push({
+						name:echartsData[i][geneIndex],
+						value:echartsData[i][funIndex]
+					});
+					
+				option.legend.data.push(echartsData[i][geneIndex]);
+				var numWidth=parseInt(echartsStyle.legendWidth);
+				option.legend.itemWidth=numWidth;
+				var numHeight=parseInt(echartsStyle.legendHeight);
+				option.legend.itemHeight=numHeight;
+			}
 		}
-		option.series[0].data.push({name:"others",value:otherSum});
-		option.legend.data.push("others");
+		
 		echarts.setOption(option);
 	}
 	

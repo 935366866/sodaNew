@@ -2,36 +2,36 @@ var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  
 
 $(function(){
 	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
-	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
-	var color3=["#44657f","#4357a5","#c43c32","#719657","#eae185","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
+	var color2=["#37458b","#de1615","#0b8543","#991c54","#b11e23","#057e7c","#5b2379","#308cc6","#808080","#191717"];
+	var color3=["#4357a5","#c43c32","#719657","#eae185","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2","#44657f"];
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"",
-			xlab:"",
-			ylab:"",
-			barWidth:"",
-			legendWidth:"",
-			legendHeight:"",
+			title:"柱状图",
+			xlab:"无",
+			ylab:"Y轴标题",
+			barWidth:"auto",
+			legendWidth:"25",
+			legendHeight:"15",
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"",
-			title_font_sel:"",
-			xlab_size_sel:"",
-			xlab_font_sel:"",
-			ylab_size_sel:"",
-			ylab_font_sel:"",
+			title_size_sel:"18",
+			title_font_sel:"blod",
+			xlab_size_sel:"12",
+			xlab_font_sel:"normal",
+			ylab_size_sel:"12",
+			ylab_font_sel:"normal",
 			xColumnField_sel:null,
-			legendX_sel:"",
-			legendY_sel:"",
-			titleX_sel:"",
-			titleY_sel:"",
+			legendX_sel:"right",
+			legendY_sel:"center",
+			titleX_sel:"center",
+			titleY_sel:"top",
 			color:color1,
-			legendLayout_sel:"",
-			Xgrid:"hide",
-			Ygrid:"hide",
+			legendLayout_sel:"vertical",
+			Xgrid:"show",
+			Ygrid:"show",
 			markLine_sel:null
 		},
 		computed: {
@@ -251,9 +251,7 @@ $(function(){
 	            magicType: {
 	                type: ['stack']
 	            },
-	            restore: {show: true},
-	            dataView: {show:true,readOnly: true},
-	            saveAsImage : {show: true}
+	            restore: {show: true}
 	        }
 	    },
 	    tooltip : {
@@ -272,7 +270,8 @@ $(function(){
 	    xAxis : [
 	        {
 	            scale:true,
-	            nameLocation:'end',
+	            nameLocation:'middle',
+	            nameGap:50,
 	            splitLine:{
                 	show:vue.gridX,
                 	lineStyle:{
@@ -297,7 +296,8 @@ $(function(){
 	        {
 	            type : 'value',
 	            scale:true,
-	            nameLocation:'end',
+	            nameLocation:'middle',
+	            nameGap:70,
 	            splitLine:{
                 	show:vue.gridY,
                 	lineStyle:{
@@ -317,13 +317,16 @@ $(function(){
 	    	show:true,
 	    	borderColor:'#000',
 	    	top:60,
-	    	bottom:80
+	    	bottom:80,
+	    	left:95,
+	    	right:88
 	    	
 	    },
 		legend: {
 			y:vue.legendY,
 			x:vue.legendX,
-			orient:vue.legendLayout
+			orient:vue.legendLayout,
+			align:"left"
 		}
 	};
 	myChart.on('brushSelected', renderBrushed);
@@ -346,19 +349,6 @@ $(function(){
 	        rawIndices = brushComponent.selected[sIdx].dataIndex;
 	        brushed.push('['+legendName[sIdx] +'] '+ rawIndices.join(', '));
 	    }	
-	    myChart.setOption({
-	        title: {
-	            backgroundColor: '#333',
-	            text:brushed.join('\n'),
-	            bottom:0,
-	            right: 0,
-	            width: 80,
-	            textStyle: {
-	                fontSize: 12,
-	                color: '#fff'
-	            }
-	        }
-	    });
 	}
 	
 	//点击数据，对应的数据高亮显示
@@ -618,7 +608,20 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine)
 }
 
 //---------------------------------------------------函数---------------------------
-
+//支持下载pdf格式
+function convertCanvasToImage() {
+    html2canvas(document.getElementById('main'), {
+        onrendered: function(canvas) {
+            document.body.appendChild(canvas);
+            createPDFObject(canvas.toDataURL("image/jpeg"));
+        }
+    });
+}
+function createPDFObject(imgData) {
+    var doc = new jsPDF('p', 'pt');
+    doc.addImage(imgData, 10, 10, 500, 340, 'img');
+    doc.save('test.pdf');
+}
 //参数组装
 function allParams(){
 
