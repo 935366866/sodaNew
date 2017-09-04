@@ -91,6 +91,7 @@ $(function(){
 	});
 	//提交参数
 	$("#submit_paras").click(function(){
+		$('#appTabLeft li:eq(0) a').tab('show');
 		var formData =[];
 		for(var i=0;i<vue.sampleList.length;i++){
 			formData.push(vue.sampleList.file)

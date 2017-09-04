@@ -92,8 +92,8 @@
         	<div style="width: 1200px;margin: 0 auto;height: 100%;">
 				<div class="tabs" style="margin-left: 10px;">
 					<ul class="nav" id="appTabLeft">
-						<li><a href="#file" data-toggle="tab">上传文件内容</a></li>
-						<li class="active" ><a href="#set" data-toggle="tab">参数设置</a></li>	
+						<li><a href="#file" data-toggle="tab">参数设置</a></li>
+						<li class="active" ><a href="#set" data-toggle="tab">上传文件内容</a></li>	
 					</ul>
 				</div>	
 				<div class="tabs" style="margin-left: 20px;">
@@ -109,7 +109,7 @@
 				<div class="tab-pane in active" id="set">		
 					<div class="panel  panel-default">
 						<div class="panel-heading">
-							<h3 class="panel-title">文件参数</h3>
+							<h3 class="panel-title">文件标题</h3>
 							<a id="use_default">使用示例文件</a>
 						</div>				
 						<div class="panel-body" style="height: 439px;">
@@ -136,31 +136,6 @@
 												<input v-model="item.sampleName" type="text" class="form-control"  name="input" placeholder="设置样本名">
 											</div>
 										</div>
-										<div class="part" style="padding: 0;">
-											<div class="left" style="float: left;width: 70px;line-height: 34px;">
-												样本名：
-											</div>
-											<div class="right" style="margin-left: 0;">
-												<div class="input_b_t1">字体:</div>
-												<div class="input_b_3">
-													<select v-model="title_font" id="title_font" name="title_font" class="selectpicker select_width" autocomplete="off" >
-														<option value="normal">常规</option>
-														<option value="bold">加粗</option>
-														<option value="italic">斜体</option>
-													</select>
-												</div>	
-												<div class="input_b_t1">大小:</div>	
-												<div class="input_b_3">
-													<select v-model="title_size"  id="title_size" name="title_size" class="selectpicker select_width" autocomplete="off" >
-														<option value="10">10</option>
-														<option value="12">12</option>
-														<option value="14">14</option>
-														<option value="16">16</option>
-													</select>
-												</div>	
-											</div>
-										</div>
-										
 										<div class="part">
 											<div class="left" style="float: left;width: 166px;">
 												<span style="margin-left: -13px;">自定义颜色：</span>
@@ -186,21 +161,62 @@
 				<div class="tab-pane" id="file">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3 class="panel-title">文件标题</h3>
+							<h3 class="panel-title">文件参数</h3>
 						</div>
 						<div class="panel-body" style="padding: 0;">
-							<table class="table table-bordered">
-                                <thead>
-                                    <tr style="display: none;">
-                                        <th v-for="item in fileData.content[0]">{{item}}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(item,index) in fileData.content" >
-                                        <td v-for="item1 in item">{{item1 }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+							<div id="vennParam">
+								
+							</div>
+							<div class="part" style="display: inline-block;">
+								<span>展示类型:</span>
+								<div class="radio" style="display: inline-block;">
+									  <label for="vennType1">
+									    <input v-model="vennType"  type="radio" name="vennType1" id="vennType1" value="classic" >经典型
+									  </label>
+								</div>
+								<div class="radio" style="margin-left: 10px;display: inline-block;">
+									  <label for="vennType2">
+									    <input v-model="vennType" type="radio" name="vennType2" id="vennType2" value="edwards">齿轮型
+									  </label>
+								</div>
+							</div>
+							<div class="part">
+								<span>统计面板:</span>
+								<div class="radio" style="display: inline-block;">
+									  <label for="statistics1">
+									    <input v-model="statisticsPanel" type="radio" name="statistics1" id="statistics1" value="show" >显示
+									  </label>
+								</div>
+								<div class="radio" style="margin-left: 10px;display: inline-block;">
+									  <label for="statistics2">
+									    <input v-model="statisticsPanel" type="radio" name="statistics2" id="statistics2" value="hide">隐藏
+									  </label>
+								</div>
+							</div>
+							<div class="part" style="padding: 0;">
+								<div class="left" style="float: left;width: 70px;line-height: 34px;">
+									样本名：
+								</div>
+								<div class="right" style="margin-left: 0;">
+									<div class="input_b_t1">字体:</div>
+									<div class="input_b_3">
+										<select v-model="title_font" id="title_font" name="title_font" class="selectpicker select_width" autocomplete="off" >
+											<option value="normal">常规</option>
+											<option value="bold">加粗</option>
+											<option value="italic">斜体</option>
+										</select>
+									</div>	
+									<div class="input_b_t1">大小:</div>	
+									<div class="input_b_3">
+										<select v-model="title_size"  id="title_size" name="title_size" class="selectpicker select_width" autocomplete="off" >
+											<option value="10">10</option>
+											<option value="12">12</option>
+											<option value="14">14</option>
+											<option value="16">16</option>
+										</select>
+									</div>	
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -218,32 +234,6 @@
 							</div>
 						</div>
 						<div class="panel-body">
-							<div class="part" style="display: inline-block;">
-								<span>展示类型:</span>
-								<div class="radio" style="display: inline-block;">
-									  <label for="vennType1">
-									    <input v-model="vennType"  type="radio" name="vennType1" id="vennType1" value="classic" >经典型
-									  </label>
-								</div>
-								<div class="radio" style="margin-left: 10px;display: inline-block;">
-									  <label for="vennType2">
-									    <input v-model="vennType" type="radio" name="vennType2" id="vennType2" value="edwards">齿轮型
-									  </label>
-								</div>
-							</div>
-							<div class="part" style="display: inline-block;margin-left: 80px;">
-								<span>统计面板:</span>
-								<div class="radio" style="display: inline-block;">
-									  <label for="statistics1">
-									    <input v-model="statisticsPanel" type="radio" name="statistics1" id="statistics1" value="show" >显示
-									  </label>
-								</div>
-								<div class="radio" style="margin-left: 10px;display: inline-block;">
-									  <label for="statistics2">
-									    <input v-model="statisticsPanel" type="radio" name="statistics2" id="statistics2" value="hide">隐藏
-									  </label>
-								</div>
-							</div>
 							<div id="main" style="width: 450px;height: 450px;">	</div>
 						</div>
 					</div>
@@ -367,6 +357,6 @@
     <script src="public/draw/script/spectrum.js"></script>
     <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
     <script src="js/common.js"></script>
-    <script src="public/draw/script/jvennDraw.js"></script> 
+    <script src="public/draw/script/复制jvennDraw.js"></script> 
 </body>
 </html>

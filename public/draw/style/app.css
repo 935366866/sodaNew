@@ -127,7 +127,7 @@
 #parameter {
   height: auto;
 }
-#parameter .part {
+.part {
   float: left;
   width: 100%;
   padding-left: 15px;
@@ -323,6 +323,7 @@
 #parameter #radioArea .radio{
 	 display: inline-block !important;
 }
+
 .line {
   float: left;
   width: 100%;

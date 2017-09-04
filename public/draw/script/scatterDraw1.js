@@ -25,7 +25,9 @@ $(function(){
 			legendDiameter:"14",
 			color:color1,
 			Xgrid:"show",
-			Ygrid:"show"
+			Ygrid:"show",
+			title_size:"18",
+			title_font:"bold"
 		},
 		computed: {	
 			title_size: {
@@ -200,17 +202,13 @@ $(function(){
 			calcGroupColorName:function () {
 				var result = [];
 		       if(this.fileData.content&&this.fileData.content.length>0&&this.groupColumnField){
-		       	debugger
 		       		var heads = this.fileData.content[0];
 					var headIndexMap={};//用来存储每个表头对应的列数
 					for(var i=0;i<heads.length;i++){//循环表头
 						var headColumn = heads[i];
 						headIndexMap[headColumn]=i;//将表头的列数存入map中
 					}
-					
-					
 					var dataMap={};
-					
 					for(var i=1;i<this.fileData.content.length;i++){
 						var row = this.fileData.content[i];
 						var groupVal = row[headIndexMap[this.groupColumnField]];
@@ -351,6 +349,11 @@ $(function(){
 	                type : 'dashed',
 	                width : 1
 	            }
+	        },
+	        formatter: function(parame){
+	        	for(var i=0;i<parame.length;i++){
+	        		return "系列"+parame[i].seriesName+"，点"+parame[i].value[2]+"<br/>"+parame[i].value[0]+parame[i].value[1]
+	        	}
 	        },
 	        zlevel: 1
 	    },
@@ -617,15 +620,13 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 			var headColumn = heads[i];
 			headIndexMap[headColumn]=i;//将表头的列数存入map中
 		}
-		
-		
-		var isNum = true;
-		
+	
 		for(var i=1;i<echartsData.length;i++){
 			var row = echartsData[i];
 			var xVal = row[headIndexMap[xAxisField]];
 			var yVal = row[headIndexMap[yAxisField]];
 			var groupVal = row[headIndexMap[groupField]];
+			var sampleVal = row[headIndexMap['sample']];
 			if(!dataMap[groupVal]){//如果是数据轴
 				option.legend.data.push(groupVal);//将数据名存入图例
 				dataMap[groupVal] = {
@@ -644,7 +645,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 					data:[]
 				};
 			}
-			dataMap[groupVal].data.push([xVal,yVal]);	
+			dataMap[groupVal].data.push([xVal,yVal,sampleVal]);	
 			
 		}
 		
@@ -652,14 +653,12 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 		option.xAxis.type = "value";
 		option.xAxis.data=[]
 
-		
 		for(key in dataMap){
 			option.series.push(dataMap[key]);
 		}
 		var numD=parseInt(echartsStyle.legendDiameter);
 		option.legend.itemHeight=numD;
 		option.legend.itemWidth=numD;
-
 		echarts.setOption(option);	
 	}
 	
