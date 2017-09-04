@@ -91,7 +91,6 @@ $(function(){
 	});
 	//提交参数
 	$("#submit_paras").click(function(){
-		$('#appTabLeft li:eq(0) a').tab('show');
 		var formData =[];
 		for(var i=0;i<vue.sampleList.length;i++){
 			formData.push(vue.sampleList.file)
@@ -128,6 +127,7 @@ $(function(){
 
 
 function updateVennData(el,filesVal,sampleList,vennType,statistics){
+	$('.number-black').css({'color': self.allNumColor, 'fontWeight': styleNum[0], 'fontStyle': styleNum[1]})
 	var sets=[];
 	var files = [];
 	for(var i=0;i<sampleList.length;i++){

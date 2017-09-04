@@ -127,7 +127,7 @@
 #parameter {
   height: auto;
 }
-.part {
+#parameter .part {
   float: left;
   width: 100%;
   padding-left: 15px;
