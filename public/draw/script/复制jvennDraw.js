@@ -11,7 +11,8 @@ $(function(){
 			show:false,
 			vennType:"classic",
 			statisticsPanel:"show",
-			opacityVal:"20"
+			opacityVal:"50",
+			setBorder:false
 			
 		},
 		methods:{
@@ -150,7 +151,7 @@ $(function(){
 			},
 			dataType: "json",
 			success:function(data) {
-				updateVennData($("#main"),data["files"],vue.sampleList,vue.vennType,vue.statistics,vue.num_size,vue.num_font,vue.sample_size,vue.sample_font,vue.opacityVal);
+				updateVennData($("#main"),data["files"],vue.sampleList,vue.vennType,vue.statistics,vue.num_size,vue.num_font,vue.sample_size,vue.sample_font,vue.opacityVal,vue.setBorder);
 			},    
 			error : function(XMLHttpRequest) {
 				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -173,7 +174,7 @@ $(function(){
 
 
 
-function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_font,sample_size,sample_font,opacityVal){
+function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_font,sample_size,sample_font,opacityVal,setBorder){
 	var sets=[];
 	var files = [];
 	for(var i=0;i<sampleList.length;i++){
@@ -233,14 +234,19 @@ function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_
 			}
 		}
 	});
-	console.log($('path[class^=square]'))
-//	var opacityVal = self.opacityVal.trim() && !isNaN(self.opacityVal.trim()) ? self.opacityVal.trim() : self.opacityValOld;
-        if (opacityVal && !isNaN(opacityVal)) {
-          $('path[class^=square]').attr('fill-opacity', opacityVal / 100 >= 0.1 ? opacityVal / 100 : 0.1);
-          $('path[class^=path]').next('g').children('path').attr('fill-opacity', opacityVal / 100 >= 0.1 ? opacityVal / 100 : 0.1);
-        }
 	
-	console.log(opacityVal)
+	if (vennType === 'classic') {
+        if (setBorder) {
+          $('path').css({
+            'stroke': 'black',
+            'stroke-width': '1px'
+          });
+        }
+    }
+    if (opacityVal && !isNaN(opacityVal)) {
+      $('path[class^=square]').attr('fill-opacity', opacityVal / 100 >= 0.1 ? opacityVal / 100 : 0.1);
+      $('path[class^=path]').next('g').children('path').attr('fill-opacity', opacityVal / 100 >= 0.1 ? opacityVal / 100 : 0.1);
+    }
 	var numFont=buildTextStyle(num_font);
 	var sampleFont=buildTextStyle(sample_font);
 	$('.number-black').css({'fontWeight':numFont.fontWeight,'fontStyle': numFont.fontStyle})

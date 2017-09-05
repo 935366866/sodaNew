@@ -197,7 +197,12 @@
 											<span>不透明度：</span>
 											<input  v-model="opacityVal" type="text" class="form-control" id="opacityVal" name="opacityVal" style="width: 70px;display: inline-block;">
 											<span style="margin-left: 3px;">%</span>
-										</div>								
+										</div>
+										<div class="right" style="width: 50px;">
+											<div class="checkbox">
+											    <input v-model="setBorder" type="checkbox"  id="setBorder" name="setBorder" value=""><label for="setBorder">框线</label>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="part" v-for="(item,index) in sampleList" style="background: #F5F5F5;padding: 20px;width: 500px;">

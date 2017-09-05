@@ -167,6 +167,9 @@
         },
         "textBaseline":{
             canvas : "alphabetic"
+        },
+        "nameId":{
+            canvas : "name"
         }
     };
 
@@ -489,9 +492,10 @@
     /**
      * Create a new Path Element
      */
-    ctx.prototype.beginPath = function(){
+    ctx.prototype.beginPath = function(pathClass){
         var path, parent;
         path = this.__createElement("path", {}, true);
+        pathClass&&(path.setAttribute("class", pathClass));
         parent = this.__closestGroupOrSvg();
         parent.appendChild(path);
         this.__currentElement = path;
@@ -501,9 +505,11 @@
      * Helper function to add path command
      * @private
      */
+
     ctx.prototype.__addPathCommand = function(command){
         if(this.__currentElement.nodeName === "path") {
             var d = this.__currentElement.getAttribute("d");
+            var path
             if(d) {
                 d += " ";
             } else {
@@ -530,7 +536,7 @@
     /**
      * Closes the current path
      */
-    ctx.prototype.closePath = function(){
+    ctx.prototype.closePath = function(pathClass){
         this.__addPathCommand("Z");
     };
 
@@ -753,7 +759,7 @@
      * @param action - stroke or fill
      * @private
      */
-    ctx.prototype.__applyText = function(text, x, y, action) {
+    ctx.prototype.__applyText = function(text, x, y, action,nameId) {
         var font = this.__parseFont(),
             parent = this.__closestGroupOrSvg(),
             textElement = this.__createElement("text", {
@@ -765,7 +771,8 @@
                 "x" : x,
                 "y" : y,
                 "text-anchor": getTextAnchor(this.textAlign),
-                "dominant-baseline": getDominantBaseline(this.textBaseline)
+                "dominant-baseline": getDominantBaseline(this.textBaseline),
+                "id":nameId,
             }, true);
 
         textElement.appendChild(document.createTextNode(text));
@@ -780,8 +787,8 @@
      * @param x
      * @param y
      */
-    ctx.prototype.fillText = function(text, x, y){
-        this.__applyText(text, x, y, "fill");
+    ctx.prototype.fillText = function(text, x, y,num,nameId){
+        this.__applyText(text, x, y, "fill",nameId);
     };
 
     /**
