@@ -10,7 +10,8 @@ $(function(){
 			sampleList:[],
 			show:false,
 			vennType:"classic",
-			statisticsPanel:"show"
+			statisticsPanel:"show",
+			opacityVal:"20"
 			
 		},
 		methods:{
@@ -108,7 +109,8 @@ $(function(){
 					color:""
 				}
 			];
-						
+				
+	
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
@@ -148,7 +150,7 @@ $(function(){
 			},
 			dataType: "json",
 			success:function(data) {
-				updateVennData($("#main"),data["files"],vue.sampleList,vue.vennType,vue.statistics,vue.num_size,vue.num_font,vue.sample_size,vue.sample_font);
+				updateVennData($("#main"),data["files"],vue.sampleList,vue.vennType,vue.statistics,vue.num_size,vue.num_font,vue.sample_size,vue.sample_font,vue.opacityVal);
 			},    
 			error : function(XMLHttpRequest) {
 				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -171,7 +173,7 @@ $(function(){
 
 
 
-function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_font,sample_size,sample_font){
+function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_font,sample_size,sample_font,opacityVal){
 	var sets=[];
 	var files = [];
 	for(var i=0;i<sampleList.length;i++){
@@ -203,7 +205,6 @@ function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_
 	var fontSize = Number(num_size);
 	var fontFamily="Arial"
 	var displayMode =vennType;
-	//var displayMode = "edwards";
 	var shortNumber = true;// true or false
 	var displayStat = statistics;// true or false
 	var displaySwitch = true; // true or false
@@ -232,11 +233,20 @@ function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_
 			}
 		}
 	});
+	console.log($('path[class^=square]'))
+//	var opacityVal = self.opacityVal.trim() && !isNaN(self.opacityVal.trim()) ? self.opacityVal.trim() : self.opacityValOld;
+        if (opacityVal && !isNaN(opacityVal)) {
+          $('path[class^=square]').attr('fill-opacity', opacityVal / 100 >= 0.1 ? opacityVal / 100 : 0.1);
+          $('path[class^=path]').next('g').children('path').attr('fill-opacity', opacityVal / 100 >= 0.1 ? opacityVal / 100 : 0.1);
+        }
+	
+	console.log(opacityVal)
 	var numFont=buildTextStyle(num_font);
 	var sampleFont=buildTextStyle(sample_font);
 	$('.number-black').css({'fontWeight':numFont.fontWeight,'fontStyle': numFont.fontStyle})
-	$("[id^='main-label']").css({'fontWeight':sampleFont.fontWeight,'fontStyle': sampleFont.fontStyle})
+	$("[id^='main-label']").css({'fontWeight':sampleFont.fontWeight,'fontStyle': sampleFont.fontStyle,'fontSize':Number(sample_size)})
 }
+
 
 function buildTextStyle(font){
 	var fontStyle,fontWeight;

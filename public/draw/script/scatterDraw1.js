@@ -320,7 +320,6 @@ $(function(){
 			}
 		}
 	});
-	vue.title_size=18;
  	var myChart = echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
     var option = {
@@ -418,6 +417,7 @@ $(function(){
 			align:"left"
 		}
 	};
+	
 	//点击柱子，对应的数据高亮显示
 	myChart.on('click', function (parmas) {
 		$('#appTabLeft li:eq(0) a').tab('show');
