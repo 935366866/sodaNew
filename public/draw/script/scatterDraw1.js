@@ -25,9 +25,7 @@ $(function(){
 			legendDiameter:"14",
 			color:color1,
 			Xgrid:"show",
-			Ygrid:"show",
-			title_size:"18",
-			title_font:"bold"
+			Ygrid:"show"
 		},
 		computed: {	
 			title_size: {
@@ -119,7 +117,6 @@ $(function(){
 			      return $("#legendY").selectpicker("val");
 			   },
 			    set: function (newValue) {
-			    	this.legendY_sel = newValue;
 			       $("#legendY").selectpicker("val",newValue);
 			    }
 			},
@@ -323,6 +320,7 @@ $(function(){
 			}
 		}
 	});
+	vue.title_size=18;
  	var myChart = echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
     var option = {
@@ -352,7 +350,7 @@ $(function(){
 	        },
 	        formatter: function(parame){
 	        	for(var i=0;i<parame.length;i++){
-	        		return "系列"+parame[i].seriesName+"，点"+parame[i].value[2]+"<br/>"+parame[i].value[0]+parame[i].value[1]
+	        		return "系列"+parame[i].seriesName+"，点"+parame[i].value[2]+"<br/>"+parame[i].value[0]+"</br>"+parame[i].value[1]
 	        	}
 	        },
 	        zlevel: 1
@@ -420,7 +418,6 @@ $(function(){
 			align:"left"
 		}
 	};
-	
 	//点击柱子，对应的数据高亮显示
 	myChart.on('click', function (parmas) {
 		$('#appTabLeft li:eq(0) a').tab('show');

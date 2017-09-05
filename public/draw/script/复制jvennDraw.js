@@ -11,6 +11,7 @@ $(function(){
 			show:false,
 			vennType:"classic",
 			statisticsPanel:"show"
+			
 		},
 		methods:{
 			addSample:function(){
@@ -41,6 +42,42 @@ $(function(){
 				}else{
 					return false;
 				}
+			},
+			num_size: {
+				cache:false,
+			    get: function () {
+			      return  $("#num_size").selectpicker("val");
+			    },
+			    set: function (newValue) {
+			       	$("#num_size").selectpicker("val",newValue);
+			    }
+			},
+			num_font:{
+				cache:false,
+			  	get: function () {
+			      return $("#num_font").selectpicker("val");
+			    },
+			    set: function (newValue) {
+			       	$("#num_font").selectpicker("val",newValue);
+			    }
+			},
+			sample_size: {
+				cache:false,
+			    get: function () {
+			      return  $("#sample_size").selectpicker("val");
+			    },
+			    set: function (newValue) {
+			       	$("#sample_size").selectpicker("val",newValue);
+			    }
+			},
+			sample_font:{
+				cache:false,
+			  	get: function () {
+			      return $("#sample_font").selectpicker("val");
+			    },
+			    set: function (newValue) {
+			       	$("#sample_font").selectpicker("val",newValue);
+			    }
 			}
 		},
 		watch:{
@@ -50,6 +87,12 @@ $(function(){
 						preferredFormat: "hex3"
 					});
 				});
+			},
+			fileData:function(val,oldVal){
+				for(var item in this.defaults){
+						if(item!="input")
+						vue[item]=this.defaults[item];
+				}
 			}
 		}
 	});
@@ -65,6 +108,7 @@ $(function(){
 					color:""
 				}
 			];
+						
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
@@ -82,7 +126,8 @@ $(function(){
 						vue[item]=data[item];
 					}
 					
-				}				
+				}
+				vue.defaults = data;
 			},    
 			error : function(XMLHttpRequest) {
 				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
@@ -103,7 +148,7 @@ $(function(){
 			},
 			dataType: "json",
 			success:function(data) {
-				updateVennData($("#main"),data["files"],vue.sampleList,vue.vennType,vue.statistics);
+				updateVennData($("#main"),data["files"],vue.sampleList,vue.vennType,vue.statistics,vue.num_size,vue.num_font,vue.sample_size,vue.sample_font);
 			},    
 			error : function(XMLHttpRequest) {
 				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -126,8 +171,7 @@ $(function(){
 
 
 
-function updateVennData(el,filesVal,sampleList,vennType,statistics){
-	$('.number-black').css({'color': self.allNumColor, 'fontWeight': styleNum[0], 'fontStyle': styleNum[1]})
+function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_font,sample_size,sample_font){
 	var sets=[];
 	var files = [];
 	for(var i=0;i<sampleList.length;i++){
@@ -156,9 +200,8 @@ function updateVennData(el,filesVal,sampleList,vennType,statistics){
 		color.push(colorStr);
 	});
 
-	var fontSize = 24;
+	var fontSize = Number(num_size);
 	var fontFamily="Arial"
-
 	var displayMode =vennType;
 	//var displayMode = "edwards";
 	var shortNumber = true;// true or false
@@ -189,10 +232,29 @@ function updateVennData(el,filesVal,sampleList,vennType,statistics){
 			}
 		}
 	});
-
+	var numFont=buildTextStyle(num_font);
+	var sampleFont=buildTextStyle(sample_font);
+	$('.number-black').css({'fontWeight':numFont.fontWeight,'fontStyle': numFont.fontStyle})
+	$("[id^='main-label']").css({'fontWeight':sampleFont.fontWeight,'fontStyle': sampleFont.fontStyle})
 }
 
-
+function buildTextStyle(font){
+	var fontStyle,fontWeight;
+	if(font=="bold"){
+		fontWeight = 'bolder';
+		fontStyle= 'normal';
+	}else if(font=="italic"){
+		fontWeight = 'normal';
+		fontStyle= 'italic';
+	}else{
+		fontWeight = 'normal';
+		fontStyle= 'normal';	
+	}
+	return {
+		fontStyle:fontStyle,
+		fontWeight:fontWeight
+	}
+}
 
 
 

@@ -141,14 +141,14 @@
 										  </label>
 									</div>
 								</div>
-								<div class="part" style="padding: 0;">
+								<div class="part">
 									<div class="left" style="float: left;width: 70px;line-height: 34px;">
 										样本名：
 									</div>
 									<div class="right" style="margin-left: 0;">
 										<div class="input_b_t1">字体:</div>
 										<div class="input_b_3">
-											<select v-model="title_font" id="title_font" name="title_font" class="selectpicker select_width" autocomplete="off" >
+											<select v-model="sample_font" id="sample_font" name="sample_font" class="selectpicker select_width" autocomplete="off" >
 												<option value="normal">常规</option>
 												<option value="bold">加粗</option>
 												<option value="italic">斜体</option>
@@ -156,23 +156,23 @@
 										</div>	
 										<div class="input_b_t1">大小:</div>	
 										<div class="input_b_3">
-											<select v-model="title_size"  id="title_size" name="title_size" class="selectpicker select_width" autocomplete="off" >
-												<option value="10">10</option>
+											<select v-model="sample_size"  id="sample_size" name="sample_size" class="selectpicker select_width" autocomplete="off" >
 												<option value="12">12</option>
 												<option value="14">14</option>
 												<option value="16">16</option>
+												<option value="18">18</option>
 											</select>
 										</div>	
 									</div>
 								</div>
-								<div class="part" style="padding: 0;">
+								<div class="part">
 									<div class="left" style="float: left;width: 70px;line-height: 34px;">
 										数字：
 									</div>
 									<div class="right" style="margin-left: 0;">
 										<div class="input_b_t1">字体:</div>
 										<div class="input_b_3">
-											<select v-model="title_font" id="title_font" name="title_font" class="selectpicker select_width" autocomplete="off" >
+											<select v-model="num_font" id="num_font" name="num_font" class="selectpicker select_width" autocomplete="off" >
 												<option value="normal">常规</option>
 												<option value="bold">加粗</option>
 												<option value="italic">斜体</option>
@@ -180,14 +180,21 @@
 										</div>	
 										<div class="input_b_t1">大小:</div>	
 										<div class="input_b_3">
-											<select v-model="title_size"  id="title_size" name="title_size" class="selectpicker select_width" autocomplete="off" >
-												<option value="10">10</option>
+											<select v-model="num_size"  id="num_size" name="num_size" class="selectpicker select_width" autocomplete="off" >
 												<option value="12">12</option>
 												<option value="14">14</option>
 												<option value="16">16</option>
+												<option value="18">18</option>
 											</select>
 										</div>	
 									</div>
+								</div>
+								<div class="part">
+									<div class="left" style="width: 200px;float: left;">
+										<span>不透明度：</span>
+										<input  type="text" class="form-control" style="width: 70px;display: inline-block;">
+										<span style="margin-left: 3px;">%</span>
+									</div>								
 								</div>
 								<div class="part" v-for="(item,index) in sampleList" style="background: #F5F5F5;padding: 20px;width: 500px;">
 										<div style="margin-bottom: 10px;">样本{{index+1}}
@@ -214,11 +221,6 @@
 											<div class="left" style="float: left;width: 166px;">
 												<span style="margin-left: -13px;">自定义颜色：</span>
 												<input  type="text" class="form-control spectrum" :value="colorDefault[index]" >
-											</div>
-											<div class="right" style="width: 200px;">
-												<span>不透明度：</span>
-												<input  type="text" class="form-control" style="width: 70px;display: inline-block;">
-												<span style="margin-left: 3px;">%</span>
 											</div>
 										</div>
 								</div>
