@@ -95,6 +95,17 @@ $(function(){
 						if(item!="input")
 						vue[item]=this.defaults[item];
 				}
+			},
+			vennType:function(val,oldVal){
+				if(this.vennType=='edwards'){
+					$("#borderWrap").hide();
+					this.opacityVal=0;
+					$("#opacityVal").attr("disabled","disabled");
+				}else{
+					$("#borderWrap").show();
+					this.opacityVal=50;
+					$("#opacityVal").removeAttr("disabled");
+				}
 			}
 		}
 	});
@@ -164,7 +175,12 @@ $(function(){
 	//支持下载png格式
 	$("#btnPng").click(function(){
 		$("#main-canvasExport").css('background', "#FFFFFF");
-	  	$("#main-format-png").click();
+		$("#format-png").trigger("click");
+	});
+	
+		//支持下载svg格式
+	$("#btnSvg").click(function(){
+		$("#format-svg").trigger("click");
 	});
 
 	//与后台交互时冻结窗口
@@ -208,7 +224,7 @@ function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_
 	var displayMode =vennType;
 	var shortNumber = true;// true or false
 	var displayStat = statistics;// true or false
-	var displaySwitch = true; // true or false
+	var displaySwitch = false; // true or false
 	$("#main").jvenn({
 		series: seriesTable,
 		colors: color,
@@ -217,8 +233,9 @@ function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_
 		displayMode:   displayMode,
 		shortNumber:   shortNumber,
 		displayStat:   displayStat,
-		displaySwitch: displaySwitch,
+		displaySwitch: false,
 		fnClickCallback: function() {
+			$('#appTabLeft li:eq(0) a').tab('show');
 			var value = "";
 			if (this.listnames.length == 1) {
 				value += "Elements only in ";
@@ -232,17 +249,21 @@ function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_
 			for (val in this.list) {
 				value += this.list[val] + "\n";
 			}
+			$("#names").val(value);
 		}
 	});
-	
+
+	$(".module-legend").hide();
+	$("#module-export").css("left","260px")
 	if (vennType === 'classic') {
         if (setBorder) {
           $('path').css({
             'stroke': 'black',
-            'stroke-width': '1px'
+            'stroke-width': sampleList.length === 4 || sampleList.length === 5 ? '0.1px' : '1px'
           });
         }
-    }
+   }
+
     if (opacityVal && !isNaN(opacityVal)) {
       $('path[class^=square]').attr('fill-opacity', opacityVal / 100 >= 0.1 ? opacityVal / 100 : 0.1);
       $('path[class^=path]').next('g').children('path').attr('fill-opacity', opacityVal / 100 >= 0.1 ? opacityVal / 100 : 0.1);
@@ -250,7 +271,8 @@ function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_
 	var numFont=buildTextStyle(num_font);
 	var sampleFont=buildTextStyle(sample_font);
 	$('.number-black').css({'fontWeight':numFont.fontWeight,'fontStyle': numFont.fontStyle})
-	$("[id^='main-label']").css({'fontWeight':sampleFont.fontWeight,'fontStyle': sampleFont.fontStyle,'fontSize':Number(sample_size)})
+	$("[id^='label']").css({'fontWeight':sampleFont.fontWeight,'fontStyle': sampleFont.fontStyle,'fontSize':Number(sample_size)})
+
 }
 
 

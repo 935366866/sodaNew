@@ -2,27 +2,27 @@
 	"sampleList":[
 				{
 					"file":"SNP_data1.txt",
-					"sampleName":"Gene1"
+					"sampleName":"Sample1"
 				},
 				{
 					"file":"SNP_data2.txt",
-					"sampleName":"Gene2"
+					"sampleName":"Sample2"
 				},
 				{
 					"file":"SNP_data3.txt",
-					"sampleName":"Gene3"
+					"sampleName":"Sample3"
 				},
 				{
 					"file":"SNP_data4.txt",
-					"sampleName":"Gene4"
+					"sampleName":"Sample4"
 				},
 				{
 					"file":"SNP_data5.txt",
-					"sampleName":"Gene5"
+					"sampleName":"Sample5"
 				},
 				{
 					"file":"SNP_data6.txt",
-					"sampleName":"Gene6"
+					"sampleName":"Sample6"
 				}
 			]
 }
