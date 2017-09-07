@@ -10,7 +10,10 @@ $(function(){
 			sampleList:[],
 			show:false,
 			vennType:"classic",
-			statisticsPanel:"show"
+			statisticsPanel:"show",
+			opacityVal:"50",
+			setBorder:false
+			
 		},
 		methods:{
 			addSample:function(){
@@ -41,6 +44,42 @@ $(function(){
 				}else{
 					return false;
 				}
+			},
+			num_size: {
+				cache:false,
+			    get: function () {
+			      return  $("#num_size").selectpicker("val");
+			    },
+			    set: function (newValue) {
+			       	$("#num_size").selectpicker("val",newValue);
+			    }
+			},
+			num_font:{
+				cache:false,
+			  	get: function () {
+			      return $("#num_font").selectpicker("val");
+			    },
+			    set: function (newValue) {
+			       	$("#num_font").selectpicker("val",newValue);
+			    }
+			},
+			sample_size: {
+				cache:false,
+			    get: function () {
+			      return  $("#sample_size").selectpicker("val");
+			    },
+			    set: function (newValue) {
+			       	$("#sample_size").selectpicker("val",newValue);
+			    }
+			},
+			sample_font:{
+				cache:false,
+			  	get: function () {
+			      return $("#sample_font").selectpicker("val");
+			    },
+			    set: function (newValue) {
+			       	$("#sample_font").selectpicker("val",newValue);
+			    }
 			}
 		},
 		watch:{
@@ -50,6 +89,23 @@ $(function(){
 						preferredFormat: "hex3"
 					});
 				});
+			},
+			fileData:function(val,oldVal){
+				for(var item in this.defaults){
+						if(item!="input")
+						vue[item]=this.defaults[item];
+				}
+			},
+			vennType:function(val,oldVal){
+				if(this.vennType=='edwards'){
+					$("#borderWrap").hide();
+					this.opacityVal=0;
+					$("#opacityVal").attr("disabled","disabled");
+				}else{
+					$("#borderWrap").show();
+					this.opacityVal=50;
+					$("#opacityVal").removeAttr("disabled");
+				}
 			}
 		}
 	});
@@ -65,6 +121,8 @@ $(function(){
 					color:""
 				}
 			];
+				
+	
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
@@ -82,7 +140,8 @@ $(function(){
 						vue[item]=data[item];
 					}
 					
-				}				
+				}
+				vue.defaults = data;
 			},    
 			error : function(XMLHttpRequest) {
 				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
@@ -103,7 +162,7 @@ $(function(){
 			},
 			dataType: "json",
 			success:function(data) {
-				updateVennData($("#main"),data["files"],vue.sampleList,vue.vennType,vue.statistics);
+				updateVennData($("#main"),data["files"],vue.sampleList,vue.vennType,vue.statistics,vue.num_size,vue.num_font,vue.sample_size,vue.sample_font,vue.opacityVal,vue.setBorder);
 			},    
 			error : function(XMLHttpRequest) {
 				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -116,7 +175,12 @@ $(function(){
 	//支持下载png格式
 	$("#btnPng").click(function(){
 		$("#main-canvasExport").css('background', "#FFFFFF");
-	  	$("#main-format-png").click();
+		$("#format-png").trigger("click");
+	});
+	
+		//支持下载svg格式
+	$("#btnSvg").click(function(){
+		$("#format-svg").trigger("click");
 	});
 
 	//与后台交互时冻结窗口
@@ -126,7 +190,7 @@ $(function(){
 
 
 
-function updateVennData(el,filesVal,sampleList,vennType,statistics){
+function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_font,sample_size,sample_font,opacityVal,setBorder){
 	var sets=[];
 	var files = [];
 	for(var i=0;i<sampleList.length;i++){
@@ -155,14 +219,12 @@ function updateVennData(el,filesVal,sampleList,vennType,statistics){
 		color.push(colorStr);
 	});
 
-	var fontSize = 24;
+	var fontSize = Number(num_size);
 	var fontFamily="Arial"
-
 	var displayMode =vennType;
-	//var displayMode = "edwards";
 	var shortNumber = true;// true or false
 	var displayStat = statistics;// true or false
-	var displaySwitch = true; // true or false
+	var displaySwitch = false; // true or false
 	$("#main").jvenn({
 		series: seriesTable,
 		colors: color,
@@ -171,8 +233,9 @@ function updateVennData(el,filesVal,sampleList,vennType,statistics){
 		displayMode:   displayMode,
 		shortNumber:   shortNumber,
 		displayStat:   displayStat,
-		displaySwitch: displaySwitch,
+		displaySwitch: false,
 		fnClickCallback: function() {
+			$('#appTabLeft li:eq(0) a').tab('show');
 			var value = "";
 			if (this.listnames.length == 1) {
 				value += "Elements only in ";
@@ -186,12 +249,50 @@ function updateVennData(el,filesVal,sampleList,vennType,statistics){
 			for (val in this.list) {
 				value += this.list[val] + "\n";
 			}
+			$("#names").val(value);
 		}
 	});
+
+	$(".module-legend").hide();
+	$("#module-export").css("left","260px")
+	if (vennType === 'classic') {
+        if (setBorder) {
+          $('path').css({
+            'stroke': 'black',
+            'stroke-width': sampleList.length === 4 || sampleList.length === 5 ? '0.1px' : '1px'
+          });
+        }
+   }
+
+    if (opacityVal && !isNaN(opacityVal)) {
+      $('path[class^=square]').attr('fill-opacity', opacityVal / 100 >= 0.1 ? opacityVal / 100 : 0.1);
+      $('path[class^=path]').next('g').children('path').attr('fill-opacity', opacityVal / 100 >= 0.1 ? opacityVal / 100 : 0.1);
+    }
+	var numFont=buildTextStyle(num_font);
+	var sampleFont=buildTextStyle(sample_font);
+	$('.number-black').css({'fontWeight':numFont.fontWeight,'fontStyle': numFont.fontStyle})
+	$("[id^='label']").css({'fontWeight':sampleFont.fontWeight,'fontStyle': sampleFont.fontStyle,'fontSize':Number(sample_size)})
 
 }
 
 
+function buildTextStyle(font){
+	var fontStyle,fontWeight;
+	if(font=="bold"){
+		fontWeight = 'bolder';
+		fontStyle= 'normal';
+	}else if(font=="italic"){
+		fontWeight = 'normal';
+		fontStyle= 'italic';
+	}else{
+		fontWeight = 'normal';
+		fontStyle= 'normal';	
+	}
+	return {
+		fontStyle:fontStyle,
+		fontWeight:fontWeight
+	}
+}
 
 
 

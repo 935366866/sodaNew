@@ -17,7 +17,6 @@ $(function(){
 			titleY_sel:"top",
 			legendLayout_sel:"vertical",
 			geneColumn_sel:null,
-			funColumn_sel:null,
 			fileData:{
 				content:[]
 			},
@@ -27,28 +26,15 @@ $(function(){
 		},
 		computed: {
 			seriesData:function(){
-				if(!this.geneColumn){
-					return new Array();
-				}
+				var results=[];
 				var datas=this.fileData.content[0];
 				if(!datas){
 					return new Array();
 				}
-				var geneColumnIndex;
-				var dataColumnIndex;
-				for(var i=0;i<datas.length;i++){
-					if(datas[i]==this.geneColumn){
-						geneColumnIndex=i;
-						
-					}else if(datas[i]==this.funColumn){
-						dataColumnIndex = i;
-					}
+				for(var i=1;i<datas.length;i++){
+					results.push(datas[i]);
 				}
-				var resultArr=[];
-				for(var i=1;i<this.fileData.content.length;i++){
-					resultArr.push(this.fileData.content[i][geneColumnIndex]);
-				}
-				return resultArr;
+				return results;
 			},
 			title_size: {
 			    get: function () {
@@ -125,16 +111,6 @@ $(function(){
 			    	this.geneColumn_sel = newValue;
 			        $("#geneColumn").selectpicker("val",newValue);
 			    }
-			},
-			funColumn:{
-			  	get: function () {
-			      return this.funColumn_sel;
-			    },
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.funColumn_sel = newValue;
-			        $("#funColumn").selectpicker("val",newValue);
-			    }
 			}
 		},
 		watch:{
@@ -158,21 +134,12 @@ $(function(){
 				this.$nextTick(function(){
 					$('#geneColumn').selectpicker('refresh');				
 					this.geneColumn_sel=$('#geneColumn').selectpicker("val");
-					$('#funColumn').selectpicker('refresh');
-					this.funColumn=$('#funColumn').selectpicker("val");
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
 					});
 				});
 			},
 			geneColumn:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			},
-			funColumn:function(val,oldVal){
 				this.$nextTick(function(){
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
@@ -212,24 +179,7 @@ $(function(){
 			x:vue.legendX,
 			orient:vue.legendLayout
 		},
-		radar: {
-	        name: {
-	            textStyle: {
-	                color: '#fff',
-	                backgroundColor: '#999',
-	                borderRadius: 3,
-	                padding: [3, 5]
-	           }
-	        },
-	        indicator: [
-	           { name: '销售（sales）', max: 6500},
-	           { name: '管理（Administration）', max: 16000},
-	           { name: '信息技术（Information Techology）', max: 30000},
-	           { name: '客服（Customer Support）', max: 38000},
-	           { name: '研发（Development）', max: 52000},
-	           { name: '市场（Marketing）', max: 25000}
-	        ]
-	   	}  
+		series:[]
 	};
 	
 	//点击柱子，对应的数据高亮显示
@@ -303,7 +253,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.geneColumn,vue.funColumn);
+					updateEchartsData(myChart,formData,data["content"],vue.geneColumn);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -362,6 +312,7 @@ function updateEcharts(echarts,data){
 
 	echarts.setOption({
 		title:{
+			padding: 0,
 			text:data.title,
 			x:data.titleX,
 			y:data.titleY,
@@ -394,7 +345,7 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField,funColumnField){
+function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField){
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[{
@@ -403,31 +354,60 @@ function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField,funC
 			}],
 			legend: {
 				data:[]
+			},
+			radar:{
+				name: {
+		             	textStyle: {
+		               	color: '#fff',
+		               	backgroundColor: '#999',
+		                borderRadius: 3,
+		                padding: [3, 5]
+		            }     
+		        },
+		        nameGap:8,
+				indicator:[]
 			}
 		};
-		var geneIndex,funIndex;
-		for(var i=0;i<echartsData[0].length;i++){
-			if(echartsData[0][i]==geneColumnField){
-				geneIndex=i;	
-			}
-			if(echartsData[0][i]==funColumnField){
-				funIndex=i;	
+		var resultData = [];  //先声明一维
+		for(var k=0;k<echartsData[0].length;k++){    //一维长度为i,i为变量，可以根据实际情况改变
+			resultData[k]=new Array();  //声明二维，每一个一维数组里面的一个元素都是一个数组；
+			for(var j=0;j<echartsData.length;j++){   //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
+				resultData[k][j]="";    //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
 			}
 		}
-
-		for(var i=1;i<echartsData.length;i++){
-			option.series[0].data.push({
-					name:echartsData[i][geneIndex],
-					value:echartsData[i][funIndex]
-				});
-				
-			option.legend.data.push(echartsData[i][geneIndex]);
-			var numWidth=parseInt(echartsStyle.legendWidth);
-			option.legend.itemWidth=numWidth;
-			var numHeight=parseInt(echartsStyle.legendHeight);
-			option.legend.itemHeight=numHeight;
+		for(var i=0;i<echartsData.length;i++){//循环表的每一行数据
+			for(var j=0;j<echartsData[i].length;j++){
+				var record = echartsData[i][j];
+				resultData[j][i]=record;
+			}
 		}
 		
+		for(var i=1;i<resultData[0].length;i++){
+			option.radar.indicator.push({text:resultData[0][i],max:0.45});
+		}
+		var heads=[];
+		for(var i=0;i<echartsData[0].length;i++){
+			var head=echartsData[0][i];
+			heads.push(head);
+		}
+		heads.shift();
+		option.legend.data=heads;
+		for(var j=1;j<resultData.length;j++){
+			var values=[]
+			for(var k=0;k<resultData[j].length;k++){
+				values.push(resultData[j][k])
+			}
+			values.shift();
+			option.series[0].data.push({
+				name:heads[j-1],
+				value:values
+			})
+		}
+		var numWidth=parseInt(echartsStyle.legendWidth);
+		option.legend.itemWidth=numWidth;
+		var numHeight=parseInt(echartsStyle.legendHeight);
+		option.legend.itemHeight=numHeight;
+		console.log(JSON.stringify(option))	
 		echarts.setOption(option);
 	}
 	
