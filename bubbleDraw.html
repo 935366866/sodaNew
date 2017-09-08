@@ -4,7 +4,7 @@
 <head>
     <title>新建APP任务</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="content-type" content="text/html" ; charset="utf-8">   
+    <meta http-equiv="content-type" content="text/html" ; charset="utf-8">
     <link href="public/css/reset.css" rel="stylesheet" />
     <link href="public/css/bootstrap.min.css" rel="stylesheet">
     <link href="public/css/bootstrap-table.css" rel="stylesheet">
@@ -15,6 +15,7 @@
     <link href="css/soda_common.css" rel="stylesheet">
     <link href="public/draw/style/spectrum.css" rel="stylesheet"/>
 </head>
+
 <body style="background-color:#fff;">
 	<div class="top" style="float:left;width:100%;">
 		<div class="main_nav1">
@@ -76,7 +77,7 @@
 
     <div class="center_box" style="float:left;width:100%;">
 		<div class="app_title">
-			<p>雷达图绘制工具</p>
+			<p>气泡图绘制工具</p>
 		</div>
         <div class="change_box" id='taskPanel'> </div>       
         <div class="myTab">
@@ -123,14 +124,41 @@
 								</div>
 								<div class="part"> 
 									<div class="input_a_l titleNameLeft">绘图列数:</div>	
-									<div class="inputLeft" >
-										<div class="input_a_l" style="width: 75px;">X轴数据：</div>
-										<div class="input_a_m" style="width: 88px;">
-											<select v-model="xColumn" id="xColumn"  name="xColumn" class=" select_width" autocomplete="off" >
-												<option v-for="item in fileData['content'][0]" :value="item">{{item}}</option>
+									<div class="inputLeft">
+										<div class="input_a_l" style="width: 70px;">x轴数据：</div>
+										<div class="input_a_m" style="width: 93px;">
+											<select v-model="xColumnField" id="xColumnField"  name="xColumnField" class="selectpicker  select_width" autocomplete="off">
+												<option v-for="item in xColumnData" :value="item">{{item}}</option>
+											</select>
+										</div>	
+									</div>	
+									<div class="right">
+										<div class="input_a_l">y轴数据:</div>
+										<div class="input_b_2" style="width: 158px;">
+											<select v-model="yColumnField" id="yColumnField"  name="yColumnField" class="selectpicker  select_width" autocomplete="off"  >
+												<option v-for="item in yColumnData" :value="item">{{item}}</option>
+												
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="part">
+									<div class="input_a_l titleNameLeft">圈的颜色:</div>	
+									<div class="inputLeft">
+										<div class="input_a_m inputA" style="width: 162px;">
+											<select v-model="groupColumnField" id="groupColumnField"  name="groupColumnField" class="selectpicker  select_width" autocomplete="off" >
+												<option v-for="item in groupColumnData" :value="item">{{item}}</option>
 											</select>
 										</div>	
 									</div>
+									<div class="right">
+										<div class="input_a_l">圈的大小:</div>
+										<div class="input_b_2" style="width: 158px;">
+											<select v-model="pointColumnField" id="pointColumnField"  name="pointColumnField" class="selectpicker  select_width" autocomplete="off"  >
+												<option v-for="item in pointColumnData" :value="item">{{item}}</option>
+											</select>
+										</div>
+									</div>										
 								</div>
 								<div class="line"></div>
 								<div class="part">
@@ -143,7 +171,7 @@
 										<div class="input_b_3">
 											<select v-model="title_font" id="title_font" name="title_font" class="selectpicker select_width" autocomplete="off" >
 												<option value="normal">常规</option>
-												<option value="bold">加粗</option>
+												<option value="bold" selected="selected">加粗</option>
 												<option value="italic">斜体</option>
 											</select>
 										</div>	
@@ -151,8 +179,8 @@
 										<div class="input_b_3">
 											<select v-model="title_size"  id="title_size" name="title_size" class="selectpicker select_width" autocomplete="off" >
 												<option value="12">12</option>
-												<option value="18">18</option>
-												<option value="24">24</option>
+												<option value="18" selected="selected">18</option>
+												<option value="30">30</option>
 											</select>
 										</div>	
 									</div>
@@ -179,9 +207,58 @@
 											</select>
 										</div>	
 									</div>
-								</div>				
+								</div>			
 								<div class="line"></div>
 								<div class="part">
+									<div class="input_a_l titleNameLeft">X轴名称:</div>
+									<div class="input_b_2 inputLeft">
+										<input v-model="xlab"  type="text" class="form-control" id="xlab" name="xlab" placeholder="">
+									</div>
+									<div class="right">
+										<div class="input_b_t1">字体:</div>
+										<div class="input_b_3">
+											<select v-model="xlab_font" id="xlab_font" name="xlab_font" class="selectpicker select_width" autocomplete="off" >
+												<option value="normal">常规</option>
+												<option value="bold">加粗</option>
+												<option value="italic">斜体</option>
+											</select>
+										</div>	
+										<div class="input_b_t1">大小:</div>	
+										<div class="input_b_3">
+											<select v-model="xlab_size"  id="xlab_size" name="xlab_size" class="selectpicker select_width" autocomplete="off" >
+												<option value="12">12</option>
+												<option value="18">18</option>
+												<option value="30">30</option>
+											</select>
+										</div>	
+									</div>
+								</div>
+								<div class="part">
+									<div class="input_a_l titleNameLeft">Y轴名称:</div>
+									<div class="input_b_2 inputLeft">
+										<input v-model="ylab" type="text" class="form-control" id="ylab" name="ylab" placeholder="">
+									</div>
+									<div class="right">
+										<div class="input_b_t1">字体:</div>
+										<div class="input_b_3">
+											<select v-model="ylab_font" id="ylab_font" name="ylab_font" class="selectpicker select_width" autocomplete="off" >
+												<option value="normal">常规</option>
+												<option value="bold">加粗</option>
+												<option value="italic">斜体</option>
+											</select>
+										</div>	
+										<div class="input_b_t1">大小:</div>	
+										<div class="input_b_3">
+											<select v-model="ylab_size"  id="ylab_size" name="ylab_size" class="selectpicker select_width" autocomplete="off" >
+												<option value="12">12</option>
+												<option value="18">18</option>
+												<option value="30">30</option>
+											</select>
+										</div>	
+									</div>
+								</div>
+								<div class="line"></div>
+<!--								<div class="part">
 									<div class="input_a_l titleNameLeft">颜色方案:</div>
 									<div class="input_b_3 inputLeft">
 										<select id="colorProject"  name="colorProject" class="selectpicker select_width" autocomplete="off" >
@@ -191,8 +268,54 @@
 										</select>
 									</div>									
 								</div>
-								<div v-for="(item,index) in fileData['content'][0]" v-if="item!=xColumn" class="part">
-									<div class="input_e_1" style="width: 20%;">						
+								<div class="part">
+									<div class="input_e_1 titleNameLeft">						
+											最小值:
+									</div>
+									<div class="input_a_m inputLeft">
+										<input v-model="minValue" type="text" class="form-control" />
+									</div>									
+								</div>
+								<div class="part">
+									<div class="input_e_1 titleNameLeft">						
+											最大值:
+									</div>
+									<div class="input_a_m inputLeft">
+										<input v-model="maxValue" type="text" class="form-control" />
+									</div>									
+								</div>
+								<div class="part">
+									<div class="input_e_2 colorInput">
+										最小值颜色:
+									</div>
+									<div class="input_c_4">
+										<input v-model="color[0]" type="text" class="form-control spectrum">
+									</div>
+									<div class="input_e_2 colorInput" style="margin-left: 10px;">
+										中间颜色:
+									</div>
+									<div class="input_c_4">
+										<input v-model="color[1]" type="text" class="form-control spectrum">
+									</div>
+									<div class="input_e_2 colorInput" style="margin-left: 10px;">
+										最大值颜色:
+									</div>
+									<div class="input_c_4">
+										<input v-model="color[2]" type="text" class="form-control spectrum">
+									</div>
+								</div>-->
+								<!--<div class="part">
+									<div class="input_a_l titleNameLeft">颜色方案:</div>
+									<div class="input_b_3 inputLeft">
+										<select id="colorProject"  name="colorProject" class="selectpicker select_width" autocomplete="off" >
+											<option value="project1">NPG</option>
+											<option value="project2">AAAS</option>
+											<option value="project3">IGV</option>
+										</select>
+									</div>									
+								</div>
+								<div v-for="(item,index) in groupColorName" class="part">
+									<div class="input_e_1">						
 											{{item}}:
 									</div>
 									<div class="input_e_2 colorInput">
@@ -209,18 +332,12 @@
 											<option value="Right">Right</option>
 										</select>
 									</div>
-								</div>
+								</div>-->
 								<div class="line"></div>
 								<div class="part">
-									<div class="input_a_l titleNameLeft">图例宽度:</div>
+									<div class="input_a_l titleNameLeft">图例直径:</div>
 									<div class="input_b_2 inputLeft">
-										<input v-model="legendWidth" type="text" class="form-control" id="legendWidth" name="legendWidth" placeholder="">
-									</div>
-									<div class="right">
-										<div class="input_a_l">图例高度:</div>
-										<div class="input_b_2">
-											<input v-model="legendHeight" type="text" class="form-control" id="legendHeight" name="legendHeight" placeholder="">
-										</div>
+										<input v-model="legendDiameter" type="text" class="form-control" id="legendDiameter" name="legendDiameter" placeholder="">
 									</div>
 								</div>
 								<div class="part">
@@ -255,6 +372,37 @@
 										</select>
 									</div>	
 								</div>	
+								<div class="line"></div>
+								<div class="part">
+									<div class="input_a_l titleNameLeft">X轴网格线:</div>
+									<div id="radioArea" class="input_f_2" style="width: auto;">
+										<div class="radio" style="display: inline-block;">
+											  <label for="XgridShow">
+											    <input v-model="Xgrid"   type="radio" name="XgridShow" id="XgridShow" value="show" >显示
+											  </label>
+										</div>
+										<div class="radio" style="display: inline-block;margin-left: 10px;">
+											  <label for="XgridHide">
+											    <input v-model="Xgrid" type="radio" name="XgridHide" id="XgridHide" value="hide">隐藏
+											  </label>
+										</div>
+									</div>
+								</div>
+								<div class="part">
+									<div class="input_a_l titleNameLeft">Y轴网格线:</div>
+									<div id="radioArea" class="input_f_2" style="width: auto;">
+										<div class="radio" style="display: inline-block;">
+											  <label for="YgridShow">
+											    <input v-model="Ygrid"   type="radio" name="YgridShow" id="YgridShow" value="show" >显示
+											  </label>
+										</div>
+										<div class="radio" style="display: inline-block;margin-left: 10px;">
+											  <label for="YgridHide">
+											    <input v-model="Ygrid" type="radio" name="YgridHide" id="YgridHide" value="hide">隐藏
+											  </label>
+										</div>
+									</div>
+								</div>
 							</form>
 						</div>
 						<div class="panel-footer" style="height: 51px;">
@@ -276,7 +424,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(item,index) in fileData.content" v-if="index!=0">
-                                        <td v-for="item1 in item">{{item1 }}</td>
+                                        <td v-for="item1 in item">{{item1}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -296,8 +444,8 @@
 								<button id="btnPdf" onclick="convertCanvasToImage()" class="btn btn-primary">PDF</button>
 							</div>
 						</div>
-						<div class="panel-body" style="padding: 0;">
-								<div id="main" style="width: 550px;height: 450px;margin-top: 25px;"></div>
+						<div class="panel-body">
+							<div id="main" style="width: 520px;height: 460px;"></div>
 						</div>
 					</div>
 				</div>
@@ -421,12 +569,12 @@
     <script src="public/draw/script/spectrum.js"></script>
     <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
     <script src="js/common.js"></script>
-    <script src="public/draw/script/radarDraw.js"></script> 
+    <script src="public/draw/script/bubbleDraw.js"></script>  
     <script>
     	$(function(){
-    		$("#xColumn").selectpicker({noneSelectedText:'请选择'});
-    		$("#funColumn").selectpicker({noneSelectedText:'请选择'});
-    		
+    		$("#xColumnField").selectpicker({noneSelectedText:'请选择'});
+    		$("#yColumnField").selectpicker({noneSelectedText:'请选择'});
+    		$("#groupColumnField").selectpicker({noneSelectedText:'请选择'});
     	})
     </script>
 </body>

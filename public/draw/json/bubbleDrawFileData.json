@@ -1,0 +1,22 @@
+{
+	"name":"SNP_data.txt",
+	"size":null,
+	"rowNums":11,
+	"columnNums":5,
+	"lines":11,
+	"resultFlag":null,
+	"content":[
+				["#Term","Gene_number","Rich_factor","qvalue"],
+				["Butanoate metabolism","2","0.1","0.0163481513125"],
+				["Fatty acid elongation","1","0.0666666666666667","0.159397917533"],
+				["Tryptophan metabolism","1","0.0344827586206897","0.159397917533"],
+				["Cysteine and methionine metabolism","1","0.032258064516129","0.159397917533"],
+				["Lysine degradation","1","0.03125","0.159397917533"],
+				["Valine, leucine and isoleucine degradation","1","0.0256410256410256","0.159397917533"],
+				["Fatty acid degradation","1","0.0227272727272727","0.159397917533"],
+				["Fatty acid metabolism","1","0.0212765957446809","0.159397917533"],
+				["Biosynthesis of amino acids","1","0.0147058823529412","0.19829899724"],
+				["Metabolic pathways","2","0.003003003003003","0.584040582535"]
+
+	]
+}		

@@ -8,152 +8,194 @@ $(function(){
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"散点图",
+			title:"气泡图",
 			xlab:"X轴标题",
 			ylab:"Y轴标题",
-			pointsize:"5",
 			fileData:{
 				content:[]
 			},
-			title_size_sel:"18",
-			title_font_sel:"bold",
-			xlab_size_sel:"12",
-			xlab_font_sel:"normal",
-			ylab_size_sel:"12",
-			ylab_font_sel:"normal",
-			titleX_sel:"",
-			titleY_sel:"",
+			xCoumnDefault:"",
+			yCoumnDefault:"",
+			groupCoumnDefault:"",
+			pointCoumnDefault:"",
+			groupColumnData:[],
+			pointColumnData:[],
+			xColumnData:[],
+			yColumnData:[],
+			groupColorName:[],
 			legendDiameter:"14",
-			legendX_sel:"center",
-			legendY_sel:"bottom",
-			legendLayout_sel:"horizontal",
-			xColumnField_sel:null,
-			yColumnField_sel:null,
 			color:color1,
 			Xgrid:"show",
 			Ygrid:"show"
 		},
-		computed: {
+		computed: {	
 			title_size: {
+				cache:false,
 			    get: function () {
-			      return this.title_size_sel;
+			      return   $("#title_size").selectpicker("val");
 			    },
 			    set: function (newValue) {
-			       this.title_size_sel = newValue;
 			       $("#title_size").selectpicker("val",newValue);
 			    }
 			},
 			title_font:{
+				cache:false,
 			  	get: function () {
-			      return this.title_font_sel;
+			      return  $("#title_font").selectpicker("val");
 			    },
 			    set: function (newValue) {
-			    	this.title_font_sel = newValue;
 			       $("#title_font").selectpicker("val",newValue);
 			    }
 			},
 			xlab_size:{
+				cache:false,
 			  	get: function () {
-			      return this.xlab_size_sel;
+			      return $("#xlab_size").selectpicker("val");
 			    },
 			    set: function (newValue) {
-			    	this.xlab_size_sel = newValue;
 			       $("#xlab_size").selectpicker("val",newValue);
 			    }
 			},
 			xlab_font:{
+				cache:false,
 			  	get: function () {
-			      return this.xlab_font_sel;
+			      return  $("#xlab_font").selectpicker("val");
 			    },
 			    set: function (newValue) {
-			    	this.xlab_font_sel = newValue;
 			       $("#xlab_font").selectpicker("val",newValue);
 			    }
 			},
 			ylab_size:{
-			 	get: function () {
-			      return this.ylab_size_sel;
+				cache:false,
+			  	get: function () {
+			      return $("#ylab_size").selectpicker("val");
 			    },
 			    set: function (newValue) {
-			    	this.ylab_size_sel = newValue;
 			       $("#ylab_size").selectpicker("val",newValue);
 			    }
 			},
 			ylab_font:{
+				cache:false,
 			  	get: function () {
-			      return this.ylab_font_sel;
+			      return $("#ylab_font").selectpicker("val");
 			    },
 			    set: function (newValue) {
-			    	this.ylab_font_sel = newValue;
 			       $("#ylab_font").selectpicker("val",newValue);
+			     
 			    }
 			},
-		  titleX:{
+			titleX:{
+				cache:false,
 			  	get: function () {
-			      return this.titleX_sel;
+			      return $("#titleX").selectpicker("val");
 			   },
 			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.titleX_sel = newValue;
 			       $("#titleX").selectpicker("val",newValue);
 			    }
 			},
 			titleY:{
+				cache:false,
 			  	get: function () {
-			      return this.titleY_sel;
+			      return  $("#titleY").selectpicker("val");
 			   	},
 			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.titleY_sel = newValue;
 			       $("#titleY").selectpicker("val",newValue);
 			    }
 			},
 			legendX:{
+				cache:false,
 			  	get: function () {
-			      return this.legendX_sel;
+			      return  $("#legendX").selectpicker("val");
 			   },
 			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.legendX_sel = newValue;
+			    	
 			       $("#legendX").selectpicker("val",newValue);
 			    }
 			},
 			legendY:{
+				cache:false,
 			  	get: function () {
-			      return this.legendY_sel;
+			      return $("#legendY").selectpicker("val");
 			   },
 			    set: function (newValue) {
-			    	this.legendY_sel = newValue;
 			       $("#legendY").selectpicker("val",newValue);
 			    }
 			},
 			legendLayout:{
+				cache:false,
 			  	get: function () {
-			      return this.legendLayout_sel;
+			      return $("#legendLayout").selectpicker("val");
 			   	},
 			    set: function (newValue) {
-			    	this.legendLayout_sel = newValue;
 			       $("#legendLayout").selectpicker("val",newValue);
 			    }
 			},
+			
 			xColumnField:{
+				cache:false,
 			  	get: function () {
-			      return this.xColumnField_sel;
+			        return $("#xColumnField").selectpicker("val");
 			    },
 			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.xColumnField_sel = newValue;
-			        $("#xColumnField").selectpicker("val",newValue);
+			       	 $("#xColumnField").selectpicker("val",newValue);
+			       	this.yColumnData = this.calcYColumnData();
+			       	this.groupColumnData = this.calcGroupColumnData();
+			       	this.$nextTick(function(){
+						$('#yColumnField').selectpicker('refresh');
+						$('#groupColumnField').selectpicker('refresh');
+						
+					});
+					return true;
 			    }
 			},
 			yColumnField:{
+				cache:false,
 			  	get: function () {
-			      return this.yColumnField_sel;
+			    		return $("#yColumnField").selectpicker("val");
 			    },
 			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.yColumnField_sel = newValue;
-			        $("#yColumnField").selectpicker("val",newValue);
+			       	$("#yColumnField").selectpicker("val",newValue);
+			       	this.xColumnData = this.calcXColumnData();
+			       	this.groupColumnData = this.calcGroupColumnData();
+			       	this.$nextTick(function(){
+						$('#xColumnField').selectpicker('refresh');
+						$('#groupColumnField').selectpicker('refresh');
+						
+					});
+			    }
+			},
+			groupColumnField:{
+				cache:false,
+			  	get: function () {
+			      	return  $("#groupColumnField").selectpicker("val");
+			    },
+			    set: function (newValue) {
+			       		$("#groupColumnField").selectpicker("val",newValue);
+			       		this.xColumnData = this.calcXColumnData();
+			       		this.yColumnData = this.calcYColumnData();
+			       		this.groupColorName = this.calcGroupColorName();
+			       		this.$nextTick(function(){
+							$('#xColumnField').selectpicker('refresh');
+							$('#yColumnField').selectpicker('refresh');
+							
+						});
+			    }
+			},
+			pointColumnField:{
+				cache:false,
+			  	get: function () {
+			      	return  $("#pointColumnField").selectpicker("val");
+			    },
+			    set: function (newValue) {
+			       		$("#pointColumnField").selectpicker("val",newValue);
+			       		this.xColumnData = this.calcXColumnData();
+			       		this.yColumnData = this.calcYColumnData();
+			       		this.groupColorName = this.calcGroupColorName();
+			       		this.$nextTick(function(){
+							$('#xColumnField').selectpicker('refresh');
+							$('#yColumnField').selectpicker('refresh');
+							$('#groupColumnField').selectpicker('refresh');
+						});
 			    }
 			},
 			gridX:function(){
@@ -171,17 +213,115 @@ $(function(){
 				}
 			}
 		},
+		methods:{
+			calcGroupColorName:function () {
+				var result = [];
+		       if(this.fileData.content&&this.fileData.content.length>0&&this.pointColumnField){
+		       		var heads = this.fileData.content[0];
+					var headIndexMap={};//用来存储每个表头对应的列数
+					for(var i=0;i<heads.length;i++){//循环表头
+						var headColumn = heads[i];
+						headIndexMap[headColumn]=i;//将表头的列数存入map中
+					}
+					var dataMap={};
+					for(var i=1;i<this.fileData.content.length;i++){
+						var row = this.fileData.content[i];
+						var pointVal = row[headIndexMap[this.pointColumnField]];
+						if(!dataMap[pointVal]){//如果是数据轴
+							result.push(pointVal);//将数据名存入图例
+							dataMap[pointVal] =true;
+						}
+						
+					}
+		       }
+		       return result;
+			 },
+			calcGroupColumnData:function(){
+				var groupColumnData=[];
+				var datas=this.fileData.content[0];
+				if(!datas){
+					return new Array();
+				}
+				for(var i=0;i<datas.length;i++){
+					if(datas[i]==this.xColumnField){
+						continue;
+					}
+					if(datas[i]==this.yColumnField){
+						continue;
+					}
+					groupColumnData.push(datas[i])
+				}
+				return groupColumnData;
+				
+			},
+			calcXColumnData:function(){
+				var xColumnData=[];
+				var datas=this.fileData.content[0];
+				if(!datas){
+					return new Array();
+				}
+				for(var i=0;i<datas.length;i++){
+					if(datas[i]==this.groupColumnField){
+						continue;
+					}
+					if(datas[i]==this.yColumnField){
+						continue;
+					}
+					xColumnData.push(datas[i])
+				}
+				return xColumnData;
+
+			},
+			calcYColumnData:function(){
+				var yColumnData=[];
+				var datas=this.fileData.content[0];
+				if(!datas){
+					return new Array();
+				}
+				for(var i=0;i<datas.length;i++){
+					if(datas[i]==this.xColumnField){
+						continue;
+					}
+					if(datas[i]==this.groupColumnField){
+						continue;
+					}
+					yColumnData.push(datas[i])
+				}
+				return yColumnData;
+
+			},
+			calcPointColumnData:function(){
+				var pointColumnData=[];
+				var datas=this.fileData.content[0];
+				if(!datas){
+					return new Array();
+				}
+				for(var i=0;i<datas.length;i++){
+					if(datas[i]==this.xColumnField){
+						continue;
+					}
+					if(datas[i]==this.groupColumnField){
+						continue;
+					}
+					if(datas[i]==this.yColumnField){
+						continue;
+					}
+					pointColumnData.push(datas[i])
+				}
+				return pointColumnData;
+			}
+		},
 		watch:{
 			input:function(val,oldVal){
 				$.ajax({
-					url: 'public/draw/json/scatterDrawFileData.json',  
+					url: 'public/draw/json/bubbleDrawFileData.json',  
 					type:'get',
 					data:{
 						fileName:val
 					},
 					dataType: "json",
 					success:function(data) {
-						 vue["fileData"]=data; 
+						 vue["fileData"]=data;
 					},    
 					error : function(XMLHttpRequest) {
 						//alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
@@ -189,22 +329,21 @@ $(function(){
 				});
 			},
 			fileData:function(val,oldVal){
+			 	this.xColumnData = this.calcXColumnData();
+		       	this.groupColumnData = this.calcGroupColumnData();
+		       	this.yColumnData = this.calcYColumnData();
+		       	this.pointColumnData = this.calcPointColumnData();
 				this.$nextTick(function(){
-					$('#yColumnField').selectpicker('refresh');
 					$('#xColumnField').selectpicker('refresh');
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
+					$('#yColumnField').selectpicker('refresh');
+					$('#groupColumnField').selectpicker('refresh');
+					for(var item in this.defaults){
+						if(item!="input")
+						vue[item]=this.defaults[item];
+					}
 				});
 			},
-			xColumnField:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			},
-			yColumnField:function(val,oldVal){
+			groupColorName:function(val,oldVal){
 				this.$nextTick(function(){
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
@@ -232,8 +371,7 @@ $(function(){
 	        	fontSize:14
 	        },
 	        x:vue.titleX,
-	        y:vue.titleY,
-	        top:20
+	        y:vue.titleY
 	       
 	    },
 	    tooltip : {
@@ -249,20 +387,11 @@ $(function(){
 	        },
 	        zlevel: 1
 	    },
-		toolbox: {
-	        show : true,
-	        feature : {
-	            mark : {show: true},
-	            dataZoom : {show: true},
-	            dataView : {show: true, readOnly: false},
-	            restore : {show: true}
-	        }
-	    },
 	    xAxis : [
 	        {
-	            scale:true,
+	        	type:'value',
 	            nameLocation:'middle',
-	            nameGap: 23,
+	            nameGap: 25,
 	            splitLine:{
                 	show:vue.gridX,
                 	lineStyle:{
@@ -274,14 +403,11 @@ $(function(){
             	},
             	axisLine:{
             		show:false
-            	},
-				type : 'category'
+            	}
 	        }
 	    ],
 	    yAxis : [
 	        {
-	            type : 'value',
-	            scale:true,
 	            nameLocation:'middle',
 	            nameGap: 40,
 	            splitLine:{
@@ -300,16 +426,29 @@ $(function(){
 	    ],
 	    grid:{
 	    	show:true,
-	    	borderColor:'#000'
+	    	borderColor:'#000',
+	    	left:130,
+	    	right:100,
+	    	top:30,
+	    	bottom:40
 	    },
 		legend: {
 			y:vue.legendY,
 			x:vue.legendX,
-			orient:vue.legendLayout
-		}
+			orient:vue.legendLayout,
+			align:"left"
+		},
+		visualMap: {
+            left: 'right',
+            top: '10%',
+            dimension: 2,
+            min: 0,
+            max: 250,
+            text: ['圈的颜色']
+        }
 	};
 	
-	//点击柱子，对应的数据高亮显示
+	//点击数据，对应的数据高亮显示
 	myChart.on('click', function (parmas) {
 		$('#appTabLeft li:eq(0) a').tab('show');
 		var tr=$("#file table tr").first();
@@ -348,7 +487,7 @@ $(function(){
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
-			url: 'public/draw/json/scatterDraw.json',  
+			url: 'public/draw/json/bubbleDraw.json',  
 			type:'get',
 			data:tool_id,
 			dataType: "json",
@@ -356,6 +495,7 @@ $(function(){
 				//加载成功后将所有数据赋值给vue
 				for(var item in data){
 					vue[item]=data[item];
+					vue.defaults = data;
 				}
 			},    
 			error : function(XMLHttpRequest) {
@@ -373,7 +513,7 @@ $(function(){
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
 			myChart.showLoading();
 			$.ajax({
-				url: 'public/draw/json/scatterDrawFileData.json',  
+				url: 'public/draw/json/bubbleDrawFileData.json',  
 				type:'get',
 				data:{
 					fileName:formData.input
@@ -382,7 +522,7 @@ $(function(){
 				success:function(data) {
 					myChart.hideLoading();
 					
-					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.yColumnField);
+					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.yColumnField,vue.groupColumnField,vue.pointColumnField);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -485,89 +625,71 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yColumnField){
-	
+function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisField,groupField,pointColumnField){
 	if(echartsData&&echartsData.length>0){
 		var option = echarts.getOption();
-		
-		option.xAxis=option.xAxis[0];
+		option.yAxis=option.yAxis[0];
 		option.legend=option.legend[0];
-		
-		option.xAxis.data=[];
+		option.yAxis.data=[];
 		option.legend.data=[];	
 		option.series=[];
-		
 		echarts.clear();
-		
 		var heads = echartsData[0];
 		var dataMap = {};//用来存储每一个系列的数据
-		var xAxisData = [];//用来存储y轴的数据 只有类目轴才会用到
+		var yAxisData = [];//用来存储y轴的数据 只有类目轴才会用到
 		var headIndexMap={};//用来存储每个表头对应的列数
 		for(var i=0;i<heads.length;i++){//循环表头
 			var headColumn = heads[i];
 			headIndexMap[headColumn]=i;//将表头的列数存入map中
-			if(headColumn != xAxisField){//如果是数据轴
-				option.legend.data.push(headColumn);//将数据名存入图例
-				dataMap[headColumn] = {
-					type:"scatter",
-					symbolSize: echartsStyle.pointsize,
-					name:headColumn,
-					label: {
-			            emphasis: {
-			                show: true,
-			                formatter: function(param) {
-			                    return param.data[3];
-			                },
-			                position: 'top'
-			            }
-			        },
-					data:[]
-				};
-			}
 		}
-		var isNum = true;
-		
 		for(var i=1;i<echartsData.length;i++){
 			var row = echartsData[i];
 			var xVal = row[headIndexMap[xAxisField]];
-			if(isNaN(parseInt(xVal))){
-				isNum = false;
+			var yVal = row[headIndexMap[yAxisField]];
+			var piontVal = row[headIndexMap[pointColumnField]];
+			var groupFieldVal = row[headIndexMap[groupField]];
+			if(!dataMap[piontVal]){//如果是数据轴
+				option.legend.data.push(piontVal);//将数据名存入图例
+				dataMap[piontVal] = {
+					type:"scatter",
+					data:[]
+				};
 			}
-			xAxisData.push(xVal);
-			for(key in dataMap){
-				var value = dataMap[key];
-				var headIndex = headIndexMap[key];
-				var yVal = row[headIndex];
-				if(isNum){
-					value.data.push([xVal,yVal]);
-				}else{
-					value.data.push(yVal);
-				}
-				
-			}
+			yAxisData.push(yVal);
+			dataMap[piontVal].data.push([xVal,yVal,groupFieldVal]);	
+			
 		}
 		
-		if(isNum){
-			option.xAxis.type = "value";
-			option.xAxis.data=[]
-		}else{
-			option.xAxis.type = "category";
-			option.xAxis.data = xAxisData;
-		}
 		
+		option.yAxis.type = "category";
+		option.yAxis.data = yAxisData;
 		for(key in dataMap){
 			option.series.push(dataMap[key]);
 		}
 		var numD=parseInt(echartsStyle.legendDiameter);
 		option.legend.itemHeight=numD;
 		option.legend.itemWidth=numD;
-console.log(option)
+		console.log(option)
 		echarts.setOption(option);	
 	}
 	
 }
 
 //---------------------------------------------------函数---------------------------
+//支持下载pdf格式
+function convertCanvasToImage() {
+    html2canvas(document.getElementById('main'), {
+        onrendered: function(canvas) {
+            document.body.appendChild(canvas);
+            createPDFObject(canvas.toDataURL("image/jpeg"));
+        }
+    });
+}
+function createPDFObject(imgData) {
+    var doc = new jsPDF('p', 'pt');
+    doc.addImage(imgData, 10, 10, 500, 340, 'img');
+    doc.save('test.pdf');
+}
 
 //参数组装
 function allParams(){

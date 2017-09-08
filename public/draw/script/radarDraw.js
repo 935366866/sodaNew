@@ -16,7 +16,7 @@ $(function(){
 			titleX_sel:"center",
 			titleY_sel:"top",
 			legendLayout_sel:"vertical",
-			geneColumn_sel:null,
+			xColumn_sel:null,
 			fileData:{
 				content:[]
 			},
@@ -25,17 +25,6 @@ $(function(){
 			color:color1
 		},
 		computed: {
-			seriesData:function(){
-				var results=[];
-				var datas=this.fileData.content[0];
-				if(!datas){
-					return new Array();
-				}
-				for(var i=1;i<datas.length;i++){
-					results.push(datas[i]);
-				}
-				return results;
-			},
 			title_size: {
 			    get: function () {
 			      return this.title_size_sel;
@@ -102,14 +91,14 @@ $(function(){
 			       $("#legendLayout").selectpicker("val",newValue);
 			    }
 			},
-			geneColumn:{
+			xColumn:{
 			  	get: function () {
-			      return this.geneColumn_sel;
+			      return this.xColumn_sel;
 			    },
 			    set: function (newValue) {
 			    	if(!newValue) return;
-			    	this.geneColumn_sel = newValue;
-			        $("#geneColumn").selectpicker("val",newValue);
+			    	this.xColumn_sel = newValue;
+			        $("#xColumn").selectpicker("val",newValue);
 			    }
 			}
 		},
@@ -132,14 +121,14 @@ $(function(){
 			},
 			fileData:function(val,oldVal){
 				this.$nextTick(function(){
-					$('#geneColumn').selectpicker('refresh');				
-					this.geneColumn_sel=$('#geneColumn').selectpicker("val");
+					$('#xColumn').selectpicker('refresh');				
+					this.xColumn_sel=$('#xColumn').selectpicker("val");
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
 					});
 				});
 			},
-			geneColumn:function(val,oldVal){
+			xColumn:function(val,oldVal){
 				this.$nextTick(function(){
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
@@ -182,25 +171,24 @@ $(function(){
 		series:[]
 	};
 	
-	//点击柱子，对应的数据高亮显示
+	//点击数据，对应的数据高亮显示
 	myChart.on('click', function (parmas) {
+		console.log(parmas.name)
 		$('#appTabLeft li:eq(0) a').tab('show');
 		var tr=$("#file table tr").first();
 		var ths=$(tr).children("th");
 		//取到x轴名字
-		var geneText=vue.geneColumn;
+		var xText=parmas.name;
 		var index;
 		for(var i=0;i<ths.length;i++){
-			if(ths[i].innerText==geneText){
+			if(ths[i].innerText==xText){
 				index=i;
 				break;
 			}									
 		}
 		$("#file table tr").each(function(){
-			if($(this).children("td:eq("+index+")").text()==parmas.name){
-				$(this).addClass("active");
-				$(this).siblings("tr").removeClass("active");
-			}			
+			$(this).children("td:eq("+index+")").addClass("active");
+			$(this).children("td:eq("+index+")").siblings("td").removeClass("active");
 		})
 	});
     // 使用刚指定的配置项和数据显示图表。
@@ -253,7 +241,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.geneColumn);
+					updateEchartsData(myChart,formData,data["content"],vue.xColumn);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -345,7 +333,7 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField){
+function updateEchartsData(echarts,echartsStyle,echartsData,xColumnField){
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[{
@@ -368,6 +356,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField){
 				indicator:[]
 			}
 		};
+		var xcolumnIndex;
 		var resultData = [];  //先声明一维
 		for(var k=0;k<echartsData[0].length;k++){    //一维长度为i,i为变量，可以根据实际情况改变
 			resultData[k]=new Array();  //声明二维，每一个一维数组里面的一个元素都是一个数组；
@@ -381,25 +370,32 @@ function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField){
 				resultData[j][i]=record;
 			}
 		}
-		
-		for(var i=1;i<resultData[0].length;i++){
-			option.radar.indicator.push({text:resultData[0][i],max:0.45});
-		}
 		var heads=[];
 		for(var i=0;i<echartsData[0].length;i++){
+			if(echartsData[0][i]==xColumnField){
+				xcolumnIndex=i;
+			}
 			var head=echartsData[0][i];
 			heads.push(head);
 		}
-		heads.shift();
+		heads.splice(xcolumnIndex, 1);
 		option.legend.data=heads;
-		for(var j=1;j<resultData.length;j++){
+		for(var i=1;i<resultData[xcolumnIndex].length;i++){
+			option.radar.indicator.push({text:resultData[xcolumnIndex][i],max:0.45});
+		}
+		var maps=[]
+		for(var j=0;j<resultData.length;j++){
+			maps.push(resultData[j]);
+		}
+		maps.splice(xcolumnIndex,1);
+		for(var j=0;j<maps.length;j++){
 			var values=[]
-			for(var k=0;k<resultData[j].length;k++){
-				values.push(resultData[j][k])
+			for(var k=0;k<maps[j].length;k++){
+				values.push(maps[j][k])
 			}
 			values.shift();
 			option.series[0].data.push({
-				name:heads[j-1],
+				name:heads[j],
 				value:values
 			})
 		}
@@ -407,7 +403,6 @@ function updateEchartsData(echarts,echartsStyle,echartsData,geneColumnField){
 		option.legend.itemWidth=numWidth;
 		var numHeight=parseInt(echartsStyle.legendHeight);
 		option.legend.itemHeight=numHeight;
-		console.log(JSON.stringify(option))	
 		echarts.setOption(option);
 	}
 	
