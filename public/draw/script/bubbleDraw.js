@@ -408,20 +408,22 @@ $(function(){
 	    ],
 	    yAxis : [
 	        {
+	        	type:'category',
 	            nameLocation:'middle',
-	            nameGap: 40,
+	            nameGap: 25,
 	            splitLine:{
                 	show:vue.gridY,
                 	lineStyle:{
                 		type:'solid'
                 	}
             	},
+            	axisTick:{
+            		inside: true
+            	},
             	axisLine:{
             		show:false
             	},
-            	axisTick:{
-            		inside: true
-            	}
+            	data:[]
 	        }
 	    ],
 	    grid:{
@@ -431,23 +433,10 @@ $(function(){
 	    	right:100,
 	    	top:30,
 	    	bottom:40
-	    },
-		legend: {
-			y:vue.legendY,
-			x:vue.legendX,
-			orient:vue.legendLayout,
-			align:"left"
-		},
-		visualMap: {
-            left: 'right',
-            top: '10%',
-            dimension: 2,
-            min: 0,
-            max: 250,
-            text: ['圈的颜色']
-        }
+	    }
 	};
-	
+
+	 myChart.setOption(option);
 	//点击数据，对应的数据高亮显示
 	myChart.on('click', function (parmas) {
 		$('#appTabLeft li:eq(0) a').tab('show');
@@ -470,7 +459,7 @@ $(function(){
 		})
 	});
     // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+   
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
 	})
@@ -571,11 +560,7 @@ $(function(){
 
 });
 function updateEcharts(echarts,data){
-	var color = [];
-	$(".spectrum").each(function(){
-		var colorStr = $(this).spectrum("get").toHexString();
-		color.push(colorStr);
-	});
+
 	echarts.setOption({
 		title:{
 			text:data.title,
@@ -596,13 +581,7 @@ function updateEcharts(echarts,data){
 			splitLine:{
             	show:data.YgridShow
         	}
-		},
-		legend:{
-			x:data.legendX,
-			y:data.legendY,
-			orient:data.legendLayout
-		},
-		color:color
+		}
 		
 	});
 }
@@ -626,14 +605,80 @@ function buildTextStyle(font,fontSize){
 	}
 }
 function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisField,groupField,pointColumnField){
+	var color = [];
+	$(".spectrum").each(function(){
+		var colorStr = $(this).spectrum("get").toHexString();
+		color.push(colorStr);
+	});
 	if(echartsData&&echartsData.length>0){
-		var option = echarts.getOption();
-		option.yAxis=option.yAxis[0];
-		option.legend=option.legend[0];
-		option.yAxis.data=[];
-		option.legend.data=[];	
-		option.series=[];
-		echarts.clear();
+		var option ={
+			yAxis:{
+				type:'category',
+				data:[]
+			},
+			series:[{
+				type:"scatter",
+				data:[]
+			}],
+			visualMap: [
+				{
+		            left: 'right',
+		            bottom: '5%',
+		            dimension: 2,
+		            min: 0,
+		            max: 0.2,
+		            itemHeight: 120,
+		            calculable: true,
+		            precision: 5,
+		            text: ['qvalue'],
+		            textGap: 20,
+		            inRange: {
+		                colorLightness: [1, 0.5]
+		            },
+		            outOfRange: {
+		                color: ['rgba(255,255,255,.2)']
+		            },
+		            controller: {
+		                inRange: {
+		                    color: ['#c23531']
+		                },
+		                outOfRange: {
+		                    color: ['#444']
+		                }
+		            }
+			    },
+			    {
+		            left: 'right',
+		            top: '10%',
+		            dimension: 3,
+		            min: 0,
+		            max: 2,
+		            itemWidth: 30,
+		            itemHeight: 120,
+		            calculable: true,
+		            precision: 0.1,
+		            text: ['Gene_number'],
+		            textGap: 20,
+		            inRange: {
+		                symbolSize: [10, 60]
+		            },
+		            outOfRange: {
+		                symbolSize: [10, 60],
+		                color: ['rgba(255,255,255,.2)']
+		            },
+		            controller: {
+		                inRange: {
+		                    color: ['#c23531']
+		                },
+		                outOfRange: {
+		                    color: ['#444']
+		                }
+		            }
+		        }
+			]
+			
+		};
+
 		var heads = echartsData[0];
 		var dataMap = {};//用来存储每一个系列的数据
 		var yAxisData = [];//用来存储y轴的数据 只有类目轴才会用到
@@ -642,34 +687,22 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 			var headColumn = heads[i];
 			headIndexMap[headColumn]=i;//将表头的列数存入map中
 		}
+		
+
 		for(var i=1;i<echartsData.length;i++){
 			var row = echartsData[i];
 			var xVal = row[headIndexMap[xAxisField]];
 			var yVal = row[headIndexMap[yAxisField]];
-			var piontVal = row[headIndexMap[pointColumnField]];
-			var groupFieldVal = row[headIndexMap[groupField]];
-			if(!dataMap[piontVal]){//如果是数据轴
-				option.legend.data.push(piontVal);//将数据名存入图例
-				dataMap[piontVal] = {
-					type:"scatter",
-					data:[]
-				};
-			}
+			var sizeVal = row[headIndexMap[pointColumnField]];
+			var colorVal = row[headIndexMap[groupField]];
 			yAxisData.push(yVal);
-			dataMap[piontVal].data.push([xVal,yVal,groupFieldVal]);	
+			option.series[0].data.push([xVal,yVal,colorVal,sizeVal]);
 			
 		}
 		
-		
-		option.yAxis.type = "category";
 		option.yAxis.data = yAxisData;
-		for(key in dataMap){
-			option.series.push(dataMap[key]);
-		}
-		var numD=parseInt(echartsStyle.legendDiameter);
-		option.legend.itemHeight=numD;
-		option.legend.itemWidth=numD;
-		console.log(option)
+console.log(JSON.stringify(option))
+
 		echarts.setOption(option);	
 	}
 	

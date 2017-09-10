@@ -334,77 +334,73 @@ function buildTextStyle(font,fontSize){
 	}
 }
 function updateEchartsData(echarts,echartsStyle,echartsData,xColumnField){
-	if(echartsData&&echartsData.length>0){
-		var option = {
-			series:[{
-				type:"radar",
-				data:[]
-			}],
-			legend: {
-				data:[]
-			},
-			radar:{
-				name: {
-		             	textStyle: {
-		               	color: '#fff',
-		               	backgroundColor: '#999',
-		                borderRadius: 3,
-		                padding: [3, 5]
-		            }     
-		        },
-		        nameGap:8,
-				indicator:[]
-			}
-		};
-		var xcolumnIndex;
-		var resultData = [];  //先声明一维
-		for(var k=0;k<echartsData[0].length;k++){    //一维长度为i,i为变量，可以根据实际情况改变
-			resultData[k]=new Array();  //声明二维，每一个一维数组里面的一个元素都是一个数组；
-			for(var j=0;j<echartsData.length;j++){   //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
-				resultData[k][j]="";    //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
-			}
-		}
-		for(var i=0;i<echartsData.length;i++){//循环表的每一行数据
-			for(var j=0;j<echartsData[i].length;j++){
-				var record = echartsData[i][j];
-				resultData[j][i]=record;
-			}
-		}
-		var heads=[];
-		for(var i=0;i<echartsData[0].length;i++){
-			if(echartsData[0][i]==xColumnField){
-				xcolumnIndex=i;
-			}
-			var head=echartsData[0][i];
-			heads.push(head);
-		}
-		heads.splice(xcolumnIndex, 1);
-		option.legend.data=heads;
-		for(var i=1;i<resultData[xcolumnIndex].length;i++){
-			option.radar.indicator.push({text:resultData[xcolumnIndex][i],max:0.45});
-		}
-		var maps=[]
-		for(var j=0;j<resultData.length;j++){
-			maps.push(resultData[j]);
-		}
-		maps.splice(xcolumnIndex,1);
-		for(var j=0;j<maps.length;j++){
-			var values=[]
-			for(var k=0;k<maps[j].length;k++){
-				values.push(maps[j][k])
-			}
-			values.shift();
-			option.series[0].data.push({
-				name:heads[j],
-				value:values
-			})
-		}
-		var numWidth=parseInt(echartsStyle.legendWidth);
-		option.legend.itemWidth=numWidth;
-		var numHeight=parseInt(echartsStyle.legendHeight);
-		option.legend.itemHeight=numHeight;
-		echarts.setOption(option);
+	if(!echartsData||echartsData.length<=0){
+		return ;
 	}
+	var option = {
+		series:[{
+			type:"radar",
+			data:[]
+		}],
+		legend: {
+			data:[]
+		},
+		radar:{
+			name: {
+	             	textStyle: {
+	               	color: '#fff',
+	               	backgroundColor: '#999',
+	                borderRadius: 3,
+	                padding: [3, 5]
+	            }     
+	        },
+	        nameGap:8,
+			indicator:[]
+		}
+	};
+	var xcolumnIndex;
+	var headIndexMap={};
+	
+	for(var i=0;i<echartsData[0].length;i++){
+		if(echartsData[0][i]==xColumnField){
+			xcolumnIndex=i;
+			continue;
+		}
+		headIndexMap[echartsData[0][i]]=i;
+		option.legend.data.push(echartsData[0][i]);
+	}
+	
+	var dataMap = {};
+	for(var i=1;i<echartsData.length;i++){
+		var row = echartsData[i];
+		option.radar.indicator.push({
+			text:row[xcolumnIndex],
+			max:0.45
+		});
+		for(key in headIndexMap){
+			if(!dataMap[key]){
+				dataMap[key] = [];
+				option.series[0].data.push({
+					name:key,
+					value:dataMap[key]
+				});
+				
+			}
+			var value = row[headIndexMap[key]];
+			dataMap[key].push(value);
+		}
+		
+	}
+	console.log(dataMap)
+	
+	
+	
+	var numWidth=parseInt(echartsStyle.legendWidth);
+	option.legend.itemWidth=numWidth;
+	var numHeight=parseInt(echartsStyle.legendHeight);
+	option.legend.itemHeight=numHeight;
+	echarts.setOption(option);
+	
 	
 }
 
