@@ -125,28 +125,20 @@
 								<div class="part"> 
 									<div class="input_a_l titleNameLeft">绘图列数:</div>	
 									<div class="inputLeft">
-										<div class="input_a_l" style="width: 68px;">x轴数据：</div>
-										<div class="input_a_m" style="width: 95px;">
+										<div class="input_a_l" style="width: 55px;">数据：</div>
+										<div class="input_a_m" style="width: 108px;">
 											<select v-model="xColumnField" id="xColumnField"  name="xColumnField" class="select_width" autocomplete="off" >
 												<option v-for="item in fileData['content'][0]" :value="item">{{item}}</option>
 											</select>
 										</div>
 									</div>	
 									<div class="right">
-										<div class="input_a_l" style="width: 80px;">Y轴数据：</div>
+										<div class="input_a_l" style="width: 80px;">柱条宽度：</div>
 										<div class="input_a_m" style="width: 158px;">
-											<select v-model="yColumnField" id="yColumnField"  name="yColumnField" class="select_width" autocomplete="off" >
-												<option v-for="item in fileData['content'][0]" v-if="item!=fileData['content'][0][0]" :value="item">{{item}}</option>
-											</select>
+											<input v-model="barWidth" type="text" class="form-control" id="barWidth" name="barWidth" placeholder="">
 										</div>	
 									</div>
 								</div>	
-								<div class="part">
-									<div class="input_a_l titleNameLeft">柱条宽度:</div>
-									<div class="input_b_2 inputLeft">
-										<input v-model="barWidth" type="text" class="form-control" id="barWidth" name="barWidth" placeholder="">
-									</div>	
-								</div>
 								<div class="line"></div>
 								<div class="part">
 									<div class="input_a_l titleNameLeft">标题名称:</div>
@@ -267,51 +259,6 @@
 									</div>	
 								</div>
 								<div class="line"></div>
-								<!--<div class="part">
-									<div class="input_a_l titleNameLeft">图例宽度:</div>
-									<div class="input_b_2 inputLeft">
-										<input v-model="legendWidth" type="text" class="form-control" id="legendWidth" name="legendWidth" placeholder="">
-									</div>
-									<div class="right">
-										<div class="input_a_l">图例高度:</div>
-										<div class="input_b_2">
-											<input v-model="legendHeight" type="text" class="form-control" id="legendHeight" name="legendHeight" placeholder="">
-										</div>
-									</div>
-								</div>
-								<div class="part">
-									<div class="input_a_l titleNameLeft">图例位置:</div>
-									<div class="inputLeft">
-										<div class="input_b_t1 titleA">水平:</div>	
-										<div class="input_b_3 inputA">
-											<select v-model="legendX" id="legendX"  name="legendX" class="selectpicker select_width" autocomplete="off" >
-												<option value="left">Left</option>
-												<option value="center">Center</option>
-												<option value="right">Right</option>
-											</select>
-										</div>	
-									</div>	
-									<div class="right">
-										<div class="input_b_t1">垂直:</div>
-										<div class="input_b_3" style="width: 108px;">
-											<select v-model="legendY" id="legendY" name="legendY" class="selectpicker select_width" autocomplete="off" >
-												<option value="top">Top</option>
-												<option value="center">Center</option>
-												<option value="bottom">Bottom</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="part">
-									<div class="input_a_l titleNameLeft">图例布局:</div>
-									<div class="input_b_3 inputLeft">
-										<select v-model="legendLayout" id="legendLayout"  name="legendLayout" class="selectpicker select_width" autocomplete="off" >
-											<option value="horizontal">Horizontal</option>
-											<option value="vertical">Vertical</option>
-										</select>
-									</div>	
-								</div>	
-								<div class="line"></div>-->
 								<div class="part">
 									<div class="input_a_l titleNameLeft">X轴网格线:</div>
 									<div id="radioArea" class="input_f_2">

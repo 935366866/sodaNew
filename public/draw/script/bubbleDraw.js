@@ -714,7 +714,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 		for(var i=0;i<yAxisData.length;i++){
 			if(yAxisData[i].length>=30){
 				var sub=yAxisData[i].substring(0,30);
-				sub=reverse(sub);
+				console.log(sub)
 				sub=sub+"....";
 				yAxisValue.push(sub);
 			}else{
@@ -728,16 +728,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 }
 
 //---------------------------------------------------函数---------------------------
-function reverse(str){ 
-    if(str.length == 0)return null; 
-    var i = str.length; 
-    var dstr = ""; 
-    while(--i >= 0) 
-    { 
-        dstr += str.charAt(i);  
-    } 
-    return dstr; 
-}
+//求数组的最大最小值
 function getMaximin(arr,maximin){ 
 	if(maximin=="max") 
 	{ 

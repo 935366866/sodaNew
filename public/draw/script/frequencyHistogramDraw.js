@@ -8,12 +8,10 @@ $(function(){
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"柱状图",
+			title:"频率直方图",
 			xlab:"无",
 			ylab:"Y轴标题",
 			barWidth:"auto",
-			legendWidth:"25",
-			legendHeight:"15",
 			fileData:{
 				content:[]
 			},
@@ -24,13 +22,9 @@ $(function(){
 			ylab_size_sel:"12",
 			ylab_font_sel:"normal",
 			xColumnField_sel:null,
-			yColumnField_sel:null,
-			legendX_sel:"right",
-			legendY_sel:"center",
 			titleX_sel:"center",
 			titleY_sel:"top",
 			color:color1,
-			legendLayout_sel:"vertical",
 			Xgrid:"show",
 			Ygrid:"show",
 			markLine_sel:null
@@ -90,25 +84,6 @@ $(function(){
 		       $("#ylab_font").selectpicker("val",newValue);
 		    }
 		  },
-		  legendX:{
-		  	get: function () {
-		      return this.legendX_sel;
-		   },
-		    set: function (newValue) {
-		    	if(!newValue) return;
-		    	this.legendX_sel = newValue;
-		       $("#legendX").selectpicker("val",newValue);
-		    }
-		  },
-		  legendY:{
-		  	get: function () {
-		      return this.legendY_sel;
-		   },
-		    set: function (newValue) {
-		    	this.legendY_sel = newValue;
-		       $("#legendY").selectpicker("val",newValue);
-		    }
-		  },
 		  titleX:{
 			  	get: function () {
 			      return this.titleX_sel;
@@ -139,16 +114,6 @@ $(function(){
 			        $("#xColumnField").selectpicker("val",newValue);
 			    }
 			},
-			yColumnField:{
-			  	get: function () {
-			      return this.yColumnField_sel;
-			    },
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.yColumnField_sel = newValue;		    	
-			        $("#yColumnField").selectpicker("val",newValue);
-			    }
-			},
 			markLine:{
 			  	get: function () {
 			      return this.markLine_sel;
@@ -157,15 +122,6 @@ $(function(){
 			    	if(!newValue) return;
 			    	this.markLine_sel = newValue;		    	
 			        $("#markLine").selectpicker("val",newValue);
-			    }
-			},
-			legendLayout:{
-			  	get: function () {
-			      return this.legendLayout_sel;
-			   	},
-			    set: function (newValue) {
-			    	this.legendLayout_sel = newValue;
-			       $("#legendLayout").selectpicker("val",newValue);
 			    }
 			},
 			gridX:function(){
@@ -204,8 +160,6 @@ $(function(){
 				this.$nextTick(function(){
 					$('#xColumnField').selectpicker('refresh');				
 					this.xColumnField_sel=$('#xColumnField').selectpicker("val");
-					$('#yColumnField').selectpicker('refresh');				
-					this.yColumnField_sel=$('#yColumnField').selectpicker("val");
 					$('#markLine').selectpicker('refresh');
 					this.markLine_sel=$('#markLine').selectpicker("val");
 					$(".spectrum").spectrum({
@@ -214,13 +168,6 @@ $(function(){
 				});
 			},
 			xColumnField:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			},
-			yColumnField:function(val,oldVal){
 				this.$nextTick(function(){
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
@@ -259,21 +206,6 @@ $(function(){
 	        top:20
 	       
 	    },
-		brush: {
-	        toolbox: ['rect', 'polygon', 'lineX', 'lineY', 'keep', 'clear'],
-	        xAxisIndex: 0
-	    },
-	    toolbox: {
-	    	itemSize: 13,
-	    	itemGap: 5,
-	    	top:0,
-	        feature: {
-	            magicType: {
-	                type: ['stack']
-	            },
-	            restore: {show: true}
-	        }
-	    },
 	    tooltip : {
 	        trigger: 'axis',
 	        showDelay : 0,
@@ -289,7 +221,6 @@ $(function(){
 	    },
 	    xAxis : [
 	        {
-	            scale:true,
 	            nameLocation:'middle',
 	            nameGap:50,
 	            splitLine:{
@@ -303,19 +234,12 @@ $(function(){
             	},
             	axisLine:{
             		show:false
-            	},
-            	axisLabel:{
-			       	rotate:0,
-			       	margin:6,
-			       	interval:0
-		       },
-				type : 'category'
+            	}
 	        }
 	    ],
 	    yAxis : [
 	        {
 	            type : 'value',
-	            scale:true,
 	            nameLocation:'middle',
 	            nameGap:70,
 	            splitLine:{
@@ -341,35 +265,8 @@ $(function(){
 	    	left:95,
 	    	right:88
 	    	
-	    },
-		legend: {
-			y:vue.legendY,
-			x:vue.legendX,
-			orient:vue.legendLayout,
-			align:"left"
-		}
+	    }
 	};
-	myChart.on('brushSelected', renderBrushed);
-	function renderBrushed(params) {
-		var tr=$("#file table tr").first();
-		var ths=$(tr).children("th");
-		//取到x轴名字
-		var xText=vue.xColumnField;
-		var index;
-		var legendName=[]
-		for(var i=0;i<ths.length;i++){
-			if(ths[i].innerText!=xText){
-				legendName.push(ths[i].innerText)
-			}									
-		}
-	    var brushed = [];
-	    var rawIndices;
-	    var brushComponent = params.batch[0];
-	    for (var sIdx = 0; sIdx < brushComponent.selected.length; sIdx++) {	    	
-	        rawIndices = brushComponent.selected[sIdx].dataIndex;
-	        brushed.push('['+legendName[sIdx] +'] '+ rawIndices.join(', '));
-	    }	
-	}
 	
 	//点击数据，对应的数据高亮显示
 	myChart.on('click', function (parmas) {
@@ -519,11 +416,6 @@ function updateEcharts(echarts,data){
             	show:data.YgridShow
         	}
 		},
-		legend:{
-			x:data.legendX,
-			y:data.legendY,
-			orient:data.legendLayout
-		},
 		color:color
 		
 	});
@@ -547,78 +439,81 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize	
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisField,markLine){
+function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine){
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
 			xAxis:{
-				axisLabel:{
-					rotate:0
-				}
-			},
-			legend: {
-				data:[]
 			}
 		};
-		var resultData = new Array();  //先声明一维
-		for(var k=0;k<echartsData[0].length;k++){    //一维长度为i,i为变量，可以根据实际情况改变
-			resultData[k]=new Array();  //声明二维，每一个一维数组里面的一个元素都是一个数组；
-			for(var j=0;j<echartsData.length;j++){   //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
-				resultData[k][j]="";    //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
+		var xAxisIndex;
+		for(var i=0;i<echartsData[0].length;i++){
+			if(echartsData[0][i]==xAxisField){
+				xAxisIndex=i;
 			}
 		}
-		for(var i=0;i<echartsData.length;i++){//循环表的每一行数据
-			for(var j=0;j<echartsData[i].length;j++){
-				var record = echartsData[i][j];
-				resultData[j][i]=record;
-			}
+		var resultData=[];
+		for(var i=1;i<echartsData.length;i++){
+			resultData.push(echartsData[i][xAxisIndex]);
 		}
-		for(var i=0;i<resultData.length;i++){
-			var row = resultData[i];
-			var head = row[0];
-			row.shift();
-			var data = row;	
-			if(head == xAxisField){
-				option.xAxis.data=data;
-			}else if(head==markLine){
-				option.series.push({
-					type:"bar",
-					lineStyle: echartsStyle.barWidth,
-					name:head,
-					data:data,
-					markLine : {
-		                lineStyle: {
-		                    normal: {
-		                        type: 'dashed'
-		                    }
-		                },
-		                data : [
-		                    [{type : 'min'}, {type : 'max'}]
-		                ]
-		            }
-				});
-			}else{
-					option.series.push({
-					type:"bar",
-					barWidth: echartsStyle.barWidth,
-					name:head,
-					data:data,
-					markLine:null
-				});
 
-			}	
+		//建立一个数组A  数组中存放下面一个对象
+		/*{
+			groupIndex:0,
+			minValue:0,
+			maxValue:3,
+			count:0
+		},{
+			groupIndex:1,
+			minValue:3,
+			maxValue:6,
+			count:0
 		}
-		option.legend.data.push(head);
-		var numWidth=parseInt(echartsStyle.legendWidth);
-		var numHeight=parseInt(echartsStyle.legendHeight);
-		option.legend.itemHeight=numHeight;
-		option.legend.itemWidth=numWidth;
+		
+		for(数据){
+			 拿到一个数字；
+			 for(A){
+			 	if(数字>A.minValue&&数字<=A.maxValue){
+			 		A.count+=1;
+			 	}
+			 }
+		}
+		
+		* 
+		* */
+		for(var i=0;i<resultData.length;i++){
+			var maxData=getMaximin(resultData,'max');
+			var minData=getMaximin(resultData,'min');
+			var groups=100;
+			var groupWidth=(maxData-minData)/groups;
+			option.xAxis.max=maxData;
+			option.xAxis.min=minData;
+			option.series.push({
+				type:"bar",
+				barWidth: groupWidth,
+				name:head,
+				data:data
+			});
+				
+		}
+		
 		echarts.setOption(option);
 	}
 	
 }
 
 //---------------------------------------------------函数---------------------------
+//求数组的最大最小值
+function getMaximin(arr,maximin){ 
+	if(maximin=="max") 
+	{ 
+	return Math.max.apply(Math,arr); 
+	}
+	else if(maximin=="min") 
+	{ 
+	return Math.min.apply(Math, arr); 
+	} 
+}
 //支持下载pdf格式
 function convertCanvasToImage() {
     html2canvas(document.getElementById('main'), {

@@ -1,6 +1,6 @@
 {
     "input": "/whx/abc/1.txt",
-    "title": "柱状图",
+    "title": "频率直方图",
     "title_size": "18",
     "title_font": "bold",
     "titleX":"center",
@@ -12,13 +12,7 @@
     "ylab_size": "12",
     "ylab_font": "normal",
     "barWidth": "auto",
-    "xColumnField":"Category",
-    "markLine":"parent1",
-    "legendWidth":25,  
-    "legendHeight":15,
-    "legendY":"center",
-    "legendX":"right",
-    "legendLayout":"vertical",
+    "xColumnField":"A1",
     "Xgrid": "show",
     "Ygrid": "show",
     "markLine":"none"    
