@@ -24,6 +24,7 @@ $(function(){
 			ylab_size_sel:"12",
 			ylab_font_sel:"normal",
 			xColumnField_sel:null,
+			yColumnField_sel:null,
 			legendX_sel:"right",
 			legendY_sel:"center",
 			titleX_sel:"center",
@@ -138,6 +139,16 @@ $(function(){
 			        $("#xColumnField").selectpicker("val",newValue);
 			    }
 			},
+			yColumnField:{
+			  	get: function () {
+			      return this.yColumnField_sel;
+			    },
+			    set: function (newValue) {
+			    	if(!newValue) return;
+			    	this.yColumnField_sel = newValue;		    	
+			        $("#yColumnField").selectpicker("val",newValue);
+			    }
+			},
 			markLine:{
 			  	get: function () {
 			      return this.markLine_sel;
@@ -175,7 +186,7 @@ $(function(){
 		watch:{
 			input:function(val,oldVal){
 				$.ajax({
-					url: 'public/draw/json/barDrawFileData.json',  
+					url: 'public/draw/json/frequencyHistogramDrawFileData.json',  
 					type:'get',
 					data:{
 						fileName:val
@@ -193,6 +204,8 @@ $(function(){
 				this.$nextTick(function(){
 					$('#xColumnField').selectpicker('refresh');				
 					this.xColumnField_sel=$('#xColumnField').selectpicker("val");
+					$('#yColumnField').selectpicker('refresh');				
+					this.yColumnField_sel=$('#yColumnField').selectpicker("val");
 					$('#markLine').selectpicker('refresh');
 					this.markLine_sel=$('#markLine').selectpicker("val");
 					$(".spectrum").spectrum({
@@ -201,6 +214,13 @@ $(function(){
 				});
 			},
 			xColumnField:function(val,oldVal){
+				this.$nextTick(function(){
+					$(".spectrum").spectrum({
+						preferredFormat: "hex3"
+					});
+				});
+			},
+			yColumnField:function(val,oldVal){
 				this.$nextTick(function(){
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
@@ -391,7 +411,7 @@ $(function(){
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
-			url: 'public/draw/json/barDraw.json',  
+			url: 'public/draw/json/frequencyHistogramDraw.json',  
 			type:'get',
 			data:tool_id,
 			dataType: "json",
@@ -416,7 +436,7 @@ $(function(){
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
 			myChart.showLoading();
 			$.ajax({
-				url: 'public/draw/json/barDrawFileData.json',  
+				url: 'public/draw/json/frequencyHistogramDrawFileData.json',  
 				type:'get',
 				data:{
 					fileName:formData.input
@@ -424,7 +444,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.markLine);
+					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.yColumnField,vue.markLine);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -527,7 +547,7 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize	
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine){
+function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisField,markLine){
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
@@ -559,11 +579,6 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine)
 			row.shift();
 			var data = row;	
 			if(head == xAxisField){
-				for(var j=0;j<data.length;j++){
-					if(data[i].length>5){
-					option.xAxis.axisLabel.rotate=-60;
-					}
-				}
 				option.xAxis.data=data;
 			}else if(head==markLine){
 				option.series.push({
@@ -582,11 +597,6 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine)
 		                ]
 		            }
 				});
-				option.legend.data.push(head);
-				var numWidth=parseInt(echartsStyle.legendWidth);
-				var numHeight=parseInt(echartsStyle.legendHeight);
-				option.legend.itemHeight=numHeight;
-				option.legend.itemWidth=numWidth;
 			}else{
 					option.series.push({
 					type:"bar",
@@ -595,13 +605,14 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine)
 					data:data,
 					markLine:null
 				});
-				option.legend.data.push(head);
-				var numWidth=parseInt(echartsStyle.legendWidth);
-				var numHeight=parseInt(echartsStyle.legendHeight);
-				option.legend.itemHeight=numHeight;
-				option.legend.itemWidth=numWidth;
+
 			}	
 		}
+		option.legend.data.push(head);
+		var numWidth=parseInt(echartsStyle.legendWidth);
+		var numHeight=parseInt(echartsStyle.legendHeight);
+		option.legend.itemHeight=numHeight;
+		option.legend.itemWidth=numWidth;
 		echarts.setOption(option);
 	}
 	

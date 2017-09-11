@@ -17,13 +17,15 @@ $(function(){
 			xCoumnDefault:"",
 			yCoumnDefault:"",
 			groupCoumnDefault:"",
-			pointCoumnDefault:"",
+			sizeCoumnDefault:"",
 			groupColumnData:[],
-			pointColumnData:[],
+			sizeColumnData:[],
 			xColumnData:[],
 			yColumnData:[],
 			groupColorName:[],
 			legendDiameter:"14",
+			minValue:0,
+			maxValue:0.2,
 			color:color1,
 			Xgrid:"show",
 			Ygrid:"show"
@@ -130,7 +132,6 @@ $(function(){
 			       $("#legendLayout").selectpicker("val",newValue);
 			    }
 			},
-			
 			xColumnField:{
 				cache:false,
 			  	get: function () {
@@ -174,6 +175,7 @@ $(function(){
 			       		this.xColumnData = this.calcXColumnData();
 			       		this.yColumnData = this.calcYColumnData();
 			       		this.groupColorName = this.calcGroupColorName();
+			       		this.sizeColumnData = this.calcSizeColumnData();
 			       		this.$nextTick(function(){
 							$('#xColumnField').selectpicker('refresh');
 							$('#yColumnField').selectpicker('refresh');
@@ -181,13 +183,13 @@ $(function(){
 						});
 			    }
 			},
-			pointColumnField:{
+			sizeColumnField:{
 				cache:false,
 			  	get: function () {
-			      	return  $("#pointColumnField").selectpicker("val");
+			      	return  $("#sizeColumnField").selectpicker("val");
 			    },
 			    set: function (newValue) {
-			       		$("#pointColumnField").selectpicker("val",newValue);
+			       		$("#sizeColumnField").selectpicker("val",newValue);
 			       		this.xColumnData = this.calcXColumnData();
 			       		this.yColumnData = this.calcYColumnData();
 			       		this.groupColorName = this.calcGroupColorName();
@@ -216,7 +218,7 @@ $(function(){
 		methods:{
 			calcGroupColorName:function () {
 				var result = [];
-		       if(this.fileData.content&&this.fileData.content.length>0&&this.pointColumnField){
+		       if(this.fileData.content&&this.fileData.content.length>0&&this.sizeColumnField){
 		       		var heads = this.fileData.content[0];
 					var headIndexMap={};//用来存储每个表头对应的列数
 					for(var i=0;i<heads.length;i++){//循环表头
@@ -226,10 +228,10 @@ $(function(){
 					var dataMap={};
 					for(var i=1;i<this.fileData.content.length;i++){
 						var row = this.fileData.content[i];
-						var pointVal = row[headIndexMap[this.pointColumnField]];
-						if(!dataMap[pointVal]){//如果是数据轴
-							result.push(pointVal);//将数据名存入图例
-							dataMap[pointVal] =true;
+						var sizeVal = row[headIndexMap[this.sizeColumnField]];
+						if(!dataMap[sizeVal]){//如果是数据轴
+							result.push(sizeVal);//将数据名存入图例
+							dataMap[sizeVal] =true;
 						}
 						
 					}
@@ -243,12 +245,12 @@ $(function(){
 					return new Array();
 				}
 				for(var i=0;i<datas.length;i++){
-					if(datas[i]==this.xColumnField){
-						continue;
-					}
-					if(datas[i]==this.yColumnField){
-						continue;
-					}
+//					if(datas[i]==this.xColumnField){
+//						continue;
+//					}
+//					if(datas[i]==this.yColumnField){
+//						continue;
+//					}
 					groupColumnData.push(datas[i])
 				}
 				return groupColumnData;
@@ -261,12 +263,12 @@ $(function(){
 					return new Array();
 				}
 				for(var i=0;i<datas.length;i++){
-					if(datas[i]==this.groupColumnField){
-						continue;
-					}
-					if(datas[i]==this.yColumnField){
-						continue;
-					}
+//					if(datas[i]==this.groupColumnField){
+//						continue;
+//					}
+//					if(datas[i]==this.yColumnField){
+//						continue;
+//					}
 					xColumnData.push(datas[i])
 				}
 				return xColumnData;
@@ -279,36 +281,36 @@ $(function(){
 					return new Array();
 				}
 				for(var i=0;i<datas.length;i++){
-					if(datas[i]==this.xColumnField){
-						continue;
-					}
-					if(datas[i]==this.groupColumnField){
-						continue;
-					}
+//					if(datas[i]==this.xColumnField){
+//						continue;
+//					}
+//					if(datas[i]==this.groupColumnField){
+//						continue;
+//					}
 					yColumnData.push(datas[i])
 				}
 				return yColumnData;
 
 			},
-			calcPointColumnData:function(){
-				var pointColumnData=[];
+			calcSizeColumnData:function(){
+				var sizeColumnData=[];
 				var datas=this.fileData.content[0];
 				if(!datas){
 					return new Array();
 				}
 				for(var i=0;i<datas.length;i++){
-					if(datas[i]==this.xColumnField){
-						continue;
-					}
-					if(datas[i]==this.groupColumnField){
-						continue;
-					}
-					if(datas[i]==this.yColumnField){
-						continue;
-					}
-					pointColumnData.push(datas[i])
+//					if(datas[i]==this.xColumnField){
+//						continue;
+//					}
+//					if(datas[i]==this.groupColumnField){
+//						continue;
+//					}
+//					if(datas[i]==this.yColumnField){
+//						continue;
+//					}
+					sizeColumnData.push(datas[i])
 				}
-				return pointColumnData;
+				return sizeColumnData;
 			}
 		},
 		watch:{
@@ -332,11 +334,12 @@ $(function(){
 			 	this.xColumnData = this.calcXColumnData();
 		       	this.groupColumnData = this.calcGroupColumnData();
 		       	this.yColumnData = this.calcYColumnData();
-		       	this.pointColumnData = this.calcPointColumnData();
+		       	this.sizeColumnData = this.calcSizeColumnData();
 				this.$nextTick(function(){
 					$('#xColumnField').selectpicker('refresh');
 					$('#yColumnField').selectpicker('refresh');
 					$('#groupColumnField').selectpicker('refresh');
+					$('#sizeColumnField').selectpicker('refresh');
 					for(var item in this.defaults){
 						if(item!="input")
 						vue[item]=this.defaults[item];
@@ -376,16 +379,11 @@ $(function(){
 	    },
 	    tooltip : {
 	        trigger: 'axis',
-	        showDelay : 0,
-	        axisPointer:{
-	            show: true,
-	            type : 'cross',
-	            lineStyle: {
-	                type : 'dashed',
-	                width : 1
-	            }
-	        },
-	        zlevel: 1
+	        formatter: function(parame){
+	        	for(var i=0;i<parame.length;i++){
+	        		return parame[i].data[0]+"<br/>"+parame[i].data[1]+"<br/>"+parame[i].data[2]+"</br>"+parame[i].data[3]
+	        	}
+	        }
 	    },
 	    xAxis : [
 	        {
@@ -421,18 +419,22 @@ $(function(){
             		inside: true
             	},
             	axisLine:{
-            		show:false
+            		show:false,
+            		onZero: false
             	},
-            	data:[]
+            	data:[],
+            	axisLabel: {
+            		align:'right'
+            	}
 	        }
 	    ],
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
-	    	left:130,
+	    	left:180,
 	    	right:100,
-	    	top:30,
-	    	bottom:40
+	    	top:50,
+	    	bottom:57
 	    }
 	};
 
@@ -452,7 +454,7 @@ $(function(){
 			}									
 		}
 		$("#file table tr").each(function(){
-			if($(this).children("td:eq("+index+")").text()==parmas.name){
+			if($(this).children("td:eq("+index+")").text()==parmas.value[0]){
 				$(this).addClass("active");
 				$(this).siblings("tr").removeClass("active");
 			}			
@@ -473,6 +475,8 @@ $(function(){
 			vue.color=color3;
 		}
 	});
+	//颜色控件初始化开始
+	vue.color=["#b09b84","#da9034","#4ab1c9"];
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
@@ -511,7 +515,7 @@ $(function(){
 				success:function(data) {
 					myChart.hideLoading();
 					
-					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.yColumnField,vue.groupColumnField,vue.pointColumnField);
+					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.yColumnField,vue.groupColumnField,vue.sizeColumnField);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -604,17 +608,27 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisField,groupField,pointColumnField){
+function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisField,colorColumnField,sizeColumnField){
 	var color = [];
 	$(".spectrum").each(function(){
 		var colorStr = $(this).spectrum("get").toHexString();
 		color.push(colorStr);
 	});
+	var minValue=Number(vue.minValue);
+	var maxValue=Number(vue.maxValue);
 	if(echartsData&&echartsData.length>0){
 		var option ={
 			yAxis:{
 				type:'category',
 				data:[]
+			},
+			xAxis:{
+				min:function(value){
+					return value.min-5/100*(value.max-value.min);
+				},
+				max:function(value){
+					return value.max+5/100*(value.max-value.min);
+				}
 			},
 			series:[{
 				type:"scatter",
@@ -625,23 +639,20 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 		            left: 'right',
 		            bottom: '5%',
 		            dimension: 2,
-		            min: 0,
-		            max: 0.2,
+		        	min: minValue,
+		        	max: maxValue,
 		            itemHeight: 120,
 		            calculable: true,
-		            precision: 5,
+		            precision: 2,
 		            text: ['qvalue'],
 		            textGap: 20,
 		            inRange: {
-		                colorLightness: [1, 0.5]
+		                color:color
 		            },
 		            outOfRange: {
 		                color: ['rgba(255,255,255,.2)']
 		            },
-		            controller: {
-		                inRange: {
-		                    color: ['#c23531']
-		                },
+		           	controller: {
 		                outOfRange: {
 		                    color: ['#444']
 		                }
@@ -651,19 +662,17 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 		            left: 'right',
 		            top: '10%',
 		            dimension: 3,
-		            min: 0,
-		            max: 2,
-		            itemWidth: 30,
+		            itemWidth: 20,
 		            itemHeight: 120,
 		            calculable: true,
-		            precision: 0.1,
-		            text: ['Gene_number'],
+		            precision: 2,
+		            text: ['number'],
 		            textGap: 20,
 		            inRange: {
-		                symbolSize: [10, 60]
+		                symbolSize: [10, 20]
 		            },
 		            outOfRange: {
-		                symbolSize: [10, 60],
+		                symbolSize: [10, 20],
 		                color: ['rgba(255,255,255,.2)']
 		            },
 		            controller: {
@@ -687,28 +696,58 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 			var headColumn = heads[i];
 			headIndexMap[headColumn]=i;//将表头的列数存入map中
 		}
-		
-
+		var sizeDatas=[]
 		for(var i=1;i<echartsData.length;i++){
 			var row = echartsData[i];
 			var xVal = row[headIndexMap[xAxisField]];
 			var yVal = row[headIndexMap[yAxisField]];
-			var sizeVal = row[headIndexMap[pointColumnField]];
-			var colorVal = row[headIndexMap[groupField]];
+			var sizeVal = row[headIndexMap[sizeColumnField]];
+			var colorVal = row[headIndexMap[colorColumnField]];
 			yAxisData.push(yVal);
 			option.series[0].data.push([xVal,yVal,colorVal,sizeVal]);
-			
+			sizeDatas.push(sizeVal)
 		}
-		
-		option.yAxis.data = yAxisData;
-console.log(JSON.stringify(option))
-
+		var maxNum=getMaximin(sizeDatas,'max');
+		option.visualMap[1].max= maxNum;
+		option.visualMap[1].min= 0;
+		var yAxisValue=[];
+		for(var i=0;i<yAxisData.length;i++){
+			if(yAxisData[i].length>=30){
+				var sub=yAxisData[i].substring(0,30);
+				sub=reverse(sub);
+				sub=sub+"....";
+				yAxisValue.push(sub);
+			}else{
+				yAxisValue.push(yAxisData[i]);
+			}
+		}
+		option.yAxis.data = yAxisValue;
 		echarts.setOption(option);	
 	}
 	
 }
 
 //---------------------------------------------------函数---------------------------
+function reverse(str){ 
+    if(str.length == 0)return null; 
+    var i = str.length; 
+    var dstr = ""; 
+    while(--i >= 0) 
+    { 
+        dstr += str.charAt(i);  
+    } 
+    return dstr; 
+}
+function getMaximin(arr,maximin){ 
+	if(maximin=="max") 
+	{ 
+	return Math.max.apply(Math,arr); 
+	}
+	else if(maximin=="min") 
+	{ 
+	return Math.min.apply(Math, arr); 
+	} 
+}
 //支持下载pdf格式
 function convertCanvasToImage() {
     html2canvas(document.getElementById('main'), {

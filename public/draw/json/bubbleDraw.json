@@ -19,7 +19,7 @@
     "xColumnField":"Rich_factor",
     "yColumnField":"#Term",
     "groupColumnField":"qvalue",
-    "pointColumnField":"Gene_number",
+    "sizeColumnField":"Gene_number",
     "Xgrid": "hide",
     "Ygrid": "hide"
 }

@@ -181,7 +181,7 @@ $(function(){
 			fileData:function(val,oldVal){
 				this.$nextTick(function(){
 					$('#xColumnField').selectpicker('refresh');				
-					this.geneColumn_sel=$('#xColumnField').selectpicker("val");
+					this.xColumnField_sel=$('#xColumnField').selectpicker("val");
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
 					});
