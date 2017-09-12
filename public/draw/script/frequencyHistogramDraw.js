@@ -1,9 +1,7 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 
 $(function(){
-	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
-	var color2=["#37458b","#de1615","#0b8543","#991c54","#b11e23","#057e7c","#5b2379","#308cc6","#808080","#191717"];
-	var color3=["#4357a5","#c43c32","#719657","#eae185","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2","#44657f"];
+	var color=["#37458b","#de1615","#0b8543","#991c54","#b11e23","#057e7c","#5b2379","#308cc6","#808080","#191717"];
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
@@ -11,7 +9,6 @@ $(function(){
 			title:"频率直方图",
 			xlab:"无",
 			ylab:"Y轴标题",
-			barWidth:"auto",
 			fileData:{
 				content:[]
 			},
@@ -22,9 +19,10 @@ $(function(){
 			ylab_size_sel:"12",
 			ylab_font_sel:"normal",
 			xColumnField_sel:null,
+			groups:10,
 			titleX_sel:"center",
 			titleY_sel:"top",
-			color:color1,
+			color:color,
 			Xgrid:"show",
 			Ygrid:"show",
 			markLine_sel:null
@@ -222,7 +220,7 @@ $(function(){
 	    xAxis : [
 	        {
 	            nameLocation:'middle',
-	            nameGap:50,
+	            nameGap:30,
 	            splitLine:{
                 	show:vue.gridX,
                 	lineStyle:{
@@ -241,7 +239,7 @@ $(function(){
 	        {
 	            type : 'value',
 	            nameLocation:'middle',
-	            nameGap:70,
+	            nameGap:40,
 	            splitLine:{
                 	show:vue.gridY,
                 	lineStyle:{
@@ -253,17 +251,16 @@ $(function(){
             	},
             	axisTick:{
             		inside: true
-            	},
-            	offset:-2
+            	}
 	        }
 	    ],
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
 	    	top:60,
-	    	bottom:80,
-	    	left:95,
-	    	right:88
+	    	bottom:60,
+	    	left:60,
+	    	right:60
 	    	
 	    }
 	};
@@ -295,14 +292,15 @@ $(function(){
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
 	});
+	vue.color=["#37458b"];
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){
-			vue.color=color1;
+			vue.color=color[0];
 		}else if($(this).selectpicker("val")=="project2"){
-			vue.color=color2;
+			vue.color=color[1];
 		}
 		else{
-			vue.color=color3;
+			vue.color=color[2];
 		}
 	});
 	//点击示例文件，加载已有参数
@@ -341,7 +339,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.yColumnField,vue.markLine);
+					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.markLine,vue.groups);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -396,6 +394,7 @@ function updateEcharts(echarts,data){
 		color.push(colorStr);
 	});
 	echarts.setOption({
+		color: color,
 		title:{
 			text:data.title,
 			textStyle:buildTextStyle(data.title_font,data.title_size),
@@ -439,7 +438,7 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize	
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine){
+function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLine,groups){
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
@@ -454,8 +453,74 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine)
 		}
 		var resultData=[];
 		for(var i=1;i<echartsData.length;i++){
-			resultData.push(echartsData[i][xAxisIndex]);
+			resultData.push(Number(Number(echartsData[i][xAxisIndex]).toFixed(1)));
 		}
+		var minData=getMaximin(resultData,'min');
+		var maxData=getMaximin(resultData,'max');
+		var groupWidth=(maxData-minData)/groups;
+		
+		var girth=resultData;
+//var girth = [8.3, 8.6, 8.8, 10.5, 10.7, 10.8, 11.0, 11.0, 11.1, 11.2, 11.3, 11.4, 11.4, 11.7, 12.0, 12.9, 12.9, 13.3, 13.7, 13.8, 14.0, 14.2, 14.5, 16.0, 16.3, 17.3, 17.5, 17.9, 18.0, 18.0, 20.6];
+		var bins = ecStat.histogram(girth);
+		var interval;
+		var min = Infinity;
+		var max = -Infinity;
+
+		var data = echarts.util.map(bins.data, function (item, index) {
+		    var x0 = bins.bins[index].x0;
+		    var x1 = bins.bins[index].x1;
+		    interval = x1 - x0;
+		    min = Math.min(min, x0);
+		    max = Math.max(max, x1);
+		    return [x0, x1, item[1]];
+		});
+
+		function renderItem(params, api) {
+		    var yValue = api.value(2);
+		    var start = api.coord([api.value(0), yValue]);
+		    var size = api.size([api.value(1) - api.value(0), yValue]);
+		    var style = api.style();
+		    return {
+		        type: 'rect',
+		        shape: {
+		            x: start[0] + 1,
+		            y: start[1],
+		            width: size[0] - 2,
+		            height: size[1]
+		        },
+		        style: style
+		    };
+		}
+		console.log(data)
+		for(var i=0;i<data.length;i++){
+			data[i][2]=(data[i][2]/resultData.length).toFixed(2);
+		}
+		option = {
+		    xAxis: [{
+		        type: 'value',
+		        min:0,
+		        max: max,
+		        interval: interval
+		    }],
+		    series: [{
+		        name: 'height',
+		        type: 'custom',
+		        renderItem: renderItem,
+		        label: {
+		            normal: {
+		                show: true,
+		                position: 'insideTop'
+		            }
+		        },
+		        encode: {
+		            x: [0, 1],
+		            y: 2,
+		            tooltip: 2,
+		            label: 2
+		        },
+		        data: data
+		    }]
+		};
 
 		//建立一个数组A  数组中存放下面一个对象
 		/*{
@@ -481,23 +546,8 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine)
 		
 		* 
 		* */
-		for(var i=0;i<resultData.length;i++){
-			var maxData=getMaximin(resultData,'max');
-			var minData=getMaximin(resultData,'min');
-			var groups=100;
-			var groupWidth=(maxData-minData)/groups;
-			option.xAxis.max=maxData;
-			option.xAxis.min=minData;
-			option.series.push({
-				type:"bar",
-				barWidth: groupWidth,
-				name:head,
-				data:data
-			});
-				
-		}
-		
-		echarts.setOption(option);
+
+		echart.setOption(option);
 	}
 	
 }

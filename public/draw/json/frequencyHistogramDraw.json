@@ -13,7 +13,8 @@
     "ylab_font": "normal",
     "barWidth": "auto",
     "xColumnField":"A1",
-    "Xgrid": "show",
-    "Ygrid": "show",
+    "groups":10,
+    "Xgrid": "hide",
+    "Ygrid": "hide",
     "markLine":"none"    
 }

@@ -131,14 +131,14 @@
 												<option v-for="item in fileData['content'][0]" :value="item">{{item}}</option>
 											</select>
 										</div>
-									</div>	
+									</div>
 									<div class="right">
-										<div class="input_a_l" style="width: 80px;">柱条宽度：</div>
-										<div class="input_a_m" style="width: 158px;">
-											<input v-model="barWidth" type="text" class="form-control" id="barWidth" name="barWidth" placeholder="">
+										<div class="input_a_l" style="width: 52px;">组数：</div>
+										<div class="input_a_m" style="width: 187px;">
+											<input v-model="groups" type="text" class="form-control" id="groups" name="groups" placeholder="">
 										</div>	
 									</div>
-								</div>	
+								</div>
 								<div class="line"></div>
 								<div class="part">
 									<div class="input_a_l titleNameLeft">标题名称:</div>
@@ -247,15 +247,10 @@
 										</select>
 									</div>									
 								</div>
-								<div v-for="(item,index) in fileData['content'][0]" v-if="item!=xColumnField" class="part">
-									<div class="input_e_1">						
-											{{item}}:
-									</div>
+								<div class="part">
+									<div class="input_a_l titleNameLeft">自定义颜色:</div>
 									<div class="input_e_2 colorInput">
-										自定义颜色:
-									</div>
-									<div class="input_c_4">
-										<input v-bind:value="color[index-1]" type="text" class="form-control spectrum">
+										<input v-bind:value="color" type="text" class="form-control spectrum">
 									</div>	
 								</div>
 								<div class="line"></div>
@@ -460,6 +455,7 @@
     <script src="public/draw/script/html2canvas.min.js"></script>
     <script src="public/draw/script/jspdf.min.js"></script>
     <script src="public/js/echarts.min.js"></script>
+    <script src="public/draw/script/ecStat.js"></script>
     <script src="public/js/long_common.js"></script>
     <script src="public/js/vue.js"></script>
     <script src="public/draw/script/spectrum.js"></script>

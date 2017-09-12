@@ -1,9 +1,9 @@
 var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 
 $(function(){	
-	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
-	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
-	var color3=["#4357a5","#c43c32","#719657","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
+	var color1=["#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
+	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080"];
+	var color3=["#4357a5","#eae185","#c43c32","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
@@ -476,7 +476,7 @@ $(function(){
 		}
 	});
 	//颜色控件初始化开始
-	vue.color=["#b09b84","#da9034","#4ab1c9"];
+	vue.color=["#da9034","#4ab1c9","#0f9a82"];
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
@@ -644,7 +644,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 		            itemHeight: 120,
 		            calculable: true,
 		            precision: 2,
-		            text: ['qvalue'],
+		            text: [colorColumnField],
 		            textGap: 20,
 		            inRange: {
 		                color:color
@@ -659,14 +659,15 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 		            }
 			    },
 			    {
-		            left: 'right',
+		            right: 0,
 		            top: '10%',
 		            dimension: 3,
 		            itemWidth: 20,
 		            itemHeight: 120,
 		            calculable: true,
+		            padding:[5,-30,5,0],
 		            precision: 2,
-		            text: ['number'],
+		            text: [sizeColumnField],
 		            textGap: 20,
 		            inRange: {
 		                symbolSize: [10, 20]
@@ -703,6 +704,10 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 			var yVal = row[headIndexMap[yAxisField]];
 			var sizeVal = row[headIndexMap[sizeColumnField]];
 			var colorVal = row[headIndexMap[colorColumnField]];
+			if(yVal.length>=30){
+				var sub=yVal.substring(0,25);
+				yVal=sub+"....";
+			}
 			yAxisData.push(yVal);
 			option.series[0].data.push([xVal,yVal,colorVal,sizeVal]);
 			sizeDatas.push(sizeVal)
@@ -710,18 +715,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 		var maxNum=getMaximin(sizeDatas,'max');
 		option.visualMap[1].max= maxNum;
 		option.visualMap[1].min= 0;
-		var yAxisValue=[];
-		for(var i=0;i<yAxisData.length;i++){
-			if(yAxisData[i].length>=30){
-				var sub=yAxisData[i].substring(0,30);
-				console.log(sub)
-				sub=sub+"....";
-				yAxisValue.push(sub);
-			}else{
-				yAxisValue.push(yAxisData[i]);
-			}
-		}
-		option.yAxis.data = yAxisValue;
+		option.yAxis.data = yAxisData;
 		echarts.setOption(option);	
 	}
 	

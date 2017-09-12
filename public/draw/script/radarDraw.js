@@ -22,7 +22,8 @@ $(function(){
 			},
 			title_size_sel:"18",
 			title_font_sel:"bold",
-			color:color1
+			color:color1,
+			dataMax:0.45
 		},
 		computed: {
 			title_size: {
@@ -164,6 +165,7 @@ $(function(){
 	    tooltip : {},
 	    legend: {
 	    	data: [],
+	    	align:'left',
 	    	y:vue.legendY,
 			x:vue.legendX,
 			orient:vue.legendLayout
@@ -241,7 +243,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.xColumn);
+					updateEchartsData(myChart,formData,data["content"],vue.xColumn,vue.dataMax);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -333,7 +335,7 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,xColumnField){
+function updateEchartsData(echarts,echartsStyle,echartsData,xColumnField,dataMax){
 	if(!echartsData||echartsData.length<=0){
 		return ;
 	}
@@ -375,7 +377,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xColumnField){
 		var row = echartsData[i];
 		option.radar.indicator.push({
 			text:row[xcolumnIndex],
-			max:0.45
+			max:dataMax
 		});
 		for(key in headIndexMap){
 			if(!dataMap[key]){
@@ -391,10 +393,6 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xColumnField){
 		}
 		
 	}
-	console.log(dataMap)
-	
-	
-	
 	var numWidth=parseInt(echartsStyle.legendWidth);
 	option.legend.itemWidth=numWidth;
 	var numHeight=parseInt(echartsStyle.legendHeight);
