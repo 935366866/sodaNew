@@ -1193,8 +1193,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            threshold = thresholdMethod.squareRoot;
 
 	        }
-	        else {
-
+	        else if(typeof threshold == "function"){
+	        	
+	        }else{
 	            threshold = thresholdMethod[threshold];
 
 	        }

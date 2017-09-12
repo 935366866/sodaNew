@@ -25,7 +25,7 @@ $(function(){
 			color:color,
 			Xgrid:"show",
 			Ygrid:"show",
-			markLine_sel:null
+			markLine:'show'
 		},
 		computed: {
 		  title_size: {
@@ -112,15 +112,12 @@ $(function(){
 			        $("#xColumnField").selectpicker("val",newValue);
 			    }
 			},
-			markLine:{
-			  	get: function () {
-			      return this.markLine_sel;
-			    },
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.markLine_sel = newValue;		    	
-			        $("#markLine").selectpicker("val",newValue);
-			    }
+			markLines:function(){
+				if(this.markLine=="show"){
+					return true;
+				}else{
+					return false;
+				}
 			},
 			gridX:function(){
 				if(this.Xgrid=="show"){
@@ -158,21 +155,12 @@ $(function(){
 				this.$nextTick(function(){
 					$('#xColumnField').selectpicker('refresh');				
 					this.xColumnField_sel=$('#xColumnField').selectpicker("val");
-					$('#markLine').selectpicker('refresh');
-					this.markLine_sel=$('#markLine').selectpicker("val");
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
 					});
 				});
 			},
 			xColumnField:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			},
-			markLine:function(val,oldVal){
 				this.$nextTick(function(){
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
@@ -339,7 +327,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.markLine,vue.groups);
+					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.markLines,vue.groups);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -438,7 +426,8 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize	
 	}
 }
-function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLine,groups){
+
+function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLines,groups){
 	if(echartsData&&echartsData.length>0){
 		var option = {
 			series:[],
@@ -453,19 +442,15 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLine,g
 		}
 		var resultData=[];
 		for(var i=1;i<echartsData.length;i++){
-			resultData.push(Number(Number(echartsData[i][xAxisIndex]).toFixed(1)));
+			resultData.push(Number(echartsData[i][xAxisIndex]));
 		}
-		var minData=getMaximin(resultData,'min');
-		var maxData=getMaximin(resultData,'max');
-		var groupWidth=(maxData-minData)/groups;
-		
 		var girth=resultData;
-//var girth = [8.3, 8.6, 8.8, 10.5, 10.7, 10.8, 11.0, 11.0, 11.1, 11.2, 11.3, 11.4, 11.4, 11.7, 12.0, 12.9, 12.9, 13.3, 13.7, 13.8, 14.0, 14.2, 14.5, 16.0, 16.3, 17.3, 17.5, 17.9, 18.0, 18.0, 20.6];
-		var bins = ecStat.histogram(girth);
+		var bins = ecStat.histogram(girth,function(){
+			return groups;
+		});
 		var interval;
 		var min = Infinity;
 		var max = -Infinity;
-
 		var data = echarts.util.map(bins.data, function (item, index) {
 		    var x0 = bins.bins[index].x0;
 		    var x1 = bins.bins[index].x1;
@@ -491,9 +476,10 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLine,g
 		        style: style
 		    };
 		}
-		console.log(data)
-		for(var i=0;i<data.length;i++){
+		var lineData=[]
+		for(var i=1;i<data.length;i++){
 			data[i][2]=(data[i][2]/resultData.length).toFixed(2);
+			lineData.push(data[i][2]/2)
 		}
 		option = {
 		    xAxis: [{
@@ -519,33 +505,11 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLine,g
 		            label: 2
 		        },
 		        data: data
+		   	},{
+				type:"line",  
+				data:lineData
 		    }]
 		};
-
-		//建立一个数组A  数组中存放下面一个对象
-		/*{
-			groupIndex:0,
-			minValue:0,
-			maxValue:3,
-			count:0
-		},{
-			groupIndex:1,
-			minValue:3,
-			maxValue:6,
-			count:0
-		}
-		
-		for(数据){
-			 拿到一个数字；
-			 for(A){
-			 	if(数字>A.minValue&&数字<=A.maxValue){
-			 		A.count+=1;
-			 	}
-			 }
-		}
-		
-		* 
-		* */
 
 		echart.setOption(option);
 	}

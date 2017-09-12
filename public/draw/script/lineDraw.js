@@ -550,7 +550,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField){
 			if(head == xAxisField){
 				option.xAxis.data=data;
 			}else{
-					option.series.push({
+				option.series.push({
 					type:"line",
 					lineStyle:{
 						normal:{
