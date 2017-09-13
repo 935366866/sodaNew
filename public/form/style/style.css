@@ -478,6 +478,21 @@ a:hover {
   border-radius: 3px;
   background-color: #13438B;
 }
+.form-2 .input .erweiTip{
+	position: absolute;
+	left:395px;
+	top:60px;
+	width: 360px;
+}
+.form-2 .input .erweiTip .tipText{
+	position: absolute;
+	left: 90px;
+	bottom: -6px; 
+	font-size: 14px;
+	font-weight: bold;
+	color: #13438B;
+}
+
 .form-1 .tips {
   float: left;
   width: 100%;

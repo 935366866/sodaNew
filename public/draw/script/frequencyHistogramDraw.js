@@ -13,7 +13,7 @@ $(function(){
 				content:[]
 			},
 			title_size_sel:"18",
-			title_font_sel:"blod",
+			title_font_sel:"bold",
 			xlab_size_sel:"12",
 			xlab_font_sel:"normal",
 			ylab_size_sel:"12",
@@ -28,61 +28,61 @@ $(function(){
 			markLine:'show'
 		},
 		computed: {
-		  title_size: {
-		    get: function () {
-		      return this.title_size_sel;
-		    },
-		    set: function (newValue) {
-		       this.title_size_sel = newValue;
-		       $("#title_size").selectpicker("val",newValue);
-		    }
-		  },
-		  title_font:{
-		  	get: function () {
-		      return this.title_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.title_font_sel = newValue;
-		       $("#title_font").selectpicker("val",newValue);
-		    }
-		  },
-		  xlab_size:{
-		  	get: function () {
-		      return this.xlab_size_sel;
-		    },
-		    set: function (newValue) {
-		    	this.xlab_size_sel = newValue;
-		       $("#xlab_size").selectpicker("val",newValue);
-		    }
-		  },
-		  xlab_font:{
-		  	get: function () {
-		      return this.xlab_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.xlab_font_sel = newValue;
-		       $("#xlab_font").selectpicker("val",newValue);
-		    }
-		  },
-		  ylab_size:{
-		  	get: function () {
-		      return this.ylab_size_sel;
-		    },
-		    set: function (newValue) {
-		    	this.ylab_size_sel = newValue;
-		       $("#ylab_size").selectpicker("val",newValue);
-		    }
-		  },
-		  ylab_font:{
-		  	get: function () {
-		      return this.ylab_font_sel;
-		    },
-		    set: function (newValue) {
-		    	this.ylab_font_sel = newValue;
-		       $("#ylab_font").selectpicker("val",newValue);
-		    }
-		  },
-		  titleX:{
+			title_size: {
+			    get: function () {
+			      return this.title_size_sel;
+			    },
+			    set: function (newValue) {
+			       this.title_size_sel = newValue;
+			       $("#title_size").selectpicker("val",newValue);
+			    }
+			},
+			title_font:{
+			  	get: function () {
+			      return this.title_font_sel;
+			    },
+			    set: function (newValue) {
+			    	this.title_font_sel = newValue;
+			       $("#title_font").selectpicker("val",newValue);
+			    }
+			},
+			xlab_size:{
+			  	get: function () {
+			      return this.xlab_size_sel;
+			    },
+			    set: function (newValue) {
+			    	this.xlab_size_sel = newValue;
+			       $("#xlab_size").selectpicker("val",newValue);
+			    }
+			},
+			xlab_font:{
+			  	get: function () {
+			      return this.xlab_font_sel;
+			    },
+			    set: function (newValue) {
+			    	this.xlab_font_sel = newValue;
+			       $("#xlab_font").selectpicker("val",newValue);
+			    }
+			},
+			ylab_size:{
+			  	get: function () {
+			      return this.ylab_size_sel;
+			    },
+			    set: function (newValue) {
+			    	this.ylab_size_sel = newValue;
+			       $("#ylab_size").selectpicker("val",newValue);
+			    }
+			},
+			ylab_font:{
+			  	get: function () {
+			      return this.ylab_font_sel;
+			    },
+			    set: function (newValue) {
+			    	this.ylab_font_sel = newValue;
+			       $("#ylab_font").selectpicker("val",newValue);
+			    }
+			},
+			titleX:{
 			  	get: function () {
 			      return this.titleX_sel;
 			   },
@@ -176,6 +176,7 @@ $(function(){
 			}
 		}
 	});
+
  	var myChart = echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
     var option = {
@@ -245,9 +246,9 @@ $(function(){
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
-	    	top:60,
+	    	top:45,
 	    	bottom:60,
-	    	left:60,
+	    	left:80,
 	    	right:60
 	    	
 	    }
@@ -268,12 +269,9 @@ $(function(){
 			}									
 		}
 		$("#file table tr").each(function(){
-			if($(this).children("td:eq("+index+")").text()==parmas.name){
-				$(this).addClass("active");
-				$(this).siblings("tr").removeClass("active");
-			}			
+			$(this).children("td:eq("+index+")").addClass("active");
+			$(this).children("td:eq("+index+")").siblings("td").removeClass("active");
 		})
-
 	});
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
@@ -479,38 +477,75 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLines,
 		var lineData=[]
 		for(var i=1;i<data.length;i++){
 			data[i][2]=(data[i][2]/resultData.length).toFixed(2);
-			lineData.push(data[i][2]/2)
+			lineData[i]=[];
+			lineData[i][0]=data[i][0]+interval/2;
+			lineData[i][1]=data[i][2];
 		}
-		option = {
-		    xAxis: [{
-		        type: 'value',
-		        min:0,
-		        max: max,
-		        interval: interval
-		    }],
-		    series: [{
-		        name: 'height',
-		        type: 'custom',
-		        renderItem: renderItem,
-		        label: {
-		            normal: {
-		                show: true,
-		                position: 'insideTop'
-		            }
-		        },
-		        encode: {
-		            x: [0, 1],
-		            y: 2,
-		            tooltip: 2,
-		            label: 2
-		        },
-		        data: data
-		   	},{
-				type:"line",  
-				data:lineData
-		    }]
-		};
-
+	
+		if(markLines==true){
+			option = {
+			    xAxis: [{
+			        type: 'value',
+			        min:0,
+			        max: max,
+			        interval: interval
+			    }],
+			    series: [{
+			        name: 'height',
+			        type: 'custom',
+			        renderItem: renderItem,
+			        label: {
+			            normal: {
+			                show: true,
+			                position: 'insideTop'
+			            }
+			        },
+			        encode: {
+			            x: [0, 1],
+			            y: 2,
+			            tooltip: 2,
+			            label: 2
+			        },
+			        data: data
+			   	},{
+			   		type:'line',
+			   		data:lineData,
+			   		smooth: true
+			   	}]
+			};
+		}else{
+			option = {
+			    xAxis: [{
+			        type: 'value',
+			        min:0,
+			        max: max,
+			        interval: interval
+			    }],
+			    series: [{
+			        name: 'height',
+			        type: 'custom',
+			        renderItem: renderItem,
+			        label: {
+			            normal: {
+			                show: true,
+			                position: 'insideTop'
+			            }
+			        },
+			        encode: {
+			            x: [0, 1],
+			            y: 2,
+			            tooltip: 2,
+			            label: 2
+			        },
+			        data: data
+			   	},
+			   	{
+			   		type:'line',
+			   		data:[]
+			   	}]
+			};
+		}
+		console.log(option)
 		echart.setOption(option);
 	}
 	

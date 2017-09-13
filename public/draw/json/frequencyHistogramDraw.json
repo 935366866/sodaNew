@@ -16,5 +16,5 @@
     "groups":10,
     "Xgrid": "hide",
     "Ygrid": "hide",
-    "markLine":"none"    
+    "markLine":"hide"    
 }
