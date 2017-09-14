@@ -654,7 +654,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 		            },
 		           	controller: {
 		                outOfRange: {
-		                    color: ['#444']
+		                    color: ['#aaaaaa']
 		                }
 		            }
 			    },
@@ -681,7 +681,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 		                    color: ['#c23531']
 		                },
 		                outOfRange: {
-		                    color: ['#444']
+		                    color: ['#aaaaaa']
 		                }
 		            }
 		        }

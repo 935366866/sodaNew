@@ -139,6 +139,21 @@
 										</div>	
 									</div>
 								</div>
+								<div class="part">
+									<div class="input_a_l titleNameLeft">计算类型:</div>
+									<div id="radioArea" class="input_f_2">
+										<div class="radio">
+											  <label for="radio1">
+											    <input v-model="computeType"   type="radio" name="radio1" id="radio1" value="频率" >频率
+											  </label>
+										</div>
+										<div class="radio" style="margin-left: 10px;">
+											  <label for="radio2">
+											    <input v-model="computeType" type="radio" name="radio2" id="radio2" value="频数">频数
+											  </label>
+										</div>
+									</div>
+								</div>
 								<div class="line"></div>
 								<div class="part">
 									<div class="input_a_l titleNameLeft">标题名称:</div>
@@ -443,6 +458,7 @@
             <p>北京拓美科基因科技有限公司</p>
         </footer>
     </div>
+    <div id="pdf" style="display: none;"></div>
     <script src="public/js/jquery-1.11.2.min.js"></script>
     <script src="public/js/bootstrap.min.js"></script>
     <!--添加本页面的js-->

@@ -443,9 +443,6 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLines,
 		for(var i=1;i<echartsData.length;i++){
 			resultData.push(Number(echartsData[i][xAxisIndex]));
 		}
-		var maxData=getMaximin(resultData,"max");
-		var minData=getMaximin(resultData,"min");
-		
 		var girth=resultData;
 		var bins = ecStat.histogram(girth,function(){
 			return groups;
@@ -453,18 +450,15 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLines,
 		var interval;
 		var min = Infinity;
 		var max = -Infinity;
-		console.log(bins.data)
 		var data = echarts.util.map(bins.data, function (item, index) {
-			if(index>0){
-				var x0 = bins.bins[index].x0;
-		    	var x1 = bins.bins[index].x1;
-		    	interval = x1 - x0;
-		    	min = Math.min(0);
-		    	max = Math.max(max, x1);
-			}
+		    var x0 = bins.bins[index].x0;
+		    var x1 = bins.bins[index].x1;
+		    interval = x1 - x0;
+		    min = Math.min(min, x0);
+		    max = Math.max(max, x1);
 		    return [x0, x1, item[1]];
 		});
-		
+
 		function renderItem(params, api) {
 		    var yValue = api.value(2);
 		    var start = api.coord([api.value(0), yValue]);
@@ -473,7 +467,7 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLines,
 		    return {
 		        type: 'rect',
 		        shape: {
-		            x: start[0]+1,
+		            x: start[0] + 1,
 		            y: start[1],
 		            width: size[0] - 2,
 		            height: size[1]
@@ -481,20 +475,20 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLines,
 		        style: style
 		    };
 		}
-		
 		var lineData=[]
-		for(var i=0;i<data.length;i++){
+		for(var i=1;i<data.length;i++){
+			data[i][2]=(data[i][2]/resultData.length).toFixed(2);
 			lineData[i]=[];
-			if(computeType=="频率"){
-				data[i][2]=(data[i][2]/resultData.length).toFixed(2);
-			}
 			lineData[i][0]=data[i][0]+interval/2;
 			lineData[i][1]=data[i][2];
 		}
-		option = {
+		
+	
+		if(markLines==true){
+			option = {
 			    xAxis: [{
 			        type: 'value',
-			        min:min,
+			        min:0,
 			        max: max,
 			        interval: interval
 			    }],
@@ -511,22 +505,47 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLines,
 			        encode: {
 			            x: [0, 1],
 			            y: 2,
-//			            tooltip:2,
+			            tooltip: 2,
 			            label: 2
 			        },
 			        data: data
 			   	},{
 			   		type:'line',
-			   		data:[],
+			   		data:lineData,
 			   		smooth: true
 			   	}]
 			};
-		if(groups>20){
-			option.series[0].label.normal.show=false
-		}
-
-		if(markLines==true){
-			option.series[1].data=lineData;
+		}else{
+			option = {
+			    xAxis: [{
+			        type: 'value',
+			        min:0,
+			        max: max,
+			        interval: interval
+			    }],
+			    series: [{
+			        name: 'height',
+			        type: 'custom',
+			        renderItem: renderItem,
+			        label: {
+			            normal: {
+			                show: true,
+			                position: 'insideTop'
+			            }
+			        },
+			        encode: {
+			            x: [0, 1],
+			            y: 2,
+			            tooltip: 2,
+			            label: 2
+			        },
+			        data: data
+			   	},
+			   	{
+			   		type:'line',
+			   		data:[]
+			   	}]
+			};
 		}
 		echart.setOption(option);
 	}
