@@ -195,17 +195,17 @@ $(function(){
 	       
 	    },
 	    tooltip : {
-	        trigger: 'axis',
-	        showDelay : 0,
-	        axisPointer:{
-	            show: true,
-	            type : 'cross',
-	            lineStyle: {
-	                type : 'dashed',
-	                width : 1
-	            }
-	        },
-	        zlevel: 1
+//	        trigger: 'axis',
+//	        showDelay : 0,
+//	        axisPointer:{
+//	            show: true,
+//	            type : 'cross',
+//	            lineStyle: {
+//	                type : 'dashed',
+//	                width : 1
+//	            }
+//	        },
+//	        zlevel: 1
 	    },
 	    xAxis : [
 	        {
@@ -446,88 +446,176 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLines,
 		var maxData=getMaximin(resultData,"max");
 		var minData=getMaximin(resultData,"min");
 		
-		var girth=resultData;
-		var bins = ecStat.histogram(girth,function(){
-			return groups;
-		});
-		var interval;
-		var min = Infinity;
-		var max = -Infinity;
-		console.log(bins.data)
-		var data = echarts.util.map(bins.data, function (item, index) {
-			if(index>0){
-				var x0 = bins.bins[index].x0;
-		    	var x1 = bins.bins[index].x1;
-		    	interval = x1 - x0;
-		    	min = Math.min(0);
-		    	max = Math.max(max, x1);
-			}
-		    return [x0, x1, item[1]];
-		});
-		
-		function renderItem(params, api) {
-		    var yValue = api.value(2);
-		    var start = api.coord([api.value(0), yValue]);
-		    var size = api.size([api.value(1) - api.value(0), yValue]);
-		    var style = api.style();
-		    return {
-		        type: 'rect',
-		        shape: {
-		            x: start[0]+1,
-		            y: start[1],
-		            width: size[0] - 2,
-		            height: size[1]
-		        },
-		        style: style
-		    };
+		var step = (maxData-minData)/groups;
+		var datas =[];
+		for(var i=0;i<groups;i++){
+			datas.push({
+				groupIndex:i,
+				minValue:minData+step*i,
+				maxValue:minData+step*i+step,
+				count:0
+			})
 		}
-		
-		var lineData=[]
-		for(var i=0;i<data.length;i++){
-			lineData[i]=[];
+		for(var i=0;i<resultData.length;i++){
+			var value=resultData[i];
+			for(var j=0;j<datas.length;j++){
+				if(j==0){
+					if(value>=datas[j].minValue&&value<=datas[j].maxValue){
+						datas[j].count++;
+					}
+				}else{
+					if(value>datas[j].minValue&&value<=datas[j].maxValue){
+						datas[j].count++;
+					}
+				}
+
+			}
+		}
+		var barData=[];
+		var lineData=[];
+		for(var i=0;i<datas.length;i++){
 			if(computeType=="频率"){
-				data[i][2]=(data[i][2]/resultData.length).toFixed(2);
+				barData[i]=[(datas[i].minValue+datas[i].maxValue)/2,datas[i].count/resultData.length];
+				lineData[i]=[(datas[i].minValue+datas[i].maxValue)/2,datas[i].count/resultData.length];
+			}else{
+				barData[i]=[(datas[i].minValue+datas[i].maxValue)/2,datas[i].count];
+				lineData[i]=[(datas[i].minValue+datas[i].maxValue)/2,datas[i].count];
 			}
-			lineData[i][0]=data[i][0]+interval/2;
-			lineData[i][1]=data[i][2];
-		}
-		option = {
-			    xAxis: [{
-			        type: 'value',
-			        min:min,
-			        max: max,
-			        interval: interval
-			    }],
-			    series: [{
-			        name: 'height',
-			        type: 'custom',
-			        renderItem: renderItem,
-			        label: {
-			            normal: {
-			                show: true,
-			                position: 'insideTop'
-			            }
-			        },
-			        encode: {
-			            x: [0, 1],
-			            y: 2,
-//			            tooltip:2,
-			            label: 2
-			        },
-			        data: data
-			   	},{
-			   		type:'line',
-			   		data:[],
-			   		smooth: true
-			   	}]
-			};
-		if(groups>20){
-			option.series[0].label.normal.show=false
 		}
 
+		option = {
+		    xAxis: {
+				min:minData,
+				max:maxData,
+				splitNumber:groups,
+				interval:step,
+				axisLabel:{
+					formatter:function(value){
+						return value.toFixed(1)
+					}
+				}
+		    },
+		    tooltip:{
+			    trigger: 'axis',
+		        formatter: function(parame){
+		        	for(var i=0;i<parame.length;i++){
+		        		return "x轴："+parame[i].data[0]+"<br/>y轴："+parame[i].data[1]
+		        	}
+		        }
+		    },
+		    series: [{
+		        type: 'bar',
+		        data: barData,
+		        label: {
+		            normal: {
+		                show: true,
+		                position: 'top'
+		            }
+		        }
+		   	},{
+		   		type:'line',
+		   		data:[],
+		   		smooth: true
+			}]
+		};
+		
 		if(markLines==true){
 			option.series[1].data=lineData;
 		}
+		if(computeType=="频率"){
+			option.series[0].label.normal.formatter=function(params){
+							return params.value[1].toFixed(2)
+						}
+		}else{
+			option.series[0].label.normal.formatter=function(params){
+				return params.value[1].toFixed(0)
+			}
+		}
+		
+		
+		
+//		var girth=resultData;
+//		var bins = ecStat.histogram(girth,function(){
+//			return groups;
+//		});
+//		var interval;
+//		var min = Infinity;
+//		var max = -Infinity;
+//		var data = echarts.util.map(bins.data, function (item, index) {
+//			if(index>0){
+//				var x0 = bins.bins[index].x0;
+//		    	var x1 = bins.bins[index].x1;
+//		    	interval = x1 - x0;
+//		    	min = Math.min(0);
+//		    	max = Math.max(max, x1);
+//			}
+//		    return [x0, x1, item[1]];
+//		});
+//		
+//		function renderItem(params, api) {
+//		    var yValue = api.value(2);
+//		    var start = api.coord([api.value(0), yValue]);
+//		    var size = api.size([api.value(1) - api.value(0), yValue]);
+//		    var style = api.style();
+//		    return {
+//		        type: 'rect',
+//		        shape: {
+//		            x: start[0]+1,
+//		            y: start[1],
+//		            width: size[0] - 2,
+//		            height: size[1]
+//		        },
+//		        style: style
+//		    };
+//		}
+//		
+//		var lineData=[]
+//		for(var i=0;i<data.length;i++){
+//			lineData[i]=[];
+//			if(computeType=="频率"){
+//				data[i][2]=(data[i][2]/resultData.length).toFixed(2);
+//			}
+//			lineData[i][0]=data[i][0]+interval/2;
+//			lineData[i][1]=data[i][2];
+//		}
+//		option = {
+//			    xAxis: [{
+//			        type: 'value',
+//			        min:min,
+//			        max: max,
+//			        interval: interval
+//			    }],
+//			    series: [{
+//			        name: 'height',
+//			        type: 'custom',
+//			        renderItem: renderItem,
+//			        label: {
+//			            normal: {
+//			                show: true,
+//			                position: 'insideTop'
+//			            }
+//			        },
+//			        encode: {
+//			            x: [0, 1],
+//			            y: 2,
+////			            tooltip:2,
+//			            label: 2
+//			        },
+//			        data: data
+//			   	},{
+//			   		type:'line',
+//			   		data:[],
+//			   		smooth: true
+//			   	}]
+//			};
+//		if(groups>20){
+//			option.series[0].label.normal.show=false
+//		}
+//
+//		if(markLines==true){
+//			option.series[1].data=lineData;
+//		}
+
 		echart.setOption(option);
 	}
 	
