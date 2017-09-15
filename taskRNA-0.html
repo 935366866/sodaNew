@@ -201,7 +201,7 @@
 						<div id="toolbar">
 							<button id="removeDataTable" class="btn btn-default">删除行</button>
 						</div>
-						<table id="sampleTable" data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250">
+						<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" 						id="sampleTable">
 							<thead>
 								<tr>
 									<th data-field="state" data-checkbox="true"></th>
@@ -448,7 +448,6 @@
 		$(function(){
 			$('#creatTask label').addClass('label_width');   //含有任务名称等基本信息的表格中label
 		});
-
 		//判断是否是草稿，加载任务参数填写时option的值
 		var nodeStatus=
 		{
@@ -504,7 +503,6 @@
 		
 		//----------------
 	
-
 		//节点的样式
 		diagram.nodeTemplate =
 			$(go.Node, "Auto",
@@ -531,7 +529,6 @@
 					new go.Binding("text", "key")
 				)
 			);
-
 		
 		//连线的样式
 	   diagram.linkTemplate =
@@ -545,7 +542,6 @@
 			  { toArrow: "standard", stroke: null, fill:arrowColor })
 			
 		  );  
-
 		//单击元素，直接获得 key
 		diagram.addDiagramListener("ObjectSingleClicked",
 			      function(e) {
@@ -647,8 +643,6 @@
 	//	 diagram.allowDrop = false;
 	//	 diagram.animationManager.isEnabled = false ;	
 		});
-
-
 		//选定的模块
 		var nodeLockStatus=1  //可编辑
 		//解锁
@@ -723,7 +717,6 @@ function paraDefult(key,id){
 	var id = id.id;	
 //	$.getJSON(nodeParaUrl,function(data){  //始终从json文件中读取默认值
 		var data = constDefaultRefParams;
-
 		var items = data[key];
 		for (var i=0; i < items.length; i++){ 
 			if(items[i]["id"] == id){
@@ -733,7 +726,6 @@ function paraDefult(key,id){
 				
 			};
 //	});
-
 	};
 	
 //-----------------------------------点击打开目录--------------------------------------------	
@@ -745,7 +737,6 @@ function opendir_path(){
 	$('#selectUrl').modal('show');
     $("#selected").attr("onClick","geturl('#dir_path','dir')")
 };
-
 //打开数据目录
 function openDataUrl(){
 	if(samplesLock == 1){
@@ -770,7 +761,6 @@ function addIcon(State, row) {
 		return '<span class="glyphicon glyphicon-file"></span> ';
 		}
 };
-
 //当模态框加载完成后给input中添加当前用户的根目录
 $(function(){
 		  dblCilck('jobUrlTable','inputUrl',samplesDataUrl);
@@ -782,8 +772,6 @@ $(function(){
 		  	checkUrl($("#inputUrl").val(), samplesDataUrl, 'inputUrl','jobUrlTable');
 		  });
 });
-
-
 //回车查目录是否存在
 $(function(){
 	$('#inputUrl').bind('keypress',function(event){
@@ -847,7 +835,6 @@ function geturl(formInputId){
 */
 //点击选择关闭模态框，将当前模态框input中的路径取出放入表单中,type 的类型 暂时有两种，dir和 file
 function geturl(formInputId,type){
-
 	var selected_num = checkedNum("jobUrlTable");
 	if(type == "dir"){
 		//只能选择文件夹，单选
@@ -868,7 +855,6 @@ function geturl(formInputId,type){
 					$("#selectUrl").modal('hide');          //隐藏目录选择的模态框
 					$(formInputId).val(newUrl);	
 					if(formInputId == "#data_dir"){
-
 						var sequencingType = $("#seq_type").val();
 						$.ajax({
 								url:samplesDataUrl,  
@@ -880,7 +866,6 @@ function geturl(formInputId,type){
 										alert(data['data']);
 									}else{
 										var data1 = data['data'];
-
 										objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
 										
 										$('#sampleTable').bootstrapTable('load',objData);  //填入table中
@@ -902,13 +887,11 @@ function geturl(formInputId,type){
 		
 		}else if(selected_num == 0){
 			//没有选中任何项，将此时的url传到前面
-
 			newUrl = $("#inputUrl").val();    //点击选择时取input中当前的路径，在加上此时选择的
 			newUrl = newUrl.replace('//','/');
 			$("#selected").removeAttr("onClick");
 			$("#selectUrl").modal('hide');
 			$(formInputId).val(newUrl);
-
 			var sequencingType = $("#seq_type").val();
 			$.ajax({
 					url:samplesDataUrl,  
@@ -970,12 +953,10 @@ function geturl(formInputId,type){
 				};
 			};
 		};
-
 	}
 	else{
 		return false;
 	}
-
 };
 //删除选中的行
     $(function () {
@@ -994,11 +975,9 @@ function geturl(formInputId,type){
 				}
         });
     });
-
 </script>
 	<!-- ##################　样本分组、比较、维恩图　################## -->
 	<script>
-
 //锁定样本的状态
 var samplesLock=1 //没有锁定
 var samples = []
@@ -1040,9 +1019,6 @@ $("#unlockSamples").click(function(){
 	$('#compareList').html("");
 	$('#vennList').html("");
 	});
-
-
-
 //var curCont=null;
 function dragInit() {
 	var $sampleNames = $( "#sampleNames" ),
@@ -1059,14 +1035,16 @@ function dragInit() {
 	    });
 	//分组拖动
 	$( ".sampleGroup" ).draggable({
-	    revert: "invalid", 
-	    containment: "document",
-	    helper: "clone",
-	    cursor: "move"
-	});
+	      cancel: "li",
+	      revert: "invalid", 
+	      containment: "document",
+	      helper: "clone",
+	      cursor: "move"
+	   });
 	
 	//比较组拖动
 	$(".goupCompare").draggable({
+	      cancel: ".list-group-item", 
 	      revert: "invalid", 
 	      containment: "document",
 	      helper: "clone",
@@ -1076,7 +1054,7 @@ function dragInit() {
 	$venn.droppable({
 	      accept: "#compareList>div",
 	      activeClass: "ui-state-highlight",
-	      tolerance:"pointer",
+	      tolerance:"touch",
 	      drop: function( event, ui ) {
 	        dropItem( ui.draggable ,$(this),'red', 5);
 	      }
@@ -1085,7 +1063,7 @@ function dragInit() {
 	$compareGroup.droppable({
 	      accept: ".sampleGroup",
 	      activeClass: "ui-state-highlight",
-	      tolerance:"pointer",
+	      tolerance:"touch",
 	      drop: function( event, ui ) {
 	        dropItem( ui.draggable ,$(this),'green',2);
 	      }
@@ -1094,87 +1072,60 @@ function dragInit() {
 	$sampleGroup.droppable({
 	      accept: "#sampleNames > li, .sampleGroup li",
 	      activeClass: "ui-state-highlight",
-	      tolerance:"pointer",
+	      tolerance:"touch",
 	      drop: function( event, ui ) {
-	        dropItem( ui.draggable ,$(this),'#333',2);
+	        deleteItem( ui.draggable ,$(this));
 	      }
 	    });
 	 
-//	    // 可以接收从样品组中拖回的样品
-//	    $sampleNames.droppable({
-//	      accept: ".sampleGroup li",
-//	      activeClass: "custom-state-active",
-//	      drop: function( event, ui ) {
-//	        recycleItem( ui.draggable );
-//	      }
-//	    });
-	    
-//	    function deleteItem( $item ,$container) {
-//	        $item.fadeOut(function() {
-//	          var $list = $( "ul", $container ).length ?
-//	            $( "ul", $container ) :
-//	            $( "<ul class='sampleNames ui-helper-reset'/>" ).appendTo($container );
-//
-//	          $item.find( "a.ui-icon-sampleGroup" ).remove();
-//	          $item.appendTo( $list ).fadeIn(function() {
-//	            $item
-//	              .find( "img" )
-//	                .animate({ height: "36px" });
-//	          });
-//	          $item.css("background","none").css("border","none");
-//	        });
-//	    }
-
+	    // 可以接收从样品组中拖回的样品
+	    $sampleNames.droppable({
+	      accept: ".sampleGroup li",
+	      activeClass: "custom-state-active",
+	      drop: function( event, ui ) {
+	        recycleItem( ui.draggable );
+	      }
+	    });
+	    function deleteItem( $item ,$container) {
+	        $item.fadeOut(function() {
+	          var $list = $( "ul", $container ).length ?
+	            $( "ul", $container ) :
+	            $( "<ul class='sampleNames ui-helper-reset'/>" ).appendTo($container );
+	          $item.find( "a.ui-icon-sampleGroup" ).remove();
+	          $item.appendTo( $list ).fadeIn(function() {
+	            $item
+	              .find( "img" )
+	                .animate({ height: "36px" });
+	          });
+	          $item.css("background","none").css("border","none");
+	        });
+	      }
 	    curcontainer= null;
 	    function dropItem($item ,$container,$color,maxNum){
-	    	if($item.context.localName=='li'){
-	    		var itemName = $item.text();
-	    		var items = $container.find('li');
-		    	if(items.length>=maxNum){
-		    		alert("超出了最大允许数目"+maxNum);
-		    		return false;
-		    	}
-		    	for (var i=0; i<items.length; i++){
-		    		if($(items[i]).text()==itemName){
-		    			alert("有重复的条目"+itemName+"！");
-		    			return false;
-		    		}
-		    	}
-	    		var $list = $( "ul", $container ).length ?$( "ul", $container ) :$( "<ul class='sampleNames ui-helper-reset'/>" ).appendTo($container);
-			    $('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;color:'+$color+'">'
-		    	+itemName+'</li>').appendTo($list).fadeIn(function() {
-		  	            $item
-			              	.find( "img" )
-			                .animate({ height: "36px" });
-			          	});
-			        
-	    	}else{
-	    		var itemName = $item.children("span").text();
-		    	//遍历container查看已包含哪些元素
-		    	var containItems= new Array();
-		    	var items = $container.find('li');
-		    	if(items.length>=maxNum){
-		    		alert("超出了最大允许数目"+maxNum);
-		    		return false;
-		    	}
-		    	for (var i=0; i<items.length; i++){
-		    		if($(items[i]).text()==itemName){
-		    			alert("有重复的条目"+itemName+"！");
-		    			return false;
-		    		}
-		    	}
-		    	
-		    	var $list = $( "ul", $container ).length ?
-			            $( "ul", $container ) :
-			            $( "<ul class='goupCompare ui-helper-reset'/>" ).appendTo($container);
-			    $('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;color:'+$color+'">'
-			    	+itemName+'</li>').appendTo($list).fadeIn(function() {
-			            $item
-			              .find( "img" )
-			                .animate({ height: "36px" });
-			         });
-		    		
+	    	var itemName = $item.children("span").text();
+	    	//遍历container查看已包含哪些元素
+	    	var containItems= new Array();
+	    	var items = $container.find('li');
+	    	if(items.length>=maxNum){
+	    		alert("超出了最大允许数目"+maxNum);
+	    		return false;
 	    	}
+	    	for (var i=0; i<items.length; i++){
+	    		if($(items[i]).text()==itemName){
+	    			alert("有重复的条目"+itemName+"！");
+	    			return false;
+	    		}
+	    	}
+	    	
+	    	var $list = $( "ul", $container ).length ?
+		            $( "ul", $container ) :
+		            $( "<ul class='goupCompare ui-helper-reset'/>" ).appendTo($container);
+		    $('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;color:'+$color+'">'
+		    	+itemName+'</li>').appendTo($list).fadeIn(function() {
+		            $item
+		              .find( "img" )
+		                .animate({ height: "36px" });
+		          });;
 	    }
 	    
 	    function recycleItem( $item ) {
@@ -1198,7 +1149,7 @@ function dragInit() {
 				var value=$(this).siblings("span").text();
 				var index=$.inArray(value,allgroups);
 				allgroups.splice(index,1);
-//				recycleItem($(this).parent('div').find("li"));
+				recycleItem($(this).parent('div').find("li"));
 				dragInit();
 			})
 		});
@@ -1216,7 +1167,6 @@ function dragInit() {
 			})
 		});
 };
-
 var allgroups = new Array();	//all groups
 function addGroup(){
 	var gname= $("#groupName").val();
@@ -1238,7 +1188,6 @@ function addGroup(){
 	allgroups.push(gname);
 	dragInit();
 }
-
 //增加比较组
 var allCompares = new Array(); 
 function addCompare(){
@@ -1269,7 +1218,6 @@ function addVenn(){
 	$(html).appendTo('#vennList');
 	dragInit();
 }
-
 function bindGroupClick(){
 	dragInit();
 	$("#groupName").keydown(function(k){
@@ -1291,8 +1239,6 @@ function bindGroupClick(){
 	$("#addVenn").click(function(){
 		addVenn();
 	});
-
-
 //保存草稿
 $("#saveDraft").click(function(){
 		var taskPara = $("#creatTask").serializeArray();
@@ -1355,7 +1301,6 @@ function checkInput(){
 	
 	var checkTask=$("#creatTask input[name]");
 	var checkNode=$("#parasPanel input[name]");
-
 	var count=0; //计数
 	for(var i=0;i<checkTask.length;i++){
 	  if(checkTask[i].value==""){
@@ -1376,7 +1321,6 @@ function checkInput(){
 		$($("#parasPanel input[name]")[i]).attr("style","border-color:#ccc;")  
 		  };
 	}; 
-
 	if(count != 0){
 		alert("还有未填写的参数！");
 		};
@@ -1392,7 +1336,6 @@ function checkInput(){
 	*/
 	return count
 	};
-
 //任务运行，提交参数
 $("#taskRun").click(function(){
 	var nullNum = checkInput()
@@ -1411,7 +1354,6 @@ $("#taskRun").click(function(){
 		
 		var nodePara= $.merge(selectPara,inputPara); //合并
 	//	nodePara = JSON.stringify(nodePara);
-
 //没选中的模块名字
 		var unselectNode=""
 		for (var i in nodeStatus){
@@ -1424,7 +1366,6 @@ $("#taskRun").click(function(){
 				}
 		  };
 		}
-
 		//检查数据
 		//检查样本是否已全部分组，非强制
 		if($("#sampleNames").find('li').length>0){
@@ -1489,11 +1430,8 @@ $("#taskRun").click(function(){
 			}
 			groupCompareVenn['vennCompares'] = vennCompares;
 		}
-
-
 		//groupCompareVenn = JSON.stringify(groupCompareVenn);
 //		$('#groupCompareVenn').val(JSON.stringify(groupCompareVenn));
-
 //全部的参数	
 		var samplesStr=""
 		for(var j=0;j<samples.length;j++ ){  
@@ -1504,7 +1442,6 @@ $("#taskRun").click(function(){
 				samplesStr += ","+samples[j];
 				}
 		};
-
 		var resultPara={"taskPara":taskPara,
 						"nodePara":nodePara,
 						"unselectNode":unselectNode,
@@ -1536,7 +1473,6 @@ $("#taskRun").click(function(){
 	  });
 	
 }
-
 </script>
 
 

@@ -405,16 +405,17 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xColumnField,dataMax
 //---------------------------------------------------函数---------------------------
 //支持下载pdf格式
 function convertCanvasToImage() {
+	var pdfDiv=document.getElementById('pdf')
     html2canvas(document.getElementById('main'), {
         onrendered: function(canvas) {
-            document.body.appendChild(canvas);
+            pdfDiv.appendChild(canvas);
             createPDFObject(canvas.toDataURL("image/jpeg"));
         }
     });
 }
 function createPDFObject(imgData) {
     var doc = new jsPDF('p', 'pt');
-    doc.addImage(imgData, 10, 10, 500, 340, 'img');
+    doc.addImage(imgData, 10, 10, 450, 400, 'img');
     doc.save('test.pdf');
 }
 //参数组装

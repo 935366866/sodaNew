@@ -245,12 +245,6 @@ $(function(){
 					return new Array();
 				}
 				for(var i=0;i<datas.length;i++){
-//					if(datas[i]==this.xColumnField){
-//						continue;
-//					}
-//					if(datas[i]==this.yColumnField){
-//						continue;
-//					}
 					groupColumnData.push(datas[i])
 				}
 				return groupColumnData;
@@ -263,12 +257,6 @@ $(function(){
 					return new Array();
 				}
 				for(var i=0;i<datas.length;i++){
-//					if(datas[i]==this.groupColumnField){
-//						continue;
-//					}
-//					if(datas[i]==this.yColumnField){
-//						continue;
-//					}
 					xColumnData.push(datas[i])
 				}
 				return xColumnData;
@@ -281,12 +269,6 @@ $(function(){
 					return new Array();
 				}
 				for(var i=0;i<datas.length;i++){
-//					if(datas[i]==this.xColumnField){
-//						continue;
-//					}
-//					if(datas[i]==this.groupColumnField){
-//						continue;
-//					}
 					yColumnData.push(datas[i])
 				}
 				return yColumnData;
@@ -299,15 +281,6 @@ $(function(){
 					return new Array();
 				}
 				for(var i=0;i<datas.length;i++){
-//					if(datas[i]==this.xColumnField){
-//						continue;
-//					}
-//					if(datas[i]==this.groupColumnField){
-//						continue;
-//					}
-//					if(datas[i]==this.yColumnField){
-//						continue;
-//					}
 					sizeColumnData.push(datas[i])
 				}
 				return sizeColumnData;
@@ -735,16 +708,17 @@ function getMaximin(arr,maximin){
 }
 //支持下载pdf格式
 function convertCanvasToImage() {
+	var pdfDiv=document.getElementById('pdf')
     html2canvas(document.getElementById('main'), {
         onrendered: function(canvas) {
-            document.body.appendChild(canvas);
+            pdfDiv.appendChild(canvas);
             createPDFObject(canvas.toDataURL("image/jpeg"));
         }
     });
 }
 function createPDFObject(imgData) {
     var doc = new jsPDF('p', 'pt');
-    doc.addImage(imgData, 10, 10, 500, 340, 'img');
+    doc.addImage(imgData, 10, 10, 450, 340, 'img');
     doc.save('test.pdf');
 }
 

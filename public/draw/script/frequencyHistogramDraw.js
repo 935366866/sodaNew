@@ -712,10 +712,8 @@ $(function(){
 //打开任务目录
 function openUrl(id,type){
 	var inputValue = $(id).val();  //当前input的值
-
 	$("#inputUrl").val(inputValue);
 	$('#selectUrl').modal('show');
-
     $("#selected").attr("onClick","geturl('"+id+"','"+type+"')")   //给选择按钮添加事件
 
 };
