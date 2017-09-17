@@ -432,6 +432,21 @@ $(function(){
 			});
 		}
 	});
+	
+	//支持下载pdf格式
+	var baseURL=myChart.getConnectedDataURL({
+        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
+        pixelRatio:2,
+        excludeComponents: ['toolbox']
+    });
+	
+	$("#btnPdf").click(function(){
+		DownLoadFile({
+			url:'http://www.baidu.com', //请求的url
+			data:{src:baseURL}//要发送的数据
+		})
+	})
+
 	//支持下载png格式
 	$("#btnPng").click(function(){
 		downloadPic(myChart);
@@ -608,6 +623,20 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine)
 }
 
 //---------------------------------------------------函数---------------------------
+var DownLoadFile = function (options) {
+    var config = $.extend(true, { method: 'post' }, options);
+    var $iframe = $('<iframe id="down-file-iframe" />');
+    var $form = $('<form target="down-file-iframe" method="' + config.method + '" />');
+    $form.attr('action', config.url);
+    for (var key in config.data) {
+        $form.append('<input type="hidden" name="' + key + '" value="' + config.data[key] + '" />');
+    }
+    $iframe.append($form);
+    $(document.body).append($iframe);
+    $form[0].submit();
+    $iframe.remove();
+}
+
 //支持下载pdf格式
 function convertCanvasToImage() {
     html2canvas(document.getElementById('main'), {
