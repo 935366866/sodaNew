@@ -1198,6 +1198,12 @@ function dragInit() {
 				var value=$(this).siblings("span").text();
 				var index=$.inArray(value,allgroups);
 				allgroups.splice(index,1);
+				$("#compareList").find("li").each(function(){
+					if($(this).text()==value){
+						$(this).remove();
+					}
+					
+				})
 //				recycleItem($(this).parent('div').find("li"));
 				dragInit();
 			})
@@ -1208,6 +1214,12 @@ function dragInit() {
 				var value=$(this).siblings("span").text();
 				var index=$.inArray(value,allCompares);
 				allCompares.splice(index,1);
+				$("#vennList").find("li").each(function(){
+					if($(this).text()==value){
+						$(this).remove();
+					}
+					
+				})
 			})
 		});
 		$("#vennList .glyphicon-remove").each(function(){
@@ -1227,8 +1239,7 @@ function addGroup(){
 		alert('分组名'+gname+"已存在！");
 		return false;
 	}
-	
-	if($('#sampleNames li').length<allgroups.length){
+	if($('#sampleNames li').length<=allgroups.length){
 		alert("分组数不能超过样本数！");
 		return false;
 	}

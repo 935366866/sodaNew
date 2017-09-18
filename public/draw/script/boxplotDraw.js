@@ -317,7 +317,7 @@ $(function(){
 		$a.target = '_blank';
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
-	       	pixelRatio: 10,
+	       	pixelRatio: 2,
 	        excludeComponents: ['toolbox'],
 	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff'
 	    });
@@ -570,7 +570,21 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,xAxisField,s
 }
 
 //---------------------------------------------------函数---------------------------
-
+//支持下载pdf格式
+function convertCanvasToImage() {
+	var pdfDiv=document.getElementById('pdf')
+    html2canvas(document.getElementById('main'), {
+        onrendered: function(canvas) {
+            pdfDiv.appendChild(canvas);
+            createPDFObject(canvas.toDataURL("image/jpeg"));
+        }
+    });
+}
+function createPDFObject(imgData) {
+    var doc = new jsPDF('p', 'pt');
+    doc.addImage(imgData, 10, 10, 500, 340, 'img');
+    doc.save('test.pdf');
+}
 //参数组装
 function allParams(){
 

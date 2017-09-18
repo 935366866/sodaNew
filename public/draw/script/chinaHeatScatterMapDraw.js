@@ -287,7 +287,7 @@ $(function(){
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
 	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
-	        pixelRatio: 7,
+	        pixelRatio: 2,
 	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;

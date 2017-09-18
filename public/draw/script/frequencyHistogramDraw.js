@@ -194,19 +194,7 @@ $(function(){
 	        top:20
 	       
 	    },
-	    tooltip : {
-//	        trigger: 'axis',
-//	        showDelay : 0,
-//	        axisPointer:{
-//	            show: true,
-//	            type : 'cross',
-//	            lineStyle: {
-//	                type : 'dashed',
-//	                width : 1
-//	            }
-//	        },
-//	        zlevel: 1
-	    },
+	    tooltip : {},
 	    xAxis : [
 	        {
 	            nameLocation:'middle',
@@ -347,7 +335,7 @@ $(function(){
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
 	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
-	        pixelRatio: 8,
+	        pixelRatio:2,
 	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;
@@ -445,7 +433,6 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLines,
 		}
 		var maxData=getMaximin(resultData,"max");
 		var minData=getMaximin(resultData,"min");
-		
 		var step = (maxData-minData)/groups;
 		var datas =[];
 		for(var i=0;i<groups;i++){
@@ -471,6 +458,7 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLines,
 
 			}
 		}
+
 		var barData=[];
 		var lineData=[];
 		for(var i=0;i<datas.length;i++){
@@ -498,8 +486,12 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLines,
 		    tooltip:{
 			    trigger: 'axis',
 		        formatter: function(parame){
+		        	var index;
 		        	for(var i=0;i<parame.length;i++){
-		        		return "x轴："+parame[i].data[0]+"<br/>y轴："+parame[i].data[1]
+						index=parame[i].dataIndex;
+						var minX=datas[index].minValue.toFixed(1);
+        				var maxX=datas[index].maxValue.toFixed(1);
+		        		return "x轴：min"+minX+"，max"+maxX+"<br/>y轴："+parame[i].data[1]
 		        	}
 		        }
 		    },
@@ -531,7 +523,13 @@ function updateEchartsData(echart,echartsStyle,echartsData,xAxisField,markLines,
 				return params.value[1].toFixed(0)
 			}
 		}
-		
+
+		if(groups>10){
+			var num=groups/10;
+			option.xAxis.splitNumber=10;
+			option.xAxis.interval=step*num;
+			option.series[0].label.normal.show=false;
+		}
 		
 		
 //		var girth=resultData;

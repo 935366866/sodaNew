@@ -403,7 +403,7 @@ $(function(){
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
 	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
-	        pixelRatio: 10,
+	        pixelRatio: 2,
 	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;
@@ -561,14 +561,28 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yColumnFi
 		var numD=parseInt(echartsStyle.legendDiameter);
 		option.legend.itemHeight=numD;
 		option.legend.itemWidth=numD;
-console.log(option)
+
 		echarts.setOption(option);	
 	}
 	
 }
 
 //---------------------------------------------------函数---------------------------
-
+//支持下载pdf格式
+function convertCanvasToImage() {
+	var pdfDiv=document.getElementById('pdf')
+    html2canvas(document.getElementById('main'), {
+        onrendered: function(canvas) {
+            pdfDiv.appendChild(canvas);
+            createPDFObject(canvas.toDataURL("image/jpeg"));
+        }
+    });
+}
+function createPDFObject(imgData) {
+    var doc = new jsPDF('p', 'pt');
+    doc.addImage(imgData, 10, 10, 500, 340, 'img');
+    doc.save('test.pdf');
+}
 //参数组装
 function allParams(){
 	var app = $("#parameter").serializeArray();

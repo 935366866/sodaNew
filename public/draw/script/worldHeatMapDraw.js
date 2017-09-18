@@ -481,7 +481,7 @@ $(function(){
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
 	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
-	        pixelRatio: 7,
+	        pixelRatio: 2,
 	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;
@@ -638,9 +638,10 @@ function updateEchartsData(echartsInstance,echartsStyle,echartsData,dataCol){
 //---------------------------------------------------函数---------------------------
    	//支持下载pdf格式
     function convertCanvasToImage() {
+    	var pdfDiv=document.getElementById('pdf')
         html2canvas(document.getElementById('main'), {
             onrendered: function(canvas) {
-                document.body.appendChild(canvas);
+                pdfDiv.appendChild(canvas);
                 createPDFObject(canvas.toDataURL("image/jpeg"));
             }
         });

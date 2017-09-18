@@ -159,7 +159,7 @@ $(function(){
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
-			url: 'public/draw/json/chinaMapDraw.json',  
+			url: 'public/draw/json/chinaPieMapDraw.json',  
 			type:'get',
 			data:tool_id,
 			dataType: "json",
@@ -403,7 +403,7 @@ function downloadPic(myChart){
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
 	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
-	        pixelRatio: 7,
+	        pixelRatio: 2,
 	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;
@@ -429,9 +429,10 @@ function downloadPic(myChart){
 //---------------------------------------------------函数---------------------------
    	//支持下载pdf格式
     function convertCanvasToImage() {
+    	var pdfDiv=document.getElementById('pdf')
         html2canvas(document.getElementById('main'), {
             onrendered: function(canvas) {
-                document.body.appendChild(canvas);
+                pdfDiv.appendChild(canvas);
                 createPDFObject(canvas.toDataURL("image/jpeg"));
             }
         });

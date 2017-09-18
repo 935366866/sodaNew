@@ -664,9 +664,10 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 //---------------------------------------------------函数---------------------------
 //支持下载pdf格式
 function convertCanvasToImage() {
+	var pdfDiv=document.getElementById('pdf')
     html2canvas(document.getElementById('main'), {
         onrendered: function(canvas) {
-            document.body.appendChild(canvas);
+            pdfDiv.appendChild(canvas);
             createPDFObject(canvas.toDataURL("image/jpeg"));
         }
     });
