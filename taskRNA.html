@@ -1087,16 +1087,17 @@ function dragInit() {
 	      activeClass: "ui-state-highlight",
 	      tolerance:"pointer",
 	      drop: function( event, ui ) {
-	        dropItem( ui.draggable ,$(this),'green',2);
+	        dropItem( ui.draggable ,$(this),'green',allgroups.length);
 	      }
 	    });
 	//分组接收样本
+	var maxNum=$("#sampleNames li").length
 	$sampleGroup.droppable({
 	      accept: "#sampleNames > li, .sampleGroup li",
 	      activeClass: "ui-state-highlight",
 	      tolerance:"pointer",
 	      drop: function( event, ui ) {
-	        dropItem( ui.draggable ,$(this),'#333',2);
+	        dropItem( ui.draggable ,$(this),'#333',maxNum);
 	      }
 	    });
 	 

@@ -439,7 +439,6 @@ $(function(){
         pixelRatio:2,
         excludeComponents: ['toolbox']
     });
-	
 	$("#btnPdf").click(function(){
 		DownLoadFile({
 			url:'http://www.baidu.com', //请求的url
