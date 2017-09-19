@@ -425,6 +425,7 @@ $(function(){
 				success:function(data) {
 					myChart.hideLoading();
 					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.markLine);
+					
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -433,13 +434,18 @@ $(function(){
 		}
 	});
 	
-	//支持下载pdf格式
-	var baseURL=myChart.getConnectedDataURL({
-        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
-        pixelRatio:2,
-        excludeComponents: ['toolbox']
-    });
+		//支持下载pdf格式
+	
+    
+ 
 	$("#btnPdf").click(function(){
+		var baseURL=myChart.getConnectedDataURL({
+       	 backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
+       	 pixelRatio:2,
+        	excludeComponents: ['toolbox']
+    	});
+//  	console.log(baseURL)
+//  	   $("#myimg").attr("src",baseURL)
 		DownLoadFile({
 			url:'http://www.baidu.com', //请求的url
 			data:{src:baseURL}//要发送的数据
@@ -449,6 +455,7 @@ $(function(){
 	//支持下载png格式
 	$("#btnPng").click(function(){
 		downloadPic(myChart);
+		
 	});
   	function downloadPic(myChart){
 		var $a = document.createElement('a');
@@ -618,6 +625,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,markLine)
 		}
 		echarts.setOption(option);
 	}
+
 	
 }
 

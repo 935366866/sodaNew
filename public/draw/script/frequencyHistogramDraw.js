@@ -6,7 +6,7 @@ $(function(){
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"频率直方图",
+			title:"直方图",
 			xlab:"无",
 			ylab:"Y轴标题",
 			fileData:{

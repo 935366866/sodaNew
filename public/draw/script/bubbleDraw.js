@@ -381,7 +381,7 @@ $(function(){
 	        {
 	        	type:'category',
 	            nameLocation:'middle',
-	            nameGap: 25,
+	            nameGap: 158,
 	            splitLine:{
                 	show:vue.gridY,
                 	lineStyle:{
@@ -404,7 +404,7 @@ $(function(){
 	    grid:{
 	    	show:true,
 	    	borderColor:'#000',
-	    	left:180,
+	    	left:185,
 	    	right:100,
 	    	top:50,
 	    	bottom:57
@@ -677,9 +677,9 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxisField,yAxisFiel
 			var yVal = row[headIndexMap[yAxisField]];
 			var sizeVal = row[headIndexMap[sizeColumnField]];
 			var colorVal = row[headIndexMap[colorColumnField]];
-			if(yVal.length>=30){
-				var sub=yVal.substring(0,25);
-				yVal=sub+"....";
+			if(yVal.length>=20){
+				var sub=yVal.substring(0,20);
+				yVal=sub+"...";
 			}
 			yAxisData.push(yVal);
 			option.series[0].data.push([xVal,yVal,colorVal,sizeVal]);

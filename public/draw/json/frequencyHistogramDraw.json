@@ -1,6 +1,6 @@
 {
     "input": "/whx/abc/1.txt",
-    "title": "频率直方图",
+    "title": "直方图",
     "title_size": "18",
     "title_font": "bold",
     "titleX":"center",
