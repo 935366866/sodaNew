@@ -57,10 +57,10 @@ $(function () {
     //其他news展示
     
     //惰性加载数据
-    $(window).scroll(function(){
-        loadData(loadNewsList,module+"/News/listNews");
-	//console.log(module+"/News/listNews")
-    });
+//  $(window).scroll(function(){
+//      loadData(loadNewsList,module+"/News/listNews");
+//	//console.log(module+"/News/listNews")
+//  });
 
 
     //搜索
@@ -104,7 +104,13 @@ $(function () {
         $('#loginBox').modal('show');
     });
 
-    
+//	var height= $("#newsList").height();
+	if($(".news li").length<=3){
+		$("#footer_style").css({
+			position:"fixed",
+			bottom:"10px"
+		})
+	}
 
 });
 //==================================函数================================

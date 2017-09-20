@@ -1016,7 +1016,7 @@ $("#getSamples").click(function(){
 				var name = data[i]["sample"]
 				if($.inArray(name, array) == -1){
 					array.push(name)
-					add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
+					add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'+'<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'22</li>'+'<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'11</li>'
 					$(add).appendTo('#sampleNames')
 				};
 			samples = array;

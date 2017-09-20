@@ -200,7 +200,7 @@ if(getcookievalue("isReload")){
 	$('#tip').modal('hide');
 	
 }else{
-	$('#tip').modal('show');
+	$('#tip').modal('show').css("padding",0);
 	setcookievalue("isReload",true);
 }
 
