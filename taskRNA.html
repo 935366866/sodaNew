@@ -100,7 +100,7 @@
 					</div>
 
 					<!--第二部分表格的填写-->
-					<div class="part_box">
+					<div class="part_box" >
 						<form class="form-horizontal" id="creatTask" role="form" style="margin-top: 30px;" action="newTask" method="post" onsubmit="return submitForm(this)">
 							<input type='hidden' id='task_type' name='task_type' value='ref' />
 							<input type='hidden' id='id' name="id" value="{$id} "></input>
@@ -173,10 +173,8 @@
 								<label class="task_label"><span>7</span>测序类型</label>
 								<div class="task_box">
 									<select id="seq_type" name="seq_type" class="selectpicker select_width">
-		
-									<option value="pe">PE(Pair-End)</option>
-									<option value="se">SE(Single-End)</option>
-			
+										<option value="pe">PE(Pair-End)</option>
+										<option value="se">SE(Single-End)</option>
 								</select>
 								</div>
 							</div>
@@ -197,7 +195,7 @@
 					<!--第二部分 选择sample的表格 -->
 					<div class="task_form_height">
 					<div class="task_label">&nbsp;</div>
-					<div class="task_box">
+					<div class="task_box" style="width: 81%;margin-left: 55px;margin-top: 0;">
 						<div id="toolbar">
 							<button id="removeDataTable" class="btn btn-default">删除行</button>
 						</div>
@@ -208,7 +206,6 @@
 									<th data-field="sample" data-align="left" data-sortable="true">样本名称</th>
 									<th data-field="fq" data-align="center" data-sortable="true">FastQ文件 </th>
 									<th data-field="adap" data-align="center" data-sortable="true">Adaptor文件</th>
-
 								</tr>
 							</thead>
 						</table>
@@ -282,7 +279,7 @@
 						<div class="task_form_height">
 							<label class="task_label"><span>9</span>模块参数设置</label>
 							<!--点击展开参数-->
-							<div class="panel-group params_part" id="parasPanel">
+							<div class="panel-group params_part" id="parasPanel" style="width: 81%;margin-left: 55px;margin-top: 0;">
 							</div>							
 						</div>
 						
@@ -297,34 +294,34 @@
 						<div class="task_form_height">
 							<label class="task_label"><span>10</span>分组比较</label>
 								<!--带有拖拽内容的面板-->
-						<div class="sample_part">
+						<div class="sample_part" style="width: 81%;margin-left: 55px;margin-top: 0;">
 							<div class="panel panel-default" style="padding:0px;">
 								<div class="panel-heading">
 									<h4><span class="glyphicon glyphicon-edit"></span> Sample Group</h4>
 								</div>
-								<div class="panel-body" style="padding: 15px 2px 15px 20px !important;">
+								<div class="panel-body" style="padding: 15px 0px 15px 20px !important;">
                   
 									<div>
-									<div style="float:left;width:18%;margin-right:15px;">
+									<div style="float:left;width:24%;margin-right: 20px;">
 										<div>
 										<label class='control-label'><b>样本名称：</b></label>
 										</div>
 									</div>
-									<div style="float:left;width:22%;margin-right:14px;">
+									<div style="float:left;width:21%;margin-right: 20px;">
 										<div>
 											<button class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
 												<span class="glyphicon glyphicon-plus">Group</span>
 											</button><br />
 										</div>
 									</div>
-									<div style="float:left;width:22%;margin-right:14px;">
+									<div style="float:left;width:21%;margin-right: 20px;">
 										<div>
 											<button class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
 												<span class="glyphicon glyphicon-plus">Compare</span>
 											</button>
-										</div>
+										</div>   
 									</div>
-									<div style="float:left;width:22%">
+									<div style="float:left;width:21%;margin-right: 20px;">
 										<div>
 											<button class="btn btn-default" id='addVenn' style="outline: none;">
 												<span class="glyphicon glyphicon-plus">Venn</span>
@@ -335,16 +332,16 @@
 									<div >
 									<div style="width:100%;">
 										<div>
-										<div style="float:left;width:18%;margin-right:15px;">
+										<div style="float:left;width:24%;margin-right: 20px;">
 											<br>
-											<div>
+											<div id="sampleWrap">
 											<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;">
 											</ol>
 											</div>
 										</div>
-										<div id='groupList' style="float:left;width:22%;margin-right:14px;"><br></div>
-										<div id='compareList' style="float:left;width:22%;margin-right:14px;"><br></div>
-										<div id='vennList' style="float:left;width:22%"><br></div>
+										<div id='groupList' style="float:left;width:21%;margin-right:20px;"><br></div>
+										<div id='compareList' style="float:left;width:21%;margin-right:20px;"><br></div>
+										<div id='vennList' style="float:left;width:21%"><br></div>
 										</div>
 									</div>
 									</div>
@@ -446,6 +443,7 @@
 	<script src="js/common.js"></script>
 	<script>
 		$(function(){
+
 			$('#creatTask label').addClass('label_width');   //含有任务名称等基本信息的表格中label
 		});
 
@@ -868,7 +866,6 @@ function geturl(formInputId,type){
 					$("#selectUrl").modal('hide');          //隐藏目录选择的模态框
 					$(formInputId).val(newUrl);	
 					if(formInputId == "#data_dir"){
-
 						var sequencingType = $("#seq_type").val();
 						$.ajax({
 								url:samplesDataUrl,  
@@ -1016,7 +1013,7 @@ $("#getSamples").click(function(){
 				var name = data[i]["sample"]
 				if($.inArray(name, array) == -1){
 					array.push(name)
-					add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'+'<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'22</li>'+'<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'11</li>'
+					add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'+'<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'11111111111111</li>'
 					$(add).appendTo('#sampleNames')
 				};
 			samples = array;
@@ -1040,9 +1037,15 @@ $("#unlockSamples").click(function(){
 	$('#compareList').html("");
 	$('#vennList').html("");
 	});
-
-
-
+var sampleIndex;
+$("#sampleTable th").each(function(){
+	if($(this).text()=="样本名称"){
+		sampleIndex=$(this).index();
+	}
+})
+$("#sampleTable tr").each(function(){
+	$(this).Children("td:eq("+index+")").attr("contentEditable","true");
+})
 //var curCont=null;
 function dragInit() {
 	var $sampleNames = $( "#sampleNames" ),
@@ -1100,7 +1103,13 @@ function dragInit() {
 	        dropItem( ui.draggable ,$(this),'#333',maxNum);
 	      }
 	    });
-	 
+	 if(maxNum>10){
+	 	$("#sampleNames").css({
+	 		height:'300px',
+	 		overflow:'auto'
+	 	})
+	 }
+
 //	    // 可以接收从样品组中拖回的样品
 //	    $sampleNames.droppable({
 //	      accept: ".sampleGroup li",

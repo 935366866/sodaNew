@@ -198,7 +198,7 @@ function dataTableGet(data,sequencingType){
 				 }
 			   }  
 		   } 
-		   
+		   console.log(arrSample)
 		   //组成JSON
 		  for (var i=0;i<arrSample.length; i++){
 			var fq1=arrSample[i]+"_1.fq.gz";
@@ -255,7 +255,7 @@ function dataTableGet(data,sequencingType){
 			}
 		}
 		   
-		   
+		 console.log(objData)  
 		}
 		if(sequencingType == "se"){
 			for(var i=0;i<data.length;i++){  
