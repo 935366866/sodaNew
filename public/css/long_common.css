@@ -3,13 +3,13 @@ body{
 	min-width: 1100px;
 	min-height: 768px;
 	overflow:auto;
-	padding-right: 0px !important;  
+	/*padding-right: 0px !important;*/  
 }
 
-*.modal-open {  
+/**.modal-open {  
     overflow-y: scroll;  
     padding-right: 0 !important;  
-} 
+} */
 .indent {
   text-indent: 2em;
 }
@@ -22,7 +22,7 @@ body{
 }
 html {
   min-width: 800px;
-  overflow-x: scroll;
+  /*overflow-x: scroll;*/
 }
 .bigbox {
   width: 90%;

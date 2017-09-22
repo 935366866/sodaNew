@@ -15,50 +15,7 @@ $(function(){
             $(this).removeClass("listshow");
         });
     };
-});	
-//导航条
-	$(function(){
-		if($(".top").children().length<=1){
-			$(".main_nav1").css("box-shadow","-2px 3px 9px 0px #ccc").css("z-index",158);
-		}
-//		$(".main_nav2_left li").mouseover(function(){
-//			$(this).children("a").addClass("active");
-//		})
-//		$(".main_nav2_left li").mouseout(function(){
-//			$(this).children("a").removeClass("active");
-//		})
-	})
-
-
-//搜索框
-$(function() {
-	$("#searchIcon").on("click", function() {
-		$("#search_news").fadeIn(500);
-		$(".main_nav1_left li:not(.dodo)").fadeOut();
-		$("#search_news_input").focus();
-		$(this).fadeOut()
-	})
-    $("#search_news_input").blur(function(){
-     	$("#search_news").fadeOut(500);
-     	$(".main_nav1_left li").fadeIn();
-     	$("#searchIcon").fadeIn()
-     });
-     function searchClick(){
-     	$("#search_news").fadeOut(500);
-     	$(".main_nav1_left li").fadeIn();
-     	$("#searchIcon").fadeIn()
-
-     }
-     $(document).keypress(function(event){
-
-     	if (event.keyCode==13) {//回车键的键值为13
-     		searchClick(); //调用登录按钮的登录事件
-     		
-     	}
-     })	
-
-     	
-})
+});
 
 //===========================函数========================
 //1.根据浏览器大小选择样式
@@ -164,23 +121,23 @@ function checkUrl(uncheckedUrl,url,inputId,tableId){
 	var path = uncheckedUrl?uncheckedUrl:'/';
 	path = path.replace('//','/');
 	$.ajax({
-		    url:url,  
-		    type:'post',
-		    data:{url:path},
-		    dataType: "json",
-		    success:function(data,textStatus) {
-		    	if(data['status']=='ERROR'){    //请求成功但没有执行成功
-		    		alert(data['data']);
-		    	}else{
-		    		var obj=data['data']
-					$('#' + inputId).val(path);
-					$('#' + tableId).bootstrapTable('load',obj);
-		    	}
-		   	  },    
-		    error : function(XMLHttpRequest) {
-		       	alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
-		     }
-		}); 
+				    url:url,  
+				    type:'get',
+				    data:{url:path},
+				    dataType: "json",
+				    success:function(data,textStatus) {
+				    	if(data['status']=='ERROR'){    //请求成功但没有执行成功
+				    		alert(data['data']);
+				    	}else{
+				    		var obj=data['data']
+							$('#' + inputId).val(path);
+							$('#' + tableId).bootstrapTable('load',obj);
+				    	}
+				   	  },    
+				    error : function(XMLHttpRequest) {
+				       	alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
+				     }
+				}); 
 		
 	};
 function uploadFile(url,uploadId,inputId,ddir){  
@@ -222,25 +179,30 @@ function dataTableGet(data,sequencingType){
 		var arr = new Array();  //数组，存放所有的文件名
 		var arrSample = new Array(); //数组，存放所有的sample name
 		var patt =/\.fq\.gz$/i;
-		
+		console.log(data)
 		//双端
 		if(sequencingType == "pe"){
 			for(var i=0;i<data.length;i++){  
 			   for(var key in data[i]){
 				 if(key == "name"){
-
 				   var name = data[i][key].trim();
 				   arr.push(name);
 				   if(patt.test(name)){
-					   var sample = name.split("_")[0];
-					   if($.inArray(sample,arrSample) == -1){
-					   arrSample.push(sample);
-						};
+					   	if(name.indexOf("_")!=-1){
+					   		var index=name.lastIndexOf("_");
+							var sample=name.substring(0,index)
+						   	if($.inArray(sample,arrSample) == -1){
+						   		arrSample.push(sample);
+							};
+					   		
+					   	}
+//					   var sample = name.split("_")[0];
+
 					}; 
 				 }
 			   }  
 		   } 
-
+		   console.log(arrSample)
 		   //组成JSON
 		  for (var i=0;i<arrSample.length; i++){
 			var fq1=arrSample[i]+"_1.fq.gz";
@@ -297,7 +259,7 @@ function dataTableGet(data,sequencingType){
 			}
 		}
 		   
-		   
+		 console.log(objData)  
 		}
 		if(sequencingType == "se"){
 			for(var i=0;i<data.length;i++){  
@@ -349,69 +311,175 @@ function dataTableGet(data,sequencingType){
 		}
 	return objData
 };
+//--------------------------------------------------------组成json---------
 
-
-
-function myAjax(url,data1,callback,dom){
-
+//判断是否是草稿文件如果是给编辑界面填写数据, 参数url为获取后台的该草稿的地址
+function draftTask(url,dataUrl){
 	$.ajax({
 		url:url,  
 		type:'get',
-		data:data1,
 		dataType: "json",
-		success:function(data,textStatus) {
-			if(data['status']=='ERROR'){    //请求成功但没有执行成功
-				alert(data['data']);
-				//console.log("bbb");
-			}else{
-				callback(data,data1,dom);
-			//	console.log("cc");
+		success: function (data) {
+			
+//			taskId = data["taskId"];   //找到参数中的taskId
+//			if(taskId != ""){  //id为空的时候不是草稿，不为空的时候是草稿
+
+//第一部分，填写任务参数
+			if(data==null|| data=='' ||data.length==0){
+				return ;
 			}
-			},    
-		error : function(XMLHttpRequest) {
-			alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
-			//alert('请登录');
-		//	console.log("aaa");
-			}
-	}); 
-};
-//实时显示选中的checkbox数量
-function checkedNow1(tableId,showId){
-	var checkAll = ["check.bs.table","uncheck.bs.table","check-all.bs.table","uncheck-all.bs.table"]; //对其中的每一项进行绑定
-	for(var i=0; i<checkAll.length; i++){
-		$('#'+ tableId).on(checkAll[i], function () {   
-	 		num = checkedNum(tableId);
-			$('#' + showId).html(num);
-	 	});
-	}
+			var samples = data['samples'];
+			var taskPara = data.taskPara;
+			for (var i=0; i < taskPara.length; i++){
+				var name = taskPara[i].name;   //参数项的name，也是id
+				var value = taskPara[i].value;  //参数项具体的值
+				if($("#" + name).length == 0){	//如果未取到元素，忽略
+					continue;
+				}
+				var tagType = $("#" + name)[0].tagName;   //此id项的类型
+				
+				if(tagType=="INPUT"){
+					 $("#" + name).val(value);
+					//向后台发送请求，将对应目录的数据填写到表格当中
+					 if(name == "data_dir"){    
+						var sequencingType = $("#seq_type").val(); 
+						$.ajax({
+								url:dataUrl,  //向后台发送数据目录
+								type:'get',
+								data:{url:value},
+								dataType: "json",
+								success:function(data,textStatus) {
+									if(data['status']=='ERROR'){    //请求成功但没有执行成功
+										alert(data['data']);
+									}else{
+										var data1 = data['data'];
+									
+										var objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
+										//去除没有的样本
+										var newdata = [];
+										var sampleArr = [];
+										if(samples){
+											samples.split(',');
+										}
+										for(n=0;n<objData.length;n++){
+											if(sampleArr.indexOf(objData[n].sample)>=0){
+												newdata.push(objData[n]);
+											}
+										}
+										$('#sampleTable').bootstrapTable('load',newdata);  //填入table中
+									}
+								  },    
+								error : function(XMLHttpRequest) {
+									alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
+								 }
+							}); 
+						
+						};
+				};
+				if(tagType=="SELECT"){
+					$('.selectpicker').selectpicker('refresh');
+					$("#" + name).selectpicker('val',value);
+				};		
+			};
+//第二部分，流程图的颜色改变，锁定模块
+			var unselectNode = data['unselectNode'].split(",");
+			//console.log(unselectNode)
+			for(var i=0;i<unselectNode.length;i++){
+				if(unselectNode[i]==''){
+					continue;
+				}
+				diagram.findNodeForKey(unselectNode[i]).elt(0).fill=unselectColor;	//未选中模块变成灰色
+				nodeStatus[unselectNode[i]] = 0;
+			};
+			
+			
+//修改原来默认参数的数值			
+			var nodePara = data.nodePara
+			for(var i=0;i<allNodeName.length;i++){
+				if($.inArray(allNodeName[i], unselectNode)== -1){
+	
+					items = defaultRefParams[allNodeName[i]];   //所有有参数的节点
+					if(typeof(items)=='undefined' || items==null){
+						continue;
+				   }
+					
+					for (var j=0; j < items.length; j++){   //遍历节点中的所有参数
+						for(var k=0;k<nodePara.length;k++){    //遍历所有的草稿中的参数
+							
+							if(nodePara[k]["name"] == items[j]["id"]){
+								if(defaultRefParams[allNodeName[i]][j]["type"] == "input"){   //input输入框直接将默认值替换为草稿中的值
+								
+									defaultRefParams[allNodeName[i]][j]["value"] = nodePara[k]["value"];
+								};
+								if (defaultRefParams[allNodeName[i]][j]["type"] == "dropdown"){  //下拉框将需要草稿中的值设置为第一位
+									var dropdownValue=""
+									var arr = defaultRefParams[allNodeName[i]][j]["value"].split(",");  //将之前的默认的value先转化成数组
+									arr.splice($.inArray(nodePara[k]["value"],arr),1);     //去掉数组中草稿中的这一项
+									for(var n=0;n<arr.length;n++){	//循环数组，将草稿中的第一项放在最前面
+										if(dropdownValue == ""){
+											dropdownValue += nodePara[k]["value"]+","+arr[n];
+										}
+										else{
+											dropdownValue += "," +  arr[n];
+										};
+									};
+								//	console.log(dropdownValue)
+									defaultRefParams[allNodeName[i]][j]["value"] = dropdownValue;  //将新的组成的字符串赋值给默认值
+								};
+							};
+						};
+					}; 
+					
+				};
+			};
+			
+			selectedNode();  //锁定模块
+//		};
+		
+                },
+		error: function(XMLHttpRequest) {
+					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
+				 }
+	});
 };
 
-//刷新按钮绑定该表格选中项清除，注意只在页面加载时调用一次
-function refreshTable(divId,checkBoxId){
-	$("#"+divId+" button[name='refresh']").click(function(){
-		$("#" + checkBoxId +"").text(0);
-	});	
-};
+//直接写入一个json而不从json文件中获得他
+allNodeName =  ["Density", "Saturation", "SNP_INDEL", "AS", "PPI", "GO", "KEGG","QC","Assemble","Novel","DE"];
+constDefaultRefParams={
 
-//获该行所有数据，打开模态框
-function editParams(tableId,modalId){   //三个参数分别是，要编辑的table的id， 需要打开的模态框的名字， 返回值为选中行的所有参数
-	num = checkedNum(tableId);
-	if(num == 1){
-		var rowData
-		$('#'+modalId).modal('show');      //打开模态框
-		$.map($("#"+tableId).bootstrapTable('getSelections'), function (row) {
-			rowData = row;
-		});
-		return rowData;
-	}
-	else{
-		alert("请选择 1 项进行编辑！")
-		return false;
-		}
-};
+	"DE": [
+        {
+            "id": "qval",
+            "name": "P-Adjusted Value",
+            "type": "input",
+			"value":"0.005",
+			"illustration":"p-adjusted value为校正后的p-value值，用于反映差异的显著性，值越小差异越显著。此参数用于筛选差异基因。无生物学重复一般选择0.005，生物学重复一般选择0.05 。"
+        },
+        {
+            "id":"foldchange",
+            "name": "差异倍数",
+            "type": "input",
+			"value":"",
+			"illustration":"此参数为foldchange，即差异倍数。值越大，表示基因表达水平差异越大。用于筛选差异基因。无生物学重复一般取2，有生物学重复一般设置为1。"
+        }
+],
+	"PPI": [
+        {
+            "id": "ppi",
+            "name": "PPI号",
+            "type": "dropdown",
+			"value":";39947,Oryza_sativa_Japonica(rice)",
+			"illustration":"用于PPI(Protein-Protein Interactions)分析的ppi number。"
+        }],
 
-//删除选中的行
-function remove(tableId,colName,url){
-	num = checkedNum(tableId);					//选中个数
-	remove_confirm(tableId,colName,num,url);	//删除。参数分别是bootstrap的名字（用来刷新），列名字（ID），删除的数量（用于显示删除几项），后台传输的地址
-};
+	"KEGG": [
+        {
+            "id": "abbr",
+            "name": "KEGG缩写",
+            "type": "dropdown",
+			"value":";osa,Oryza_sativa_Japonica(rice);hsa,Homo_sapiens(human)",
+			"illustration":"KEGG物种缩写。"
+        }]
+}
+
+defaultRefParams = JSON.parse(JSON.stringify(constDefaultRefParams));

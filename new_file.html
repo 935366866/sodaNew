@@ -15,29 +15,31 @@
 	</head>
 	<body>
 		<div class="container">
-			<table class="table table-condensed">
-			  <caption>精简表格布局</caption>
-			  <thead>
-			    <tr>
-			      <th  contentEditable="true">名称</th>
-			      <th>城市</th>
-			      <th>邮编</th></tr>
-			  </thead>
-			  <tbody>
-			    <tr>
-			      <td>Tanmay</td>
-			      <td>Bangalore</td>
-			      <td>560001</td></tr>
-			    <tr>
-			      <td>Sachin</td>
-			      <td>Mumbai</td>
-			      <td>400003</td></tr>
-			    <tr>
-			      <td>Uma</td>
-			      <td>Pune</td>
-			      <td>411027</td></tr>
-			  </tbody>
-			</table>
+			
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+			
 		</div>
 	<script src="public/js/jquery-1.11.2.min.js"></script>
     <script src="public/js/bootstrap.min.js"></script>
@@ -64,7 +66,12 @@
     <script src="js/common.js"></script>
     <script src="public/draw/script/worldMapDraw.js"></script>   
     <script>
-
+    	var name="fq_1_2_3.gq.gz"
+//var sample = name.split("_");
+//console.log(sample[sample.length-1])
+var num=name.lastIndexOf("_");
+var q=name.substring(0,num)
+console.log(q) 
 </script>
 	</body>
 </html>
