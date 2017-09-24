@@ -176,138 +176,82 @@ function dblCilck(tableId,inputId,url) {
 //数据目录中填入数据
 function dataTableGet(data,sequencingType){
 		var objData=[];
-		var arr = new Array();  //数组，存放所有的文件名
-		var arrSample = new Array(); //数组，存放所有的sample name
+		var sampleMap = {}; //数组，存放所有的sample name
 		var patt =/\.fq\.gz$/i;
-		console.log(data)
-		//双端
+		var patt2 =/\.fastq\.gz$/i;
+		console.log(data);
+		//双端s
+		
 		if(sequencingType == "pe"){
 			for(var i=0;i<data.length;i++){  
-			   for(var key in data[i]){
-				 if(key == "name"){
-				   var name = data[i][key].trim();
-				   arr.push(name);
-				   if(patt.test(name)){
-					   	if(name.indexOf("_")!=-1){
-					   		var index=name.lastIndexOf("_");
-							var sample=name.substring(0,index)
-						   	if($.inArray(sample,arrSample) == -1){
-						   		arrSample.push(sample);
-							};
-					   		
-					   	}
-//					   var sample = name.split("_")[0];
-
-					}; 
-				 }
-			   }  
-		   } 
-		   console.log(arrSample)
-		   //组成JSON
-		  for (var i=0;i<arrSample.length; i++){
-			var fq1=arrSample[i]+"_1.fq.gz";
-			var fq2=arrSample[i]+"_2.fq.gz";
-			var adap1=arrSample[i]+"_1.adaptor.list";
-			var adap2=arrSample[i]+"_2.adaptor.list";
-			if($.inArray(fq1,arr) != -1){
+				var record = data[i];
+				var name = record.name.trim();
+				var lowName=name.toLowerCase();
+				if(!patt.test(lowName)&&!patt2.test(lowName)){
+					continue;
+				}
+				var index=name.lastIndexOf("_");
+				var sample=name.substring(0,index)
+				if(sample == null || sample.trim().length<=0){
+					continue;
+				}
+				sample=sample.toLowerCase();
+				if(!sampleMap[sample]){
+					sampleMap[sample] ={
+						fq1:null,
+						fq2:null,
+					};
+				}
+				
+				var index = name.substring(index);
+				if(index.indexOf("1") != -1){
+					sampleMap[sample].fq1 = name;
+				}else if(index.indexOf("2") != -1){
+					sampleMap[sample].fq2 = name;
+				}
+			 	
+		  	} 
+		  	 //组成JSON
+		 	for (var key in sampleMap){
+			
 				var tmp = {};
-				tmp['sample']=arrSample[i]
-				tmp['fq']=fq1;
-				if($.inArray(adap1,arr) != -1){
-					tmp['adap']=adap1;
-				}
-				else{
-					tmp['adap']='<font color="red">' + adap1 + '</font>';
-				}
+				tmp['sample']=key;
+				tmp['fq1']=sampleMap[key].fq1;
+				tmp['fq2']=sampleMap[key].fq2;
 				objData.push(tmp)
+		 
 			}
-			else{
-				var tmp = {};
-				tmp['sample']=arrSample[i]
-				tmp['fq']= '<font color="red">' + fq1 + '</font>'
-				if($.inArray(adap1,arr  != -1)){
-					tmp['adap']=adap1;
-				}
-			   else{
-					tmp['adap']= '<font color="red">' + adap1 + '</font>';
-				}
-				objData.push(tmp)
-			}
-		  if($.inArray(fq2,arr)  != -1){
-				var tmp = {};
-				tmp['sample']=arrSample[i]
-				tmp['fq']=fq2;
-				if($.inArray(adap2,arr)  != -1){
-					tmp['adap']=adap2;
-				}
-				else{
-					tmp['adap']= '<font color="red">' + adap2 + '</font>';
-				}
-				objData.push(tmp)
-			}
-			else{
-				var tmp = {};
-				tmp['sample']=arrSample[i]
-				tmp['fq']= '<font color="red">' + fq2 + '</font>'
-				if($.inArray(adap2,arr) != -1){
-					tmp['adap']=adap2;
-				}
-			   else{
-					tmp['adap']= '<font color="red">' + adap2 + '</font>';
-				}
-				objData.push(tmp)
-			}
-		}
 		   
-		 console.log(objData)  
 		}
 		if(sequencingType == "se"){
 			for(var i=0;i<data.length;i++){  
-			   for(var key in data[i]){
-				 if(key == "name"){
-
-				   var name = data[i][key];
-				   arr.push(name);
-				   if(patt.test(name)){
-
-					   var sample = name.split(".")[0];
-					   if($.inArray(sample,arrSample) == -1){
-					   arrSample.push(sample);
-						};
-					}; 
-				 }
-			   }  
-		   }
-		   
-		   for (var i=0;i<arrSample.length; i++){
-			var fq=arrSample[i]+".fq.gz";
-			var adap=arrSample[i]+".adaptor.list";
-			if($.inArray(fq,arr) != -1){
-				var tmp = {};
-				tmp['sample']=arrSample[i]
-				tmp['fq']=fq;
-				if($.inArray(adap,arr) != -1){
-					tmp['adap']=adap;
+				var record = data[i];
+				var name = record.name.trim();
+				var lowName=name.toLowerCase();
+				if(!patt.test(lowName)&&!patt2.test(lowName)){
+					continue;
 				}
-				else{
-					tmp['adap']='<font color="red">' + adap + '</font>';
+				
+				
+				var index=name.lastIndexOf("_");
+				if(index!=-1){
+					var sample=name.substring(0,index)
+					if(sample == null || sample.trim().length<=0){
+						continue;
+					}
+				}else{
+					var tempSample=name.substring(0,name.lastIndexOf("."));  //截取倒数第一个点之前的字符
+					var sample=tempSample.substring(0,tempSample.lastIndexOf("."))
 				}
-				objData.push(tmp)
-			}
-			else{
-				var tmp = {};
-				tmp['sample']=arrSample[i]
-				tmp['fq']= '<font color="red">' + fq + '</font>'
-				if($.inArray(adap1,arr  != -1)){
-					tmp['adap']=adap;
-				}
-			   else{
-					tmp['adap']='<font color="red">' + adap + '</font>';
-				}
-				objData.push(tmp)
-			}
-
-		  }
+				
+				sample=sample.toLowerCase();
+				objData.push({
+						sample:sample,
+						fq:name
+				});
+			 	
+		  	} 
+		  	
 		}
 	return objData
 };

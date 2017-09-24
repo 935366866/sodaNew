@@ -24,6 +24,33 @@
         "inodeNum": "1",
         "owner": "agloom",
         "group": "agloom",
+        "size": "4537",
+        "mtime": "2016-03-10/16:07:39",
+        "name": "s777_2.fastq.gz"
+    },
+    {
+        "type": "-rw-rw-r--.",
+        "inodeNum": "1",
+        "owner": "agloom",
+        "group": "agloom",
+        "size": "4522",
+        "mtime": "2016-03-10/16:07:39",
+        "name": "lx.1_s777_2.fastq.gz"
+    },
+    {
+        "type": "-rw-rw-r--.",
+        "inodeNum": "1",
+        "owner": "agloom",
+        "group": "agloom",
+        "size": "4522",
+        "mtime": "2016-03-10/16:07:39",
+        "name": "LX.1_s777_1.fastq.gz"
+    },
+    {
+        "type": "-rw-rw-r--.",
+        "inodeNum": "1",
+        "owner": "agloom",
+        "group": "agloom",
         "size": "2506",
         "mtime": "2016-02-18/21:02:21",
         "name": "s1_2.adaptor.list"
