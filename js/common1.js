@@ -186,12 +186,28 @@ function dataTableGet(data,sequencingType){
 			for(var i=0;i<data.length;i++){  
 				var record = data[i];
 				var name = record.name.trim();
+				if(name=="ss_R2.fq.gz"){
+					debugger;
+				}
 				var lowName=name.toLowerCase();
 				if(!patt.test(lowName)&&!patt2.test(lowName)){
 					continue;
 				}
-				var index=name.lastIndexOf("_");
-				var sample=name.substring(0,index)
+
+				var tempSample=name.substring(0,name.lastIndexOf("."));  //截取倒数第一个点之前的字符
+				var sample1=tempSample.substring(0,tempSample.lastIndexOf("."))
+				var patt5 =/\_1$/i;	
+				var patt6 =/\_R1$/i;
+				var patt7 =/\_2$/i;	
+				var patt8 =/\_R2$/i;
+				var sample;
+				if(!patt5.test(sample1)&&!patt6.test(sample1)&&!patt7.test(sample1)&&!patt8.test(sample1)){
+					continue;
+				}else{
+					var index=name.lastIndexOf("_");
+					sample=name.substring(0,index);
+				}
+				
 				if(sample == null || sample.trim().length<=0){
 					continue;
 				}

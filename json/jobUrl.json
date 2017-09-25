@@ -98,7 +98,25 @@
         "group": "agloom",
         "size": "7767",
         "mtime": "2016-03-14/17:49:44",
-        "name": "ss_R1.fq.gz"
+        "name": "ss_R2.fq.gz"
+    },
+    {
+        "type": "-rw-rw-r--.",
+        "inodeNum": "1",
+        "owner": "agloom",
+        "group": "agloom",
+        "size": "7767",
+        "mtime": "2016-03-14/17:49:44",
+        "name": "ss_a2.fastq.gz"
+    },
+    {
+        "type": "-rw-rw-r--.",
+        "inodeNum": "1",
+        "owner": "agloom",
+        "group": "agloom",
+        "size": "7767",
+        "mtime": "2016-03-14/17:49:44",
+        "name": "ss_A1.fastq.gz"
     },
     {
         "type": "-rw-rw-r--.",
