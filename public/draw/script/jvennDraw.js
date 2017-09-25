@@ -18,7 +18,7 @@ $(function(){
 		methods:{
 			addSample:function(){
 				if(this.sampleList.length == 6){
-					alert();
+					alert("最多只能添加6个样本");
 					return;
 				}
 				this.sampleList.push({

@@ -106,7 +106,7 @@
 					</div>
 
 					<!--第二部分表格的填写-->
-					<div class="part_box" >
+					<div class="part_box">
 						<form class="form-horizontal" id="creatTask" role="form" style="margin-top: 30px;" action="newTask" method="post" onsubmit="return submitForm(this)">
 							<input type='hidden' id='task_type' name='task_type' value='ref' />
 							<input type='hidden' id='id' name="id" value="{$id} "></input>
@@ -140,10 +140,11 @@
 									<input type="url" class="form-control" id="dir_path" name="dir_path" placeholder="请选择任务目录" readonly>
 
 								</div>
-								<a onclick="opendir_path()">
-									<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
-								</a>							
-
+								<div style="display: inline-block;margin-top: 3px;padding-left: 20px;">
+									<a onclick="opendir_path()">
+										<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
+									</a>							
+								</div>
 							</div>
 
 
@@ -186,7 +187,7 @@
 							</div>
 
 							<!--数据目录-->
-							<div class="task_form_height">
+							<div class="task_form_height" style="position: relative;">
 								<label class="task_label"><span>8</span>数据目录</label>
 								<div class="task_box" >
 									<input type="url" class="form-control " required id="data_dir" name="data_dir" placeholder="请选择数据目录" readonly>
@@ -201,25 +202,15 @@
 										<span class="glyphicon glyphicon-folder-open" style="font-size:20px; cursor:pointer;color:#7f8080;"></span>
 									</a>
 								</div>
+								<!--提示模态窗-->
+								<div id="tipModal" style="display:none; width: 430px;height: 135px;box-shadow: 0px 0px 6px 2px #C0C0C0;position: absolute;top:58px;right:-135px;z-index: 100;background: #333;color:#fff;border-radius: 5px;padding: 15px;">
+									目录下需要包含命令格式为*_*.fq.gz或者*_*.fastq.gz结尾的测序数据文件，第一个星号用来区分不同样本的信息的，由数字、字母、下划线和连接任意组合构成，
+								        不可以包含空格，第二个星号代表read1或者read2的信息，用“1”或者“R1”表示。例如Sample1_L1_1.fq.gz。
+								</div>
 							</div>
 
 						</form>
-						<!--提示模态窗-->
-						<div class="modal" id="tipModal" data-backdrop=false aria-hidden="true" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						  <div class="modal-dialog" role="document">
-						    <div class="modal-content">	
-						    	<div class="modal-header"></div>
-						      <div class="modal-body">
-						        目录下需要包含命令格式为*_*.fq.gz或者*_*.fastq.gz结尾的测序数据文件，第一个型号用来区分不同样本的信息的，由数字、字母、下划线和连接任意组合构成，
-						        不可以包含空格，第二个星号代表read1或者read2的信息，用“1”或者“R1”表示。例如Sample1_L1_1.fq.gz。
-						      </div>
-						      <div class="modal-footer"></div>
-						    </div>
-						  </div>
-						</div>
-						
-						
-						
+
 					<!--第二部分 选择sample的表格 -->
 					<div class="task_form_height">
 					<div class="task_label">&nbsp;</div>
@@ -478,15 +469,16 @@
 	<script src="public/js/jquery.blockUI.js" type="text/javascript"></script>
 	<script src="public/js/long_common1.js"></script>
 	<script src="js/go.js"></script>
-	<script src="js/common1.js"></script>dataTip
+	<script src="js/common1.js"></script>
 	<script>
 		$(function(){
+			
 			//数据目录问号图标监听移入移出事件
 			$('#dataTip').on("mouseover",function(){
-				$('#tipModal').modal('show'); 
+				$('#tipModal').show(); 
 			});  
 			$('#dataTip').on("mouseout",function(){
-				$('#tipModal').modal('hide'); 
+				$('#tipModal').hide(); 
 			});  
 			$('#creatTask label').addClass('label_width');   //含有任务名称等基本信息的表格中label
 		});
@@ -1295,11 +1287,15 @@ function dragInit() {
 			})
 		});
 };
-
+var patrn=/^(\w){1,10}$/; 
 var allgroups = new Array();	//all groups
 function addGroup(){
 	var gname= $("#groupName").val();
 	if(gname=='' ||gname==null){
+		return false;
+	}
+    if (!patrn.exec(gname)) {
+    	alert('只能包含字母数字下划线，长度不超过10');
 		return false;
 	}
 	if(-1!=allgroups.indexOf(gname,0)){
@@ -1627,7 +1623,6 @@ $("#taskRun").click(function(){
 	
 }
 $(function(){
-	
 	var options={
 		editable:true,
 		toolbar:"#toolbar",
@@ -1636,17 +1631,17 @@ $(function(){
 		height:"250",
 		columns: [  
 	        {field:"state",edit:false,checkbox:true,checkboxEnabled:true},  
-	        {align: "left", field: "sample", order: "asc",editable:{type:'text'}, title: "样本文件 "},
+	        {align: "left", field: "sample", order: "asc",editable:{type:'text'}, title: "样本名称 "},
 	        {align: "center", field: "fq", order: "asc", title: "FastQ文件 "}
       	]
 	}
 	
 	$('#sampleTable').bootstrapTable(options);
-	
+	var names=[]
 	$('#seq_type').on('changed.bs.select', function(e) {
 	    if(e.target.value){
 	      	if(e.target.value=="pe"){
-	      	
+	      		
 				var options=$('#sampleTable').bootstrapTable("getOptions");
 				options.editable=true;
 				options.columns=[{
@@ -1655,7 +1650,7 @@ $(function(){
 					align: "left",
 					field: "sample", 
 					order: "asc",
-					title: "样本文件 ",
+					title: "样本名称 ",
 					editable: {
 	                    type: 'text',
 	                    validate: function (v) {
@@ -1664,8 +1659,14 @@ $(function(){
 	                        	return '用户名不能为空';
 	                        } 
 	                        if (!patrn.exec(v)) {
-								return '样本名必须有字母、数字、下划线';
+								return '只能包含字母数字下划线，长度不超过10';
 							}
+	                        var data = $("#sampleTable").bootstrapTable('getData');
+	                        for(var i=0;i<data.length;i++){
+	                        	if(v==data[i].sample){
+	                        		return '样本名已存在';
+	                        	}
+	                        }
 	                   }
                 	}
                 	
@@ -1676,7 +1677,8 @@ $(function(){
 				}];
 				$('#sampleTable').bootstrapTable('destroy');
 				$('#sampleTable').bootstrapTable(options);
-	      	$('#sampleTable').bootstrapTable("resetView");
+	      		$('#sampleTable').bootstrapTable("resetView");
+	      		 
 	      	}else if(e.target.value=="se"){
 	      	var options=$('#sampleTable').bootstrapTable("getOptions");
 				
@@ -1694,18 +1696,22 @@ $(function(){
 	                        	return '用户名不能为空';
 	                        } 
 	                        if (!patrn.exec(v)) {
-								return '样本名必须有字母、数字、下划线';
+								return '只能包含字母数字下划线，长度不超过10';
 							}
+	                        var data = $("#sampleTable").bootstrapTable('getData');
+	                        for(var i=0;i<data.length;i++){
+	                        	if(v==data[i].sample){
+	                        		return '样本名已存在';
+	                        	}
+	                        }
 	                   }
                 	}, 
-                	title: "样本文件 "
+                	title: "样本名称 "
 				},{
 					align: "center", field: "fq", order: "asc", title: "FastQ文件 "
 				}];
 				$('#sampleTable').bootstrapTable('destroy');
 				$('#sampleTable').bootstrapTable(options);
-	      	}else{
-	      		
 	      	}
 	    }
     });

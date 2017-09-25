@@ -179,9 +179,9 @@ function dataTableGet(data,sequencingType){
 		var sampleMap = {}; //数组，存放所有的sample name
 		var patt =/\.fq\.gz$/i;
 		var patt2 =/\.fastq\.gz$/i;
-		console.log(data);
+		var patt3 =/\.fq$/i;    //以.fq结尾
+		var patt4 =/\.fastq$/i;	//以.fastq结尾
 		//双端s
-		
 		if(sequencingType == "pe"){
 			for(var i=0;i<data.length;i++){  
 				var record = data[i];
@@ -228,20 +228,33 @@ function dataTableGet(data,sequencingType){
 				var record = data[i];
 				var name = record.name.trim();
 				var lowName=name.toLowerCase();
-				if(!patt.test(lowName)&&!patt2.test(lowName)){
+				if(!patt.test(lowName)&&!patt2.test(lowName)&&!patt3.test(lowName)&&!patt4.test(lowName)){
 					continue;
 				}
-				
-				
-				var index=name.lastIndexOf("_");
-				if(index!=-1){
-					var sample=name.substring(0,index)
-					if(sample == null || sample.trim().length<=0){
-						continue;
-					}
+
+//				var index=name.lastIndexOf(".");
+//				if(index!=-1){
+//					var sample=name.substring(0,index)
+//					if(sample == null || sample.trim().length<=0){
+//						continue;
+//					}
+//				}else{
+//					var tempSample=name.substring(0,name.lastIndexOf("."));  //截取倒数第一个点之前的字符
+//					var sample=tempSample.substring(0,tempSample.lastIndexOf("."))
+//				}
+
+
+				var index=name.lastIndexOf(".");
+				var sample;
+				if(index==-1){
+					continue;
 				}else{
-					var tempSample=name.substring(0,name.lastIndexOf("."));  //截取倒数第一个点之前的字符
-					var sample=tempSample.substring(0,tempSample.lastIndexOf("."))
+					if(patt3.test(lowName)||patt4.test(lowName)){
+						sample=name.substring(0,name.lastIndexOf("."))
+					}else{
+						var tempSample=name.substring(0,name.lastIndexOf("."));  //截取倒数第一个点之前的字符
+						sample=tempSample.substring(0,tempSample.lastIndexOf("."))
+					}	
 				}
 				
 				sample=sample.toLowerCase();
