@@ -186,11 +186,7 @@ function dataTableGet(data,sequencingType){
 			for(var i=0;i<data.length;i++){  
 				var record = data[i];
 				var name = record.name.trim();
-				if(name=="ss_R2.fq.gz"){
-					debugger;
-				}
-				var lowName=name.toLowerCase();
-				if(!patt.test(lowName)&&!patt2.test(lowName)){
+				if(!patt.test(name)&&!patt2.test(name)){
 					continue;
 				}
 
@@ -211,7 +207,6 @@ function dataTableGet(data,sequencingType){
 				if(sample == null || sample.trim().length<=0){
 					continue;
 				}
-				sample=sample.toLowerCase();
 				if(!sampleMap[sample]){
 					sampleMap[sample] ={
 						fq1:null,
@@ -243,8 +238,7 @@ function dataTableGet(data,sequencingType){
 			for(var i=0;i<data.length;i++){  
 				var record = data[i];
 				var name = record.name.trim();
-				var lowName=name.toLowerCase();
-				if(!patt.test(lowName)&&!patt2.test(lowName)&&!patt3.test(lowName)&&!patt4.test(lowName)){
+				if(!patt.test(name)&&!patt2.test(name)&&!patt3.test(name)&&!patt4.test(name)){
 					continue;
 				}
 
@@ -265,15 +259,14 @@ function dataTableGet(data,sequencingType){
 				if(index==-1){
 					continue;
 				}else{
-					if(patt3.test(lowName)||patt4.test(lowName)){
+					if(patt3.test(name)||patt4.test(name)){
 						sample=name.substring(0,name.lastIndexOf("."))
 					}else{
 						var tempSample=name.substring(0,name.lastIndexOf("."));  //截取倒数第一个点之前的字符
 						sample=tempSample.substring(0,tempSample.lastIndexOf("."))
 					}	
 				}
-				
-				sample=sample.toLowerCase();
+
 				objData.push({
 						sample:sample,
 						fq:name

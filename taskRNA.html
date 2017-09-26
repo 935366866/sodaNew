@@ -168,10 +168,8 @@
 								<label class="task_label"><span>6</span>链特异性文库</label>
 								<div class="task_box">
 									<select id="is_sslib" name="is_sslib" class="selectpicker select_width">
-				
 										<option value="no">NO</option>
 										<option value="yes">YES</option>
-				
 									</select>
 								</div>
 							</div>
@@ -202,8 +200,8 @@
 										<span class="glyphicon glyphicon-folder-open" style="font-size:20px; cursor:pointer;color:#7f8080;"></span>
 									</a>
 								</div>
-								<!--提示模态窗-->
-								<div id="tipModal" style="display:none; width: 430px;height: 135px;box-shadow: 0px 0px 6px 2px #C0C0C0;position: absolute;top:58px;right:-135px;z-index: 100;background: #333;color:#fff;border-radius: 5px;padding: 15px;">
+								<!--提示提示框-->
+								<div id="dataTipModal" style="display:none; width: 430px;height: 140px;position: absolute;top:50px;right:-131px;z-index: 100;color:#fff;padding: 30px 15px 10px 15px;background: url(img/tipBj.png);">
 									目录下需要包含命令格式为*_*.fq.gz或者*_*.fastq.gz结尾的测序数据文件，第一个星号用来区分不同样本的信息，由数字、字母、下划线任意组合构成，
 								        不可以包含空格，第二个星号代表read1或者read2的信息，用“1”或者“R1”表示。例如Sample1_L1_1.fq.gz。
 								</div>
@@ -211,22 +209,23 @@
 
 						</form>
 
-					<!--第二部分 选择sample的表格 -->
-					<div class="task_form_height">
-					<div class="task_label">&nbsp;</div>
-					<div class="task_box" style="width: 81%;margin-left: 55px;margin-top: 0;">
-						<div id="toolbar">
-							<button id="removeDataTable" class="btn btn-default">删除行</button>
+					<!--第二部分 选择sample的表格 -->								
+					<div class="task_form_height" style="position: relative;">
+						<div class="task_label">&nbsp;</div>
+						<div class="task_box" style="width: 81%;margin-left: 55px;margin-top: 0;">
+							<div id="toolbar">
+								<button id="removeDataTable" class="btn btn-default">删除行</button>
+							</div>
+							<table id="sampleTable" ></table>
+							<div style="width:360px;margin:0 auto;padding-top:40px;padding-bottom:40px;">
+								<button id="getSamples" class="btn btn_orange round_Button" style="margin-top: 10px;">锁定样本</button>
+								<button class="btn btn_white round_Button" id="unlockSamples" style="margin-top: 10px; margin-left:20px;">清空样本</button>
+							</div>
+							<!--样本名格式提示框-->
+							<div id="sampleTipModal" style="display:none; width: 290px;height: 1115px;position: absolute;top:7px;left: 122px;z-index: 100;color:#fff;padding: 17px 15px 20px 15px;background: url(img/sampleTipBj.png) no-repeat;">
+								建议点击每个样本的名称进行样本名的修改，由数字、字母、下划线任意组合构成，不能包含空格，长度不超过10个字符
+							</div>
 						</div>
-						<table id="sampleTable" >
-							
-						</table>
-						<div style="width:360px;margin:0 auto;padding-top:40px;padding-bottom:40px;">
-							<button id="getSamples" class="btn btn_orange round_Button" style="margin-top: 10px;">锁定样本</button>
-							<button class="btn btn_white round_Button" id="unlockSamples" style="margin-top: 10px; margin-left:20px;">清空样本</button>
-						</div>
-					</div>
-					</div>
 
 					</div>
 					<!-- ------------------------------------------------------------------------------------------------- -->
@@ -305,8 +304,22 @@
 						<!--带星 分组比较标题-->
 						<div class="task_form_height">
 							<label class="task_label"><span>10</span>分组比较</label>
-								<!--带有拖拽内容的面板-->
+						<!--带有拖拽内容的面板-->
 						<div class="sample_part" style="width: 81%;margin-left: 55px;margin-top: 0;">
+							<div class="panel panel-default">
+								<div class="panel-heading">生物学重复</div>
+								<div class="panel-body">
+									<form class="form-horizontal">
+										<label class="col-sm-3 control-label">生物学</label>
+										<div class="col-sm-7">
+										<select id="isRepeat" name="isRepeat" class="selectpicker select_width">
+											<option value="no" >NO</option>
+											<option value="yes" selected="selected">YES</option>
+										</select>
+										</div>
+									</form>
+								</div>
+							</div>
 							<div class="panel panel-default" style="padding:0px;">
 								<div class="panel-heading">
 									<h4><span class="glyphicon glyphicon-edit"></span> Sample Group</h4>
@@ -475,10 +488,10 @@
 			
 			//数据目录问号图标监听移入移出事件
 			$('#dataTip').on("mouseover",function(){
-				$('#tipModal').show(); 
+				$('#dataTipModal').fadeIn(300); 
 			});  
 			$('#dataTip').on("mouseout",function(){
-				$('#tipModal').hide(); 
+				$('#dataTipModal').fadeOut(300); 
 			});  
 			$('#creatTask label').addClass('label_width');   //含有任务名称等基本信息的表格中label
 		});
@@ -581,36 +594,35 @@
 		  );  
 
 		//单击元素，直接获得 key
-		diagram.addDiagramListener("ObjectSingleClicked",
-			      function(e) {
-					  if(nodeLockStatus == 1){
-							var part = e.subject.part;
-							var color = part.elt(0).fill;
-							obj = part
-							
-					     if(  jQuery.inArray(obj.data.key, requiredNode) == -1 ){   //单击的节点不在必选的节点当中
-							 if(color == selectColor){
-								part.elt(0).fill = unselectColor;
-								nodeStatus[obj.data.key] = 0;
-						//		nodeStatus[nodeName] = 0;
-								findChildren(obj);
-						//		console.log(nodeStatus[nodeName])
+		diagram.addDiagramListener("ObjectSingleClicked",function(e) {
+			if(nodeLockStatus == 1){
+					var part = e.subject.part;
+					var color = part.elt(0).fill;
+					obj = part
+					
+			     if(  jQuery.inArray(obj.data.key, requiredNode) == -1 ){   //单击的节点不在必选的节点当中
+					 if(color == selectColor){
+						part.elt(0).fill = unselectColor;
+						nodeStatus[obj.data.key] = 0;
+				//		nodeStatus[nodeName] = 0;
+						findChildren(obj);
+				//		console.log(nodeStatus[nodeName])
+				
+						}
 						
-								}
-								
-							if(color == unselectColor){
-								part.elt(0).fill = selectColor;
-								nodeStatus[obj.data.key] = 1;
-						//		nodeStatus[nodeName] = 1;
-								findParents(obj);
-						//		console.log(nodeStatus[nodeName])
-								}
-						  };
-					  };
-					  if(nodeLockStatus == 0){
-						  alert("无法编辑，请先解锁模块")
-						  };
-			      });
+					if(color == unselectColor){
+						part.elt(0).fill = selectColor;
+						nodeStatus[obj.data.key] = 1;
+				//		nodeStatus[nodeName] = 1;
+						findParents(obj);
+				//		console.log(nodeStatus[nodeName])
+						}
+				  };
+			};
+				if(nodeLockStatus == 0){
+					alert("无法编辑，请先解锁模块")
+				};
+	    });
 			//找到选中节点的子节点
 			function findChildren(obj){
 				var it = obj.findTreeChildrenNodes();    //找到所有的子节点
@@ -807,14 +819,14 @@ function addIcon(State, row) {
 
 //当模态框加载完成后给input中添加当前用户的根目录
 $(function(){
-		  dblCilck('jobUrlTable','inputUrl',samplesDataUrl);
-		  $('#selectUrl').on('shown.bs.modal', function () {    //模态框完全显示之后把根目录放入
+  dblCilck('jobUrlTable','inputUrl',samplesDataUrl);
+  $('#selectUrl').on('shown.bs.modal', function () {    //模态框完全显示之后把根目录放入
 //	      	$("#inputUrl").val("/home/agloom");
-		  	if($("#inputUrl").val()==''){
-		  		$("#inputUrl").val('/');
-		  	}
-		  	checkUrl($("#inputUrl").val(), samplesDataUrl, 'inputUrl','jobUrlTable');
-		  });
+  	if($("#inputUrl").val()==''){
+  		$("#inputUrl").val('/');
+  	}
+  	checkUrl($("#inputUrl").val(), samplesDataUrl, 'inputUrl','jobUrlTable');
+  });
 });
 
 
@@ -1125,7 +1137,7 @@ function dragInit() {
 	      activeClass: "ui-state-highlight",
 	      tolerance:"pointer",
 	      drop: function( event, ui ) {
-	        dropItem( ui.draggable ,$(this),'green',allgroups.length);
+	        dropItem( ui.draggable ,$(this),'green',2);
 	      }
 	    });
 	//分组接收样本
@@ -1138,12 +1150,18 @@ function dragInit() {
 	        dropItem( ui.draggable ,$(this),'#333',maxNum);
 	      }
 	    });
-	 if(maxNum>10){
+	 if(maxNum>12){
 	 	$("#sampleNames").css({
-	 		height:'300px',
+	 		height:'360px',
 	 		overflow:'auto'
 	 	})
 	 }
+	if($("#groupList .sampleGroup").length>12){
+		$("#groupList").css({
+	 		height:'360px',
+	 		overflow:'auto'
+	 	})
+	}
 
 //	    // 可以接收从样品组中拖回的样品
 //	    $sampleNames.droppable({
@@ -1287,7 +1305,23 @@ function dragInit() {
 			})
 		});
 };
-var patrn=/^(\w){1,10}$/; 
+$('#isRepeat').on('changed.bs.select', function(e) {
+	if(e.target.value){
+		if(e.target.value=="no"){
+			$("#sampleNames li").each(function(){
+				var gname= $(this).text();
+				var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+gname+'</span><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"><li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'+gname+'</li></ul></div>';
+				$(html).appendTo('#groupList');
+				allgroups.push(gname);
+				dragInit();
+			})
+		}else{
+			$('#groupList').html("");
+			allgroups=[];
+		}
+	}
+})
+var patrn=/^(\w){1,10}$/i; 
 var allgroups = new Array();	//all groups
 function addGroup(){
 	var gname= $("#groupName").val();
@@ -1320,7 +1354,8 @@ function addCompare(){
 		alert('此为组间比较，至少需要两个样本组，请先填写样本组信息！');
 		return false;
 	}
-	var cname= $('#compareName').val().replace(/(^\s*)|(\s*$)/g, "");
+//	var cname= $('#compareName').val().replace(/(^\s*)|(\s*$)/g, "");
+	var cname= $('#compareName').val();
 	if(cname=='' ||cname==null){
 		return false;
 	}
@@ -1628,10 +1663,11 @@ $(function(){
 		toolbar:"#toolbar",
 		clickToSelect:true,
 		showFooter:false,
+		classes:'table',
 		height:"250",
 		columns: [  
 	        {field:"state",edit:false,checkbox:true,checkboxEnabled:true},  
-	        {align: "left", field: "sample", order: "asc",editable:{type:'text'}, title: "样本名称 "},
+	        {align: "left", field: "sample", order: "asc",editable:{type:'text'}, title: "样本名称 <span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>"},
 	        {align: "center", field: "fq", order: "asc", title: "FastQ文件 "}
       	]
 	}
@@ -1641,7 +1677,6 @@ $(function(){
 	$('#seq_type').on('changed.bs.select', function(e) {
 	    if(e.target.value){
 	      	if(e.target.value=="pe"){
-	      		
 				var options=$('#sampleTable').bootstrapTable("getOptions");
 				options.editable=true;
 				options.columns=[{
@@ -1650,7 +1685,7 @@ $(function(){
 					align: "left",
 					field: "sample", 
 					order: "asc",
-					title: "样本名称 ",
+					title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>",
 					editable: {
 	                    type: 'text',
 	                    validate: function (v) {
@@ -1678,6 +1713,12 @@ $(function(){
 				$('#sampleTable').bootstrapTable('destroy');
 				$('#sampleTable').bootstrapTable(options);
 	      		$('#sampleTable').bootstrapTable("resetView");
+	      		$('#sampleTip').on("mouseover",function(){
+					$('#sampleTipModal').show(); 
+				});  
+				$('#sampleTip').on("mouseout",function(){
+					$('#sampleTipModal').hide(); 
+				});
 	      		 
 	      	}else if(e.target.value=="se"){
 	      	var options=$('#sampleTable').bootstrapTable("getOptions");
@@ -1706,16 +1747,28 @@ $(function(){
 	                        }
 	                   }
                 	}, 
-                	title: "样本名称 "
+                	title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>"
 				},{
 					align: "center", field: "fq", order: "asc", title: "FastQ文件 "
 				}];
 				$('#sampleTable').bootstrapTable('destroy');
 				$('#sampleTable').bootstrapTable(options);
+				$('#sampleTip').on("mouseover",function(){
+					$('#sampleTipModal').show(); 
+				});  
+				$('#sampleTip').on("mouseout",function(){
+					$('#sampleTipModal').hide(); 
+				}); 
+				
 	      	}
 	    }
     });
-
+	$('#sampleTip').on("mouseover",function(){
+		$('#sampleTipModal').show(); 
+	});  
+	$('#sampleTip').on("mouseout",function(){
+		$('#sampleTipModal').hide(); 
+	}); 
 })
 
 </script>
