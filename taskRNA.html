@@ -12,11 +12,6 @@
 	<link href="public/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" media="screen"  />
 	<link href="public/css/long_common.css" rel="stylesheet"  media="all">
 	<link href="css/soda_common.css" rel="stylesheet" >
-	<style>
-		.editableform .form-control{
-			width: 150px !important;
-		}
-	</style>
 </head>
 
 <body style="background-color: rgb(248,248,248);">
@@ -140,7 +135,7 @@
 									<input type="url" class="form-control" id="dir_path" name="dir_path" placeholder="请选择任务目录" readonly>
 
 								</div>
-								<div style="display: inline-block;margin-top: 3px;padding-left: 20px;">
+								<div class="dir">
 									<a onclick="opendir_path()">
 										<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
 									</a>							
@@ -177,8 +172,8 @@
 							<div class="task_form_height">
 								<label class="task_label"><span>7</span>测序类型</label>
 								<div class="task_box">
-									<select id="seq_type" name="seq_type" class="selectpicker select_width">
-										<option value="pe">PE(Pair-End)</option>
+									<select id="seq_type" name="seq_type" class="selectpicker select_width bs-select-hidden">
+										<option selected="selected" value="pe">PE(Pair-End)</option>
 										<option value="se">SE(Single-End)</option>
 								</select>
 								</div>
@@ -480,7 +475,7 @@
 	<script src="public/js/bootstrap-table-editable.js"></script>
 	<script src="public/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
 	<script src="public/js/jquery.blockUI.js" type="text/javascript"></script>
-	<script src="public/js/long_common1.js"></script>
+	<script src="public/js/long_common.js"></script>
 	<script src="js/go.js"></script>
 	<script src="js/common1.js"></script>
 	<script>
@@ -1029,13 +1024,28 @@ function geturl(formInputId,type){
     $(function () {
         $('#removeDataTable').click(function () {
 			if(samplesLock == 1){
-				var ids = $.map($('#sampleTable').bootstrapTable('getSelections'), function (row) {
-					return row.fq;
-				});
-				$('#sampleTable').bootstrapTable('remove', {
-					field: 'fq',
-					values: ids
-				});
+				if($('#seq_type').val()=="pe"){
+					var ids = $.map($('#sampleTable').bootstrapTable('getSelections'), function (row) {
+						if(row.fq1){
+							return row.fq1;
+						}else{
+							return row.fq2;
+						}
+					});
+
+					$('#sampleTable').bootstrapTable('remove', {
+						field: 'fq1',
+						values: ids
+					});
+				}else{
+					var ids = $.map($('#sampleTable').bootstrapTable('getSelections'), function (row) {
+						return row.fq;
+					});
+					$('#sampleTable').bootstrapTable('remove', {
+						field: 'fq',
+						values: ids
+					});
+				}
 			};
 			if(samplesLock == 0){
 				alert("样本已经锁定，请先解锁")
@@ -1257,6 +1267,7 @@ function dragInit() {
 	    
 	    $("#groupList .glyphicon-remove").each(function(){
 			$(this).click(function(){
+				$(this).parent('div').remove();
 				var value=$(this).siblings("span").text();
 				var index=$.inArray(value,allgroups);
 				
@@ -1264,33 +1275,35 @@ function dragInit() {
 					return ;
 				}
 				allgroups.splice(index,1);
-				$(this).parent('div').remove();
+				
 				$("#compareList").find("li").each(function(){
 					if($(this).text()==value){
 						$(this).remove();
 					}
 					
 				})
-//				recycleItem($(this).parent('div').find("li"));
+
 				dragInit();
 			})
 		});
 		$("#compareList .glyphicon-remove").each(function(){
 			$(this).click(function(){
+				$(this).parent('div').remove();
 				var value=$(this).siblings("span").text();
 				var index=$.inArray(value,allCompares);
 				if(index==-1){
 					return ;
 				}
 				
-				allCompares.splice(index,1);
-				$(this).parent('div').remove();
+				
+				
 				$("#vennList").find("li").each(function(){
 					if($(this).text()==value){
 						$(this).remove();
 					}
 					
 				})
+				allCompares.splice(index,1);
 			})
 		});
 		$("#vennList .glyphicon-remove").each(function(){
@@ -1354,8 +1367,12 @@ function addCompare(){
 		alert('此为组间比较，至少需要两个样本组，请先填写样本组信息！');
 		return false;
 	}
-//	var cname= $('#compareName').val().replace(/(^\s*)|(\s*$)/g, "");
+
 	var cname= $('#compareName').val();
+	if (!patrn.exec(cname)) {
+    	alert('只能包含字母数字下划线，长度不超过10');
+		return false;
+	}
 	if(cname=='' ||cname==null){
 		return false;
 	}
@@ -1375,7 +1392,11 @@ function addVenn(){
 		alert("维恩图至少需要两个比较组，请先填写比较组信息！");
 		return false;
 	}
-	var cname= $('#vennName').val().replace(/(^\s*)|(\s*$)/g, "");
+	var cname= $('#vennName').val();
+	if (!patrn.exec(cname)) {
+    	alert('只能包含字母数字下划线，长度不超过10');
+		return false;
+	}
 	if(cname=='' ||cname==null){
 		return false;
 	}
@@ -1668,59 +1689,62 @@ $(function(){
 		columns: [  
 	        {field:"state",edit:false,checkbox:true,checkboxEnabled:true},  
 	        {align: "left", field: "sample", order: "asc",editable:{type:'text'}, title: "样本名称 <span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>"},
-	        {align: "center", field: "fq", order: "asc", title: "FastQ文件 "}
+	        {align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "},
+	        {align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "}
       	]
 	}
 	
 	$('#sampleTable').bootstrapTable(options);
 	var names=[]
+  	if($('#seq_type').val()=="pe"){
+		var options=$('#sampleTable').bootstrapTable("getOptions");
+		options.editable=true;
+		options.columns=[{
+			checkbox:true,checkboxEnabled:true,field:"state",title:""
+		},{
+			align: "left",
+			field: "sample", 
+			order: "asc",
+			title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>",
+			editable: {
+                type: 'text',
+                validate: function (v) {
+                	var patrn=/^(\w){1,10}$/; 
+                    if (!v&&v.trim().length<=0){
+                    	return '用户名不能为空';
+                    } 
+                    if (!patrn.exec(v)) {
+						return '只能包含字母数字下划线，长度不超过10';
+					}
+                    var data = $("#sampleTable").bootstrapTable('getData');
+                    for(var i=0;i<data.length;i++){
+                    	if(v==data[i].sample){
+                    		return '样本名已存在';
+                    	}
+                    }
+               }
+        	}
+        	
+		},{
+			align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "
+		},{
+			align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "
+		}];
+		$('#sampleTable').bootstrapTable('destroy');
+		$('#sampleTable').bootstrapTable(options);
+  		$('#sampleTable').bootstrapTable("resetView");
+  		$('#sampleTip').on("mouseover",function(){
+			$('#sampleTipModal').show(); 
+		});  
+		$('#sampleTip').on("mouseout",function(){
+			$('#sampleTipModal').hide(); 
+		});
+  		 
+  	}
+  	
 	$('#seq_type').on('changed.bs.select', function(e) {
 	    if(e.target.value){
-	      	if(e.target.value=="pe"){
-				var options=$('#sampleTable').bootstrapTable("getOptions");
-				options.editable=true;
-				options.columns=[{
-					checkbox:true,checkboxEnabled:true,field:"state",title:""
-				},{
-					align: "left",
-					field: "sample", 
-					order: "asc",
-					title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>",
-					editable: {
-	                    type: 'text',
-	                    validate: function (v) {
-	                    	var patrn=/^(\w){1,10}$/; 
-	                        if (!v&&v.trim().length<=0){
-	                        	return '用户名不能为空';
-	                        } 
-	                        if (!patrn.exec(v)) {
-								return '只能包含字母数字下划线，长度不超过10';
-							}
-	                        var data = $("#sampleTable").bootstrapTable('getData');
-	                        for(var i=0;i<data.length;i++){
-	                        	if(v==data[i].sample){
-	                        		return '样本名已存在';
-	                        	}
-	                        }
-	                   }
-                	}
-                	
-				},{
-					align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "
-				},{
-					align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "
-				}];
-				$('#sampleTable').bootstrapTable('destroy');
-				$('#sampleTable').bootstrapTable(options);
-	      		$('#sampleTable').bootstrapTable("resetView");
-	      		$('#sampleTip').on("mouseover",function(){
-					$('#sampleTipModal').show(); 
-				});  
-				$('#sampleTip').on("mouseout",function(){
-					$('#sampleTipModal').hide(); 
-				});
-	      		 
-	      	}else if(e.target.value=="se"){
+	      	if(e.target.value=="se"){
 	      	var options=$('#sampleTable').bootstrapTable("getOptions");
 				
 				options.columns=[{
@@ -1760,7 +1784,7 @@ $(function(){
 					$('#sampleTipModal').hide(); 
 				}); 
 				
-	      	}
+	      }
 	    }
     });
 	$('#sampleTip').on("mouseover",function(){
