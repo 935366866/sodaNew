@@ -299,68 +299,66 @@
 						<!--带星 分组比较标题-->
 						<div class="task_form_height">
 							<label class="task_label"><span>10</span>分组比较</label>
-						<!--带有拖拽内容的面板-->
-						<div class="sample_part" style="width: 81%;margin-left: 55px;margin-top: 0;">
-							<div class="panel panel-default">
-								<div class="panel-heading">生物学重复</div>
-								<div class="panel-body">
-									<form class="form-horizontal">
-										<label class="col-sm-3 control-label">生物学</label>
-										<div class="col-sm-7">
-										<select id="isRepeat" name="isRepeat" class="selectpicker select_width">
-											<option value="no" >NO</option>
-											<option value="yes" selected="selected">YES</option>
-										</select>
-										</div>
-									</form>
-								</div>
-							</div>
-							<div class="panel panel-default" style="padding:0px;">
-								<div class="panel-heading">
-									<h4><span class="glyphicon glyphicon-edit"></span> Sample Group</h4>
-								</div>
-								<div class="panel-body" style="padding: 15px 0px 15px 20px !important;">
-									<div style="margin-bottom: 55px;">
-										<div style="float:left;width:24%;margin-right: 20px;">
-											<div>
-											<label class='control-label'><b>样本名称：</b></label>
+							<!--带有拖拽内容的面板-->
+							<div class="sample_part" style="width: 81%;margin-left: 55px;margin-top: 0;">
+								<div class="panel panel-default">
+									<div class="panel-heading">生物学重复</div>
+									<div class="panel-body">
+										<form class="form-horizontal">
+											<label class="col-sm-3 control-label">生物学</label>
+											<div class="col-sm-7">
+											<select id="isRepeat" name="isRepeat" class="selectpicker select_width">
+												<option value="no" >NO</option>
+												<option value="yes" selected="selected">YES</option>
+											</select>
 											</div>
-										</div>
-										<div style="float:left;width:21%;margin-right: 20px;">
-											<div>
-												<button class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
-													<span class="glyphicon glyphicon-plus">Group</span>
-												</button><br />
-											</div>
-										</div>
-										<div style="float:left;width:21%;margin-right: 20px;">
-											<div>
-												<button class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
-													<span class="glyphicon glyphicon-plus">Compare</span>
-												</button>
-											</div>   
-										</div>
-										<div style="float:left;width:21%;margin-right: 20px;">
-											<div>
-												<button class="btn btn-default"  data-target='#vennModal' data-toggle='modal' style="outline: none;">
-													<span class="glyphicon glyphicon-plus">Venn</span>
-												</button>
-											</div>
-										</div>
-									</div>
-									<div style="width:100%;">																				
-										<div style="float:left;width:24%;margin-right: 20px;">
-											<div id="sampleWrap">
-												<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;"></ol>
-											</div>
-										</div>
-										<div id='groupList' style="float:left;width:21%;margin-right:20px;"></div>
-										<div id='compareList' style="float:left;width:21%;margin-right:20px;"></div>
-										<div id='vennList' style="float:left;width:21%"></div>																					
+										</form>
 									</div>
 								</div>
+								<div class="panel panel-default" style="padding:0px;">
+									<div class="panel-heading">
+										<h4><span class="glyphicon glyphicon-edit"></span> Sample Group</h4>
+									</div>
+									<div class="panel-body" style="padding: 15px 0px 15px 20px !important;">
+										<div style="margin-bottom: 55px;">
+											<div style="float:left;width:24%;margin-right: 20px;">
+												<div><label class='control-label'><b>样本名称：</b></label></div>
+											</div>
+											<div style="float:left;width:21%;margin-right: 20px;">
+												<div>
+													<button class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
+														<span class="glyphicon glyphicon-plus">Group</span>
+													</button><br />
+												</div>
+											</div>
+											<div style="float:left;width:21%;margin-right: 20px;">
+												<div>
+													<button class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
+														<span class="glyphicon glyphicon-plus">Compare</span>
+													</button>
+												</div>   
+											</div>
+											<div style="float:left;width:21%;margin-right: 20px;">
+												<div>
+													<button class="btn btn-default"  data-target='#vennModal' data-toggle='modal' style="outline: none;">
+														<span class="glyphicon glyphicon-plus">Venn</span>
+													</button>
+												</div>
+											</div>
+										</div>
+										<div style="width:100%;">																				
+											<div style="float:left;width:24%;margin-right: 20px;">
+												<div id="sampleWrap">
+													<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;"></ol>
+												</div>
+											</div>
+											<div id='groupList' style="float:left;width:21%;margin-right:20px;"></div>
+											<div id='compareList' style="float:left;width:21%;margin-right:20px;"></div>
+											<div id='vennList' style="float:left;width:21%"></div>																					
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
 						</div>						
 
 					
@@ -1032,11 +1030,20 @@ function geturl(formInputId,type){
 							return row.fq2;
 						}
 					});
-
-					$('#sampleTable').bootstrapTable('remove', {
-						field: 'fq1',
-						values: ids
-					});
+					var index=ids[0].lastIndexOf("_");
+					var arr=ids[0].split(""); 
+					if(arr[index+1]=="2"||arr[index+2]=="2"){
+						$('#sampleTable').bootstrapTable('remove', {
+							field: 'fq2',
+							values: ids
+						});
+					}
+				if(arr[index+1]=="1"||arr[index+2]=="1"){
+						$('#sampleTable').bootstrapTable('remove', {
+							field: 'fq1',
+							values: ids
+						});
+					}
 				}else{
 					var ids = $.map($('#sampleTable').bootstrapTable('getSelections'), function (row) {
 						return row.fq;
@@ -1784,7 +1791,51 @@ $(function(){
 					$('#sampleTipModal').hide(); 
 				}); 
 				
-	      }
+	    	}else{
+				var options=$('#sampleTable').bootstrapTable("getOptions");
+				options.editable=true;
+				options.columns=[{
+					checkbox:true,checkboxEnabled:true,field:"state",title:""
+				},{
+					align: "left",
+					field: "sample", 
+					order: "asc",
+					title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>",
+					editable: {
+		                type: 'text',
+		                validate: function (v) {
+		                	var patrn=/^(\w){1,10}$/; 
+		                    if (!v&&v.trim().length<=0){
+		                    	return '用户名不能为空';
+		                    } 
+		                    if (!patrn.exec(v)) {
+								return '只能包含字母数字下划线，长度不超过10';
+							}
+		                    var data = $("#sampleTable").bootstrapTable('getData');
+		                    for(var i=0;i<data.length;i++){
+		                    	if(v==data[i].sample){
+		                    		return '样本名已存在';
+		                    	}
+		                    }
+		               }
+		        	}
+		        	
+				},{
+					align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "
+				},{
+					align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "
+				}];
+				$('#sampleTable').bootstrapTable('destroy');
+				$('#sampleTable').bootstrapTable(options);
+		  		$('#sampleTable').bootstrapTable("resetView");
+		  		$('#sampleTip').on("mouseover",function(){
+					$('#sampleTipModal').show(); 
+				});  
+				$('#sampleTip').on("mouseout",function(){
+					$('#sampleTipModal').hide(); 
+				});
+		  		 
+		  	}
 	    }
     });
 	$('#sampleTip').on("mouseover",function(){

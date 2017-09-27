@@ -308,7 +308,7 @@ function draftTask(url,dataUrl){
 					 $("#" + name).val(value);
 					//向后台发送请求，将对应目录的数据填写到表格当中
 					 if(name == "data_dir"){    
-						var sequencingType = $("#seq_type").val(); 
+						var sequencingType = $("#seq_type").val(); //选择se还是qe
 						$.ajax({
 								url:dataUrl,  //向后台发送数据目录
 								type:'get',
