@@ -118,7 +118,7 @@
 										</a>
 										<span class="fileinput-button btn " style="padding: 0 10px;" >
 											<img src="public/draw/imgs/app_02.png" alt=""  style="width: 29px;">
-											<input id="upload_input" name="upload_input" onclick="uploadFile('json/upload.json','upload_input','#input')" type="file">
+											<input id="upload_input" name="upload_input" onclick="upload(this)" type="file">
 											<!--<input id="upload_input" name="file" onclick="uploadFile('http://192.168.199.224:8080/pccv2//uploadFile','upload_input','#input')" type="file">-->
 										</span>
 									</div>
@@ -516,9 +516,14 @@
     <script src="js/common.js"></script>
     <script src="public/draw/script/barDraw.js"></script>
     <script>
+    	function upload(dom){
+    			uploadFile('json/upload.json','upload_input','#input');
+    			vue.input=$("#input").val();
+    		}
     	$(function(){
     		$("#xColumnField").selectpicker({noneSelectedText:'请选择'});
     		$("#markLine").selectpicker({noneSelectedText:'请选择'});
+    		
     	})
     </script>
 </body>

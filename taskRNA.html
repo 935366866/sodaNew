@@ -1092,9 +1092,16 @@ $("#getSamples").click(function(){
 			$("#unlockSamples").attr("class","btn btn_orange round_Button");
 			$("#getSamples").attr("class","btn btn_white round_Button");
 		};
+		
+		$(".editable-click").editable("disable");
+		$(".editable-click").parent().click(function(){
+			alert("样本已锁定，请先解锁！")
+		})
 	};
 
+
 }); 
+
 //解锁样本
 $("#unlockSamples").click(function(){
 	samplesLock = 1;
@@ -1108,8 +1115,9 @@ $("#unlockSamples").click(function(){
 	allgroups=[];
 	allCompares=[];
 	allVenns=[];
-	
-	});
+	$(".editable-click").parent().off("click")
+	$(".editable-click").editable("enable");
+});
 
 //var curCont=null;
 function dragInit() {
