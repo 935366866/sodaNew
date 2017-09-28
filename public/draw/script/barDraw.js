@@ -174,6 +174,7 @@ $(function(){
 		},
 		watch:{
 			input:function(val,oldVal){
+				console.log(111)
 				$.ajax({
 					url: 'public/draw/json/barDrawFileData.json',  
 					type:'get',
