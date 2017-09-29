@@ -477,8 +477,10 @@
 	<script src="js/go.js"></script>
 	<script src="js/common1.js"></script>
 	<script>
+
+	$.cookie('groups', allgroups,{ expires: 7 }); 
+		
 		$(function(){
-			
 			//数据目录问号图标监听移入移出事件
 			$('#dataTip').on("mouseover",function(){
 				$('#dataTipModal').fadeIn(300); 
@@ -1583,33 +1585,41 @@ $("#taskRun").click(function(){
 		  };
 		}
 
-		//检查数据
-		//检查样本是否已全部分组，非强制
-		if($("#sampleNames").find('li').length>0){
-			if(!confirm("发现有未分组的样品，确定不分组?")){
-				return false;
-			}
-		}
+
 		//检查是否有分组，每个分组下的样品名
 		var groups =$('#groupList').find('div');
+		var allGroupItems=[];
 		if(groups.length>0){
 			var groupSamples= {};
 			for(var i=0; i<groups.length; i++){
 				var sampleItems = $($(groups[i]).find('ul')[0]).find('li');
 				if(sampleItems.length==0){
 					continue;
-				}
+				}			
 				//组名
 				var curGroup =$($(groups[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");  //空格开头或者结尾
 				var curGroupSamples = new Array();
 				for(var j=0; j < sampleItems.length ;j++){
 					curGroupSamples.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
 				}
+				allGroupItems.push(curGroupSamples[0]);
 				groupSamples[curGroup]= curGroupSamples;
 			}
 			groupCompareVenn['groupSamples']= groupSamples;
 		}
-		
+		//检查数据
+		//检查样本是否已全部分组，非强制
+		var samples=$("#sampleNames").find('li');
+		if(samples.length>0){
+			for(var i=0;i<samples.length;i++){
+				if(allGroupItems.indexOf(samples[i].innerText)==-1){
+					if(!confirm("发现有未分组的样品，确定不分组?")){
+						return false;
+					}
+				}
+			}
+		}
+
 		//检查比较组
 		var compares = $('#compareList').find('div');
 		if(compares.length>0){
@@ -1674,7 +1684,7 @@ $("#taskRun").click(function(){
 //向后台传送数据
 		 $.ajax({
 				    url:"__MODULE__/Task/addUpdateTask/submitType/job",  
-				    type:'post',
+				    type:'get',
 				    data:{parameter:resultPara},
 				    dataType: "json",
 				    success:function(data) {
@@ -1854,7 +1864,6 @@ $(function(){
 	$('#sampleTip').on("mouseout",function(){
 		$('#sampleTipModal').hide(); 
 	}); 
-	console.log(samplesLock)
 
 })
 

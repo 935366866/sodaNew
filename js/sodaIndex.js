@@ -208,7 +208,7 @@ function getcookievalue(sname){
   var svalue="";
   var sname=sname+"=";
   if(document.cookie.length>0){ 
-  	console.log(document.cookie)
+
     offset=document.cookie.indexOf(sname);
     if(offset!=-1){ 
       offset+=sname.length;

@@ -111,11 +111,11 @@
         <div class="myTab" > 
         	<div class="tabs" style="margin-left: 20px;float: none;width: 1185px;margin: 0 auto;">
 				<ul class="nav">
-					<li style="width: 160px;"><a href="#file" data-toggle="tab">KEGG通路散点图</a></li>
+					<li style="width: 160px;"><a href="#" data-toggle="tab">KEGG通路散点图</a></li>
 					<li style="width: 80px;"><span style="display: inline-block;width: 35px;height: 35px; background: url(img/bg_01.png);font-size: 25px;">3</span></li>
-					<li style="width: 160px;"><a href="#show" data-toggle="tab">差异基因富集注释</a></li>
+					<li style="width: 160px;"><a href="#" data-toggle="tab">差异基因富集注释</a></li>
 					<li style="width: 80px;"><span style="display: inline-block;width: 35px;height: 35px; background: url(img/bg_01.png);font-size: 25px;">2</span></li>
-					<li class="active"  style="width: 160px;" ><a href="#direction" data-toggle="tab">差异基因筛选</a></li>
+					<li class="active"  style="width: 160px;" ><a href="#" data-toggle="tab">差异基因筛选</a></li>
 					<li style="width: 80px;"><span style="display: inline-block;width: 35px;height: 35px; background: url(img/bg_01.png);font-size: 25px;">1</span></li>
 				</ul>
 			</div>	
@@ -127,10 +127,10 @@
 				</div>	
 				<div class="tabs" style="margin-left: 20px;">
 					<ul class="nav" id="appTabRight">
-						<li ><a href="#" data-toggle="tab">使用说明</a></li>	
-						<li ><a href="#show" data-toggle="tab">统计结果</a></li>
-						<li><a href="#" data-toggle="tab">差异基因列表</a></li>
-						<li class="active" ><a href="#" data-toggle="tab">火山图</a></li>
+						<li ><a href="#direction" data-toggle="tab">使用说明</a></li>	
+						<li ><a href="#" data-toggle="tab">统计结果</a></li>
+						<li><a href="#geneList" data-toggle="tab">差异基因列表</a></li>
+						<li class="active" ><a href="#show" data-toggle="tab">火山图</a></li>
 					</ul>
 				</div>	
 			</div>	
@@ -233,7 +233,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="tab-pane" id="file">
+				<div class="tab-pane" id="mytable">
 					<div class="panel panel-default">
 						<div class="panel-body" style="padding: 0;">
 							<table class="table table-bordered">
@@ -258,12 +258,14 @@
 				<div class="tab-pane in active" id="show">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<div id="jcl-demo" style="width: 500px;height: 500px;">
+							<div id="jcl-demo" style="width: 500px;height: 460px;">
 							    <div class="custom-container default">
 							        <a href="#" class="prev">&lsaquo;</a>
-							        <div class="carousel" style="width: 500px;height: 500px;">
+							        <div class="carousel" style="width: 500px;height: 460px;">
 							            <ul>
-							            	<li><a class="fancybox-effects-a" href="img/5_b.jpg" title="Lorem"><img style="width: 460px;height:500px ;" src="img/5_s.jpg" alt="" /></a></li>
+							            	<li><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
+							            	<li><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
+							            	<li><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
 							            </ul>
 							        </div>
 							        <a href="#" class="next">&rsaquo;</a>
@@ -273,8 +275,36 @@
 						</div>
 					</div>
 				</div>
-	
-			<!-- 使用说明 -->
+				<!-- 基因列表 -->
+				<div class="tab-pane" id="geneList">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" 						id="sampleTable">
+								<thead>
+									<tr>
+										<th data-field="sample" data-align="left" data-sortable="true">id</th>
+										<th data-field="fq" data-align="center" data-sortable="true">baseMean </th>
+										<th data-field="adap" data-align="center" data-sortable="true">WLL</th>
+										<th data-field="sample" data-align="left" data-sortable="true">CK</th>
+										<th data-field="fq" data-align="center" data-sortable="true">log2FoldChange </th>
+										<th data-field="adap" data-align="center" data-sortable="true">pval</th>
+										<th data-field="adap" data-align="center" data-sortable="true">padj</th>
+										<th data-field="adap" data-align="center" data-sortable="true">bDiff</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 统计结果 -->
+				<div class="tab-pane" id="statisticResult">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							
+						</div>
+					</div>
+				</div>
+				<!-- 使用说明 -->
 				<div class="tab-pane" id="direction">
 					<div class="panel panel-default">
 						<div class="panel-body">
@@ -382,6 +412,7 @@
 	<script src="js/go.js"></script>
 	<script src="js/common1.js"></script>	
 	<script>
+		console.log(document.cookie)
         $(function() {
             $(".default .carousel").jCarouselLite({
                 btnNext: ".default .next",
@@ -392,16 +423,6 @@
         })	
 
 		$(document).ready(function() {
-			/*
-			 *  Simple image gallery. Uses default settings
-			 */
-
-			$('.fancybox').fancybox();
-
-			/*
-			 *  Different effects
-			 */
-
 			// Change title type, overlay closing speed
 			$(".fancybox-effects-a").fancybox({
 				width:500,
@@ -415,55 +436,6 @@
 					}
 				}
 			});
-
-			// Disable opening and closing animations, change title type
-			$(".fancybox-effects-b").fancybox({
-				openEffect  : 'none',
-				closeEffect	: 'none',
-
-				helpers : {
-					title : {
-						type : 'over'
-					}
-				}
-			});
-
-			// Set custom style, close if clicked, change title type and overlay color
-			$(".fancybox-effects-c").fancybox({
-				wrapCSS    : 'fancybox-custom',
-				closeClick : true,
-
-				openEffect : 'none',
-
-				helpers : {
-					title : {
-						type : 'inside'
-					},
-					overlay : {
-						css : {
-							'background' : 'rgba(238,238,238,0.85)'
-						}
-					}
-				}
-			});
-
-			// Remove padding, set opening and closing animations, close if clicked and disable overlay
-			$(".fancybox-effects-d").fancybox({
-				padding: 0,
-
-				openEffect : 'elastic',
-				openSpeed  : 150,
-
-				closeEffect : 'elastic',
-				closeSpeed  : 150,
-
-				closeClick : true,
-
-				helpers : {
-					overlay : null
-				}
-			});
-
 
 		});
 		

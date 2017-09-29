@@ -61,11 +61,11 @@
         color: #000;
     }
     #jcl-demo a.prev {
-        margin: 50px -5px 0 0;
+        margin: 210px -5px 0 0;
         text-indent: 7px;
     }
     #jcl-demo a.next {
-        margin: 50px 0 0 -5px;
+        margin: 210px 0 0 -5px;
         text-indent: 10px;
     }
         #jcl-demo a.prev:hover, #jcl-demo a.next:hover, #jcl-demo a.go:hover {
