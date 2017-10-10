@@ -412,9 +412,9 @@
 	<script src="js/go.js"></script>
 	<script src="js/common1.js"></script>	
 	<script>
-		var value = sessionStorage.getItem("key"); 	
-		console.log(value)
+
         $(function() {
+        	
             $(".default .carousel").jCarouselLite({
                 btnNext: ".default .next",
                 btnPrev: ".default .prev",
@@ -710,8 +710,336 @@ $(function(){
 			});
 		}
 	});
-})
+	
+		var parasValue = sessionStorage.getItem("paras"); 
+		var parasObj = $.parseJSON( parasValue );
+		console.log(parasObj)
+		var samplesArray=parasObj.samples.split(",");
+		for(var i=0;i<samplesArray.length;i++){
+			var name = samplesArray[i];
+			console.log(name)
+			add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
+			$(add).appendTo('#sampleNames')
 
+		};	
+		dragInit();
+		var groupSamplesObj=parasObj.groupCompareVenn.groupSamples;
+		console.log(groupSamplesObj)
+		for(key in groupSamplesObj){
+			var value=groupSamplesObj[key];
+			var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><ul class="sampleNames ui-helper-reset"/></ul><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
+			var divHtml = $(html);
+			allgroups.push(key);
+			
+			for(var i=0;i<value.length;i++){
+				var sample=value[i];
+				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+			    	+sample+'</li>');
+			    	console.log(divHtml.find("ul"));
+			  liHtml.appendTo(divHtml.find("ul"))
+				
+			}
+			divHtml.appendTo('#groupList');
+		}
+		
+});
+
+//var $list = $( "ul", $container ).length ?
+//			            $( "ul", $container ) :
+//			            $( "<ul class='goupCompare ui-helper-reset'/>" ).appendTo($container);
+//			    $('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;color:'+$color+'">'
+//			    	+itemName+'</li>').appendTo($list)
+//初始化拖拽
+function dragInit() {
+	var $sampleNames = $( "#sampleNames" ),
+    		$sampleGroup = $( ".sampleGroup" ),
+    		$compareGroup = $(".goupCompare")
+    		$venn = $(".venn");
+	//样本拖动
+	$( "li", $sampleNames ).draggable({
+	      cancel: "a.ui-icon", // 点击一个图标不会启动拖拽
+	      revert: "invalid", // 当未被放置时，条目会还原回它的初始位置
+	      containment: "document",
+	      helper: "clone",
+	      cursor: "move"
+	    });
+	//分组拖动
+	$( ".sampleGroup" ).draggable({
+	    revert: "invalid", 
+	    containment: "document",
+	    helper: "clone",
+	    cursor: "move"
+	});
+	
+	//比较组拖动
+	$(".goupCompare").draggable({
+	      revert: "invalid", 
+	      containment: "document",
+	      helper: "clone",
+	      cursor: "move"
+	    });
+	//维恩图接收比较组名
+	$venn.droppable({
+	      accept: "#compareList>div",
+	      activeClass: "ui-state-highlight",
+	      tolerance:"pointer",
+	      drop: function( event, ui ) {
+	        dropItem( ui.draggable ,$(this),'red', 5);
+	      }
+	    });
+	//比较组接收组名
+	$compareGroup.droppable({
+	      accept: ".sampleGroup",
+	      activeClass: "ui-state-highlight",
+	      tolerance:"pointer",
+	      drop: function( event, ui ) {
+	        dropItem( ui.draggable ,$(this),'green',2);
+	      }
+	    });
+	//分组接收样本
+	var maxNum=$("#sampleNames li").length
+	$sampleGroup.droppable({
+	      accept: "#sampleNames > li, .sampleGroup li",
+	      activeClass: "ui-state-highlight",
+	      tolerance:"pointer",
+	      drop: function( event, ui ) {
+	        dropItem( ui.draggable ,$(this),'#333',maxNum);
+	      }
+	    });
+	 if(maxNum>12){
+	 	$("#sampleNames").css({
+	 		height:'360px',
+	 		overflow:'auto'
+	 	})
+	 }
+	if($("#groupList .sampleGroup").length>12){
+		$("#groupList").css({
+	 		height:'360px',
+	 		overflow:'auto'
+	 	})
+	}
+
+	    curcontainer= null;
+	    function dropItem($item ,$container,$color,maxNum){
+	    	if($item.context.localName=='li'){
+	    		var itemName = $item.text();
+	    		var items = $container.find('li');
+		    	if(items.length>=maxNum){
+		    		alert("超出了最大允许数目"+maxNum);
+		    		return false;
+		    	}
+		    	for (var i=0; i<items.length; i++){
+		    		if($(items[i]).text()==itemName){
+		    			alert("有重复的条目"+itemName+"！");
+		    			return false;
+		    		}
+		    	}
+	    		var $list = $( "ul", $container ).length ?$( "ul", $container ) :$( "<ul class='sampleNames ui-helper-reset'/>" ).appendTo($container);
+			    $('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;color:'+$color+'">'
+		    	+itemName+'</li>').appendTo($list).fadeIn(function() {
+		  	            $item
+			              	.find( "img" )
+			                .animate({ height: "36px" });
+			          	});
+			        
+	    	}else{
+	    		var itemName = $item.children("span").text();
+		    	//遍历container查看已包含哪些元素
+		    	var containItems= new Array();
+		    	var items = $container.find('li');
+		    	if(items.length>=maxNum){
+		    		alert("超出了最大允许数目"+maxNum);
+		    		return false;
+		    	}
+		    	for (var i=0; i<items.length; i++){
+		    		if($(items[i]).text()==itemName){
+		    			alert("有重复的条目"+itemName+"！");
+		    			return false;
+		    		}
+		    	}
+		    	
+		    	var $list = $( "ul", $container ).length ?
+			            $( "ul", $container ) :
+			            $( "<ul class='goupCompare ui-helper-reset'/>" ).appendTo($container);
+			    $('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;color:'+$color+'">'
+			    	+itemName+'</li>').appendTo($list).fadeIn(function() {
+			            $item
+			              .find( "img" )
+			                .animate({ height: "36px" });
+			         });
+		    		
+	    	}
+	    }
+	    
+	    function recycleItem( $item ) {
+	      $item.fadeOut(function() {
+	        $item
+	          .find( "a.ui-icon-refresh" )
+	            .remove()
+	          .end()
+	          .css("background-color","#FFFFFF").css("border","1px solid #dddddd")
+	          .find( "img" )
+	            .css( "height", "72px" )
+	          .end()
+	          .appendTo( $sampleNames )
+	          .fadeIn();
+	      });
+	    }
+	    
+	    $("#groupList .glyphicon-remove").each(function(){
+			$(this).click(function(){
+				$(this).parent('div').remove();
+				var value=$(this).siblings("span").text();
+				var index=$.inArray(value,allgroups);
+				
+				if(index==-1){
+					return ;
+				}
+				allgroups.splice(index,1);
+				
+				$("#compareList").find("li").each(function(){
+					if($(this).text()==value){
+						$(this).remove();
+					}
+					
+				})
+
+				dragInit();
+			})
+		});
+		$("#compareList .glyphicon-remove").each(function(){
+			$(this).click(function(){
+				$(this).parent('div').remove();
+				var value=$(this).siblings("span").text();
+				var index=$.inArray(value,allCompares);
+				if(index==-1){
+					return ;
+				}
+				
+				
+				
+				$("#vennList").find("li").each(function(){
+					if($(this).text()==value){
+						$(this).remove();
+					}
+					
+				})
+				allCompares.splice(index,1);
+			})
+		});
+		$("#vennList .glyphicon-remove").each(function(){
+			$(this).click(function(){
+				var value=$(this).siblings("span").text();
+				var index=$.inArray(value,allVenns);
+				if(index==-1){
+					return ;
+				}
+				allVenns.splice(index,1);
+				$(this).parent('div').remove();
+			})
+		});
+};
+
+var patrn=/^(\w){1,10}$/i; 
+var allgroups = new Array();	//all groups
+function addGroup(){
+	var gname= $("#groupName").val();
+	if(gname=='' ||gname==null){
+		return false;
+	}
+    if (!patrn.exec(gname)) {
+    	alert('只能包含字母数字下划线，长度不超过10');
+		return false;
+	}
+	if(-1!=allgroups.indexOf(gname,0)){
+		alert('分组名'+gname+"已存在！");
+		return false;
+	}
+	if($('#sampleNames>li').length<=allgroups.length){
+		alert("分组数不能超过样本数！");
+		return false;
+	}
+	$("#groupName").val('');
+	var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+gname+'</span><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
+	$(html).appendTo('#groupList');
+	allgroups.push(gname);
+	dragInit();
+}
+
+//增加比较组
+var allCompares = new Array(); 
+function addCompare(){
+	if(allgroups.length <2){
+		alert('此为组间比较，至少需要两个样本组，请先填写样本组信息！');
+		return false;
+	}
+
+	var cname= $('#compareName').val();
+	if (!patrn.exec(cname)) {
+    	alert('只能包含字母数字下划线，长度不超过10');
+		return false;
+	}
+	if(cname=='' ||cname==null){
+		return false;
+	}
+	if(-1!=allCompares.indexOf(cname,0)){
+		alert('比较组'+cname+"已存在！");
+		return false;
+	}
+	$('#compareName').val('');
+	var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style="font-size:18px;color:green;border:none;background:none;height:28px;display:inline-block;" >'+cname+'</span><span class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
+	$(html).appendTo('#compareList');
+	allCompares.push(cname);
+	dragInit();
+}
+var allVenns = new Array(); 
+function addVenn(){
+	if(allCompares.length <2){
+		alert("维恩图至少需要两个比较组，请先填写比较组信息！");
+		return false;
+	}
+	var cname= $('#vennName').val();
+	if (!patrn.exec(cname)) {
+    	alert('只能包含字母数字下划线，长度不超过10');
+		return false;
+	}
+	if(cname=='' ||cname==null){
+		return false;
+	}
+	if(-1!=allVenns.indexOf(cname,0)){
+		alert('维恩组'+cname+"已存在！");
+		return false;
+	}
+	$('#vennName').val('');
+	var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=border-radius:3px;><span class="ui-widget-header" style="font-size:18px;border:none;background:none;height:28px;display:inline-block;" >'+cname+'</span><span class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
+
+	$(html).appendTo('#vennList');
+	allVenns.push(cname);
+	dragInit();
+}
+
+function bindGroupClick(){
+	dragInit();
+	$("#groupName").keydown(function(k){
+		if(k.keyCode==13 ){
+			addGroup();
+		}
+	});
+	$("#addGroup").click(function(){
+		addGroup();
+	});
+	$("#compareName").keydown(function(k){
+		if(k.keyCode==13 ){
+			addCompare();
+		}
+	});
+	$("#addCompare").click(function(){
+		addCompare();
+	});
+	$("#addVenn").click(function(){
+		addVenn();
+	});
+}
 //任务的状态
 function taskState(State) {
 	
@@ -789,14 +1117,12 @@ function geturl(formInputId,type){
 			$("#selectUrl").modal('hide');
 			$(formInputId).val(newUrl);
 		  
-		}
-		else{
+		} else{
 			//选择了多项，直接报错
 			alert("对不起，只能选择一个目录文件！");
 		};
 		
-	}
-	else if(type == "file"){
+	} else if(type == "file"){
 		//只能选择文件，多选
 		var newUrl = ""
 		var files = [];
@@ -818,26 +1144,21 @@ function geturl(formInputId,type){
 				alert("请选择文件！")
 			}else{
 				//获得当前的目录，取消绑定，关闭模态框，在外面填写
-				
 				var filename_now = '/'+ $('#urlTable').bootstrapTable('getSelections')[0].name;
 				newUrl = $("#inputUrl").val()+filename_now;
 				newUrl = newUrl.replace('//','/');
-				
-				
 				$("#selected").removeAttr("onClick");
 				$("#selectUrl").modal('hide');
-				$(formInputId).val(newUrl);
-				
-				
-			};
-		};
+				$(formInputId).val(newUrl);	
+			}
+		}
 
-	}
-	else{
+	} else {
 		return false;
 	}
 
-};
+}
+
 </script>
 
 
