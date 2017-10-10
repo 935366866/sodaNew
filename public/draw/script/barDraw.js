@@ -160,7 +160,7 @@ $(function(){
 			gridX:function(){
 				if(this.Xgrid=="show"){
 					return true;
-				}else{
+				}else{  
 					return false;
 				}
 			},

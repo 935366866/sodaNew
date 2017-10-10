@@ -477,9 +477,10 @@
 	<script src="js/go.js"></script>
 	<script src="js/common1.js"></script>
 	<script>
+		var sessionStorage = window.sessionStorage; 
+		sessionStorage.setItem("key", "value"); 
+//		window.location.href="deepExcavation.html";
 
-	$.cookie('groups', allgroups,{ expires: 7 }); 
-		
 		$(function(){
 			//数据目录问号图标监听移入移出事件
 			$('#dataTip').on("mouseover",function(){
@@ -1086,9 +1087,9 @@ $("#getSamples").click(function(){
 					add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
 					$(add).appendTo('#sampleNames')
 				};
-			samples = array;
-				
+
 			};
+			samples = array;
 			dragInit();
 			samplesLock = 0;
 			$("#unlockSamples").attr("class","btn btn_orange round_Button");
@@ -1100,8 +1101,6 @@ $("#getSamples").click(function(){
 			alert("样本已锁定，请先解锁！")
 		})
 	};
-
-
 }); 
 
 //解锁样本
@@ -1352,6 +1351,7 @@ $('#isRepeat').on('changed.bs.select', function(e) {
 		}
 	}
 })
+
 var patrn=/^(\w){1,10}$/i; 
 var allgroups = new Array();	//all groups
 function addGroup(){
@@ -1491,7 +1491,7 @@ $("#saveDraft").click(function(){
 				"samples":samplesStr
 				}; 
 		draft = JSON.stringify(draft);
-//console.log(draft)
+		console.log(draft)
 		 $.ajax({
 				    url:"__MODULE__/Task/addUpdateTask/submitType/draft",  
 				    type:'post',

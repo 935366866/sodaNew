@@ -156,6 +156,7 @@ function uploadFile(url,uploadId,inputId,ddir){
 				else{
 					var url = data.result.data;
 					$(inputId).val(url);    //
+					vue.input = url;
 		//			alert("上传成功！");
 					}
 	        }
