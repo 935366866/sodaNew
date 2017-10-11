@@ -1419,7 +1419,7 @@ function addVenn(){
 		return false;
 	}
 	$('#vennName').val('');
-	var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=border-radius:3px;><span class="ui-widget-header" style="font-size:18px;border:none;background:none;height:28px;display:inline-block;" >'+cname+'</span><span class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
+	var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=border-radius:3px;><span class="ui-widget-header" style="font-size:18px;border:none;color:red;background:none;height:28px;display:inline-block;" >'+cname+'</span><span class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
 
 	$(html).appendTo('#vennList');
 	allVenns.push(cname);
@@ -1638,18 +1638,26 @@ $("#taskRun").click(function(){
 		//检查venn图
 		var venns = $('#vennList').find('div');
 		if(venns.length>0){
-			var vennCompares= new Array();
+			var vennCompares={};
 			for(var i=0; i<venns.length; i++){
 				var compareItems = $($(venns[i]).find('ul')[0]).find('li');
 				if(compareItems.length==0){
 					continue;
 				}
-				//维恩图没有命名,仅存在数组中
-				var curVennCompares = new Array();
+				
+				//比较韦恩图
+				var curVennCompares = $($(venns[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");
+				var curVennGroups = new Array();
 				for(var j=0; j<compareItems.length; j++){
-					curVennCompares.push($(compareItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+					curVennGroups.push($(compareItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
 				}
-				vennCompares.push(curVennCompares);
+				vennCompares[curVennCompares] = curVennGroups;
+//				//维恩图没有命名,仅存在数组中
+//				var curVennCompares = new Array();
+//				for(var j=0; j<compareItems.length; j++){
+//					curVennCompares.push($(compareItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+//				}
+//				vennCompares.push(curVennCompares);
 			}
 			groupCompareVenn['vennCompares'] = vennCompares;
 		}
@@ -1677,7 +1685,7 @@ $("#taskRun").click(function(){
 						}; 
 						
 		resultPara = JSON.stringify(resultPara);
-		
+		console.log(resultPara)
 		window.sessionStorage.setItem("paras",resultPara);
 				
 //向后台传送数据
@@ -1695,7 +1703,7 @@ $("#taskRun").click(function(){
 							alert("执行成功！");
 							
 //							window.location.href= "__MODULE__/Task/getTask/id/"+data['data'];
-							window.location.href= "deepExcavation.html";
+//							window.location.href= "deepExcavation.html";
 				    	}
 				     },    
 				     error : function(XMLHttpRequest) {

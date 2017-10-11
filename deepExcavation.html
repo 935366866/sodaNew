@@ -127,10 +127,10 @@
 				</div>	
 				<div class="tabs" style="margin-left: 20px;">
 					<ul class="nav" id="appTabRight">
-						<li ><a href="#direction" data-toggle="tab">使用说明</a></li>	
-						<li ><a href="#" data-toggle="tab">统计结果</a></li>
 						<li><a href="#geneList" data-toggle="tab">差异基因列表</a></li>
-						<li class="active" ><a href="#show" data-toggle="tab">火山图</a></li>
+						<li><a href="#show" data-toggle="tab">火山图</a></li>
+						<li ><a href="#status" data-toggle="tab">任务状态</a></li>
+						<li class="active" ><a href="#direction" data-toggle="tab">使用说明</a></li>	
 					</ul>
 				</div>	
 			</div>	
@@ -187,6 +187,7 @@
 									</div>								
 								</div>
 								<div class="line"></div>
+							</form>
 								<div class="part">
 									<div class="input_a_l titleNameLeft">差异比较分组</div><br /><br />
 										<div style="margin-bottom: 55px;">
@@ -216,20 +217,92 @@
 											</div>
 										</div>
 										<div style="width:100%;">																				
-											<div style="float:left;width:24%;margin-right: 20px;">
+											<div style="float:left;width:22%;margin-right: 20px;">
 												<div id="sampleWrap">
 													<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;"></ol>
 												</div>
 											</div>
-											<div id='groupList' style="float:left;width:21%;margin-right:20px;"></div>
-											<div id='compareList' style="float:left;width:21%;margin-right:20px;"></div>
-											<div id='vennList' style="float:left;width:21%"></div>																					
+											<div id='groupList' style="float:left;width:20%;margin-right:20px;"></div>
+											<div id='compareList' style="float:left;width:20%;margin-right:20px;"></div>
+											<div id='vennList' style="float:left;width:20%"></div>																					
 										</div>
 								</div>
-							</form>
+							
 						</div>
 						<div class="panel-footer" style="height: 51px;">
 							<button id="submit_paras" type="button" class="btn btn-success">Run</button>
+						</div>
+					</div>
+					<!-- group modal -->
+					<div class="row">
+						<div style="width:100%;">
+							<div class="row">
+								<div class="modal fade " id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="row">
+										<div id='list_model' class="modal-dialog " style='width:20%'>
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title" id="myModalLabel">组名</h4>
+													<div class="input-group">
+														<input id="groupName" class="form-control" value='' />
+														<span id='addGroup' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /.modal end -->
+							</div>
+						</div>
+					</div>
+					<!-- compare modal -->
+					<div class="row">
+						<div style="width:100%;">
+							<div class="row">
+								<div class="modal fade " id="compareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="row">
+										<div id='list_model' class="modal-dialog " style='width:20%'>
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title" id="myModalLabel">组间比较</h4>
+													<div class="input-group">
+														<input id="compareName" class="form-control" value='' />
+														<span id='addCompare' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /.modal end -->
+							</div>
+						</div>
+					</div>
+					<!-- venn modal -->
+					<div class="row">
+						<div style="width:100%;">
+							<div class="row">
+								<div class="modal fade " id="vennModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="row">
+										<div id='list_model' class="modal-dialog " style='width:20%'>
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title" id="myModalLabel">维恩组</h4>
+													<div class="input-group">
+														<input id="vennName" class="form-control" value='' />
+														<span id='addVenn' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /.modal end -->
+							</div>
 						</div>
 					</div>
 				</div>
@@ -253,57 +326,8 @@
 				</div>
 			</div>
 	
-			<!-- 绘图展示 -->
+			
 			<div class="tab-content input_r">
-				<div class="tab-pane in active" id="show">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<div id="jcl-demo" style="width: 500px;height: 460px;">
-							    <div class="custom-container default">
-							        <a href="#" class="prev">&lsaquo;</a>
-							        <div class="carousel" style="width: 500px;height: 460px;">
-							            <ul>
-							            	<li><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
-							            	<li><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
-							            	<li><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
-							            </ul>
-							        </div>
-							        <a href="#" class="next">&rsaquo;</a>
-							        <div class="clear"></div>
-							    </div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- 基因列表 -->
-				<div class="tab-pane" id="geneList">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" 						id="sampleTable">
-								<thead>
-									<tr>
-										<th data-field="sample" data-align="left" data-sortable="true">id</th>
-										<th data-field="fq" data-align="center" data-sortable="true">baseMean </th>
-										<th data-field="adap" data-align="center" data-sortable="true">WLL</th>
-										<th data-field="sample" data-align="left" data-sortable="true">CK</th>
-										<th data-field="fq" data-align="center" data-sortable="true">log2FoldChange </th>
-										<th data-field="adap" data-align="center" data-sortable="true">pval</th>
-										<th data-field="adap" data-align="center" data-sortable="true">padj</th>
-										<th data-field="adap" data-align="center" data-sortable="true">bDiff</th>
-									</tr>
-								</thead>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- 统计结果 -->
-				<div class="tab-pane" id="statisticResult">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							
-						</div>
-					</div>
-				</div>
 				<!-- 使用说明 -->
 				<div class="tab-pane" id="direction">
 					<div class="panel panel-default">
@@ -329,6 +353,71 @@
 						</div>
 					</div>
 				</div>
+				
+				<!-- 任务状态 -->
+				<div class="tab-pane" id="status">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" 						id="sampleTable">
+								<thead>
+									<tr>
+										<th data-field="sample" data-align="left" data-sortable="true">id</th>
+										<th data-field="fq" data-align="center" data-sortable="true">baseMean </th>
+										<th data-field="adap" data-align="center" data-sortable="true">WLL</th>
+										<th data-field="sample" data-align="left" data-sortable="true">CK</th>
+										<th data-field="fq" data-align="center" data-sortable="true">log2FoldChange </th>
+										<th data-field="adap" data-align="center" data-sortable="true">pval</th>
+										<th data-field="adap" data-align="center" data-sortable="true">padj</th>
+										<th data-field="adap" data-align="center" data-sortable="true">bDiff</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 基因列表 -->
+				<div class="tab-pane" id="geneList">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" 						id="sampleTable">
+								<thead>
+									<tr>
+										<th data-field="sample" data-align="left" data-sortable="true">id</th>
+										<th data-field="fq" data-align="center" data-sortable="true">baseMean </th>
+										<th data-field="adap" data-align="center" data-sortable="true">WLL</th>
+										<th data-field="sample" data-align="left" data-sortable="true">CK</th>
+										<th data-field="fq" data-align="center" data-sortable="true">log2FoldChange </th>
+										<th data-field="adap" data-align="center" data-sortable="true">pval</th>
+										<th data-field="adap" data-align="center" data-sortable="true">padj</th>
+										<th data-field="adap" data-align="center" data-sortable="true">bDiff</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 绘图展示 -->
+				<div class="tab-pane active" id="show">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div id="jcl-demo" style="width: 500px;height: 460px;">
+							    <div class="custom-container default">
+							        <a href="#" class="prev">&lsaquo;</a>
+							        <div class="carousel" style="width: 500px;height: 460px;">
+							            <ul>
+							            	<li><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
+							            	<li><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
+							            	<li><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
+							            </ul>
+							        </div>
+							        <a href="#" class="next">&rsaquo;</a>
+							        <div class="clear"></div>
+							    </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 			</div>
 		
     	</div>
@@ -694,6 +783,100 @@ $(function(){
 		if(formData.input==""){
 			alert("请输入文件");
 		}else{
+		var groupCompareVenn={};	//发向服务器的json数据
+		//检查是否有分组，每个分组下的样品名
+		var groups =$('#groupList').find('div');
+		var allGroupItems=[];
+		if(groups.length>0){
+			var groupSamples= {};
+			for(var i=0; i<groups.length; i++){
+				var sampleItems = $($(groups[i]).find('ul')[0]).find('li');
+				if(sampleItems.length==0){
+					continue;
+				}			
+				//组名
+				var curGroup =$($(groups[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");  //空格开头或者结尾
+				var curGroupSamples = new Array();
+				for(var j=0; j < sampleItems.length ;j++){
+					curGroupSamples.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+				}
+				allGroupItems.push(curGroupSamples[0]);
+				groupSamples[curGroup]= curGroupSamples;
+			}
+			groupCompareVenn['groupSamples']= groupSamples;
+		}
+		//检查数据
+		//检查样本是否已全部分组，非强制
+		var samples=$("#sampleNames").find('li');
+		if(samples.length>0){
+			for(var i=0;i<samples.length;i++){
+				if(allGroupItems.indexOf(samples[i].innerText)==-1){
+					if(!confirm("发现有未分组的样品，确定不分组?")){
+						return false;
+					}
+				}
+			}
+		}
+
+		//检查比较组
+		var compares = $('#compareList').find('div');
+		if(compares.length>0){
+			var compareGroups = {};
+			for(var i=0; i<compares.length; i++){
+				var groupItems = $($(compares[i]).find('ul')[0]).find('li');
+				if(groupItems.length==0){
+					continue;
+				}
+				//比较组名
+				var curCompare = $($(compares[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");
+				var curCompareGroups = new Array();
+				for(var j=0; j<groupItems.length; j++){
+					curCompareGroups.push($(groupItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+				}
+				compareGroups[curCompare] = curCompareGroups;
+			}
+			groupCompareVenn['compareGroups']= compareGroups;
+		}
+		//检查venn图
+		var venns = $('#vennList').find('div');
+		if(venns.length>0){
+			var vennCompares={};
+			for(var i=0; i<venns.length; i++){
+				var compareItems = $($(venns[i]).find('ul')[0]).find('li');
+				if(compareItems.length==0){
+					continue;
+				}
+				
+				//比较韦恩图
+				var curVennCompares = $($(venns[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");
+				var curVennGroups = new Array();
+				for(var j=0; j<compareItems.length; j++){
+					curVennGroups.push($(compareItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+				}
+				vennCompares[curVennCompares] = curVennGroups;
+			}
+			groupCompareVenn['vennCompares'] = vennCompares;
+		}
+
+
+		//全部的参数	
+		var samplesStr=""
+		for(var j=0;j<samples.length;j++ ){  
+			if(samplesStr == ""){
+				samplesStr += samples[j].innerText;
+				}
+			else{
+				samplesStr += ","+samples[j].innerText;
+				}
+		};
+
+		var resultPara={"paras":formData,
+						"samples":samplesStr,
+						"groupCompareVenn":groupCompareVenn
+						}; 
+						
+		resultPara = JSON.stringify(resultPara);
+            console.log(resultPara)
 			$.ajax({
 				url: 'public/draw/json/barDrawFileData.json',  
 				type:'get',
@@ -711,44 +894,88 @@ $(function(){
 		}
 	});
 	
-		var parasValue = sessionStorage.getItem("paras"); 
-		var parasObj = $.parseJSON( parasValue );
-		console.log(parasObj)
-		var samplesArray=parasObj.samples.split(",");
-		for(var i=0;i<samplesArray.length;i++){
-			var name = samplesArray[i];
-			console.log(name)
-			add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
-			$(add).appendTo('#sampleNames')
+	var parasValue = sessionStorage.getItem("paras"); 
+	var parasObj = $.parseJSON( parasValue );
+	var samplesArray=parasObj.samples.split(",");
+	for(var i=0;i<samplesArray.length;i++){
+		var name = samplesArray[i];
+		add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
+		$(add).appendTo('#sampleNames')
 
-		};	
-		dragInit();
-		var groupSamplesObj=parasObj.groupCompareVenn.groupSamples;
-		console.log(groupSamplesObj)
-		for(key in groupSamplesObj){
-			var value=groupSamplesObj[key];
-			var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><ul class="sampleNames ui-helper-reset"/></ul><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
-			var divHtml = $(html);
-			allgroups.push(key);
+	};	
+	dragInit();
+	var groupSamplesObj=parasObj.groupCompareVenn.groupSamples;
+	for(key in groupSamplesObj){
+		var value=groupSamplesObj[key];
+		var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
+		var divHtml = $(html);
+		allgroups.push(key);
+		for(var i=0;i<value.length;i++){
+			var sample=value[i];
+			var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+		    	+sample+'</li>');
+		  liHtml.appendTo(divHtml.find("ul"))
 			
-			for(var i=0;i<value.length;i++){
-				var sample=value[i];
-				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-			    	+sample+'</li>');
-			    	console.log(divHtml.find("ul"));
-			  liHtml.appendTo(divHtml.find("ul"))
-				
-			}
-			divHtml.appendTo('#groupList');
 		}
+		divHtml.appendTo('#groupList');
+		dragInit();
+	}
+	var compareSamplesObj=parasObj.groupCompareVenn.compareGroups;
+	for(key in compareSamplesObj){
+		var value=compareSamplesObj[key];
+		var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
+		var divHtml = $(html);
+		allCompares.push(key);
+		for(var i=0;i<value.length;i++){
+			var sample=value[i];
+			var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+		    	+sample+'</li>');
+		  liHtml.appendTo(divHtml.find("ul"))
+			
+		}
+		divHtml.appendTo('#compareList');
+		dragInit();
+	}
+	
+	var vennSamplesObj=parasObj.groupCompareVenn.vennCompares;
+	for(key in vennSamplesObj){
+		var value=vennSamplesObj[key];
+		var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
+		var divHtml = $(html);
+		allVenns.push(key);
+		for(var i=0;i<value.length;i++){
+			var sample=value[i];
+			var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+		    	+sample+'</li>');
+		  liHtml.appendTo(divHtml.find("ul"))
+			
+		}
+		divHtml.appendTo('#vennList');
+		dragInit();
+	}
+		
+	$("#groupName").keydown(function(k){
+		if(k.keyCode==13 ){
+			addGroup();
+		}
+	});
+	$("#addGroup").click(function(){
+		addGroup();
+	});
+	$("#compareName").keydown(function(k){
+		if(k.keyCode==13 ){
+			addCompare();
+		}
+	});
+	$("#addCompare").click(function(){
+		addCompare();
+	});
+	$("#addVenn").click(function(){
+		addVenn();
+	});
 		
 });
 
-//var $list = $( "ul", $container ).length ?
-//			            $( "ul", $container ) :
-//			            $( "<ul class='goupCompare ui-helper-reset'/>" ).appendTo($container);
-//			    $('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;color:'+$color+'">'
-//			    	+itemName+'</li>').appendTo($list)
 //初始化拖拽
 function dragInit() {
 	var $sampleNames = $( "#sampleNames" ),
@@ -784,7 +1011,7 @@ function dragInit() {
 	      activeClass: "ui-state-highlight",
 	      tolerance:"pointer",
 	      drop: function( event, ui ) {
-	        dropItem( ui.draggable ,$(this),'red', 5);
+	        dropItem( ui.draggable ,$(this),'#333', 5);
 	      }
 	    });
 	//比较组接收组名
@@ -793,7 +1020,7 @@ function dragInit() {
 	      activeClass: "ui-state-highlight",
 	      tolerance:"pointer",
 	      drop: function( event, ui ) {
-	        dropItem( ui.draggable ,$(this),'green',2);
+	        dropItem( ui.draggable ,$(this),'#333',2);
 	      }
 	    });
 	//分组接收样本
@@ -960,7 +1187,7 @@ function addGroup(){
 		return false;
 	}
 	$("#groupName").val('');
-	var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+gname+'</span><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
+	var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+gname+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button></div>';
 	$(html).appendTo('#groupList');
 	allgroups.push(gname);
 	dragInit();
@@ -987,7 +1214,7 @@ function addCompare(){
 		return false;
 	}
 	$('#compareName').val('');
-	var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style="font-size:18px;color:green;border:none;background:none;height:28px;display:inline-block;" >'+cname+'</span><span class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
+	var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style="font-size:18px;border:none;background:none;height:28px;display:inline-block;" >'+cname+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button></div>';
 	$(html).appendTo('#compareList');
 	allCompares.push(cname);
 	dragInit();
@@ -1011,35 +1238,13 @@ function addVenn(){
 		return false;
 	}
 	$('#vennName').val('');
-	var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=border-radius:3px;><span class="ui-widget-header" style="font-size:18px;border:none;background:none;height:28px;display:inline-block;" >'+cname+'</span><span class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
+	var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style="font-size:18px;border:none;background:none;height:28px;display:inline-block;" >'+cname+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button></div>';
 
 	$(html).appendTo('#vennList');
 	allVenns.push(cname);
 	dragInit();
 }
 
-function bindGroupClick(){
-	dragInit();
-	$("#groupName").keydown(function(k){
-		if(k.keyCode==13 ){
-			addGroup();
-		}
-	});
-	$("#addGroup").click(function(){
-		addGroup();
-	});
-	$("#compareName").keydown(function(k){
-		if(k.keyCode==13 ){
-			addCompare();
-		}
-	});
-	$("#addCompare").click(function(){
-		addCompare();
-	});
-	$("#addVenn").click(function(){
-		addVenn();
-	});
-}
 //任务的状态
 function taskState(State) {
 	

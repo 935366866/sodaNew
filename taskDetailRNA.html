@@ -215,14 +215,13 @@
 					<div class="task_form_height">
 					<div class="task_label">&nbsp;</div>
 					<div class="task_box">
-						<table data-toggle="table" data-show-footer="false" data-height="250" data-click-to-select="true" id="sampleTable">
-							<thead>
+						<table  id="sampleTable">
+							<!--<thead>
 								<tr>
 									<th data-field="sample" data-align="left" data-sortable="true">样本名称</th>
 									<th data-field="fq" data-align="center" data-sortable="true">FastQ文件 </th>
-									<th data-field="adap" data-align="center" data-sortable="true">Adaptor文件</th>
 								</tr>
-							</thead>
+							</thead>-->
 						</table>
 					</div>
 					</div>
@@ -443,32 +442,82 @@ function getTaskData(url){
 							var arr = data[key].split(",");
 
 							if(data["taskSeqType"] == "PE"){    //判断是双端   （注意：必须是PE）
+								var options={
+									toolbar:"#toolbar",
+									clickToSelect:true,
+									showFooter:false,
+									classes:'table',
+									height:"250",
+									columns: [   
+								        {align: "left", field: "sample", order: "asc",editable:{type:'text'}, title: "样本名称 "},
+								        {align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "},
+								        {align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "}
+							      	]
+								}
+								
+								$('#sampleTable').bootstrapTable(options);
+								var option=$('#sampleTable').bootstrapTable("getOptions");
+								option.columns=[{
+									align: "left",
+									field: "sample", 
+									order: "asc",
+									title: "样本名称"
+								},{
+									align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "
+								},{
+									align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "
+								}];
+								$('#sampleTable').bootstrapTable('destroy');
+								$('#sampleTable').bootstrapTable(option);
+						  		$('#sampleTable').bootstrapTable("resetView");
 								for(var i=0;i<arr.length;i++){
 									var one = {};
 									one["sample"]=arr[i];
-									one["fq"]= arr[i]+"_1.fq.gz"
-									one["adap"] = arr[i]+"_1.adaptor.list"
+									one["fq1"]= arr[i]+"_1.fq.gz"
+									one["fq2"]= arr[i]+"_2.fq.gz"
 									
-									var two = {}
-									two["sample"]=arr[i];
-									two["fq"]= arr[i]+"_2.fq.gz"
-									two["adap"] = arr[i]+"_2.adaptor.list"
-								//	console.log(two)
+					
+									
 									dataJson.push(one);
-									dataJson.push(two);
+
+									
 								};
 								
 							}
-							else{								//不是双端
+							else{		//不是双端
+								var options={
+									toolbar:"#toolbar",
+									clickToSelect:true,
+									showFooter:false,
+									classes:'table',
+									height:"250",
+									columns: [   
+								        {align: "left", field: "sample", order: "asc",editable:{type:'text'}, title: "样本名称 "},
+								        {align: "center", field: "fq1", order: "asc", title: "FastQ文件 "}
+							      	]
+								}
+								
+								$('#sampleTable').bootstrapTable(options);
+								var option=$('#sampleTable').bootstrapTable("getOptions");
+								option.columns=[{
+									align: "left",
+									field: "sample", 
+									order: "asc",
+									title: "样本名称"
+								},{
+									align: "center", field: "fq", order: "asc", title: "FastQ文件 "
+								}];
+								$('#sampleTable').bootstrapTable('destroy');
+								$('#sampleTable').bootstrapTable(option);
+						  		$('#sampleTable').bootstrapTable("resetView");
 								for(var i=0;i<arr.length;i++){
 									var one = {};
 									one["sample"]=arr[i];
 									one["fq"]= arr[i]+".fq.gz"
-									one["adap"] = arr[i]+".adaptor.list"
 									dataJson.push(one);
 								};	
 							};
-
+console.log(dataJson)
 							$('#sampleTable').bootstrapTable('load',dataJson);   //载入数据
 							
 							//样本分组比较，填入样本
