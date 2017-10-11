@@ -1551,6 +1551,19 @@ function checkInput(){
 
 //任务运行，提交参数
 $("#taskRun").click(function(){
+	var tableDatas=$('#sampleTable').bootstrapTable("getData");
+	var resultArray=[];
+	for(var i=0;i<tableDatas.length;i++){
+		var rowData=tableDatas[i];
+		var obj={};
+		if(rowData.fq1||rowData.fq2){
+			obj[rowData.sample]=[rowData.fq1,rowData.fq2];
+		}else{
+			obj[rowData.sample]=[rowData.fq];
+		}
+		
+		resultArray.push(obj)
+	}
 	var nullNum = checkInput()
 	if(nullNum==0){
 		var groupCompareVenn={};	//发向服务器的json数据
@@ -1603,14 +1616,15 @@ $("#taskRun").click(function(){
 			}
 			groupCompareVenn['groupSamples']= groupSamples;
 		}
+		console.log(allGroupItems)
 		//检查数据
 		//检查样本是否已全部分组，非强制
 		var samples=$("#sampleNames").find('li');
 		if(samples.length>0){
 			for(var i=0;i<samples.length;i++){
 				if(allGroupItems.indexOf(samples[i].innerText)==-1){
-					if(!confirm("发现有未分组的样品，确定不分组?")){
-						return false;
+					if(confirm("发现有未分组的样品，确定不分组?")){
+						break;
 					}
 				}
 			}
@@ -1677,7 +1691,9 @@ $("#taskRun").click(function(){
 				}
 		};
 
-		var resultPara={"taskPara":taskPara,
+		var resultPara={
+						"sampleData":resultArray,
+						"taskPara":taskPara,
 						"nodePara":nodePara,
 						"unselectNode":unselectNode,
 						"samples":samplesStr,
@@ -1703,7 +1719,7 @@ $("#taskRun").click(function(){
 							alert("执行成功！");
 							
 //							window.location.href= "__MODULE__/Task/getTask/id/"+data['data'];
-//							window.location.href= "deepExcavation.html";
+							window.location.href= "taskDetailRNA.html";
 				    	}
 				     },    
 				     error : function(XMLHttpRequest) {

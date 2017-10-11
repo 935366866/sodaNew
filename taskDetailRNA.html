@@ -80,6 +80,7 @@
 					<li ><span id="downloadReport"><a >下载报告</a></span></li>
 					<!--云超，下载报告的链接-->
 					<li><span ><a id="taskRerun"  href="#">重跑一次</a></span></li>
+					<li><span ><a id="deepBtn" style="color: #777;" href="#">深度挖掘</a></span></li>
 				</ul>
 				<ul class="main_nav3_right_report">
 					<li  class="report_success"><span id="taskStatus"  class="btn btn-success"><a href="#">任务运行中</a></span></li>
@@ -361,6 +362,10 @@
     	$(this).children("span").css("background",'#13438B').children("a").css("color","#fff");
     	$(this).siblings("li").children("span").css("background",'#fff').children("a").css("color","#777");
     })
+    //深度挖掘
+    $("#deepBtn").click(function(){
+    	window.location.href= "deepExcavation.html";
+    })
 	//rerun
 	$("#taskRerun").click(function(){
 		$(this).parent("span").css("background","#13438B").children("a").css("color","#fff");
@@ -517,7 +522,7 @@ function getTaskData(url){
 									dataJson.push(one);
 								};	
 							};
-console.log(dataJson)
+
 							$('#sampleTable').bootstrapTable('load',dataJson);   //载入数据
 							
 							//样本分组比较，填入样本
@@ -604,6 +609,8 @@ console.log(dataJson)
 								};
 							 }
 						else if(key == "modStatus"){  //填充任务状态table
+							var jsonData = JSON.stringify(data[key]);
+							window.sessionStorage.setItem("modStatus",jsonData);
 							$('#modStatusTable').bootstrapTable('load',data[key]);
 							}
 //							 波波，这是之前的判断状态的，现在暂时去掉了

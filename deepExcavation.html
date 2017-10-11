@@ -329,7 +329,7 @@
 			
 			<div class="tab-content input_r">
 				<!-- 使用说明 -->
-				<div class="tab-pane" id="direction">
+				<div class="tab-pane in active" id="direction">
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<p>描述：</p>
@@ -358,17 +358,15 @@
 				<div class="tab-pane" id="status">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" 						id="sampleTable">
+							<table data-toggle="table" data-height="200" data-show-footer="false" data-sort-name="id" id="modStatusTable">
 								<thead>
 									<tr>
-										<th data-field="sample" data-align="left" data-sortable="true">id</th>
-										<th data-field="fq" data-align="center" data-sortable="true">baseMean </th>
-										<th data-field="adap" data-align="center" data-sortable="true">WLL</th>
-										<th data-field="sample" data-align="left" data-sortable="true">CK</th>
-										<th data-field="fq" data-align="center" data-sortable="true">log2FoldChange </th>
-										<th data-field="adap" data-align="center" data-sortable="true">pval</th>
-										<th data-field="adap" data-align="center" data-sortable="true">padj</th>
-										<th data-field="adap" data-align="center" data-sortable="true">bDiff</th>
+										<th data-field="flow_mod" data-sortable="true">模块名称</th>
+										<th data-field="task_name" data-sortable="true">程序名称</th>
+										<th data-field="status" data-sortable="true" data-align="center" data-formatter="taskState">状态</th>
+										<th data-field="submit_time" data-sortable="true" data-align="center">任务提交时间</th>
+										<th data-field="done_time" data-sortable="true" data-align="center">任务结束时间</th>
+										<th data-field="consume_time" data-sortable="true" data-align="center">时长</th>
 									</tr>
 								</thead>
 							</table>
@@ -397,17 +395,17 @@
 					</div>
 				</div>
 				<!-- 绘图展示 -->
-				<div class="tab-pane active" id="show">
+				<div class="tab-pane" id="show">
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<div id="jcl-demo" style="width: 500px;height: 460px;">
 							    <div class="custom-container default">
 							        <a href="#" class="prev">&lsaquo;</a>
-							        <div class="carousel" style="width: 500px;height: 460px;">
+							        <div id="carousel" class="carousel" style="width: 455px;height: 460px;">
 							            <ul>
-							            	<li><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
-							            	<li><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
-							            	<li><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
+							            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
+							            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
+							            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
 							            </ul>
 							        </div>
 							        <a href="#" class="next">&rsaquo;</a>
@@ -503,13 +501,14 @@
 	<script>
 
         $(function() {
-        	
-            $(".default .carousel").jCarouselLite({
+        	debugger;
+            $("#carousel").jCarouselLite({
                 btnNext: ".default .next",
                 btnPrev: ".default .prev",
                 visible: 1,
                 speed: 800
             });
+            debugger;
         })	
 
 		$(document).ready(function() {
@@ -779,7 +778,6 @@ $(function(){
 	//提交参数
 	$("#submit_paras").click(function(){
 		var formData =  allParams();//取form表单参数
-		console.log(formData)
 		if(formData.input==""){
 			alert("请输入文件");
 		}else{
@@ -894,66 +892,70 @@ $(function(){
 		}
 	});
 	
+	var modStatusValue = sessionStorage.getItem("modStatus"); 
+	var modStatusObj = $.parseJSON( modStatusValue );
+	$('#modStatusTable').bootstrapTable('load',modStatusObj);
 	var parasValue = sessionStorage.getItem("paras"); 
 	var parasObj = $.parseJSON( parasValue );
-	var samplesArray=parasObj.samples.split(",");
-	for(var i=0;i<samplesArray.length;i++){
-		var name = samplesArray[i];
-		add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
-		$(add).appendTo('#sampleNames')
-
-	};	
-	dragInit();
-	var groupSamplesObj=parasObj.groupCompareVenn.groupSamples;
-	for(key in groupSamplesObj){
-		var value=groupSamplesObj[key];
-		var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
-		var divHtml = $(html);
-		allgroups.push(key);
-		for(var i=0;i<value.length;i++){
-			var sample=value[i];
-			var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-		    	+sample+'</li>');
-		  liHtml.appendTo(divHtml.find("ul"))
-			
-		}
-		divHtml.appendTo('#groupList');
-		dragInit();
-	}
-	var compareSamplesObj=parasObj.groupCompareVenn.compareGroups;
-	for(key in compareSamplesObj){
-		var value=compareSamplesObj[key];
-		var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
-		var divHtml = $(html);
-		allCompares.push(key);
-		for(var i=0;i<value.length;i++){
-			var sample=value[i];
-			var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-		    	+sample+'</li>');
-		  liHtml.appendTo(divHtml.find("ul"))
-			
-		}
-		divHtml.appendTo('#compareList');
-		dragInit();
-	}
+	if(parasObj){
+		var samplesArray=parasObj.samples.split(",");
+		for(var i=0;i<samplesArray.length;i++){
+			var name = samplesArray[i];
+			add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
+			$(add).appendTo('#sampleNames')
 	
-	var vennSamplesObj=parasObj.groupCompareVenn.vennCompares;
-	for(key in vennSamplesObj){
-		var value=vennSamplesObj[key];
-		var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
-		var divHtml = $(html);
-		allVenns.push(key);
-		for(var i=0;i<value.length;i++){
-			var sample=value[i];
-			var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-		    	+sample+'</li>');
-		  liHtml.appendTo(divHtml.find("ul"))
-			
-		}
-		divHtml.appendTo('#vennList');
+		};	
 		dragInit();
-	}
+		var groupSamplesObj=parasObj.groupCompareVenn.groupSamples;
+		for(key in groupSamplesObj){
+			var value=groupSamplesObj[key];
+			var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
+			var divHtml = $(html);
+			allgroups.push(key);
+			for(var i=0;i<value.length;i++){
+				var sample=value[i];
+				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+			    	+sample+'</li>');
+			  liHtml.appendTo(divHtml.find("ul"))
+				
+			}
+			divHtml.appendTo('#groupList');
+			dragInit();
+		}
+		var compareSamplesObj=parasObj.groupCompareVenn.compareGroups;
+		for(key in compareSamplesObj){
+			var value=compareSamplesObj[key];
+			var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
+			var divHtml = $(html);
+			allCompares.push(key);
+			for(var i=0;i<value.length;i++){
+				var sample=value[i];
+				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+			    	+sample+'</li>');
+			  liHtml.appendTo(divHtml.find("ul"))
+				
+			}
+			divHtml.appendTo('#compareList');
+			dragInit();
+		}
 		
+		var vennSamplesObj=parasObj.groupCompareVenn.vennCompares;
+		for(key in vennSamplesObj){
+			var value=vennSamplesObj[key];
+			var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
+			var divHtml = $(html);
+			allVenns.push(key);
+			for(var i=0;i<value.length;i++){
+				var sample=value[i];
+				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+			    	+sample+'</li>');
+			  liHtml.appendTo(divHtml.find("ul"))
+				
+			}
+			divHtml.appendTo('#vennList');
+			dragInit();
+		}
+	}	
 	$("#groupName").keydown(function(k){
 		if(k.keyCode==13 ){
 			addGroup();
