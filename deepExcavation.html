@@ -13,7 +13,7 @@
 
 	<!--弹出层样式-->
 	<link href="public/css/jquery.fancybox.css" rel="stylesheet"/>
-	<link href="css/deepExcavation.css" rel="stylesheet" >
+	<link href="public/draw/style/app.css" rel="stylesheet" >
 	<link href="css/soda_common.css" rel="stylesheet" >
 			<!--轮播样式-->
 	<link href="public/css/style-demo.css" rel="stylesheet" />
@@ -589,16 +589,42 @@
 						<div class="tabs" style="margin-left: 10px;text-align: left;line-height: 88px;font-size: 15px;color: #656565;">
 							差异基因筛选参数设置
 						</div>	
-						<div class="tabs" style="margin-left: 20px;">
+						<!--<div class="tabs" style="margin-left: 20px;">
 							<ul class="nav" id="appTabRight">
 								<li><a href="#geneList" data-toggle="tab">差异基因列表</a></li>
 								<li><a href="#show" data-toggle="tab">火山图</a></li>
 								<li ><a href="#status" data-toggle="tab">任务状态</a></li>
 								<li class="active" ><a href="#direction" data-toggle="tab">使用说明</a></li>	
 							</ul>
-						</div>	
+						</div>-->
+						
+						<div id="jcl-demo0" class="tabs" style="width: 200px;height: 100px;">
+						    <div class="custom-container default tabs" style="position: relative;">
+						        <a href="#" class="prev1" style="position: absolute;left: -16px;font-size: 30px;top: 25px;">&lsaquo;</a>
+						        <div id="carousel0" class="carousel" style="width: 127px;height: 100px;margin: 0;top: 8px;">
+						            <ul class="nav" style="top: 20px;">
+						            	<li style="width: 127px;height: 39px;" class="active"><a href="#geneList" data-toggle="tab">中国人们</a></li>
+						            	<li style="width: 127px;height: 39px;" ><a href="#show" data-toggle="tab">suman</a></li>
+						            	<li style="width: 127px;height: 39px;" class="active"><a href="#geneList" data-toggle="tab">差异基因列表</a></li>
+						            	<li style="width: 127px;height: 39px;" ><a href="#show" data-toggle="tab">火山图</a></li>
+						            	<li style="width: 127px;height: 39px;" ><a href="#status" data-toggle="tab">任务状态</a></li>
+						            	<li style="width: 127px;height: 39px;" ><a href="#direction" data-toggle="tab">使用说明</a></li>	
+						            </ul>
+						        </div>
+						        <a href="#" class="next1" style="position: absolute;right: 61px;font-size: 30px;top: 25px;">&rsaquo;</a>
+						        <div class="clear"></div>
+						    </div>
+						</div>
+						
 					</div>	
 				</div>
+				
+
+				
+				
+				
+				
+				
 				<div style="width: 1185px;">
 					<div class="tab-content input_l">
 						<div class="tab-pane in active" id="set">		
@@ -967,6 +993,13 @@
                 btnNext: ".default .next",
                 btnPrev: ".default .prev",
                 visible: 1,
+                speed: 800
+            });
+            
+            $("#carousel0").jCarouselLite({
+                btnNext: ".default .next1",
+                btnPrev: ".default .prev1",
+                visible: 4,
                 speed: 800
             });
         })	
