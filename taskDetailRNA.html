@@ -439,14 +439,20 @@ function getTaskData(url){
 				if(data['status']=='ERROR'){    //请求成功但没有执行成功
 					alert(data['data']);
 				}else{
-					
 					for(var key in data){
 						if(key == "samples"){   
 							//根据样本名填入table
 							var dataJson = [];   //用来存放填写样本表格的数据
 							var arr = data[key].split(",");
-
-							if(data["taskSeqType"] == "PE"){    //判断是双端   （注意：必须是PE）
+							//样本分组比较，填入样本
+							var arr = data[key].split(",");
+							for(var i=0;i<arr.length;i++){
+								$("#samplesSelected").append('<div class="samplesDIV"><span style="color:#FFF;">'+arr[i]+'</span></div>')
+							};
+						}else if(key == "sampleData"){
+							var sampleData=data["sampleData"]
+						  	var tableData=[];
+							if(data["seq_type"] == "PE"){    //判断是双端   （注意：必须是PE）
 								var options={
 									toolbar:"#toolbar",
 									clickToSelect:true,
@@ -459,7 +465,7 @@ function getTaskData(url){
 								        {align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "}
 							      	]
 								}
-								
+									
 								$('#sampleTable').bootstrapTable(options);
 								var option=$('#sampleTable').bootstrapTable("getOptions");
 								option.columns=[{
@@ -475,62 +481,56 @@ function getTaskData(url){
 								$('#sampleTable').bootstrapTable('destroy');
 								$('#sampleTable').bootstrapTable(option);
 						  		$('#sampleTable').bootstrapTable("resetView");
-								for(var i=0;i<arr.length;i++){
-									var one = {};
-									one["sample"]=arr[i];
-									one["fq1"]= arr[i]+"_1.fq.gz"
-									one["fq2"]= arr[i]+"_2.fq.gz"
-									
-					
-									
-									dataJson.push(one);
+						  		for(var i=0;i<sampleData.length;i++){
+						  			var row=sampleData[i];
+						  			var tableRow={};
+						  			for(var key in row){
+						  				tableRow["sample"]=key;
+						  				tableRow["fq1"]=row[key][0];
+						  				tableRow["fq2"]=row[key][1];
+						  			}
+						  			tableData.push(tableRow)
+						  		}
 
+							}else{		//不是双端
+									var options={
+										toolbar:"#toolbar",
+										clickToSelect:true,
+										showFooter:false,
+										classes:'table',
+										height:"250",
+										columns: [   
+									        {align: "left", field: "sample", order: "asc",editable:{type:'text'}, title: "样本名称 "},
+									        {align: "center", field: "fq1", order: "asc", title: "FastQ文件 "}
+								      	]
+									}
 									
+									$('#sampleTable').bootstrapTable(options);
+									var option=$('#sampleTable').bootstrapTable("getOptions");
+									option.columns=[{
+										align: "left",
+										field: "sample", 
+										order: "asc",
+										title: "样本名称"
+									},{
+										align: "center", field: "fq", order: "asc", title: "FastQ文件 "
+									}];
+									$('#sampleTable').bootstrapTable('destroy');
+									$('#sampleTable').bootstrapTable(option);
+							  		$('#sampleTable').bootstrapTable("resetView");
+									for(var i=0;i<sampleData.length;i++){
+							  			var row=sampleData[i];
+							  			var tableRow={};
+							  			for(var key in row){
+							  				tableRow["sample"]=key;
+							  				tableRow["fq"]=row[key][0];
+							  			}
+							  			tableData.push(tableRow)
+							  		}
 								};
-								
-							}
-							else{		//不是双端
-								var options={
-									toolbar:"#toolbar",
-									clickToSelect:true,
-									showFooter:false,
-									classes:'table',
-									height:"250",
-									columns: [   
-								        {align: "left", field: "sample", order: "asc",editable:{type:'text'}, title: "样本名称 "},
-								        {align: "center", field: "fq1", order: "asc", title: "FastQ文件 "}
-							      	]
-								}
-								
-								$('#sampleTable').bootstrapTable(options);
-								var option=$('#sampleTable').bootstrapTable("getOptions");
-								option.columns=[{
-									align: "left",
-									field: "sample", 
-									order: "asc",
-									title: "样本名称"
-								},{
-									align: "center", field: "fq", order: "asc", title: "FastQ文件 "
-								}];
-								$('#sampleTable').bootstrapTable('destroy');
-								$('#sampleTable').bootstrapTable(option);
-						  		$('#sampleTable').bootstrapTable("resetView");
-								for(var i=0;i<arr.length;i++){
-									var one = {};
-									one["sample"]=arr[i];
-									one["fq"]= arr[i]+".fq.gz"
-									dataJson.push(one);
-								};	
-							};
-
-							$('#sampleTable').bootstrapTable('load',dataJson);   //载入数据
+	
+								$('#sampleTable').bootstrapTable('load',tableData);   //载入数据
 							
-							//样本分组比较，填入样本
-							var arr = data[key].split(",");
-							for(var i=0;i<arr.length;i++){
-								
-								$("#samplesSelected").append('<div class="samplesDIV"><span style="color:#FFF;">'+arr[i]+'</span></div>')
-								};
 							}
 						else if(key == "group_samples" || key == "compare_groups" || key=="venn_compares"){  //样本分组比较的其他信息填写
 							if(data[key] == null || data[key] == 'null' ||data[key] == ''){

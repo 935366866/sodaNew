@@ -1552,6 +1552,7 @@ function checkInput(){
 //任务运行，提交参数
 $("#taskRun").click(function(){
 	var tableDatas=$('#sampleTable').bootstrapTable("getData");
+	console.log(tableDatas)
 	var resultArray=[];
 	for(var i=0;i<tableDatas.length;i++){
 		var rowData=tableDatas[i];
@@ -1616,7 +1617,7 @@ $("#taskRun").click(function(){
 			}
 			groupCompareVenn['groupSamples']= groupSamples;
 		}
-		console.log(allGroupItems)
+		
 		//检查数据
 		//检查样本是否已全部分组，非强制
 		var samples=$("#sampleNames").find('li');
@@ -1673,7 +1674,7 @@ $("#taskRun").click(function(){
 //				}
 //				vennCompares.push(curVennCompares);
 			}
-			groupCompareVenn['vennCompares'] = vennCompares;
+			groupCompareVenn['vennGroups'] = vennCompares;
 		}
 
 
@@ -1886,13 +1887,13 @@ $(function(){
     });
 	$('#sampleTip').on("mouseover",function(){
 		$('#sampleTipModal').show(); 
+		$("body").css("overflow","hidden")
 	});  
 	$('#sampleTip').on("mouseout",function(){
 		$('#sampleTipModal').hide(); 
 	}); 
 
 })
-
 </script>
 
 

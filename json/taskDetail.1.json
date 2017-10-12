@@ -4,7 +4,6 @@
     "species": "Oryza_sativa_Japonica",
     "is_sslib": "no",
     "seq_type": "SE",
-    "taskSeqType":"PE",
     "data_dir": "/home/data1/data01/test_data/rice_part_data",
     "task_type": "ref",
     "task_remark": "",
@@ -20,6 +19,15 @@
     "create_man": "soda",
     "project_name": "testabc123",
     "samples": "ck,wll",
+    "sampleData":[
+    				{"s777":[null,"s777_2.fastq.gz"]},
+    				{"lx.1_s777":[null,"lx.1_s777_2.fastq.gz"]},
+    				{"sm.1_s777":["sm.1_s777_1.fastq.gz",null]},
+    				{"s2":["s2_1.fq.gz",null]},
+    				{"s3":["s3_1.fq.gz",null]},
+    				{"ss":["ss_R1.fq.gz","ss_R2.fq.gz"]},
+    				{"s4":[null,"s4_2.fq.gz"]}
+    			],
     "fa": "/database/Reference/Plant/Oryza_sativa/Oryza_sativa.IRGSP-1.0.26.dna.toplevel.fa",
     "gtf": "/database/Reference/Plant/Oryza_sativa/Oryza_sativa.IRGSP-1.0.26.exon.gtf",
     "nodePara": [
