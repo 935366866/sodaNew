@@ -13,7 +13,7 @@
 
 	<!--弹出层样式-->
 	<link href="public/css/jquery.fancybox.css" rel="stylesheet"/>
-	<link href="public/draw/style/app.css" rel="stylesheet" >
+	<link href="css/deepExcavation.css" rel="stylesheet" >
 	<link href="css/soda_common.css" rel="stylesheet" >
 			<!--轮播样式-->
 	<link href="public/css/style-demo.css" rel="stylesheet" />
@@ -108,51 +108,59 @@
 	</div>
 	<!--/前台公共头部-->
 	 <div class="center_box" style="float:left;width:100%;margin-top: 145px;">
-        <div class="myTab" > 
+        <div class="myTab"> 
         	<div class="tabs" style="margin-left: 20px;float: none;width: 1185px;margin: 0 auto;">
 				<ul class="nav">
-					<li style="width: 160px;"><a href="#myTabContent2" data-toggle="tab">KEGG通路散点图</a></li>
-					<li style="width: 80px;"><span style="display: inline-block;width: 35px;height: 35px; background: url(img/bg_01.png);font-size: 25px;">3</span></li>
-					<li style="width: 160px;"><a href="#myTabContent1" data-toggle="tab">差异基因富集注释</a></li>
-					<li style="width: 80px;"><span style="display: inline-block;width: 35px;height: 35px; background: url(img/bg_01.png);font-size: 25px;">2</span></li>
-					<li class="active"  style="width: 160px;" ><a href="#myTabContent" data-toggle="tab">差异基因筛选</a></li>
-					<li style="width: 80px;"><span style="display: inline-block;width: 35px;height: 35px; background: url(img/bg_01.png);font-size: 25px;">1</span></li>
+					<li style="width: 160px;"><a href="#KEGGPathScatter" data-toggle="tab">KEGG通路散点图</a></li>
+					<li style="width: 60px;"><span style="display: inline-block;width: 35px;height: 35px;line-height: 35px; background: url(img/bg_01.png);font-size: 20px;">3</span></li>
+					<li style="width: 160px;"><a href="#EnrichAnnotation" data-toggle="tab">差异基因富集注释</a></li>
+					<li style="width: 60px;"><span style="display: inline-block;width: 35px;height: 35px;line-height: 35px; background: url(img/bg_01.png);font-size: 20px;">2</span></li>
+					<li class="active"  style="width: 160px;" ><a href="#diffGeneFilter" data-toggle="tab">差异基因筛选</a></li>
+					<li style="width: 60px;"><span style="display: inline-block;width: 35px;height: 35px;line-height: 35px; background: url(img/bg_01.png);font-size: 20px;">1</span></li>
 				</ul>
 			</div>	
         </div>       
 		<div class="tab-content">
 			<!--差异基因富集注释-->
-			<div id="myTabContent1" class="tab-pane tabContent" style="padding-top: 0;width: 100%;">
+			<div id="EnrichAnnotation" class="tab-pane tabContent" style="padding-top: 0;width: 100%;">
 		        <div class="myTab"  style="margin-bottom: 20px;background: #fff;">
 		        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
 						<div class="tabs" style="margin-left: 10px;text-align: left;line-height: 88px;font-size: 15px;color: #656565;">
 							<ul class="nav">
-								<li style="width: 230px;"><a href="#" data-toggle="tab">使用原始差异基因注释</a></li>
-								<li style="width: 230px;" class="active" ><a href="#" data-toggle="tab">使用上一步新差异基因注释</a></li>	
+								<li style="width: 230px;"><a href="#previousGene" data-toggle="tab">使用上一步新差异基因注释</a></li>
+								<li style="width: 230px;" class="active"><a href="#originalGene" data-toggle="tab">使用原始差异基因注释</a></li>
 							</ul>
 						</div>	
-						<div class="tabs" style="margin-left: 20px;">
-							<ul class="nav">
-								<li style="width: 140px;"><a href="#" data-toggle="tab">GO富集DAG图</a></li>
-								<li><a href="#" data-toggle="tab">GO富集柱状图</a></li>
-								<li><a href="#" data-toggle="tab">GO富集列表</a></li>
-								<li><a href="#" data-toggle="tab">KEGG散点图</a></li>
-								<li style="width: 143px;"><a href="#" data-toggle="tab">KEGG富集列表</a></li>
-								<li><a href="#" data-toggle="tab">任务监控</a></li>
-								<li><a href="#" data-toggle="tab">使用说明</a></li>
-							</ul>
-						</div>	
+						
+						<div class="tabs" style="width: 200px;height: 100px;">
+						    <div class="custom-container default tabs" style="position: relative;margin-left: 30px;">
+						        <a href="#" class="prev1" style="position: absolute;left: -16px;font-size: 30px;top: 25px;">&lsaquo;</a>
+						        <div id="carousel0" class="carousel" style="width: 172px;height: 100px;margin: 0;top: 8px;">
+						            <ul class="nav" style="top: 20px;">
+						            	<li style="width: 172px;height: 39px;" class="active"><a href="#EADirection" data-toggle="tab">使用说明</a></li>
+						            	<li style="width: 172px;height: 39px;" ><a href="#EAStatus" data-toggle="tab">任务状态</a></li>
+						            	<li style="width: 172px;height: 39px;" ><a href="#EAKEGGList" data-toggle="tab">KEGG富集列表</a></li>
+						            	<li style="width: 172px;height: 39px;" ><a href="#EAKEGGScatter" data-toggle="tab">KEGG散点图</a></li>
+						            	<li style="width: 172px;height: 39px;" ><a href="#EAGOList" data-toggle="tab">GO富集列表</a></li>
+						            	<li style="width: 172px;height: 39px;" ><a href="#EAGOBar" data-toggle="tab">GO富集柱状图</a></li>
+						            	<li style="width: 172px;height: 39px;" ><a href="#EAGODag" data-toggle="tab">GO富集DAG图</a></li>	
+						            </ul>
+						        </div>
+						        <a href="#" class="next1" style="position: absolute;right: 51px;font-size: 30px;top: 25px;">&rsaquo;</a>
+						        <div class="clear"></div>
+						    </div>
+						</div>
 					</div>	
 				</div>
 				<div style="width: 1185px;">
 					<div class="tab-content input_l">
-						<div class="tab-pane in active" id="set">		
+						<div class="tab-pane active" id="previousGene">		
 							<div class="panel  panel-default">				
 								<div class="panel-body" style="height: 439px;">
-									<form id="parameter">
-										<!--输入文件-->
+									<form class="parameter" id="previousGeneParameter">
+										<!--输出目录-->
 										<div class="part">
-											<div class="input_a_l titleNameLeft">输出文件:</div>
+											<div class="input_a_l titleNameLeft" >输出目录:</div>
 											<div class="input_a_m" style="width: 345px;">
 												<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
 											</div>
@@ -161,111 +169,113 @@
 													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
 												</a>
 											</div>
-										</div>		
+										</div>	
 										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">GO富集参数:</div>
 										<div class="part">
-											<div class="input_a_l titleNameLeft">筛选软件:</div>
-											<div class="input_b_3" style="width: 345px;float: left;">
-												<select id="filterCondition"  name="filterCondition" class="selectpicker select_width" autocomplete="off" >
-													<option value="project1">DESeq2</option>
-													<option value="project2">DESeq</option>
-													<option value="project3">edgeR</option>
-													<option value="project4">DEGseq</option>
-												</select>
-											</div>									
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">p值类型:</div>
-											<div class="input_b_3" style="width: 345px;float: left;">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值类型:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
 												<select id="pTypes"  name="pTypes" class="selectpicker select_width" autocomplete="off" >
-													<option value="padj">padj</option>
-													<option value="pval">pval</option>
+													<option value="padj">correct</option>
+													<option value="pval">over_represented_pvalue</option>
 												</select>
 											</div>									
 										</div>
 										<div class="part">
-											<div class="input_a_l titleNameLeft">p值大小:</div>
-											<div class="input_a_m" style="width: 345px;">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值大小:</div>
+											<div class="input_a_m" style="width: 305px;">
 												<input v-model="pValue" type="text" class="form-control" id="pValue" name="pValue" placeholder="">
 											</div>								
 										</div>
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">KEGG富集参数:</div>
 										<div class="part">
-											<div class="input_a_l titleNameLeft">差异倍数:</div>
-											<div class="input_a_m" style="width: 345px;">
-												<input v-model="diffMultiple" type="text" class="form-control" id="diffMultiple" name="diffMultiple" placeholder="">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">E值:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input v-model="EValue" type="text" class="form-control" id="EValue" name="EValue" value="1e-5">
 											</div>								
 										</div>
-										<div class="line"></div>
-									</form>
 										<div class="part">
-											<div class="input_a_l titleNameLeft">差异比较分组</div><br /><br />
-												<div style="margin-bottom: 55px;">
-													<div style="float:left;width:22%;margin-left: 20px;">
-														<div><label class='control-label'><b>样本名称：</b></label></div>
-													</div>
-													<div style="float:left;width:20%;margin-right: 20px;">
-														<div>
-															<button class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
-																<span class="glyphicon glyphicon-plus">Group</span>
-															</button><br />
-														</div>
-													</div>
-													<div style="float:left;width:22%;margin-right: 20px;">
-														<div>
-															<button class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
-																<span class="glyphicon glyphicon-plus">Compare</span>
-															</button>
-														</div>   
-													</div>
-													<div style="float:left;width:20%;margin-right: 20px;">
-														<div>
-															<button class="btn btn-default"  data-target='#vennModal' data-toggle='modal' style="outline: none;">
-																<span class="glyphicon glyphicon-plus">Venn</span>
-															</button>
-														</div>
-													</div>
-												</div>
-												<div style="width:100%;">																				
-													<div style="float:left;width:22%;margin-right: 20px;">
-														<div id="sampleWrap">
-															<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;"></ol>
-														</div>
-													</div>
-													<div id='groupList' style="float:left;width:20%;margin-right:20px;"></div>
-													<div id='compareList' style="float:left;width:20%;margin-right:20px;"></div>
-													<div id='vennList' style="float:left;width:20%"></div>																					
-												</div>
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">统计检测方法:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="statisMethod"  name="statisMethod" class="selectpicker select_width" autocomplete="off" >
+													<option value="b">binomial test</option>
+													<option value="c">chi-square test</option>
+													<option value="h">hypergeometric test/Fisher's exact test</option>
+													<option value="x">frequency </option>
+												</select>
+											</div>									
 										</div>
-									
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">FDR矫正方法:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="fdrMethod"  name="fdrMethod" class="selectpicker select_width" autocomplete="off" >
+													<option value="BH ">Benjamini and Hochberg</option>
+													<option value="BY ">Benjamini and Yekutieli</option>
+													<option value="QVALUE">QVALUE</option>
+													<option value="None">None</option>
+												</select>
+											</div>									
+										</div>
+									</form>
 								</div>
 								<div class="panel-footer" style="height: 51px;">
-									<button id="submit_paras" type="button" class="btn btn-success">Run</button>
+									<button id="submit_paras" type="button" class="btn btn-success">开始运行</button>
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane" id="mytable1">
-							<div class="panel panel-default">
-								<div class="panel-body" style="padding: 0;">
-									<table class="table table-bordered">
-		                                <thead>
-		                                    <tr>
-		                                        <th v-for="item in fileData.content[0]">{{item}}</th>
-		                                    </tr>
-		                                </thead>
-		                                <tbody>
-		                                    <tr v-for="(item,index) in fileData.content" v-if="index!=0">
-		                                        <td v-for="item1 in item">{{item1 }}</td>
-		                                    </tr>
-		                                </tbody>
-		                            </table>
+						<div class="tab-pane" id="originalGene">
+							<div class="panel  panel-default">				
+								<div class="panel-body" style="height: 439px;">
+									<form class="parameter" id="originalGeneParameter">
+										<!--输出目录-->
+										<div class="part">
+											<div class="input_a_l titleNameLeft">输出目录:</div>
+											<div class="input_a_m" style="width: 345px;">
+												<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
+											</div>
+											<div class="input_a_r">
+												<a onclick="openUrl('#input','file')">
+													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
+												</a>
+											</div>
+										</div>	
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">GO富集参数:</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值类型:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="pTypes"  name="pTypes" class="selectpicker select_width" autocomplete="off" >
+													<option value="padj">correct</option>
+													<option value="pval">over_represented_pvalue</option>
+												</select>
+											</div>									
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值大小:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input v-model="pValue" type="text" class="form-control" id="pValue" name="pValue" placeholder="">
+											</div>								
+										</div>
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">KEGG富集参数:</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">E值:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input v-model="EValue" type="text" class="form-control" id="EValue" name="EValue" placeholder="">
+											</div>								
+										</div>
+									</form>
+								</div>
+								<div class="panel-footer" style="height: 51px;">
+									<button id="submit_paras" type="button" class="btn btn-success">开始运行</button>
 								</div>
 							</div>
 						</div>
 					</div>
-			
 					<div class="tab-content input_r">
 						<!-- 使用说明 -->
-						<div class="tab-pane in active" id="direction1">
+						<div class="tab-pane in active" id="EADirection">
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<p>描述：</p>
@@ -291,7 +301,7 @@
 						</div>
 						
 						<!-- 任务状态 -->
-						<div class="tab-pane" id="status1">
+						<div class="tab-pane" id="EAStatus">
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<table data-toggle="table" data-height="200" data-show-footer="false" data-sort-name="id" id="modStatusTable1">
@@ -309,8 +319,8 @@
 								</div>
 							</div>
 						</div>
-						<!-- 基因列表 -->
-						<div class="tab-pane" id="geneList1">
+						<!-- KEGG富集列表 -->
+						<div class="tab-pane" id="EAKEGGList">
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" id="sampleTable1">
@@ -330,218 +340,33 @@
 								</div>
 							</div>
 						</div>
-						<!-- 绘图展示 -->
-						<div class="tab-pane" id="show1">
+						<!-- KEGG散点图 -->
+						<div class="tab-pane" id="EAKEGGScatter">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<div id="jcl-demo1" style="width: 500px;height: 460px;">
+									<div class="jcl-demo" style="width: 500px;height: 460px;">
 									    <div class="custom-container default">
-									        <a href="#" class="prev">&lsaquo;</a>
-									        <div id="carousel1" class="carousel" style="width: 455px;height: 460px;">
+									        <a id="EAKEGGScatterPrev" href="#" class="prev">&lsaquo;</a>
+									        <div id="EAKEGGScatterCarousel" class="carousel" style="width: 455px;height: 460px;">
 									            <ul>
 									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
 									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
 									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
 									            </ul>
 									        </div>
-									        <a href="#" class="next">&rsaquo;</a>
+									        <a id="EAKEGGScatterNext" href="#" class="next">&rsaquo;</a>
 									        <div class="clear"></div>
 									    </div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-	        <!--KEGG通路散点图-->
-			<div id="myTabContent2" class="tab-pane tabContent" style="padding-top: 0;width: 100%;">
-		        <div class="myTab"  style="margin-bottom: 20px;background: #fff;">
-		        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
-						<div class="tabs" style="margin-left: 10px;text-align: left;line-height: 88px;font-size: 15px;color: #656565;">
-							<ul class="nav">
-								<li style="width: 230px;"><a href="#" data-toggle="tab">使用原始差异基因注释</a></li>
-								<li style="width: 230px;" class="active" ><a href="#" data-toggle="tab">使用上一步新差异基因注释</a></li>	
-							</ul>
-						</div>	
-						<div class="tabs" style="margin-left: 20px;">
-							<ul class="nav">
-								<li><a href="#" data-toggle="tab">差异基因列表</a></li>
-								<li><a href="#" data-toggle="tab">火山图</a></li>
-							</ul>
-						</div>	
-					</div>	
-				</div>
-				<div style="width: 1185px;">
-					<div class="tab-content input_l">
-						<div class="tab-pane in active" id="set">		
-							<div class="panel  panel-default">				
-								<div class="panel-body" style="height: 439px;">
-									<form id="parameter2">
-										<!--输入文件-->
-										<div class="part">
-											<div class="input_a_l titleNameLeft">输出文件:</div>
-											<div class="input_a_m" style="width: 345px;">
-												<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
-											</div>
-											<div class="input_a_r">
-												<a onclick="openUrl('#input','file')">
-													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
-												</a>
-											</div>
-										</div>		
-										<div class="line"></div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">筛选软件:</div>
-											<div class="input_b_3" style="width: 345px;float: left;">
-												<select id="filterCondition"  name="filterCondition" class="selectpicker select_width" autocomplete="off" >
-													<option value="project1">DESeq2</option>
-													<option value="project2">DESeq</option>
-													<option value="project3">edgeR</option>
-													<option value="project4">DEGseq</option>
-												</select>
-											</div>									
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">p值类型:</div>
-											<div class="input_b_3" style="width: 345px;float: left;">
-												<select id="pTypes"  name="pTypes" class="selectpicker select_width" autocomplete="off" >
-													<option value="padj">padj</option>
-													<option value="pval">pval</option>
-												</select>
-											</div>									
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">p值大小:</div>
-											<div class="input_a_m" style="width: 345px;">
-												<input v-model="pValue" type="text" class="form-control" id="pValue" name="pValue" placeholder="">
-											</div>								
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">差异倍数:</div>
-											<div class="input_a_m" style="width: 345px;">
-												<input v-model="diffMultiple" type="text" class="form-control" id="diffMultiple" name="diffMultiple" placeholder="">
-											</div>								
-										</div>
-										<div class="line"></div>
-									</form>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">差异比较分组</div><br /><br />
-												<div style="margin-bottom: 55px;">
-													<div style="float:left;width:22%;margin-left: 20px;">
-														<div><label class='control-label'><b>样本名称：</b></label></div>
-													</div>
-													<div style="float:left;width:20%;margin-right: 20px;">
-														<div>
-															<button class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
-																<span class="glyphicon glyphicon-plus">Group</span>
-															</button><br />
-														</div>
-													</div>
-													<div style="float:left;width:22%;margin-right: 20px;">
-														<div>
-															<button class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
-																<span class="glyphicon glyphicon-plus">Compare</span>
-															</button>
-														</div>   
-													</div>
-													<div style="float:left;width:20%;margin-right: 20px;">
-														<div>
-															<button class="btn btn-default"  data-target='#vennModal' data-toggle='modal' style="outline: none;">
-																<span class="glyphicon glyphicon-plus">Venn</span>
-															</button>
-														</div>
-													</div>
-												</div>
-												<div style="width:100%;">																				
-													<div style="float:left;width:22%;margin-right: 20px;">
-														<div id="sampleWrap">
-															<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;"></ol>
-														</div>
-													</div>
-													<div id='groupList' style="float:left;width:20%;margin-right:20px;"></div>
-													<div id='compareList' style="float:left;width:20%;margin-right:20px;"></div>
-													<div id='vennList' style="float:left;width:20%"></div>																					
-												</div>
-										</div>
-									
-								</div>
-								<div class="panel-footer" style="height: 51px;">
-									<button id="submit_paras" type="button" class="btn btn-success">Run</button>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane" id="mytable2">
-							<div class="panel panel-default">
-								<div class="panel-body" style="padding: 0;">
-									<table class="table table-bordered">
-		                                <thead>
-		                                    <tr>
-		                                        <th v-for="item in fileData.content[0]">{{item}}</th>
-		                                    </tr>
-		                                </thead>
-		                                <tbody>
-		                                    <tr v-for="(item,index) in fileData.content" v-if="index!=0">
-		                                        <td v-for="item1 in item">{{item1 }}</td>
-		                                    </tr>
-		                                </tbody>
-		                            </table>
-								</div>
-							</div>
-						</div>
-					</div>
-			
-					<div class="tab-content input_r">
-						<!-- 使用说明 -->
-						<div class="tab-pane in active" id="direction2">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<p>描述：</p>
-									<p class="indent">
-									对提供的各样本中，各基因的表达量，按log（x+1）转换后，绘制小提琴图（https://en.wikipedia.org/wiki/Violin_plot）。用于展示各样本基因整体表达量分布情况。
-									</p>
-									<p>参数：</p>
-									<pre>
-										--input	  输入文件名。例如：fpkm.txt
-										--output  输出文件名。后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。例如：violin.png
-										--ylab	  y坐标轴标题，默认为：log(RPKM+1)。例如：log(TPM+1)
-										--title	  图标题，默认为：RPKM distribution。例如：TPM distribution	
-									</pre>
-									<p>输入：</p>
-									<div class="indent">基因表达量文件，第一列为geneID，其他列为各样本中基因表达量值（FPKM，RPKM或TPM）。</div>
-									<div class="img_box">
-										<img src="public/draw/imgs/bg.jpg" alt="">
-									</div>
-									<p>输出：</p>
-									<div class="indent">后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。</div>
-								</div>
-							</div>
-						</div>
 						
-						<!-- 任务状态 -->
-						<div class="tab-pane" id="status2">
+						<!-- GO富集列表 -->
+						<div class="tab-pane" id="EAGOList">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<table data-toggle="table" data-height="200" data-show-footer="false" data-sort-name="id" id="modStatusTable2">
-										<thead>
-											<tr>
-												<th data-field="flow_mod" data-sortable="true">模块名称</th>
-												<th data-field="task_name" data-sortable="true">程序名称</th>
-												<th data-field="status" data-sortable="true" data-align="center" data-formatter="taskState">状态</th>
-												<th data-field="submit_time" data-sortable="true" data-align="center">任务提交时间</th>
-												<th data-field="done_time" data-sortable="true" data-align="center">任务结束时间</th>
-												<th data-field="consume_time" data-sortable="true" data-align="center">时长</th>
-											</tr>
-										</thead>
-									</table>
-								</div>
-							</div>
-						</div>
-						<!-- 基因列表 -->
-						<div class="tab-pane" id="geneList2">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" 	id="sampleTable2">
+									<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" id="GOListTable">
 										<thead>
 											<tr>
 												<th data-field="sample" data-align="left" data-sortable="true">id</th>
@@ -558,21 +383,43 @@
 								</div>
 							</div>
 						</div>
-						<!-- 绘图展示 -->
-						<div class="tab-pane" id="show2">
+						
+						<!-- GO富集柱状图 -->
+						<div class="tab-pane" id="EAGOBar">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<div id="jcl-demo2" style="width: 500px;height: 460px;">
+									<div  class="jcl-demo" style="width: 500px;height: 460px;">
 									    <div class="custom-container default">
-									        <a href="#" class="prev">&lsaquo;</a>
-									        <div id="carousel2" class="carousel" style="width: 455px;height: 460px;">
+									        <a id="EAGOBarPrev" href="#" class="prev">&lsaquo;</a>
+									        <div id="EAGOBarCarousel" class="carousel" style="width: 455px;height: 460px;">
 									            <ul>
 									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
 									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
 									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
 									            </ul>
 									        </div>
-									        <a href="#" class="next">&rsaquo;</a>
+									        <a id="EAGOBarNext" href="#" class="next">&rsaquo;</a>
+									        <div class="clear"></div>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- GO富集DAG图 -->
+						<div class="tab-pane" id="EAGODag">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div  class="jcl-demo" style="width: 500px;height: 460px;">
+									    <div class="custom-container default">
+									        <a id="EAGODagPrev" href="#" class="prev">&lsaquo;</a>
+									        <div id="EAGODagCarousel" class="carousel" style="width: 455px;height: 460px;">
+									            <ul>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
+									            </ul>
+									        </div>
+									        <a id="EAGODagNext" href="#" class="next">&rsaquo;</a>
 									        <div class="clear"></div>
 									    </div>
 									</div>
@@ -582,58 +429,215 @@
 					</div>
 				</div>
 			</div>
-	        <!--差异基因筛选-->
-	        <div id="myTabContent" class="tab-pane active tabContent" style="padding-top: 0;width: 100%;"> 
+	        <!--KEGG通路散点图-->
+			<div id="KEGGPathScatter" class="tab-pane tabContent" style="padding-top: 0;width: 100%;">
+		        <div class="myTab"  style="margin-bottom: 20px;background: #fff;">
+		        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
+						<div class="tabs" style="margin-left: 10px;text-align: left;line-height: 88px;font-size: 15px;color: #656565;">
+							<ul class="nav">
+								<li style="width: 232px;"><a href="#previousKEGGScatter" data-toggle="tab">使用上一步新KEGG通路绘图</a></li>
+								<li style="width: 230px;" class="active"><a href="#originalKEGGScatter" data-toggle="tab">使用原始KEGG通路绘图</a></li>
+							</ul>
+						</div>	
+						<div class="tabs" style="margin-left: 20px;">
+							<ul class="nav">							
+								<li><a href="#KEGGScatter" data-toggle="tab">KEGG散点图</a></li>
+								<li ><a href="#KEGGStatus" data-toggle="tab">任务状态</a></li>
+								<li class="active" ><a href="#KEGGDirection" data-toggle="tab">使用说明</a></li>	
+							</ul>
+						</div>
+					</div>	
+				</div>
+				<div style="width: 1185px;">
+					<div class="tab-content input_l">
+						<div class="tab-pane active" id="previousKEGGScatter">		
+							<div class="panel  panel-default">				
+								<div class="panel-body" style="height: 439px;">
+									<form class="parameter" id="parameter">
+										<!--输出目录-->
+										<div class="part">
+											<div class="input_a_l titleNameLeft">输出目录:</div>
+											<div class="input_a_m" style="width: 345px;">
+												<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
+											</div>
+											<div class="input_a_r">
+												<a onclick="openUrl('#input','file')">
+													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
+												</a>
+											</div>
+										</div>	
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">GO富集参数:</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值类型:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="pTypes"  name="pTypes" class="selectpicker select_width" autocomplete="off" >
+													<option value="padj">correct</option>
+													<option value="pval">over_represented_pvalue</option>
+												</select>
+											</div>									
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值大小:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input v-model="pValue" type="text" class="form-control" id="pValue" name="pValue" placeholder="">
+											</div>								
+										</div>
+										<div class="line"></div>
+	
+									</form>
+								</div>
+								<div class="panel-footer" style="height: 51px;">
+									<button id="submit_paras" type="button" class="btn btn-success">开始运行</button>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="originalKEGGScatter">
+							<div class="panel  panel-default">				
+								<div class="panel-body" style="height: 439px;">
+									<form class="parameter" id="parameter">
+										<!--输出目录-->
+										<div class="part">
+											<div class="input_a_l titleNameLeft">输出目录:</div>
+											<div class="input_a_m" style="width: 345px;">
+												<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
+											</div>
+											<div class="input_a_r">
+												<a onclick="openUrl('#input','file')">
+													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
+												</a>
+											</div>
+										</div>	
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">GO富集参数:</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值类型:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="pTypes"  name="pTypes" class="selectpicker select_width" autocomplete="off" >
+													<option value="padj">correct</option>
+													<option value="pval">over_represented_pvalue</option>
+												</select>
+											</div>									
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值大小:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input v-model="pValue" type="text" class="form-control" id="pValue" name="pValue" placeholder="">
+											</div>								
+										</div>
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">KEGG富集参数:</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">E值:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input v-model="EValue" type="text" class="form-control" id="EValue" name="EValue" placeholder="">
+											</div>								
+										</div>
+									</form>
+								</div>
+								<div class="panel-footer" style="height: 51px;">
+									<button id="submit_paras" type="button" class="btn btn-success">开始运行</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-content input_r">
+						<!-- 使用说明 -->
+						<div class="tab-pane in active" id="KEGGDirection">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<p>描述：</p>
+									<p class="indent">
+									对提供的各样本中，各基因的表达量，按log（x+1）转换后，绘制小提琴图（https://en.wikipedia.org/wiki/Violin_plot）。用于展示各样本基因整体表达量分布情况。
+									</p>
+									<p>参数：</p>
+									<pre>
+										--input	  输入文件名。例如：fpkm.txt
+										--output  输出目录名。后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。例如：violin.png
+										--ylab	  y坐标轴标题，默认为：log(RPKM+1)。例如：log(TPM+1)
+										--title	  图标题，默认为：RPKM distribution。例如：TPM distribution	
+									</pre>
+									<p>输入：</p>
+									<div class="indent">基因表达量文件，第一列为geneID，其他列为各样本中基因表达量值（FPKM，RPKM或TPM）。</div>
+									<div class="img_box">
+										<img src="public/draw/imgs/bg.jpg" alt="">
+									</div>
+									<p>输出：</p>
+									<div class="indent">后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 任务状态 -->
+						<div class="tab-pane" id="KEGGStatus">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<table data-toggle="table" data-height="200" data-show-footer="false" data-sort-name="id" id="KEGGStatusTable">
+										<thead>
+											<tr>
+												<th data-field="flow_mod" data-sortable="true">模块名称</th>
+												<th data-field="task_name" data-sortable="true">程序名称</th>
+												<th data-field="status" data-sortable="true" data-align="center" data-formatter="taskState">状态</th>
+												<th data-field="submit_time" data-sortable="true" data-align="center">任务提交时间</th>
+												<th data-field="done_time" data-sortable="true" data-align="center">任务结束时间</th>
+												<th data-field="consume_time" data-sortable="true" data-align="center">时长</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- KEGG散点图 -->
+						<div class="tab-pane" id="KEGGScatter">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="jcl-demo" style="width: 500px;height: 460px;">
+									    <div class="custom-container default">
+									        <a id="KEGGScatterPrev" href="#" class="prev">&lsaquo;</a>
+									        <div id="KEGGScatterCarousel" class="carousel" style="width: 455px;height: 460px;">
+									            <ul>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
+									            </ul>
+									        </div>
+									        <a id="KEGGScatterNext" href="#" class="next">&rsaquo;</a>
+									        <div class="clear"></div>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+	        <!--差异基因筛选myTabContent-->
+	        <div id="diffGeneFilter" class="tab-pane active tabContent" style="padding-top: 0;width: 100%;"> 
 		        <div class="myTab"  style="margin-bottom: 20px;background: #fff;">
 		        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
 						<div class="tabs" style="margin-left: 10px;text-align: left;line-height: 88px;font-size: 15px;color: #656565;">
 							差异基因筛选参数设置
 						</div>	
-						<!--<div class="tabs" style="margin-left: 20px;">
+						<div class="tabs" style="margin-left: 20px;">
 							<ul class="nav" id="appTabRight">
 								<li><a href="#geneList" data-toggle="tab">差异基因列表</a></li>
 								<li><a href="#show" data-toggle="tab">火山图</a></li>
 								<li ><a href="#status" data-toggle="tab">任务状态</a></li>
 								<li class="active" ><a href="#direction" data-toggle="tab">使用说明</a></li>	
 							</ul>
-						</div>-->
-						
-						<div id="jcl-demo0" class="tabs" style="width: 200px;height: 100px;">
-						    <div class="custom-container default tabs" style="position: relative;">
-						        <a href="#" class="prev1" style="position: absolute;left: -16px;font-size: 30px;top: 25px;">&lsaquo;</a>
-						        <div id="carousel0" class="carousel" style="width: 127px;height: 100px;margin: 0;top: 8px;">
-						            <ul class="nav" style="top: 20px;">
-						            	<li style="width: 127px;height: 39px;" class="active"><a href="#geneList" data-toggle="tab">中国人们</a></li>
-						            	<li style="width: 127px;height: 39px;" ><a href="#show" data-toggle="tab">suman</a></li>
-						            	<li style="width: 127px;height: 39px;" class="active"><a href="#geneList" data-toggle="tab">差异基因列表</a></li>
-						            	<li style="width: 127px;height: 39px;" ><a href="#show" data-toggle="tab">火山图</a></li>
-						            	<li style="width: 127px;height: 39px;" ><a href="#status" data-toggle="tab">任务状态</a></li>
-						            	<li style="width: 127px;height: 39px;" ><a href="#direction" data-toggle="tab">使用说明</a></li>	
-						            </ul>
-						        </div>
-						        <a href="#" class="next1" style="position: absolute;right: 61px;font-size: 30px;top: 25px;">&rsaquo;</a>
-						        <div class="clear"></div>
-						    </div>
-						</div>
-						
+						</div>	
 					</div>	
 				</div>
-				
-
-				
-				
-				
-				
-				
 				<div style="width: 1185px;">
 					<div class="tab-content input_l">
 						<div class="tab-pane in active" id="set">		
 							<div class="panel  panel-default">				
 								<div class="panel-body" style="height: 439px;">
-									<form id="parameter">
-										<!--输入文件-->
+									<form class="parameter" id="parameter">
+										<!--输出目录-->
 										<div class="part">
-											<div class="input_a_l titleNameLeft">输出文件:</div>
+											<div class="input_a_l titleNameLeft">输出目录:</div>
 											<div class="input_a_m" style="width: 345px;">
 												<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
 											</div>
@@ -677,50 +681,48 @@
 											</div>								
 										</div>
 										<div class="line"></div>
-									</form>
 										<div class="part">
-											<div class="input_a_l titleNameLeft">差异比较分组</div><br /><br />
-												<div style="margin-bottom: 55px;">
-													<div style="float:left;width:22%;margin-left: 20px;">
-														<div><label class='control-label'><b>样本名称：</b></label></div>
-													</div>
-													<div style="float:left;width:20%;margin-right: 20px;">
-														<div>
-															<button class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
-																<span class="glyphicon glyphicon-plus">Group</span>
-															</button><br />
-														</div>
-													</div>
-													<div style="float:left;width:22%;margin-right: 20px;">
-														<div>
-															<button class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
-																<span class="glyphicon glyphicon-plus">Compare</span>
-															</button>
-														</div>   
-													</div>
-													<div style="float:left;width:20%;margin-right: 20px;">
-														<div>
-															<button class="btn btn-default"  data-target='#vennModal' data-toggle='modal' style="outline: none;">
-																<span class="glyphicon glyphicon-plus">Venn</span>
-															</button>
-														</div>
-													</div>
+											<div style="float:left;width:22%;margin-left: 20px;height: 34px;line-height: 34px;">
+												样本名称：
+											</div>
+											<div style="float:left;width:20%;margin-right: 20px;">
+												<div>
+													<button onclick="return false" class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
+														<span class="glyphicon glyphicon-plus">Group</span>
+													</button><br />
 												</div>
-												<div style="width:100%;">																				
-													<div style="float:left;width:22%;margin-right: 20px;">
-														<div id="sampleWrap">
-															<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;"></ol>
-														</div>
-													</div>
-													<div id='groupList' style="float:left;width:20%;margin-right:20px;"></div>
-													<div id='compareList' style="float:left;width:20%;margin-right:20px;"></div>
-													<div id='vennList' style="float:left;width:20%"></div>																					
+											</div>
+											<div style="float:left;width:22%;margin-right: 20px;">
+												<div>
+													<button onclick="return false" class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
+														<span class="glyphicon glyphicon-plus">Compare</span>
+													</button>
+												</div>   
+											</div>
+											<div style="float:left;width:20%;margin-right: 20px;">
+												<div>
+													<button onclick="return false" class="btn btn-default"  data-target='#vennModal' data-toggle='modal' style="outline: none;">
+														<span class="glyphicon glyphicon-plus">Venn</span>
+													</button>
 												</div>
+											</div>
 										</div>
-									
+										<div class="part">
+											<div style="width:100%;">																				
+												<div style="float:left;width:22%;margin-right: 20px;">
+													<div id="sampleWrap">
+														<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;"></ol>
+													</div>
+												</div>
+												<div id='groupList' style="float:left;width:20%;margin-right:20px;"></div>
+												<div id='compareList' style="float:left;width:20%;margin-right:20px;"></div>
+												<div id='vennList' style="float:left;width:20%"></div>																					
+											</div>
+										</div>
+									</form>
 								</div>
 								<div class="panel-footer" style="height: 51px;">
-									<button id="submit_paras" type="button" class="btn btn-success">Run</button>
+									<button id="submit_paras" type="button" class="btn btn-success">开始运行</button>
 								</div>
 							</div>
 							<!-- group modal -->
@@ -793,24 +795,6 @@
 										</div>
 										<!-- /.modal end -->
 									</div>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane" id="mytable">
-							<div class="panel panel-default">
-								<div class="panel-body" style="padding: 0;">
-									<table class="table table-bordered">
-		                                <thead>
-		                                    <tr>
-		                                        <th v-for="item in fileData.content[0]">{{item}}</th>
-		                                    </tr>
-		                                </thead>
-		                                <tbody>
-		                                    <tr v-for="(item,index) in fileData.content" v-if="index!=0">
-		                                        <td v-for="item1 in item">{{item1 }}</td>
-		                                    </tr>
-		                                </tbody>
-		                            </table>
 								</div>
 							</div>
 						</div>
@@ -887,7 +871,7 @@
 						<div class="tab-pane" id="show">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<div id="jcl-demo" style="width: 500px;height: 460px;">
+									<div class="jcl-demo" style="width: 500px;height: 460px;">
 									    <div class="custom-container default">
 									        <a href="#" class="prev">&lsaquo;</a>
 									        <div id="carousel" class="carousel" style="width: 455px;height: 460px;">
@@ -995,11 +979,37 @@
                 visible: 1,
                 speed: 800
             });
+            $("#EAKEGGScatterCarousel").jCarouselLite({
+                btnNext: ".default #EAKEGGScatterNext",
+                btnPrev: ".default #EAKEGGScatterPrev",
+                visible: 1,
+                speed: 800
+            });
             
+            $("#EAGOBarCarousel").jCarouselLite({
+                btnNext: ".default #EAGOBarNext",
+                btnPrev: ".default #EAGOBarPrev",
+                visible: 1,
+                speed: 800
+            });
+            
+            $("#EAGODagCarousel").jCarouselLite({
+                btnNext: ".default #EAGODagNext",
+                btnPrev: ".default #EAGODagPrev",
+                visible: 1,
+                speed: 800
+            });
+            
+            $("#KEGGScatterCarousel").jCarouselLite({
+                btnNext: ".default #KEGGScatterNext",
+                btnPrev: ".default #KEGGScatterPrev",
+                visible: 1,
+                speed: 800
+            });
             $("#carousel0").jCarouselLite({
                 btnNext: ".default .next1",
                 btnPrev: ".default .prev1",
-                visible: 4,
+                visible: 3,
                 speed: 800
             });
         })	
@@ -1270,10 +1280,10 @@ $(function(){
 	
 	var modStatusValue = sessionStorage.getItem("modStatus"); 
 	var modStatusObj = $.parseJSON( modStatusValue );
-	console.log(modStatusObj)
 	$('#modStatusTable').bootstrapTable('load',modStatusObj);
 	var parasValue = sessionStorage.getItem("paras"); 
 	var parasObj = $.parseJSON( parasValue );
+	console.log(parasObj)
 	if(parasObj){
 		var samplesArray=parasObj.samples.split(",");
 		for(var i=0;i<samplesArray.length;i++){
@@ -1316,7 +1326,8 @@ $(function(){
 			dragInit();
 		}
 		
-		var vennSamplesObj=parasObj.groupCompareVenn.vennCompares;
+		var vennSamplesObj=parasObj.groupCompareVenn.vennGroups;
+		console.log(vennSamplesObj)
 		for(key in vennSamplesObj){
 			var value=vennSamplesObj[key];
 			var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';

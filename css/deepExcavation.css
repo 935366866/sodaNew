@@ -1,0 +1,407 @@
+@charset "utf-8";
+#taskPanel{
+	padding-left: 0px; 
+	padding-right:0px;
+	padding-bottom:50px;
+}
+.myTab {
+  min-width: 1000px;
+  float: left;
+  height: 67px;
+  width: 100%;
+  background-color: #f8f8f8;
+  border-bottom: solid 1px #c7c7c7;
+}
+.myTab .tabs {
+  width: 580px;
+  height: 67px;
+  float: left;
+  text-align: center;
+  margin-left: 20px;
+}
+.myTab .tabs .nav {
+  float: left;
+  height: 39px;
+  margin-top: 28px;
+}
+.myTab .tabs .nav a {
+  color: #656565!important;
+}
+
+.myTab .tabs .nav li {
+  width: 127px;
+  height: 100%;
+  float: right;
+}
+.myTab .tabs .nav li.active a {
+  background-color: #fff;
+  border-bottom: solid 1px #fff;
+}
+.myTab .tabs .nav li a {
+  height: 100%;
+  line-height: 39px;
+  font-size: 15px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-right: 5px;
+  background-color: #eee;
+  border: solid 1px #c7c7c7;
+  -moz-border-radius: 3px 3px 0px 0px;
+  -webkit-border-radius: 3px 3px 0px 0px;
+  border-radius: 3px 3px 0px 0px;
+}
+.tabContent {
+  margin: 0 auto;
+  padding-top: 120px;
+  width:1200px;
+  font-family: arial !important;
+}
+.tabContent h3 {
+  font-size: 16px;
+  line-height: 30px;
+  color: #333;
+}
+.tabContent .input_l {
+  float: left;
+  width: 580px;
+}
+.tabContent .input_l .panel-heading {
+  height: 51px;
+}
+.tabContent .input_l .panel-heading a {
+  text-decoration: none;
+  color: #337ab7;
+  cursor: pointer;
+}
+.tabContent .input_l .panel-heading a:hover {
+  text-decoration: none;
+  color: #337ab7;
+  cursor: pointer;
+}
+.tabContent .input_l .panel-heading a {
+  float: right;
+  line-height: 30px;
+}
+.tabContent .input_l .panel-heading h3 {
+  float: left;
+}
+.tabContent .input_l .panel-body {
+  height: 490px;
+  padding: 10px 0px 10px 0px;
+  overflow-y: auto;
+}
+.tabContent .input_r {
+  float: right;
+  width: 580px;
+}
+.tabContent .input_r .panel-heading {
+  height: 51px;
+}
+.tabContent .input_r .panel-heading h3 {
+  float: left;
+}
+.tabContent .input_r .panel-heading .download_button {
+  float: right;
+}
+.tabContent .input_r .panel-heading .download_button button {
+  line-height: 21px;
+  font-weight: bold;
+  padding: 3px 10px;
+  margin-left: 5px;
+}
+.tabContent .input_r .panel-heading .download_button img {
+  width: 19px;
+  margin-right: 4px;
+}
+.tabContent .input_r .panel-body {
+  height: 490px;
+  overflow-y: auto;
+  background-color: #fff!important;
+}
+.tabContent #file table .active{
+	/*font-weight: bold;*/
+}
+.tabContent #file table tr td.active{
+	background: #f5f5f5;
+}
+.parameter {
+  height: auto;
+}
+.parameter .part {
+  float: left;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.parameter .title_base {
+  width: 18%;
+  height: 100%;
+  color: #333;
+  font-size: 15px;
+  line-height: 34px;
+  vertical-align: middle;
+}
+.parameter .input_base {
+  height: 100%;
+}
+.parameter .input_base p {
+  color: #999;
+}
+.parameter .input_a_l {
+  float: left;
+  height: 100%;
+  color: #333;
+  font-size: 15px;
+  line-height: 34px;
+  vertical-align: middle;
+  width: 18%;
+}
+.parameter .input_a_m {
+  float: left;
+  width: 30%;
+}
+.parameter .input_a_r {
+  float: right;
+  width: 16%;
+}
+.parameter .input_b_t1 {
+  float: right;
+  width: 18%;
+  height: 100%;
+  color: #333;
+  font-size: 15px;
+  line-height: 34px;
+  vertical-align: middle;
+  width: 50px;
+  padding-left: 5px;
+}
+.parameter .input_b_2 {
+  float: left;
+  height: 100%;
+  width: 30%;
+}
+.parameter .input_b_2 p {
+  color: #999;
+}
+.parameter .input_b_3 {
+  float: right;
+  height: 100%;
+  width: 70px;
+}
+.parameter .input_b_3 p {
+  color: #999;
+}
+.parameter .input_c_1 {
+  float: left;
+  width: 18%;
+  height: 100%;
+  color: #333;
+  font-size: 15px;
+  line-height: 34px;
+  vertical-align: middle;
+  width: 20%;
+}
+.parameter .colorInput{
+	line-height: 34px !important;
+	width: 16%;
+}
+.parameter .input_c_2 {
+  float: left;
+  width: 45%;
+}
+.parameter .input_c_3 {
+  float: right;
+  width: 18%;
+  height: 100%;
+  color: #333;
+  font-size: 15px;
+  line-height: 34px;
+  vertical-align: middle;
+  width: 65px;
+  padding-left: 5px;
+}
+.parameter .input_c_4 {
+  float: left;
+  width: 55px;
+  height: 34px;
+  padding-top: 2px !important;
+}
+.parameter .input_c_4 p {
+  color: #999;
+}
+.parameter .input_d_1 {
+  float: left;
+  width: 18%;
+  height: 100%;
+  color: #333;
+  font-size: 15px;
+  line-height: 34px;
+  vertical-align: middle;
+  width: 40%;
+}
+.parameter .input_d_2 {
+  float: left;
+  width: 25%;
+}
+.parameter .input_e_1 {
+  float: left;
+  width: 18%;
+  height: 100%;
+  color: #333;
+  font-size: 15px;
+  line-height: 34px;
+  vertical-align: middle;
+}
+.parameter .input_e_2 {
+  float: left;
+  width: 18%;
+}
+.parameter .input_e_3 {
+  float: right;
+  width: 18%;
+  height: 100%;
+  color: #333;
+  font-size: 15px;
+  line-height: 34px;
+  vertical-align: middle;
+  width: 113px;
+  padding-left: 5px;
+}
+.parameter .input_f_2 {
+  float: left;
+  width: 30%;
+}
+.parameter .titleNameLeft {
+  float: left;
+  width: 96px;
+}
+.parameter .inputLeft {
+	float: left;
+  width: 163px;
+}
+.parameter .inputLeft>.titleA{
+	float: left;
+  width: 55px;
+}
+.parameter .inputLeft>.inputA{
+	float: left;
+  width: 107px;
+}
+.parameter .right{
+  float: left;
+  width: 240px;
+  margin-left: 30px;
+}
+.parameter .right>.subTitle{
+  float: left !important;
+  width: 50px;
+}
+.parameter .right>.subInput{
+  float: left !important;
+  
+}
+.parameter .right>.input_b_t1{
+	 width: 50px;
+	 padding-left: 0;
+	 float: left !important;
+}
+.parameter .right>.input_b_3{
+	 float: left !important;
+	 width: 70px;
+}
+.parameter .right>.input_a_l{
+	 width: 80px;
+}
+.parameter .right>.input_b_2{
+	 width: 153px;
+}
+.parameter #radioArea{
+	 width: auto !important;
+}
+.parameter #radioArea .radio{
+	 display: inline-block !important;
+}
+
+.line {
+  float: left;
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #ccc;
+}
+#submit_paras {
+  float: right;
+  width: 130px;
+}
+.img_box {
+  text-align: center!important;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.img_box img {
+  max-width: 80%;
+}
+.img_box p {
+  color: #333!important;
+  text-align: center!important;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.venn{
+	margin-left: 30px;
+}
+.venn .wrap{
+	background: #f5f5f5;
+	height: 300px;
+	width: 500px;
+	margin-left:0px;
+	margin-bottom: 10px;
+	padding-left: 5px;
+}
+.venn .wrap .part>.left{
+	float: left;
+	width: 70px;
+	line-height: 34px;
+}
+.venn .wrap .radio{
+	display: inline-block;
+}
+ .venn .checks {  
+    display: inline-block;  
+    -webkit-appearance: none;  
+    background-color: transparent;  
+    border: 0;  
+    outline: 0 !important;  
+    color: #d8d8d8;  
+}  
+ .venn .checks:after { 
+	cursor: pointer;   
+    content: "";
+    background:url(../imgs/check.svg) no-repeat;  
+    display:block;  
+    width: 20px;  
+    height: 20px;  
+}  
+.venn .checks:checked:after  {
+		cursor: pointer;  
+    content: ""; 
+    background:url(../imgs/checkToCheck.svg) no-repeat;
+    display:block;  
+    width: 20px;  
+    height: 20px; 
+}
+#samples>.part{
+	background: #F5F5F5;
+	padding: 20px;
+	width: 500px;
+}
+#samples>.part .input_a_r{
+	width: auto !important;
+}
+#samples>.part .input_a_r .glyphicon-folder-open{
+	font-size:20px; 
+	top: 5px; 
+	cursor:pointer;
+}
