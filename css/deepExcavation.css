@@ -331,7 +331,7 @@
   margin-bottom: 8px;
   border-bottom: 1px solid #ccc;
 }
-#submit_paras {
+.submit{
   float: right;
   width: 130px;
 }

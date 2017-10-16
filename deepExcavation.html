@@ -220,7 +220,7 @@
 									</form>
 								</div>
 								<div class="panel-footer" style="height: 51px;">
-									<button id="submit_paras" type="button" class="btn btn-success">开始运行</button>
+									<button id="eapSubmit_paras" type="button" class="btn btn-success submit">开始运行</button>
 								</div>
 							</div>
 						</div>
@@ -268,7 +268,7 @@
 									</form>
 								</div>
 								<div class="panel-footer" style="height: 51px;">
-									<button id="submit_paras" type="button" class="btn btn-success">开始运行</button>
+									<button id="eaoSubmit_paras" type="button" class="btn btn-success submit">开始运行</button>
 								</div>
 							</div>
 						</div>
@@ -488,7 +488,7 @@
 									</form>
 								</div>
 								<div class="panel-footer" style="height: 51px;">
-									<button id="submit_paras" type="button" class="btn btn-success">开始运行</button>
+									<button id="kpspSubmit_paras" type="button" class="btn btn-success submit">开始运行</button>
 								</div>
 							</div>
 						</div>
@@ -536,7 +536,7 @@
 									</form>
 								</div>
 								<div class="panel-footer" style="height: 51px;">
-									<button id="submit_paras" type="button" class="btn btn-success">开始运行</button>
+									<button id="kpsoSubmit_paras" type="button" class="btn btn-success submit">开始运行</button>
 								</div>
 							</div>
 						</div>
@@ -621,28 +621,28 @@
 						</div>	
 						<div class="tabs" style="margin-left: 20px;">
 							<ul class="nav" id="appTabRight">
-								<li><a href="#geneList" data-toggle="tab">差异基因列表</a></li>
-								<li><a href="#show" data-toggle="tab">火山图</a></li>
-								<li ><a href="#status" data-toggle="tab">任务状态</a></li>
-								<li class="active" ><a href="#direction" data-toggle="tab">使用说明</a></li>	
+								<li><a href="#dgfGeneList" data-toggle="tab">差异基因列表</a></li>
+								<li><a href="#dgfShow" data-toggle="tab">火山图</a></li>
+								<li><a href="#dgfStatus" data-toggle="tab">任务状态</a></li>
+								<li class="active" ><a href="#dgfDirection" data-toggle="tab">使用说明</a></li>	
 							</ul>
 						</div>	
 					</div>	
 				</div>
 				<div style="width: 1185px;">
 					<div class="tab-content input_l">
-						<div class="tab-pane in active" id="set">		
+						<div class="tab-pane in active">		
 							<div class="panel  panel-default">				
 								<div class="panel-body" style="height: 439px;">
-									<form class="parameter" id="parameter">
+									<form class="parameter" id="dgfParameter">
 										<!--输出目录-->
 										<div class="part">
 											<div class="input_a_l titleNameLeft">输出目录:</div>
 											<div class="input_a_m" style="width: 345px;">
-												<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
+												<input v-model="dgfInput" type="text" class="form-control" id="dgfInput" name="dgfInput" placeholder="">
 											</div>
 											<div class="input_a_r">
-												<a onclick="openUrl('#input','file')">
+												<a onclick="openUrl('#dgfInput','file')">
 													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
 												</a>
 											</div>
@@ -652,17 +652,17 @@
 											<div class="input_a_l titleNameLeft">筛选软件:</div>
 											<div class="input_b_3" style="width: 345px;float: left;">
 												<select id="filterCondition"  name="filterCondition" class="selectpicker select_width" autocomplete="off" >
-													<option value="project1">DESeq2</option>
-													<option value="project2">DESeq</option>
-													<option value="project3">edgeR</option>
-													<option value="project4">DEGseq</option>
+													<option value="DESeq2">DESeq2</option>
+													<option value="DESeq">DESeq</option>
+													<option value="edgeR">edgeR</option>
+													<option value="DEGseq">DEGseq</option>
 												</select>
 											</div>									
 										</div>
 										<div class="part">
 											<div class="input_a_l titleNameLeft">p值类型:</div>
 											<div class="input_b_3" style="width: 345px;float: left;">
-												<select id="pTypes"  name="pTypes" class="selectpicker select_width" autocomplete="off" >
+												<select id="dgfPTypes"  name="dgfPTypes" class="selectpicker select_width" autocomplete="off" >
 													<option value="padj">padj</option>
 													<option value="pval">pval</option>
 												</select>
@@ -671,13 +671,13 @@
 										<div class="part">
 											<div class="input_a_l titleNameLeft">p值大小:</div>
 											<div class="input_a_m" style="width: 345px;">
-												<input v-model="pValue" type="text" class="form-control" id="pValue" name="pValue" placeholder="">
+												<input v-model="dgfPValue" id="dgfPValue" name="dgfPValue" value="0.05" type="text" class="form-control">
 											</div>								
 										</div>
 										<div class="part">
 											<div class="input_a_l titleNameLeft">差异倍数:</div>
 											<div class="input_a_m" style="width: 345px;">
-												<input v-model="diffMultiple" type="text" class="form-control" id="diffMultiple" name="diffMultiple" placeholder="">
+												<input v-model="diffMultiple" type="text" class="form-control" id="diffMultiple" name="diffMultiple" value="2.0">
 											</div>								
 										</div>
 										<div class="line"></div>
@@ -722,7 +722,7 @@
 									</form>
 								</div>
 								<div class="panel-footer" style="height: 51px;">
-									<button id="submit_paras" type="button" class="btn btn-success">开始运行</button>
+									<button id="dgfSubmit_paras" type="button" class="btn btn-success submit">开始运行</button>
 								</div>
 							</div>
 							<!-- group modal -->
@@ -802,7 +802,7 @@
 			
 					<div class="tab-content input_r">
 						<!-- 使用说明 -->
-						<div class="tab-pane in active" id="direction">
+						<div class="tab-pane in active" id="dgfDirection">
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<p>描述：</p>
@@ -828,10 +828,10 @@
 						</div>
 						
 						<!-- 任务状态 -->
-						<div class="tab-pane" id="status">
+						<div class="tab-pane" id="dgfStatus">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<table data-toggle="table" data-height="200" data-show-footer="false" data-sort-name="id" id="modStatusTable">
+									<table data-toggle="table" data-height="200" data-show-footer="false" data-sort-name="id" id="dgfmodStatusTable">
 										<thead>
 											<tr>
 												<th data-field="flow_mod" data-sortable="true">模块名称</th>
@@ -847,9 +847,17 @@
 							</div>
 						</div>
 						<!-- 基因列表 -->
-						<div class="tab-pane" id="geneList">
+						<div class="tab-pane" id="dgfGeneList">
 							<div class="panel panel-default">
 								<div class="panel-body">
+									<div style="margin-bottom: 30px;">
+										<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
+										<div class="input_b_3" style="width: 260px;float: left;">
+											<select v-model="compareGroups" id="compareGroups"  name="compareGroups" class="selectpicker select_width" autocomplete="off">
+												<option v-for="item in compareGroups" :value="item">{{item}}</option>
+											</select>
+										</div>		
+									</div>
 									<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" 						id="sampleTable">
 										<thead>
 											<tr>
@@ -868,20 +876,20 @@
 							</div>
 						</div>
 						<!-- 绘图展示 -->
-						<div class="tab-pane" id="show">
+						<div class="tab-pane" id="dgfShow">
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<div class="jcl-demo" style="width: 500px;height: 460px;">
 									    <div class="custom-container default">
-									        <a href="#" class="prev">&lsaquo;</a>
-									        <div id="carousel" class="carousel" style="width: 455px;height: 460px;">
+									        <a href="#" id="dgfPrev" class="prev">&lsaquo;</a>
+									        <div id="dgfCarousel" class="carousel" style="width: 455px;height: 460px;">
 									            <ul>
-									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
-									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
-									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
 									            </ul>
 									        </div>
-									        <a href="#" class="next">&rsaquo;</a>
+									        <a href="#" id="dgfNext" class="next">&rsaquo;</a>
 									        <div class="clear"></div>
 									    </div>
 									</div>
@@ -967,18 +975,12 @@
 	<!--FancyBox弹出窗口插件-->
 	<script src="public/js/jquery.mousewheel.pack.js"></script>
 	<script src="public/js/jquery.fancybox.pack.js"></script>
+	<script src="public/js/vue.js"></script>
 	<script src="public/js/long_common.js"></script>
 	<script src="js/go.js"></script>
 	<script src="js/common1.js"></script>	
 	<script>
-
         $(function() {
-            $("#carousel").jCarouselLite({
-                btnNext: ".default .next",
-                btnPrev: ".default .prev",
-                visible: 1,
-                speed: 800
-            });
             $("#EAKEGGScatterCarousel").jCarouselLite({
                 btnNext: ".default #EAKEGGScatterNext",
                 btnPrev: ".default #EAKEGGScatterPrev",
@@ -1015,7 +1017,6 @@
         })	
 
 		$(document).ready(function() {
-			// Change title type, overlay closing speed
 			$(".fancybox-effects-a").fancybox({
 				width:500,
 				height:500,
@@ -1031,8 +1032,7 @@
 
 		});
 		
-	$(function(){
-		
+$(function(){
 		//波波，这是删除，终止和重跑的地址
     var delete_url = "";
     var stop_url = "";
@@ -1159,14 +1159,59 @@ function stopTask(taskid){
 	    }
 	});
 }
-
+//差异倍数页面js代码
 $(function(){
+	vue=new Vue({
+		el:"#dgfGeneList",
+		data:{
+			compareGroups:[]
+		}
+	})
+	
+	/*轮播图片初始化*/
+    $("#dgfCarousel").jCarouselLite({
+        btnNext: ".default #dgfNext",
+        btnPrev: ".default #dgfPrev",
+        visible: 1,
+        speed: 800
+    });
+	/*打开任务状态不断更新数据*/
+	var setInt;
+	$('a[href="#dgfStatus"]').on('show.bs.tab', function (e) {
+		var modStatusValue = sessionStorage.getItem("modStatus"); 
+		var modStatusObj = $.parseJSON( modStatusValue );
+		$('#dgfmodStatusTable').bootstrapTable('load',modStatusObj);
+		setInt=window.setInterval(function(){
+			$.ajax({
+				url:'json/taskDetail.2.json',  
+				type:'get',
+				dataType: "json",
+				success:function(data) {
+					$('#dgfmodStatusTable').bootstrapTable('load',data["modStatus"]);
+				},
+				error : function(XMLHttpRequest) {
+				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+				}
+			})
+		},5000)
+	})
+	/*关闭任务状态不更新数据*/
+	$('a[href="#dgfStatus"]').on('hide.bs.tab', function (e) {
+		alert(22)
+		window.clearInterval(setInt)
+	})
 	//提交参数
-	$("#submit_paras").click(function(){
-		var formData =  allParams();//取form表单参数
-		if(formData.input==""){
-			alert("请输入文件");
+	$("#dgfSubmit_paras").click(function(){
+		var formData =  allParams($("#dgfParameter"));//取form表单参数
+		if(formData.dgfInput==""){
+			alert("请选择输出目录！");
 		}else{
+			if($("#dgfPValue").val()<0||$("#dgfPValue").val()>1){
+				alert("p值大小必须大于等于0小于等于1！")
+			}
+			if($("#diffMultiple").val()<0){
+				alert("差异倍数必须大于等于0！")
+			}
 		var groupCompareVenn={};	//发向服务器的json数据
 		//检查是否有分组，每个分组下的样品名
 		var groups =$('#groupList').find('div');
@@ -1260,16 +1305,43 @@ $(function(){
 						}; 
 						
 		resultPara = JSON.stringify(resultPara);
-            console.log(resultPara)
 			$.ajax({
-				url: 'public/draw/json/barDrawFileData.json',  
+				url: 'json/taskDetail.2.json',  
 				type:'get',
-				data:{
-//					fileName:formData.input
-				},
+				data:{parameter:resultPara},
 				dataType: "json",
 				success:function(data) {
-					console.log(data)
+					var showData=data["show"];
+//					$("#dgfCarousel li").each(function(){
+//						var index=$(this).index();
+//						if(index<=3){
+//								$(this).find("img").attr("src",showData[index]);
+//								$(this).children("a").attr("href",showData[index]);
+//						}else{
+//							index=index%3;
+//							$(this).find("img").attr("src",showData[index]);
+//												 $(this).children("a").attr("href",showData[index]);
+//						}
+//					
+//						 
+//					})
+// 					for(var i=0;i<showData.length;i++){
+// 						$("#dgfCarousel li:eq("+i+")").find("a").attr("href",showData[i]);
+// 						$("#dgfCarousel li:eq("+i+")").find("img").attr("src",showData[i]);
+// 					}
+     				$("#dgfCarousel").jCarouselLite({
+				        btnNext: ".default #dgfNext",
+				        btnPrev: ".default #dgfPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+				    var compareGroups=data["compare_groups"];
+					var geneListData=data["geneList"];
+					vue.compareGroups=geneListData;
+					var head=geneListData[0]
+					for(var i=0;i<head.length;i++){
+						
+					}
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -1278,12 +1350,8 @@ $(function(){
 		}
 	});
 	
-	var modStatusValue = sessionStorage.getItem("modStatus"); 
-	var modStatusObj = $.parseJSON( modStatusValue );
-	$('#modStatusTable').bootstrapTable('load',modStatusObj);
 	var parasValue = sessionStorage.getItem("paras"); 
 	var parasObj = $.parseJSON( parasValue );
-	console.log(parasObj)
 	if(parasObj){
 		var samplesArray=parasObj.samples.split(",");
 		for(var i=0;i<samplesArray.length;i++){
@@ -1327,7 +1395,6 @@ $(function(){
 		}
 		
 		var vennSamplesObj=parasObj.groupCompareVenn.vennGroups;
-		console.log(vennSamplesObj)
 		for(key in vennSamplesObj){
 			var value=vennSamplesObj[key];
 			var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
@@ -1533,8 +1600,6 @@ function dragInit() {
 					return ;
 				}
 				
-				
-				
 				$("#vennList").find("li").each(function(){
 					if($(this).text()==value){
 						$(this).remove();
@@ -1635,6 +1700,7 @@ function addVenn(){
 	dragInit();
 }
 
+/*公共函数*/
 //任务的状态
 function taskState(State) {
 	
@@ -1653,8 +1719,8 @@ function taskState(State) {
 };	
 	
 //参数组装
-function allParams(){
-	var app = $("#parameter").serializeArray();
+function allParams(dom){
+	var app = dom.serializeArray();
 	var json1 = {};
 	for(var i=0;i<app.length;i++){
 			var name = app[i].name;
