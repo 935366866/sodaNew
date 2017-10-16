@@ -853,8 +853,7 @@
 									<div style="margin-bottom: 30px;">
 										<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
 										<div class="input_b_3" style="width: 260px;float: left;">
-											<select v-model="compareGroups" id="compareGroups"  name="compareGroups" class="selectpicker select_width" autocomplete="off">
-												<option v-for="item in compareGroups" :value="item">{{item}}</option>
+											<select  id="compareGroups"  name="compareGroups" class="selectpicker select_width" autocomplete="off">
 											</select>
 										</div>		
 									</div>
@@ -884,9 +883,9 @@
 									        <a href="#" id="dgfPrev" class="prev">&lsaquo;</a>
 									        <div id="dgfCarousel" class="carousel" style="width: 455px;height: 460px;">
 									            <ul>
-									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
-									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
-									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" id="li1"><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" id="li2"><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" id="li3"><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
 									            </ul>
 									        </div>
 									        <a href="#" id="dgfNext" class="next">&rsaquo;</a>
@@ -975,7 +974,6 @@
 	<!--FancyBox弹出窗口插件-->
 	<script src="public/js/jquery.mousewheel.pack.js"></script>
 	<script src="public/js/jquery.fancybox.pack.js"></script>
-	<script src="public/js/vue.js"></script>
 	<script src="public/js/long_common.js"></script>
 	<script src="js/go.js"></script>
 	<script src="js/common1.js"></script>	
@@ -1161,13 +1159,16 @@ function stopTask(taskid){
 }
 //差异倍数页面js代码
 $(function(){
-	vue=new Vue({
-		el:"#dgfGeneList",
-		data:{
-			compareGroups:[]
-		}
-	})
-	
+	function uptable(arr){
+		 var p=$(this).selectpicker("val");
+		 for(var i=0;i<arr.length;i++){
+		 	arr[i]["compareName"]
+		 }
+	}
+	$('#compareGroups').on('changed.bs.select', function (e) {
+	 var p=$(this).selectpicker("val");
+	 
+	});
 	/*轮播图片初始化*/
     $("#dgfCarousel").jCarouselLite({
         btnNext: ".default #dgfNext",
@@ -1175,14 +1176,8 @@ $(function(){
         visible: 1,
         speed: 800
     });
-	/*打开任务状态不断更新数据*/
-	var setInt;
-	$('a[href="#dgfStatus"]').on('show.bs.tab', function (e) {
-		var modStatusValue = sessionStorage.getItem("modStatus"); 
-		var modStatusObj = $.parseJSON( modStatusValue );
-		$('#dgfmodStatusTable').bootstrapTable('load',modStatusObj);
-		setInt=window.setInterval(function(){
-			$.ajax({
+    function statusUpdate(){
+    	$.ajax({
 				url:'json/taskDetail.2.json',  
 				type:'get',
 				dataType: "json",
@@ -1193,11 +1188,16 @@ $(function(){
 				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 				}
 			})
-		},5000)
+
+    }
+	/*打开任务状态不断更新数据*/
+	var setInt;
+	$('a[href="#dgfStatus"]').on('show.bs.tab', function (e) {
+		statusUpdate();
+		setInt=window.setInterval(statusUpdate,5000)
 	})
 	/*关闭任务状态不更新数据*/
 	$('a[href="#dgfStatus"]').on('hide.bs.tab', function (e) {
-		alert(22)
 		window.clearInterval(setInt)
 	})
 	//提交参数
@@ -1286,8 +1286,6 @@ $(function(){
 			}
 			groupCompareVenn['vennCompares'] = vennCompares;
 		}
-
-
 		//全部的参数	
 		var samplesStr=""
 		for(var j=0;j<samples.length;j++ ){  
@@ -1312,36 +1310,29 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					var showData=data["show"];
-//					$("#dgfCarousel li").each(function(){
-//						var index=$(this).index();
-//						if(index<=3){
-//								$(this).find("img").attr("src",showData[index]);
-//								$(this).children("a").attr("href",showData[index]);
-//						}else{
-//							index=index%3;
-//							$(this).find("img").attr("src",showData[index]);
-//												 $(this).children("a").attr("href",showData[index]);
-//						}
-//					
-//						 
-//					})
-// 					for(var i=0;i<showData.length;i++){
-// 						$("#dgfCarousel li:eq("+i+")").find("a").attr("href",showData[i]);
-// 						$("#dgfCarousel li:eq("+i+")").find("img").attr("src",showData[i]);
-// 					}
+					$("#dgfCarousel").empty();
+					$("#dgfCarousel").append("<ul></ul>");
+ 					for(var i=0;i<showData.length;i++){
+ 						$("#dgfCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+showData[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + showData[i] +"' alt='' /></a></li>")
+ 					}
      				$("#dgfCarousel").jCarouselLite({
 				        btnNext: ".default #dgfNext",
 				        btnPrev: ".default #dgfPrev",
 				        visible: 1,
 				        speed: 800
 				    });
-				    var compareGroups=data["compare_groups"];
-					var geneListData=data["geneList"];
-					vue.compareGroups=geneListData;
-					var head=geneListData[0]
-					for(var i=0;i<head.length;i++){
-						
+//				    var compareGroups=data["compare_groups"];
+//					for(var i=0;i<compareGroups.length;i++){
+//						var option="<option value="+compareGroups[i]+">"+compareGroups[i]+"</option>"
+//						$("#compareGroups").append(option)
+//					}
+//					$('#compareGroups').selectpicker('refresh');
+					var compareData=data["arr"];
+					for(var i=0;i<compareData.length;i++){
+						var option="<option value="+compareData[i]["compareName"]+">"+compareData[i]["compareName"]+"</option>"
+						$("#compareGroups").append(option)
 					}
+					$('#compareGroups').selectpicker('refresh');
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
