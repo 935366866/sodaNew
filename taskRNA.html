@@ -961,7 +961,7 @@ function geturl(formInputId,type){
 						}else{
 							var data1 = data['data'];
 							objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
-							
+							console.log(objData)
 							$('#sampleTable').bootstrapTable('load',objData);  //填入table中
 						}
 					},    

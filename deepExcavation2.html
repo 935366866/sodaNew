@@ -10,11 +10,12 @@
 	<link href="public/css/bootstrap-select.css" rel="stylesheet">
 	<link href="public/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" media="screen"  />
 	<link href="public/css/long_common.css" rel="stylesheet"  media="all">
+
 	<!--弹出层样式-->
 	<link href="public/css/jquery.fancybox.css" rel="stylesheet"/>
 	<link href="css/deepExcavation.css" rel="stylesheet" >
 	<link href="css/soda_common.css" rel="stylesheet" >
-	<!--轮播样式-->
+			<!--轮播样式-->
 	<link href="public/css/style-demo.css" rel="stylesheet" />
 </head>
 
@@ -120,6 +121,533 @@
 			</div>	
         </div>       
 		<div class="tab-content">
+			<!--差异基因富集注释-->
+			<div id="EnrichAnnotation" class="tab-pane tabContent" style="padding-top: 0;width: 100%;">
+		        <div class="myTab"  style="margin-bottom: 20px;background: #fff;">
+		        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
+						<div class="tabs" style="margin-left: 10px;text-align: left;line-height: 88px;font-size: 15px;color: #656565;">
+							<ul class="nav">
+								<li style="width: 230px;"><a href="#previousGene" data-toggle="tab">使用上一步新差异基因注释</a></li>
+								<li style="width: 230px;" class="active"><a href="#originalGene" data-toggle="tab">使用原始差异基因注释</a></li>
+							</ul>
+						</div>	
+						
+						<div class="tabs" style="width: 200px;height: 100px;">
+						    <div class="custom-container default tabs" style="position: relative;margin-left: 30px;">
+						        <a href="#" class="prev1" style="position: absolute;left: -16px;font-size: 30px;top: 25px;">&lsaquo;</a>
+						        <div id="carousel0" class="carousel" style="width: 172px;height: 100px;margin: 0;top: 8px;">
+						            <ul class="nav" style="top: 20px;">
+						            	<li id="eaDirection" style="width: 172px;height: 39px;" class="active"><a href="#EADirection" data-toggle="tab">使用说明</a></li>
+						            	<li style="width: 172px;height: 39px;" ><a href="#EAStatus" data-toggle="tab">任务状态</a></li>
+						            	<li style="width: 172px;height: 39px;" ><a href="#EAKEGGList" data-toggle="tab">KEGG富集列表</a></li>
+						            	<li style="width: 172px;height: 39px;" ><a href="#EAKEGGScatter" data-toggle="tab">KEGG散点图</a></li>
+						            	<li style="width: 172px;height: 39px;" ><a href="#EAGOList" data-toggle="tab">GO富集列表</a></li>
+						            	<li style="width: 172px;height: 39px;" ><a href="#EAGOBar" data-toggle="tab">GO富集柱状图</a></li>
+						            	<li style="width: 172px;height: 39px;" ><a href="#EAGODag" data-toggle="tab">GO富集DAG图</a></li>	
+						            </ul>
+						        </div>
+						        <a href="#" class="next1" style="position: absolute;right: 51px;font-size: 30px;top: 25px;">&rsaquo;</a>
+						        <div class="clear"></div>
+						    </div>
+						</div>
+					</div>	
+				</div>
+				<div style="width: 1185px;">
+					<div class="tab-content input_l">
+						<div class="tab-pane" id="previousGene">		
+							<div class="panel  panel-default">				
+								<div class="panel-body" style="height: 439px;">
+									<form class="parameter" id="previousGeneParameter">
+										<!--输出目录-->
+										<div class="part">
+											<div class="input_a_l titleNameLeft" >输出目录:</div>
+											<div class="input_a_m" style="width: 345px;">
+												<input  id="pgInput" name="pgInput" type="text" class="form-control">
+											</div>
+											<div class="input_a_r">
+												<a onclick="openUrl('#pgInput','file')">
+													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
+												</a>
+											</div>
+										</div>	
+										<div class="part" style="display: none;">
+											<input type="text" id="pGeneInput" name="pGeneInput" />
+										</div>
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">GO富集参数:</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值类型:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="pgpTypes"  name="pgpTypes" class="selectpicker select_width" autocomplete="off" >
+													<option value="padj">correct</option>
+													<option value="pval">over_represented_pvalue</option>
+												</select>
+											</div>									
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值大小:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input  id="pgpValue" name="pgpValue" value="0.05" type="text" class="form-control">
+											</div>								
+										</div>
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">KEGG富集参数:</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">E值:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input  id="pgEValue" name="pgEValue" value="1e-5" type="text" class="form-control">
+											</div>								
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">统计检测方法:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="pgStatisMethod"  name="pgStatisMethod" class="selectpicker select_width" autocomplete="off" >
+													<option value="b">binomial test</option>
+													<option value="c">chi-square test</option>
+													<option value="h">hypergeometric test/Fisher's exact test</option>
+													<option value="x">frequency </option>
+												</select>
+											</div>									
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">FDR矫正方法:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="pgfdrMethod"  name="pgfdrMethod" class="selectpicker select_width" autocomplete="off" >
+													<option value="BH ">Benjamini and Hochberg</option>
+													<option value="BY ">Benjamini and Yekutieli</option>
+													<option value="QVALUE">QVALUE</option>
+													<option value="None">None</option>
+												</select>
+											</div>									
+										</div>
+									</form>
+								</div>
+								<div class="panel-footer" style="height: 51px;">
+									<button id="eapSubmit_paras" type="button" class="btn btn-success submit">开始运行</button>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane active" id="originalGene">
+							<div class="panel  panel-default">				
+								<div class="panel-body" style="height: 439px;">
+									<form class="parameter" id="originalGeneParameter">
+										<!--输出目录-->
+										<div class="part">
+											<div class="input_a_l titleNameLeft">输出目录:</div>
+											<div class="input_a_m" style="width: 345px;">
+												<input  type="text" class="form-control" id="ogInput" name="ogInput" placeholder="">
+											</div>
+											<div class="input_a_r">
+												<a onclick="openUrl('#ogInput','file')">
+													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
+												</a>
+											</div>
+										</div>	
+										<div class="part" style="display: none;">
+											<input type="text" id="oGeneInput" name="oGeneInput" />
+										</div>
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">GO富集参数:</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值类型:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="ogpTypes"  name="ogpTypes" class="selectpicker select_width" autocomplete="off" >
+													<option value="padj">correct</option>
+													<option value="pval">over_represented_pvalue</option>
+												</select>
+											</div>									
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值大小:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input id="ogpValue" name="ogpValue"  value="0.05" type="text" class="form-control" >
+											</div>								
+										</div>
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">KEGG富集参数:</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">E值:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input id="ogEValue" name="ogEValue" value="1e-5" type="text" class="form-control">
+											</div>								
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">统计检测方法:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="ogStatisMethod"  name="ogStatisMethod" class="selectpicker select_width" autocomplete="off" >
+													<option value="b">binomial test</option>
+													<option value="c">chi-square test</option>
+													<option value="h">hypergeometric test/Fisher's exact test</option>
+													<option value="x">frequency </option>
+												</select>
+											</div>									
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">FDR矫正方法:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="ogfdrMethod"  name="ogfdrMethod" class="selectpicker select_width" autocomplete="off" >
+													<option value="BH ">Benjamini and Hochberg</option>
+													<option value="BY ">Benjamini and Yekutieli</option>
+													<option value="QVALUE">QVALUE</option>
+													<option value="None">None</option>
+												</select>
+											</div>									
+										</div>
+									</form>
+								</div>
+								<div class="panel-footer" style="height: 51px;">
+									<button id="eaoSubmit_paras" type="button" class="btn btn-success submit">开始运行</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-content input_r">
+						<!-- 使用说明 -->
+						<div class="tab-pane in active" id="EADirection">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<p>描述：</p>
+									<p class="indent">
+									对提供的各样本中，各基因的表达量，按log（x+1）转换后，绘制小提琴图（https://en.wikipedia.org/wiki/Violin_plot）。用于展示各样本基因整体表达量分布情况。
+									</p>
+									<p>参数：</p>
+									<pre>
+										--input	  输入文件名。例如：fpkm.txt
+										--output  输出文件名。后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。例如：violin.png
+										--ylab	  y坐标轴标题，默认为：log(RPKM+1)。例如：log(TPM+1)
+										--title	  图标题，默认为：RPKM distribution。例如：TPM distribution	
+									</pre>
+									<p>输入：</p>
+									<div class="indent">基因表达量文件，第一列为geneID，其他列为各样本中基因表达量值（FPKM，RPKM或TPM）。</div>
+									<div class="img_box">
+										<img src="public/draw/imgs/bg.jpg" alt="">
+									</div>
+									<p>输出：</p>
+									<div class="indent">后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。</div>
+								</div>
+							</div>
+						</div>
+						<!-- 使用说明 -->
+						<div class="tab-pane" id="oEADirection">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<p>描述：</p>
+									<div class="indent">后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。</div>
+								</div>
+							</div>
+						</div>
+						<!-- 任务状态 -->
+						<div class="tab-pane" id="EAStatus">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<table data-toggle="table"  data-show-footer="false" data-sort-name="id" id="modStatusTable1">
+										<thead>
+											<tr>
+												<th data-field="flow_mod" data-sortable="true">模块名称</th>
+												<th data-field="task_name" data-sortable="true">程序名称</th>
+												<th data-field="status" data-sortable="true" data-align="center" data-formatter="taskState">状态</th>
+												<th data-field="submit_time" data-sortable="true" data-align="center">任务提交时间</th>
+												<th data-field="done_time" data-sortable="true" data-align="center">任务结束时间</th>
+												<th data-field="consume_time" data-sortable="true" data-align="center">时长</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- KEGG富集列表 -->
+						<div class="tab-pane" id="EAKEGGList">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" id="sampleTable1">
+										<thead>
+											<tr>
+												<th data-field="sample" data-align="left" data-sortable="true">id</th>
+												<th data-field="fq" data-align="center" data-sortable="true">baseMean </th>
+												<th data-field="adap" data-align="center" data-sortable="true">WLL</th>
+												<th data-field="sample" data-align="left" data-sortable="true">CK</th>
+												<th data-field="fq" data-align="center" data-sortable="true">log2FoldChange </th>
+												<th data-field="adap" data-align="center" data-sortable="true">pval</th>
+												<th data-field="adap" data-align="center" data-sortable="true">padj</th>
+												<th data-field="adap" data-align="center" data-sortable="true">bDiff</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- KEGG散点图 -->
+						<div class="tab-pane" id="EAKEGGScatter">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="jcl-demo" style="width: 500px;height: 460px;">
+									    <div class="custom-container default">
+									        <a id="EAKEGGScatterPrev" href="#" class="prev">&lsaquo;</a>
+									        <div id="EAKEGGScatterCarousel" class="carousel" style="width: 455px;height: 460px;">
+									            <ul>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
+									            </ul>
+									        </div>
+									        <a id="EAKEGGScatterNext" href="#" class="next">&rsaquo;</a>
+									        <div class="clear"></div>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- GO富集列表 -->
+						<div class="tab-pane" id="EAGOList">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" id="GOListTable">
+										<thead>
+											<tr>
+												<th data-field="sample" data-align="left" data-sortable="true">id</th>
+												<th data-field="fq" data-align="center" data-sortable="true">baseMean </th>
+												<th data-field="adap" data-align="center" data-sortable="true">WLL</th>
+												<th data-field="sample" data-align="left" data-sortable="true">CK</th>
+												<th data-field="fq" data-align="center" data-sortable="true">log2FoldChange </th>
+												<th data-field="adap" data-align="center" data-sortable="true">pval</th>
+												<th data-field="adap" data-align="center" data-sortable="true">padj</th>
+												<th data-field="adap" data-align="center" data-sortable="true">bDiff</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						
+						<!-- GO富集柱状图 -->
+						<div class="tab-pane" id="EAGOBar">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div  class="jcl-demo" style="width: 500px;height: 460px;">
+									    <div class="custom-container default">
+									        <a id="EAGOBarPrev" href="#" class="prev">&lsaquo;</a>
+									        <div id="EAGOBarCarousel" class="carousel" style="width: 455px;height: 460px;">
+									            <ul>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
+									            </ul>
+									        </div>
+									        <a id="EAGOBarNext" href="#" class="next">&rsaquo;</a>
+									        <div class="clear"></div>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- GO富集DAG图 -->
+						<div class="tab-pane" id="EAGODag">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div  class="jcl-demo" style="width: 500px;height: 460px;">
+									    <div class="custom-container default">
+									        <a id="EAGODagPrev" href="#" class="prev">&lsaquo;</a>
+									        <div id="EAGODagCarousel" class="carousel" style="width: 455px;height: 460px;">
+									            <ul>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
+									            </ul>
+									        </div>
+									        <a id="EAGODagNext" href="#" class="next">&rsaquo;</a>
+									        <div class="clear"></div>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	        <!--KEGG通路散点图-->
+			<div id="KEGGPathScatter" class="tab-pane tabContent" style="padding-top: 0;width: 100%;">
+		        <div class="myTab"  style="margin-bottom: 20px;background: #fff;">
+		        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
+						<div class="tabs" style="margin-left: 10px;text-align: left;line-height: 88px;font-size: 15px;color: #656565;">
+							<ul class="nav">
+								<li style="width: 232px;"><a href="#previousKEGGScatter" data-toggle="tab">使用上一步新KEGG通路绘图</a></li>
+								<li style="width: 230px;" class="active"><a href="#originalKEGGScatter" data-toggle="tab">使用原始KEGG通路绘图</a></li>
+							</ul>
+						</div>	
+						<div class="tabs" style="margin-left: 20px;">
+							<ul class="nav">							
+								<li><a href="#KEGGScatter" data-toggle="tab">KEGG散点图</a></li>
+								<li ><a href="#KEGGStatus" data-toggle="tab">任务状态</a></li>
+								<li class="active" ><a href="#KEGGDirection" data-toggle="tab">使用说明</a></li>	
+							</ul>
+						</div>
+					</div>	
+				</div>
+				<div style="width: 1185px;">
+					<div class="tab-content input_l">
+						<div class="tab-pane active" id="previousKEGGScatter">		
+							<div class="panel  panel-default">				
+								<div class="panel-body" style="height: 439px;">
+									<form class="parameter" id="parameter">
+										<!--输出目录-->
+										<div class="part">
+											<div class="input_a_l titleNameLeft">输出目录:</div>
+											<div class="input_a_m" style="width: 345px;">
+												<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
+											</div>
+											<div class="input_a_r">
+												<a onclick="openUrl('#input','file')">
+													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
+												</a>
+											</div>
+										</div>	
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">GO富集参数:</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值类型:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="pTypes"  name="pTypes" class="selectpicker select_width" autocomplete="off" >
+													<option value="padj">correct</option>
+													<option value="pval">over_represented_pvalue</option>
+												</select>
+											</div>									
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值大小:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input v-model="pValue" type="text" class="form-control" id="pValue" name="pValue" placeholder="">
+											</div>								
+										</div>
+										<div class="line"></div>
+	
+									</form>
+								</div>
+								<div class="panel-footer" style="height: 51px;">
+									<button id="kpspSubmit_paras" type="button" class="btn btn-success submit">开始运行</button>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="originalKEGGScatter">
+							<div class="panel  panel-default">				
+								<div class="panel-body" style="height: 439px;">
+									<form class="parameter" id="parameter">
+										<!--输出目录-->
+										<div class="part">
+											<div class="input_a_l titleNameLeft">输出目录:</div>
+											<div class="input_a_m" style="width: 345px;">
+												<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
+											</div>
+											<div class="input_a_r">
+												<a onclick="openUrl('#input','file')">
+													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
+												</a>
+											</div>
+										</div>	
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">GO富集参数:</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值类型:</div>
+											<div class="input_b_3" style="width: 305px;float: left;">
+												<select id="pTypes"  name="pTypes" class="selectpicker select_width" autocomplete="off" >
+													<option value="padj">correct</option>
+													<option value="pval">over_represented_pvalue</option>
+												</select>
+											</div>									
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值大小:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input v-model="pValue" type="text" class="form-control" id="pValue" name="pValue" placeholder="">
+											</div>								
+										</div>
+										<div class="line"></div>
+										<div class="part" style="font-size: 18px;">KEGG富集参数:</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">E值:</div>
+											<div class="input_a_m" style="width: 305px;">
+												<input v-model="EValue" type="text" class="form-control" id="EValue" name="EValue" placeholder="">
+											</div>								
+										</div>
+									</form>
+								</div>
+								<div class="panel-footer" style="height: 51px;">
+									<button id="kpsoSubmit_paras" type="button" class="btn btn-success submit">开始运行</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="tab-content input_r">
+						<!-- 使用说明 -->
+						<div class="tab-pane in active" id="KEGGDirection">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<p>描述：</p>
+									<p class="indent">
+									对提供的各样本中，各基因的表达量，按log（x+1）转换后，绘制小提琴图（https://en.wikipedia.org/wiki/Violin_plot）。用于展示各样本基因整体表达量分布情况。
+									</p>
+									<p>参数：</p>
+									<pre>
+										--input	  输入文件名。例如：fpkm.txt
+										--output  输出目录名。后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。例如：violin.png
+										--ylab	  y坐标轴标题，默认为：log(RPKM+1)。例如：log(TPM+1)
+										--title	  图标题，默认为：RPKM distribution。例如：TPM distribution	
+									</pre>
+									<p>输入：</p>
+									<div class="indent">基因表达量文件，第一列为geneID，其他列为各样本中基因表达量值（FPKM，RPKM或TPM）。</div>
+									<div class="img_box">
+										<img src="public/draw/imgs/bg.jpg" alt="">
+									</div>
+									<p>输出：</p>
+									<div class="indent">后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- 任务状态 -->
+						<div class="tab-pane" id="KEGGStatus">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<table data-toggle="table" data-height="200" data-show-footer="false" data-sort-name="id" id="KEGGStatusTable">
+										<thead>
+											<tr>
+												<th data-field="flow_mod" data-sortable="true">模块名称</th>
+												<th data-field="task_name" data-sortable="true">程序名称</th>
+												<th data-field="status" data-sortable="true" data-align="center" data-formatter="taskState">状态</th>
+												<th data-field="submit_time" data-sortable="true" data-align="center">任务提交时间</th>
+												<th data-field="done_time" data-sortable="true" data-align="center">任务结束时间</th>
+												<th data-field="consume_time" data-sortable="true" data-align="center">时长</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- KEGG散点图 -->
+						<div class="tab-pane" id="KEGGScatter">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="jcl-demo" style="width: 500px;height: 460px;">
+									    <div class="custom-container default">
+									        <a id="KEGGScatterPrev" href="#" class="prev">&lsaquo;</a>
+									        <div id="KEGGScatterCarousel" class="carousel" style="width: 455px;height: 460px;">
+									            <ul>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
+									            </ul>
+									        </div>
+									        <a id="KEGGScatterNext" href="#" class="next">&rsaquo;</a>
+									        <div class="clear"></div>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
 	        <!--差异基因筛选-->
 	        <div id="diffGeneFilter" class="tab-pane active tabContent" style="padding-top: 0;width: 100%;"> 
 		        <div class="myTab"  style="margin-bottom: 20px;background: #fff;">
@@ -240,7 +768,7 @@
 							<div class="row">
 								<div style="width:100%;">
 									<div class="row">
-										<div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										<div class="modal fade " id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 											<div class="row">
 												<div id='list_model' class="modal-dialog " style='width:20%'>
 													<div class="modal-content">
@@ -316,24 +844,35 @@
 						<div class="tab-pane in active" id="dgfDirection">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<p>描述：</p>
+									<p style="font-weight: bolder;">描述：</p>
 									<p class="indent">
-									对提供的各样本中，各基因的表达量，按log（x+1）转换后，绘制小提琴图（https://en.wikipedia.org/wiki/Violin_plot）。用于展示各样本基因整体表达量分布情况。
+									调整差异分析参数，使用定量数据，重新进行差异分析。
 									</p>
-									<p>参数：</p>
-									<pre>
-										--input	  输入文件名。例如：fpkm.txt
-										--output  输出文件名。后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。例如：violin.png
-										--ylab	  y坐标轴标题，默认为：log(RPKM+1)。例如：log(TPM+1)
-										--title	  图标题，默认为：RPKM distribution。例如：TPM distribution	
-									</pre>
-									<p>输入：</p>
-									<div class="indent">基因表达量文件，第一列为geneID，其他列为各样本中基因表达量值（FPKM，RPKM或TPM）。</div>
-									<div class="img_box">
-										<img src="public/draw/imgs/bg.jpg" alt="">
-									</div>
-									<p>输出：</p>
-									<div class="indent">后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。</div>
+									<p>参数填写：</p>
+									<p class="indent">
+										<p class="indent">1、选择输出目录</p>
+										<p class="indent">计算过程文件和最终结果文件存放的根目录，建议与项目目录不同。若与项目目录相同，则会覆盖之前项目中差异分析的结果文件。</p>
+									</p>
+									<p class="indent">
+										<p class="indent">2、选择比较差异基因的工具</p>
+										<p class="indent">可选工具包括DESeq2、DESeq、edgeR和DEGSeq，默认使用DESeq2。</p>
+									</p>
+									<p class="indent">
+										<p class="indent">3、设置差异基因筛选阈值</p>
+										<p class="indent">默认差异倍数是2，默认使用的p值是校正后的p值，即padj，大小为0.05。</p>
+									</p>
+									<p class="indent">
+										<p class="indent">4、设置分组信息</p>
+										<p class="indent">根据需要调整分组和比较信息，默认按照原项目设置的分组信息进行后续分析。</p>
+									</p>
+									<p>任务提交：</p>
+									<p class="indent">
+										在设置完所有参数后，点击run按钮，计算任务会在服务器上运行。
+									</p>
+									<p>结果查看：</p>
+									<p class="indent">
+										右侧任务状态选项卡可以查看计算任务的状态。在任务计算完成后，可以从右侧选项卡中查看主要结果文件。在差异基因列表选项卡中，通过下拉框中选择比较组名，查看对应差异基因列表；在火山图选项卡中，通过点击左右按钮，滚动图片，查看各比较组的火山图。同样也可以在输出目录中找到结果文件，下载查看。
+									</p>
 								</div>
 							</div>
 						</div>
@@ -473,7 +1012,20 @@
 	<script src="public/js/jquery.mousewheel.pack.js"></script>
 	<script src="public/js/jquery.fancybox.pack.js"></script>
 	<script src="public/js/long_common.js"></script>
+	<script src="js/go.js"></script>
+	<script src="js/common1.js"></script>	
 	<script>
+        $(function() {
+
+            $("#KEGGScatterCarousel").jCarouselLite({
+                btnNext: ".default #KEGGScatterNext",
+                btnPrev: ".default #KEGGScatterPrev",
+                visible: 1,
+                speed: 800
+            });
+            
+        })	
+
 		$(document).ready(function() {
 			$(".fancybox-effects-a").fancybox({
 				width:500,
@@ -617,7 +1169,7 @@ function stopTask(taskid){
 	    }
 	});
 }
-//差异倍数页面js代码
+/*-----------------差异倍数页面js代码------------------*/
 $(function(){
 	var compareData = null;
 	function updateTable(){
@@ -692,13 +1244,14 @@ $(function(){
 	$('a[href="#dgfStatus"]').on('hide.bs.tab', function (e) {
 		window.clearInterval(setInt)
 	})
-	
+
 	//样本分组初始化设置
 	var parasValue = sessionStorage.getItem("paras"); 
 	var parasObj = $.parseJSON( parasValue );
 	if(parasObj){
 		var inputPath=parasObj.taskPara[4].value;
 		$("#dfgInputPath").val(inputPath)
+		window.sessionStorage.setItem("dfgInputPath",$("#dfgInputPath").val());
 		var samplesArray=parasObj.samples.split(",");
 		for(var i=0;i<samplesArray.length;i++){
 			var name = samplesArray[i];
@@ -776,6 +1329,7 @@ $(function(){
 	$("#addVenn").click(function(){
 		addVenn();
 	});
+	
 	
 	//提交参数
 	$("#dgfSubmit_paras").click(function(){
@@ -904,11 +1458,10 @@ $(function(){
 						$("#compareGroups").append(option);
 					}
 					$('#compareGroups').selectpicker('refresh');
-					
-					
 					$('#compareGroups').on('changed.bs.select', function (e) {
 						updateTable();
 					});
+					window.sessionStorage.setItem("pGeneInput",$("#dgfInput").val());
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -916,7 +1469,6 @@ $(function(){
 			});
 		}
 	});
-		
 });
 
 //初始化拖拽
@@ -1186,7 +1738,148 @@ function addVenn(){
 	dragInit();
 }
 
-/*公共函数*/
+/*-----------------差异基因富集注释js代码------------------*/
+$(function(){
+	//右侧选项卡滚动初始化
+	$("#carousel0").jCarouselLite({
+        btnNext: ".default .next1",
+        btnPrev: ".default .prev1",
+        visible: 3,
+        speed: 800
+    });
+    //GO富集柱状图滚动图片初始化       
+    $("#EAGOBarCarousel").jCarouselLite({
+        btnNext: ".default #EAGOBarNext",
+        btnPrev: ".default #EAGOBarPrev",
+        visible: 1,
+        speed: 800
+    });
+    //GO富集DAG图滚动图片初始化
+    $("#EAGODagCarousel").jCarouselLite({
+        btnNext: ".default #EAGODagNext",
+        btnPrev: ".default #EAGODagPrev",
+        visible: 1,
+        speed: 800
+    });
+    //KEGG散点图滚动图片初始化
+    $("#EAKEGGScatterCarousel").jCarouselLite({
+        btnNext: ".default #EAKEGGScatterNext",
+        btnPrev: ".default #EAKEGGScatterPrev",
+        visible: 1,
+        speed: 800
+    });
+    $('a[href="#previousGene"]').on('show.bs.tab', function (e) {
+    	alert(111)
+    	
+		$("#eaDirection").children("a").attr("href","#oEADirection")
+		$('#eaDirection').tab('show')
+//		$("#oEADirection").addClass("active")
+	})
+
+    function statusUpdate(){
+    	$.ajax({
+				url:'json/taskDetail.2.json',  
+				type:'get',
+				dataType: "json",
+				success:function(data) {
+					$('#EAStatus table').bootstrapTable('load',data["modStatus"]);
+				},
+				error : function(XMLHttpRequest) {
+				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+				}
+			})
+
+    }
+	/*打开任务状态不断更新数据*/
+	var se;
+	$('a[href="#EAStatus"]').on('show.bs.tab', function (e) {
+		statusUpdate();
+		se=window.setInterval(statusUpdate,5000)
+	})
+	/*关闭任务状态不更新数据*/
+	$('a[href="#EAStatus"]').on('hide.bs.tab', function (e) {
+		window.clearInterval(se)
+	})
+    
+    /*使用原始基因*/
+   	var parasValue = sessionStorage.getItem("paras"); 
+	var parasObj = $.parseJSON( parasValue );
+	if(parasObj){
+		var inputPath=parasObj.taskPara[4].value;
+		$("#oGeneInput").val(inputPath)
+	}
+	//提交参数
+	$("#eaoSubmit_paras").click(function(){
+		var formData =  allParams($("#originalGeneParameter"));//取form表单参数
+		if(formData.ogInput==""){
+			alert("请选择输出目录！");
+		}else{
+			if($("#ogpValue").val()<0||$("#ogpValue").val()>1){
+				alert("p值大小必须大于等于0小于等于1！")
+			}
+			if($("#ogEValue").val()<0){
+				alert("差异倍数必须大于等于0！")
+			}
+		
+		var resultPara={"paras":formData}; 		
+		resultPara = JSON.stringify(resultPara);
+			$.ajax({
+				url: 'json/deepExcavation1.json',  
+				type:'get',
+				data:{parameter:resultPara},
+				dataType: "json",
+				success:function(data) {
+					alert("成功原始")
+				},    
+				error : function(XMLHttpRequest) {
+					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
+				}
+			});
+		}
+	});
+	
+	/*使用上一步基因*/
+	//提交参数
+	$("#eapSubmit_paras").click(function(){
+		var pgInputValue = sessionStorage.getItem("pGeneInput"); 
+		$("#pGeneInput").val(pgInputValue)
+		var formData =  allParams($("#previousGeneParameter"));//取form表单参数
+		if(formData.pgInput==""){
+			alert("请选择输出目录！");
+		}else{
+			if($("#pgpValue").val()<0||$("#ogpValue").val()>1){
+				alert("p值大小必须大于等于0小于等于1！")
+			}
+			if($("#pgEValue").val()<0){
+				alert("差异倍数必须大于等于0！")
+			}
+		
+		var resultPara={"paras":formData}; 		
+		resultPara = JSON.stringify(resultPara);
+		console.log(resultPara)
+			$.ajax({
+				url: 'json/deepExcavation1.json',  
+				type:'get',
+				data:{parameter:resultPara},
+				dataType: "json",
+				success:function(data) {
+					alert("成功上")
+				},    
+				error : function(XMLHttpRequest) {
+					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
+				}
+			});
+		}
+	});
+	
+	
+})
+
+
+
+
+
+/*-------------公共函数-------------------*/
 //任务的状态
 function taskState(State) {
 	

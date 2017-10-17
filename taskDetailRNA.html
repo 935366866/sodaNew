@@ -364,7 +364,7 @@
     })
     //深度挖掘
     $("#deepBtn").click(function(){
-    	window.location.href= "deepExcavation.html";
+    	window.location.href= "deepExcavation2.html";
     })
 	//rerun
 	$("#taskRerun").click(function(){
@@ -610,7 +610,7 @@ function getTaskData(url){
 							 }
 						else if(key == "modStatus"){  //填充任务状态table
 							var jsonData = JSON.stringify(data[key]);
-							window.sessionStorage.setItem("modStatus",jsonData);
+							
 							$('#modStatusTable').bootstrapTable('load',data[key]);
 							}
 //							 波波，这是之前的判断状态的，现在暂时去掉了
