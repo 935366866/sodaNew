@@ -1,8 +1,8 @@
 {
-	"KEGGScatter":["img/N1_2_classfication_pie.png","img/N2_1_gc.png","img/classfication_bar.png"],
-	"KEGGList":[{"compareName":"kegg1",
+	"KEGGScatter":["img/N2_1_gc.png","img/N1_2_classfication_pie.png","img/classfication_bar.png"],
+	"KEGGList":[{"compareName":"kegg1111",
 			"content":[
-				["Categorykegg1","parentkegg1","sibkegg1","ckegg1","sikegg1"],
+				["Categorykegg1111","parentkegg111","sibkegg1111","ckegg1111","sikegg1"],
 				["Upstream1","31929","38478","272720","38816"],
 				["ExonicStopgain1","368000","46600","38500","45000"],
 				["ExonicStoploss1","11100","129000","109000","13000"],
@@ -14,7 +14,7 @@
 				["Upstream/Downstream","262900","306900","196100","310700"],
 				["Intergenic","1157181","1362319","1147010","1352341"]
 			]},
-			{"compareName":"kegg2",
+			{"compareName":"kegg22222",
 			"content":[
 				["Categorykegg2","parentkegg2","kegg2","ckegg2","sikegg2"],
 				["Upstream2","31929","38478","272720","38816"],
@@ -30,9 +30,9 @@
 			]}
 			
 		],
-		"GoList":[{"compareName":"go1",
+		"GoList":[{"compareName":"go11111",
 			"content":[
-				["go1","go1","sibgo1","cgo1","sigo1"],
+				["go1111","go1111","sibgo1111","cgo1111","sigo11111"],
 				["Upstream1","31929","38478","272720","38816"],
 				["ExonicStopgain1","368000","46600","38500","45000"],
 				["ExonicStoploss1","11100","129000","109000","13000"],
@@ -44,7 +44,7 @@
 				["Upstream/Downstream","262900","306900","196100","310700"],
 				["Intergenic","1157181","1362319","1147010","1352341"]
 			]},
-			{"compareName":"go2",
+			{"compareName":"go2222",
 			"content":[
 				["Categorygo2","parentgo2","sibgo2","cgo2","sigo2"],
 				["Upstream2","31929","38478","272720","38816"],
@@ -60,6 +60,6 @@
 			]}
 			
 		],
-		"GoBar":["img/N2_1_gc.png","img/N1_2_classfication_pie.png","img/classfication_bar.png"],
+		"GoBar":["img/N1_2_classfication_pie.png","img/N2_1_gc.png","img/classfication_bar.png"],
 		"GoDag":["img/classfication_bar.png","img/N1_2_classfication_pie.png","img/N2_1_gc.png"]
 }

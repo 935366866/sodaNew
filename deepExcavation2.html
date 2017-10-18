@@ -365,20 +365,14 @@
 						<div class="tab-pane" id="EAKEGGList">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" id="sampleTable1">
-										<thead>
-											<tr>
-												<th data-field="sample" data-align="left" data-sortable="true">id</th>
-												<th data-field="fq" data-align="center" data-sortable="true">baseMean </th>
-												<th data-field="adap" data-align="center" data-sortable="true">WLL</th>
-												<th data-field="sample" data-align="left" data-sortable="true">CK</th>
-												<th data-field="fq" data-align="center" data-sortable="true">log2FoldChange </th>
-												<th data-field="adap" data-align="center" data-sortable="true">pval</th>
-												<th data-field="adap" data-align="center" data-sortable="true">padj</th>
-												<th data-field="adap" data-align="center" data-sortable="true">bDiff</th>
-											</tr>
-										</thead>
-									</table>
+									<div style="margin-bottom: 50px;">
+										<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
+										<div class="input_b_3" style="width: 260px;float: left;">
+											<select  id="EAKEGGListCompareGroups"  name="EAKEGGListCompareGroups" class="selectpicker select_width" autocomplete="off">
+											</select>
+										</div>		
+									</div>
+									<table></table>
 								</div>
 							</div>
 						</div>
@@ -408,20 +402,14 @@
 						<div class="tab-pane" id="EAGOList">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" id="GOListTable">
-										<thead>
-											<tr>
-												<th data-field="sample" data-align="left" data-sortable="true">id</th>
-												<th data-field="fq" data-align="center" data-sortable="true">baseMean </th>
-												<th data-field="adap" data-align="center" data-sortable="true">WLL</th>
-												<th data-field="sample" data-align="left" data-sortable="true">CK</th>
-												<th data-field="fq" data-align="center" data-sortable="true">log2FoldChange </th>
-												<th data-field="adap" data-align="center" data-sortable="true">pval</th>
-												<th data-field="adap" data-align="center" data-sortable="true">padj</th>
-												<th data-field="adap" data-align="center" data-sortable="true">bDiff</th>
-											</tr>
-										</thead>
-									</table>
+									<div style="margin-bottom: 50px;">
+										<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
+										<div class="input_b_3" style="width: 260px;float: left;">
+											<select  id="EAGOListCompareGroups"  name="EAKEGGListCompareGroups" class="selectpicker select_width" autocomplete="off">
+											</select>
+										</div>		
+									</div>
+									<table></table>
 								</div>
 							</div>
 						</div>
@@ -495,37 +483,21 @@
 						<div class="tab-pane active" id="previousKEGGScatter">		
 							<div class="panel  panel-default">				
 								<div class="panel-body" style="height: 439px;">
-									<form class="parameter" id="parameter">
+									<form class="parameter" id="preKeggScaParameter">
 										<!--输出目录-->
 										<div class="part">
 											<div class="input_a_l titleNameLeft">输出目录:</div>
 											<div class="input_a_m" style="width: 345px;">
-												<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
+												<input id="pKeggScaInput" name="pKeggScaInput"  type="text" class="form-control" >
 											</div>
 											<div class="input_a_r">
-												<a onclick="openUrl('#input','file')">
-													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
-												</a>
+												<a onclick="opendir_path('pKeggScaInput')">
+													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
+												</a>	
 											</div>
 										</div>	
 										<div class="line"></div>
-										<div class="part" style="font-size: 18px;">GO富集参数:</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值类型:</div>
-											<div class="input_b_3" style="width: 305px;float: left;">
-												<select id="pTypes"  name="pTypes" class="selectpicker select_width" autocomplete="off" >
-													<option value="padj">correct</option>
-													<option value="pval">over_represented_pvalue</option>
-												</select>
-											</div>									
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值大小:</div>
-											<div class="input_a_m" style="width: 305px;">
-												<input v-model="pValue" type="text" class="form-control" id="pValue" name="pValue" placeholder="">
-											</div>								
-										</div>
-										<div class="line"></div>
+										
 	
 									</form>
 								</div>
@@ -542,39 +514,15 @@
 										<div class="part">
 											<div class="input_a_l titleNameLeft">输出目录:</div>
 											<div class="input_a_m" style="width: 345px;">
-												<input v-model="input" type="text" class="form-control" id="input" name="input" placeholder="">
+												<input id="oKeggScaInput" name="oKeggScaInput"  type="text" class="form-control">
 											</div>
 											<div class="input_a_r">
-												<a onclick="openUrl('#input','file')">
+												<a onclick="opendir_path('oKeggScaInput')">
 													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
 												</a>
 											</div>
 										</div>	
 										<div class="line"></div>
-										<div class="part" style="font-size: 18px;">GO富集参数:</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值类型:</div>
-											<div class="input_b_3" style="width: 305px;float: left;">
-												<select id="pTypes"  name="pTypes" class="selectpicker select_width" autocomplete="off" >
-													<option value="padj">correct</option>
-													<option value="pval">over_represented_pvalue</option>
-												</select>
-											</div>									
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值大小:</div>
-											<div class="input_a_m" style="width: 305px;">
-												<input v-model="pValue" type="text" class="form-control" id="pValue" name="pValue" placeholder="">
-											</div>								
-										</div>
-										<div class="line"></div>
-										<div class="part" style="font-size: 18px;">KEGG富集参数:</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">E值:</div>
-											<div class="input_a_m" style="width: 305px;">
-												<input v-model="EValue" type="text" class="form-control" id="EValue" name="EValue" placeholder="">
-											</div>								
-										</div>
 									</form>
 								</div>
 								<div class="panel-footer" style="height: 51px;">
@@ -1177,49 +1125,50 @@ function stopTask(taskid){
 	    }
 	});
 }
+
 /*-----------------差异倍数页面js代码------------------*/
 $(function(){
 	var compareData = null;
-	function updateTable(){
-		if(!compareData) return;
-		var p=$("#compareGroups").selectpicker("val");
-		for(var j=0;j<compareData.length;j++){
-			if(p==compareData[j]["compareName"]){
-				var content=compareData[j]['content'];
-				var head=content[0];
-				var options={
-					clickToSelect:true,
-					showFooter:false,
-					classes:'table',
-					columns: []
-				}
-				for(var m=0;m<head.length;m++){
-					var obj={order: "asc"};
-					obj["title"]=head[m];
-					obj["field"]=head[m];
-					options.columns.push(obj);
-				}
-				$("#dgfGeneList table").bootstrapTable(options);
-				content.shift()
-				var tableData=[];
-				for(var i=0;i<content.length;i++){
-//					var thead=content[0];
-					var row=content[i];
-					var rowObj={};
-					for(var k=0;k<row.length;k++){
-						rowObj[head[k]]=row[k];
-					}
-					tableData.push(rowObj);
-				}
-				$("#dgfGeneList table").bootstrapTable('destroy');
-				$("#dgfGeneList table").bootstrapTable(options);
-				$("#dgfGeneList table").bootstrapTable('load',tableData);
-			}
-		}
-	}
+//	function updateTable(){
+//		if(!compareData) return;
+//		var p=$("#compareGroups").selectpicker("val");
+//		for(var j=0;j<compareData.length;j++){
+//			if(p==compareData[j]["compareName"]){
+//				var content=compareData[j]['content'];
+//				var head=content[0];
+//				var options={
+//					clickToSelect:true,
+//					showFooter:false,
+//					classes:'table',
+//					columns: []
+//				}
+//				for(var m=0;m<head.length;m++){
+//					var obj={order: "asc"};
+//					obj["title"]=head[m];
+//					obj["field"]=head[m];
+//					options.columns.push(obj);
+//				}
+//				$("#dgfGeneList table").bootstrapTable(options);
+//
+//				var tableData=[];
+//				for(var i=1;i<content.length;i++){
+////					var thead=content[0];
+//					var row=content[i];
+//					var rowObj={};
+//					for(var k=0;k<row.length;k++){
+//						rowObj[head[k]]=row[k];
+//					}
+//					tableData.push(rowObj);
+//				}
+//				$("#dgfGeneList table").bootstrapTable('destroy');
+//				$("#dgfGeneList table").bootstrapTable(options);
+//				$("#dgfGeneList table").bootstrapTable('load',tableData);
+//			}
+//		}
+//	}
 	var geneSet;
 	$('a[href="#dgfGeneList"]').on('show.bs.tab', function (e) {
-		updateTable();
+		updateTable("compareGroups","dgfGeneList",compareData);
 	})
 	
 	/*轮播图片初始化*/
@@ -1255,75 +1204,85 @@ $(function(){
 	})
 	//样本分组初始化设置
 	var sampleValues = sessionStorage.getItem("samples"); 
-	var groupsValues = sessionStorage.getItem("groupSamples"); 
-	var groupsObg = $.parseJSON( groupsValues ); 
-	var compareValues = sessionStorage.getItem("compareGroups"); 
-	var compareObg = $.parseJSON( compareValues ); 
+	if(sampleValues){
+		if(sampleValues.length>0){
+			var samplesArray=sampleValues.split(",");
+			for(var i=0;i<samplesArray.length;i++){
+				var name = samplesArray[i];
+				add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
+				$(add).appendTo('#sampleNames')
+		
+			};	
+			dragInit();
+		}
+	}
+	
+	var groupsValues = sessionStorage.getItem("groupSamples");
+	if(groupsValues.length>0){
+		var groupsObg = $.parseJSON( groupsValues ); 
+		if(groupsObg){
+			for(key in groupsObg){
+				var value=groupsObg[key];
+				var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
+				var divHtml = $(html);
+				allgroups.push(key);
+				for(var i=0;i<value.length;i++){
+					var sample=value[i];
+					var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+				    	+sample+'</li>');
+				  liHtml.appendTo(divHtml.find("ul"))
+					
+				}
+				divHtml.appendTo('#groupList');
+				dragInit();
+			}
+		}
+	}
+	var compareValues = sessionStorage.getItem("compareGroups");
+	if(compareValues.length>0){
+		var compareObg = $.parseJSON( compareValues ); 
+		if(compareObg){
+			for(key in compareObg){
+				var value=compareObg[key];
+				var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
+				var divHtml = $(html);
+				allCompares.push(key);
+				for(var i=0;i<value.length;i++){
+					var sample=value[i];
+					var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+				    	+sample+'</li>');
+				  liHtml.appendTo(divHtml.find("ul"))
+					
+				}
+				divHtml.appendTo('#compareList');
+				dragInit();
+			}
+		}
+	}
+	
 	var vennValues = sessionStorage.getItem("vennCompares"); 
-	var vennObg = $.parseJSON( vennValues ); 
-	if(sampleValues.length>0){
-		var samplesArray=sampleValues.split(",");
-		for(var i=0;i<samplesArray.length;i++){
-			var name = samplesArray[i];
-			add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
-			$(add).appendTo('#sampleNames')
-	
-		};	
-		dragInit();
-	}
-	if(groupsObg){
-		for(key in groupsObg){
-			var value=groupsObg[key];
-			var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
-			var divHtml = $(html);
-			allgroups.push(key);
-			for(var i=0;i<value.length;i++){
-				var sample=value[i];
-				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-			    	+sample+'</li>');
-			  liHtml.appendTo(divHtml.find("ul"))
-				
+	if(vennValues.length>0){
+		var vennObg = $.parseJSON( vennValues ); 
+		if(vennObg){
+			for(key in vennObg){
+				var value=vennObg[key];
+				var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
+				var divHtml = $(html);
+				allVenns.push(key);
+				for(var i=0;i<value.length;i++){
+					var sample=value[i];
+					var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+				    	+sample+'</li>');
+				  liHtml.appendTo(divHtml.find("ul"))
+					
+				}
+				divHtml.appendTo('#vennList');
+				dragInit();
 			}
-			divHtml.appendTo('#groupList');
-			dragInit();
 		}
 	}
 	
-	if(compareObg){
-		for(key in compareObg){
-			var value=compareObg[key];
-			var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
-			var divHtml = $(html);
-			allCompares.push(key);
-			for(var i=0;i<value.length;i++){
-				var sample=value[i];
-				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-			    	+sample+'</li>');
-			  liHtml.appendTo(divHtml.find("ul"))
-				
-			}
-			divHtml.appendTo('#compareList');
-			dragInit();
-		}
-	}
 	
-	if(vennObg){
-		for(key in vennObg){
-			var value=vennObg[key];
-			var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
-			var divHtml = $(html);
-			allVenns.push(key);
-			for(var i=0;i<value.length;i++){
-				var sample=value[i];
-				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-			    	+sample+'</li>');
-			  liHtml.appendTo(divHtml.find("ul"))
-				
-			}
-			divHtml.appendTo('#vennList');
-			dragInit();
-		}
-	}
 	
 //	//样本分组初始化设置
 //	var parasValue = sessionStorage.getItem("paras"); 
@@ -1521,7 +1480,6 @@ $(function(){
 				data:{parameter:resultPara},
 				dataType: "json",
 				success:function(data) {
-					if
 					var showData=data["show"];
 					compareData=data["arr"];
 					$("#dgfCarousel").empty();
@@ -1541,7 +1499,7 @@ $(function(){
 					}
 					$('#compareGroups').selectpicker('refresh');
 					$('#compareGroups').on('changed.bs.select', function (e) {
-						updateTable();
+						updateTable("compareGroups","dgfGeneList",compareData);
 					});
 					window.sessionStorage.setItem("pGeneInput",$("#dgfInput").val());
 				},    
@@ -1855,7 +1813,7 @@ $(function(){
 //		$('#eaDirection').tab('show')
 ////		$("#oEADirection").addClass("active")
 //	})
-
+	
     function statusUpdate(){
     	$.ajax({
 				url:'json/taskDetail.2.json',  
@@ -1882,6 +1840,15 @@ $(function(){
 	})
     
     /*使用原始基因*/
+   	var compareData1 = null;
+   	var compareData2 = null;
+	
+	$('a[href="#EAKEGGList"]').on('show.bs.tab', function (e) {
+		updateTable("EAKEGGListCompareGroups","EAKEGGList",compareData1);
+	})
+	$('a[href="#EAGOList"]').on('show.bs.tab', function (e) {
+		updateTable("EAGOListCompareGroups","EAGOList",compareData2);
+	})
    	var parasValue = sessionStorage.getItem("paras"); 
 	var parasObj = $.parseJSON( parasValue );
 	if(parasObj){
@@ -1911,7 +1878,67 @@ $(function(){
 				data:{parameter:resultPara},
 				dataType: "json",
 				success:function(data) {
-					alert("成功原始")
+					//kegg散点图
+					var KEGGScatter=data["KEGGScatter"];
+					$("#EAKEGGScatterCarousel").empty();
+					$("#EAKEGGScatterCarousel").append("<ul></ul>");
+ 					for(var i=0;i<KEGGScatter.length;i++){
+ 						$("#EAKEGGScatterCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+KEGGScatter[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + KEGGScatter[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#EAKEGGScatterCarousel").jCarouselLite({
+				        btnNext: ".default #EAKEGGScatterNext",
+				        btnPrev: ".default EAKEGGScatterPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+				    //go富集柱状图
+				    var GoBar=data["GoBar"];
+					$("#EAGOBarCarousel").empty();
+					$("#EAGOBarCarousel").append("<ul></ul>");
+ 					for(var i=0;i<GoBar.length;i++){
+ 						$("#EAGOBarCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+GoBar[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + GoBar[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#EAGOBarCarousel").jCarouselLite({
+				        btnNext: ".default #EAGOBarNext",
+				        btnPrev: ".default #EAGOBarPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+				    //go富集DAG图
+				    var GoDag=data["GoDag"];
+					$("#EAGODagCarousel").empty();
+					$("#EAGODagCarousel").append("<ul></ul>");
+ 					for(var i=0;i<GoBar.length;i++){
+ 						$("#EAGODagCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+GoDag[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + GoDag[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#EAGODagCarousel").jCarouselLite({
+				        btnNext: ".default #EAGODagNext",
+				        btnPrev: ".default #EAGODagPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+				    
+				    compareData1=data["KEGGList"];
+				     $("#EAKEGGListCompareGroups").empty();
+					for(var i=0;i<compareData1.length;i++){
+						var option="<option value="+compareData1[i]["compareName"]+">"+compareData1[i]["compareName"]+"</option>"
+						$("#EAKEGGListCompareGroups").append(option);
+					}
+					$('#EAKEGGListCompareGroups').selectpicker('refresh');
+					$('#EAKEGGListCompareGroups').on('changed.bs.select', function (e) {
+						updateTable("EAKEGGListCompareGroups","EAKEGGList",compareData1);
+					});
+					
+					compareData2=data["GoList"];
+					$("#EAGOListCompareGroups").empty();
+					for(var i=0;i<compareData2.length;i++){
+						var option="<option value="+compareData2[i]["compareName"]+">"+compareData2[i]["compareName"]+"</option>"
+						$("#EAGOListCompareGroups").append(option);
+					}
+					$('#EAGOListCompareGroups').selectpicker('refresh');
+					$('#EAGOListCompareGroups').on('changed.bs.select', function (e) {
+						updateTable("EAGOListCompareGroups","EAGOList",compareData2);
+					});
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -1938,14 +1965,72 @@ $(function(){
 		
 		var resultPara={"paras":formData}; 		
 		resultPara = JSON.stringify(resultPara);
-		console.log(resultPara)
 			$.ajax({
-				url: 'json/deepExcavation1.json',  
+				url: 'json/deepExcavation2.json',  
 				type:'get',
 				data:{parameter:resultPara},
 				dataType: "json",
 				success:function(data) {
-					alert("成功上")
+					//kegg散点图
+					var KEGGScatter=data["KEGGScatter"];
+					$("#EAKEGGScatterCarousel").empty();
+					$("#EAKEGGScatterCarousel").append("<ul></ul>");
+ 					for(var i=0;i<KEGGScatter.length;i++){
+ 						$("#EAKEGGScatterCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+KEGGScatter[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + KEGGScatter[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#EAKEGGScatterCarousel").jCarouselLite({
+				        btnNext: ".default #EAKEGGScatterNext",
+				        btnPrev: ".default EAKEGGScatterPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+				    //go富集柱状图
+				    var GoBar=data["GoBar"];
+					$("#EAGOBarCarousel").empty();
+					$("#EAGOBarCarousel").append("<ul></ul>");
+ 					for(var i=0;i<GoBar.length;i++){
+ 						$("#EAGOBarCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+GoBar[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + GoBar[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#EAGOBarCarousel").jCarouselLite({
+				        btnNext: ".default #EAGOBarNext",
+				        btnPrev: ".default #EAGOBarPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+				    //go富集DAG图
+				    var GoDag=data["GoDag"];
+					$("#EAGODagCarousel").empty();
+					$("#EAGODagCarousel").append("<ul></ul>");
+ 					for(var i=0;i<GoBar.length;i++){
+ 						$("#EAGODagCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+GoDag[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + GoDag[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#EAGODagCarousel").jCarouselLite({
+				        btnNext: ".default #EAGODagNext",
+				        btnPrev: ".default #EAGODagPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+				    compareData1=data["KEGGList"];
+				    $("#EAKEGGListCompareGroups").empty();
+					for(var i=0;i<compareData1.length;i++){
+						var option="<option value="+compareData1[i]["compareName"]+">"+compareData1[i]["compareName"]+"</option>"
+						$("#EAKEGGListCompareGroups").append(option);
+					}
+					$('#EAKEGGListCompareGroups').selectpicker('refresh');
+					$('#EAKEGGListCompareGroups').on('changed.bs.select', function (e) {
+						updateTable("EAKEGGListCompareGroups","EAKEGGList",compareData1);
+					});
+					
+					compareData2=data["GoList"];
+					$("#EAGOListCompareGroups").empty();
+					for(var i=0;i<compareData2.length;i++){
+						var option="<option value="+compareData2[i]["compareName"]+">"+compareData2[i]["compareName"]+"</option>"
+						$("#EAGOListCompareGroups").append(option);
+					}
+					$('#EAGOListCompareGroups').selectpicker('refresh');
+					$('#EAGOListCompareGroups').on('changed.bs.select', function (e) {
+						updateTable("EAGOListCompareGroups","EAGOList",compareData2);
+					});
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -1962,6 +2047,41 @@ $(function(){
 
 
 /*-------------公共函数-------------------*/
+function updateTable(selectId,tabPanelId,compareData){
+		if(!compareData) return;
+		var p=$("#"+selectId).selectpicker("val");
+		for(var j=0;j<compareData.length;j++){
+			if(p==compareData[j]["compareName"]){
+				var content=compareData[j]['content'];
+				var head=content[0];
+				var options={
+					clickToSelect:true,
+					showFooter:false,
+					classes:'table',
+					columns: []
+				}
+				for(var m=0;m<head.length;m++){
+					var obj={order: "asc"};
+					obj["title"]=head[m];
+					obj["field"]=head[m];
+					options.columns.push(obj);
+				}
+				$("#"+tabPanelId+" table").bootstrapTable(options);
+				var tableData=[];
+				for(var i=1;i<content.length;i++){
+					var row=content[i];
+					var rowObj={};
+					for(var k=0;k<row.length;k++){
+						rowObj[head[k]]=row[k];
+					}
+					tableData.push(rowObj);
+				}
+				$("#"+tabPanelId+" table").bootstrapTable('destroy');
+				$("#"+tabPanelId+" table").bootstrapTable(options);
+				$("#"+tabPanelId+" table").bootstrapTable('load',tableData);
+			}
+		}
+	}
 //任务的状态
 function taskState(State) {
 	
