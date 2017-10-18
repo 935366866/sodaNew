@@ -440,7 +440,8 @@ function getTaskData(url){
 					alert(data['data']);
 				}else{
 					for(var key in data){
-						if(key == "samples"){   
+						if(key == "samples"){  
+							window.sessionStorage.setItem("samples",data[key]);
 							//根据样本名填入table
 							var dataJson = [];   //用来存放填写样本表格的数据
 							var arr = data[key].split(",");
@@ -544,37 +545,56 @@ function getTaskData(url){
 								if(group_samples == null || group_samples == 'null' ||data[key] == ''){
 									data[key]=[];
 								}
+								var objTemp={}
 								for(var group in group_samples){
 									var str='';
+									var arrTemp=[];
 									for(var each=0;each<group_samples[group].length;each++){
+										arrTemp.push(group_samples[group][each])
 										 str += '<div class="samplesDIV"><span style="color:#FFF;">'+group_samples[group][each]+'</span></div>';
-										};
-									$("#Group").append('<div class="groupDIV"><span style="color:#FFF;">'+group+'</span>'+str+'</div>')
 									};
+									objTemp[group]=arrTemp;
+									$("#Group").append('<div class="groupDIV"><span style="color:#FFF;">'+group+'</span>'+str+'</div>')
+								};
+								objTemp = JSON.stringify(objTemp);
+								window.sessionStorage.setItem("groupSamples",objTemp);
 							}
 							
 							if(key == "compare_groups"){
+								var objTemp2={}
 								var compare_groups = data["compare_groups"];  //填入compare信息
 								for(var com in compare_groups){
 									var str='';
+									var arrTemp2=[];
 									for(var each=0;each<compare_groups[com].length;each++){
+										arrTemp2.push(compare_groups[com][each])
 										 str += '<div class="samplesDIV"><span style="color:#FFF;">'+compare_groups[com][each]+'</span></div>';
-										};
+									};
+									objTemp2[com]=arrTemp2;
 									$("#Compare").append('<div class="groupDIV"><span style="color:#FFF;">'+com+'</span>'+str+'</div>');
 									};
+									objTemp2 = JSON.stringify(objTemp2);
+									window.sessionStorage.setItem("compareGroups",objTemp2);
 							}
 							
 							if(key == "venn_compares"){
-								var venn_compares = data["venn_compares"];   //填入venn信息
-								for(var i=0;i<venn_compares.length;i++){
-									var str='';
-								//	console.log(venn_compares[i])
-									for(var j=0;j<venn_compares[i].length;j++){
-										str += '<div class="samplesDIV"><span style="color:#FFF;">'+venn_compares[i][j]+'</span></div>';
+									var objTemp1={}
+									var venn_compares = data["venn_compares"];  //填入compare信息
+		
+									for(var venn in venn_compares){
+										var str='';
+										var arrTemp1=[];
+										for(var each=0;each<venn_compares[venn].length;each++){
+											arrTemp1.push(venn_compares[venn][each]);
+											 str += '<div class="samplesDIV"><span style="color:#FFF;">'+venn_compares[venn][each]+'</span></div>';
 										};
-									$("#Venn").append('<div class="groupDIV"><span style="color:#FFF;"></span>'+str+'</div>')
+										objTemp1[venn]=arrTemp1;
+										$("#Venn").append('<div class="groupDIV"><span style="color:#FFF;">'+venn+'</span>'+str+'</div>');
 									};
+									objTemp1 = JSON.stringify(objTemp1);
+									window.sessionStorage.setItem("vennCompares",objTemp1);
 								}
+								
 							}
 							
 						else if(key == "unselectNode"){
@@ -640,7 +660,7 @@ function getTaskData(url){
 							};
 					};
 				};
-			 },    
+			 },   
 			 error : function(XMLHttpRequest) {
 			   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 			 }

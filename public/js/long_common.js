@@ -212,7 +212,7 @@ function dblCilck(tableId,inputId,url) {
 		if(typeChr == 'd'){
 			newUrl= $("#" + inputId).val()+'/'+$element.name;
 			checkUrl(newUrl,url,inputId,tableId);
-		}
+		}   
 	});
 };
 

@@ -165,9 +165,9 @@
 												<input  id="pgInput" name="pgInput" type="text" class="form-control">
 											</div>
 											<div class="input_a_r">
-												<a onclick="openUrl('#pgInput','file')">
-													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
-												</a>
+												<a onclick="opendir_path('pgInput')">
+													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
+												</a>	
 											</div>
 										</div>	
 										<div class="part" style="display: none;">
@@ -238,9 +238,9 @@
 												<input  type="text" class="form-control" id="ogInput" name="ogInput" placeholder="">
 											</div>
 											<div class="input_a_r">
-												<a onclick="openUrl('#ogInput','file')">
-													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
-												</a>
+												<a onclick="opendir_path('ogInput')">
+													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
+												</a>	
 											</div>
 										</div>	
 										<div class="part" style="display: none;">
@@ -306,33 +306,39 @@
 						<div class="tab-pane in active" id="EADirection">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<p>描述：</p>
+									<p style="font-weight: bolder;">描述：</p>
 									<p class="indent">
-									对提供的各样本中，各基因的表达量，按log（x+1）转换后，绘制小提琴图（https://en.wikipedia.org/wiki/Violin_plot）。用于展示各样本基因整体表达量分布情况。
+									调整富集分析中参数，使用项目计算的差异数据或重新计算的差异数据，重新进行富集分析。
 									</p>
-									<p>参数：</p>
-									<pre>
-										--input	  输入文件名。例如：fpkm.txt
-										--output  输出文件名。后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。例如：violin.png
-										--ylab	  y坐标轴标题，默认为：log(RPKM+1)。例如：log(TPM+1)
-										--title	  图标题，默认为：RPKM distribution。例如：TPM distribution	
-									</pre>
-									<p>输入：</p>
-									<div class="indent">基因表达量文件，第一列为geneID，其他列为各样本中基因表达量值（FPKM，RPKM或TPM）。</div>
-									<div class="img_box">
-										<img src="public/draw/imgs/bg.jpg" alt="">
-									</div>
-									<p>输出：</p>
-									<div class="indent">后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。</div>
-								</div>
-							</div>
-						</div>
-						<!-- 使用说明 -->
-						<div class="tab-pane" id="oEADirection">
-							<div class="panel panel-default">
-								<div class="panel-body">
-									<p>描述：</p>
-									<div class="indent">后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。</div>
+									<p>参数填写：</p>
+									<p class="indent">
+										<p class="indent">1、选择输入差异数据</p>
+										<p class="indent">选择使用原始差异基因注释选项卡，则使用项目计算的差异数据；选择使用上一步新差异基因注释选项卡，则使用上一步计算的差异数据。</p>
+									</p>                                    
+									<p class="indent">
+										<p class="indent">2、选择输出目录</p>
+										<p class="indent">计算过程文件和最终结果文件存放的根目录，建议与项目目录不同。若与项目目录相同，则会覆盖之前项目中差异分析的结果文件。</p>
+									</p>
+									<p class="indent">
+										<p class="indent">3、设置GO富集阈值参数 </p>
+										<p class="indent">p值类型：筛选富集条目时使用的p值类型。可选p值类型有correct和over_represented_pvalue。over_represented_pvalue是原始的富集p值，而correct则为校正后的p值。默认使用的p值的类型是correct。</p>
+										<p class="indent">p值大小：筛选富集条目时使用的p值大小。默认为0.05</p>
+									</p>
+									<p class="indent">
+										<p class="indent">3、设置KEGG富集参</p>
+										<p class="indent">物种：KEGG注释参考物种。默认使用项目分析时设置的物种。</p>
+										<p class="indent">E值：注释比对时使用的E值，默认为1e-5。</p>
+										<p class="indent">统计检测方法：富集分析时使用的统计检测方法。可选方法有binomial test、chi-square test、hypergeometric test/Fisher's exact test和frequency，默认使用hypergeometric test/Fisher's exact test。</p>
+										<p class="indent">FDR矫正方法：false discovery rate矫正方法。可选方法有BH（Benjamini and Hochberg）和BY（Benjamini and Yekutieli），默认使用BH。</p>                                        
+									</p>
+									<p>任务提交：</p>
+									<p class="indent">
+										在设置完所有参数后，点击run按钮，计算任务会在服务器上运行。
+									</p>
+									<p>结果查看：</p>
+									<p class="indent">
+										右侧任务状态选项卡可以查看计算任务的状态。在任务计算完成后，可以从右侧选项卡中查看主要结果文件。同样也可以在输出目录中找到结果文件，下载查看。
+									</p>
 								</div>
 							</div>
 						</div>
@@ -678,9 +684,9 @@
 												<input v-model="dgfInput" type="text" class="form-control" id="dgfInput" name="dgfInput" placeholder="">
 											</div>
 											<div class="input_a_r">
-												<a onclick="openUrl('#dgfInput','file')">
-													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
-												</a>
+												<a onclick="opendir_path('dgfInput')">
+													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
+												</a>	
 											</div>
 										</div>	
 										<div class="part" style="display: none;">
@@ -846,7 +852,7 @@
 								<div class="panel-body">
 									<p style="font-weight: bolder;">描述：</p>
 									<p class="indent">
-									调整差异分析参数，使用定量数据，重新进行差异分析。
+									调整差异分析参数，使用项目计算的定量数据，重新进行差异分析。
 									</p>
 									<p>参数填写：</p>
 									<p class="indent">
@@ -855,11 +861,13 @@
 									</p>
 									<p class="indent">
 										<p class="indent">2、选择比较差异基因的工具</p>
-										<p class="indent">可选工具包括DESeq2、DESeq、edgeR和DEGSeq，默认使用DESeq2。</p>
+										<p class="indent">筛选软件：比较差异基因的工具。可选工具包括DESeq2、DESeq、edgeR和DEGSeq，默认使用DESeq2。DEGSeq用于无生物学重复的分析。</p>
 									</p>
 									<p class="indent">
 										<p class="indent">3、设置差异基因筛选阈值</p>
-										<p class="indent">默认差异倍数是2，默认使用的p值是校正后的p值，即padj，大小为0.05。</p>
+										<p class="indent">p值类型：筛选差异基因时使用的p值类型。可选p值类型有pval和padj。pval是原始的富集p值，而padj则为校正后的p值。默认使用padj。</p>
+										<p class="indent">p值大小：筛选差异基因时使用的p值大小，默认为0.05。</p>
+										<p class="indent">差异倍数：筛选差异基因时使用的差异倍数（fold change），默认为2。</p>
 									</p>
 									<p class="indent">
 										<p class="indent">4、设置分组信息</p>
@@ -960,7 +968,7 @@
 				<!-- -----------------------------------------------------------data-single-select="true"------------------------ -->
 				<div class="modal-body" style="text-align:center; ">
 					<table data-toggle="table" data-url="json/jobUrl.json" data-minimum-count-columns="2" data-id-field="id" data-show-footer="false"
-						data-height="300" data-sort-name="id" data-click-to-select="true"  id="urlTable"
+						data-height="300" data-sort-name="id" data-click-to-select="true" id="jobUrlTable"
 						style="bottom:20px;">
 
 						<thead>
@@ -1088,7 +1096,7 @@ $(function(){
 			 var id = $("#taskId").val();
 			 $.ajax({
 				    url:delete_url,  
-				    type:'post',
+				    type:'get',
 				    data:{id:id},
 				    dataType: "json",
 				    success:function(data) {
@@ -1192,13 +1200,14 @@ $(function(){
 					options.columns.push(obj);
 				}
 				$("#dgfGeneList table").bootstrapTable(options);
+				content.shift()
 				var tableData=[];
 				for(var i=0;i<content.length;i++){
-					var thead=content[0];
+//					var thead=content[0];
 					var row=content[i];
 					var rowObj={};
 					for(var k=0;k<row.length;k++){
-						rowObj[thead[k]]=row[k];
+						rowObj[head[k]]=row[k];
 					}
 					tableData.push(rowObj);
 				}
@@ -1244,15 +1253,16 @@ $(function(){
 	$('a[href="#dgfStatus"]').on('hide.bs.tab', function (e) {
 		window.clearInterval(setInt)
 	})
-
 	//样本分组初始化设置
-	var parasValue = sessionStorage.getItem("paras"); 
-	var parasObj = $.parseJSON( parasValue );
-	if(parasObj){
-		var inputPath=parasObj.taskPara[4].value;
-		$("#dfgInputPath").val(inputPath)
-		window.sessionStorage.setItem("dfgInputPath",$("#dfgInputPath").val());
-		var samplesArray=parasObj.samples.split(",");
+	var sampleValues = sessionStorage.getItem("samples"); 
+	var groupsValues = sessionStorage.getItem("groupSamples"); 
+	var groupsObg = $.parseJSON( groupsValues ); 
+	var compareValues = sessionStorage.getItem("compareGroups"); 
+	var compareObg = $.parseJSON( compareValues ); 
+	var vennValues = sessionStorage.getItem("vennCompares"); 
+	var vennObg = $.parseJSON( vennValues ); 
+	if(sampleValues.length>0){
+		var samplesArray=sampleValues.split(",");
 		for(var i=0;i<samplesArray.length;i++){
 			var name = samplesArray[i];
 			add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
@@ -1260,9 +1270,10 @@ $(function(){
 	
 		};	
 		dragInit();
-		var groupSamplesObj=parasObj.groupCompareVenn.groupSamples;
-		for(key in groupSamplesObj){
-			var value=groupSamplesObj[key];
+	}
+	if(groupsObg){
+		for(key in groupsObg){
+			var value=groupsObg[key];
 			var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
 			var divHtml = $(html);
 			allgroups.push(key);
@@ -1276,9 +1287,11 @@ $(function(){
 			divHtml.appendTo('#groupList');
 			dragInit();
 		}
-		var compareSamplesObj=parasObj.groupCompareVenn.compareGroups;
-		for(key in compareSamplesObj){
-			var value=compareSamplesObj[key];
+	}
+	
+	if(compareObg){
+		for(key in compareObg){
+			var value=compareObg[key];
 			var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
 			var divHtml = $(html);
 			allCompares.push(key);
@@ -1292,10 +1305,11 @@ $(function(){
 			divHtml.appendTo('#compareList');
 			dragInit();
 		}
-		
-		var vennSamplesObj=parasObj.groupCompareVenn.vennGroups;
-		for(key in vennSamplesObj){
-			var value=vennSamplesObj[key];
+	}
+	
+	if(vennObg){
+		for(key in vennObg){
+			var value=vennObg[key];
 			var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
 			var divHtml = $(html);
 			allVenns.push(key);
@@ -1309,7 +1323,74 @@ $(function(){
 			divHtml.appendTo('#vennList');
 			dragInit();
 		}
-	}	
+	}
+	
+//	//样本分组初始化设置
+//	var parasValue = sessionStorage.getItem("paras"); 
+//	var parasObj = $.parseJSON( parasValue );
+//	if(parasObj){
+//		var inputPath=parasObj.taskPara[4].value;
+//		$("#dfgInputPath").val(inputPath)
+//		window.sessionStorage.setItem("dfgInputPath",$("#dfgInputPath").val());
+//		var samplesArray=parasObj.samples.split(",");
+//		for(var i=0;i<samplesArray.length;i++){
+//			var name = samplesArray[i];
+//			add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
+//			$(add).appendTo('#sampleNames')
+//	
+//		};	
+//		dragInit();
+//		var groupSamplesObj=parasObj.groupCompareVenn.groupSamples;
+//		console.log(groupSamplesObj)
+//		for(key in groupSamplesObj){
+//			var value=groupSamplesObj[key];
+//			var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
+//			var divHtml = $(html);
+//			allgroups.push(key);
+//			for(var i=0;i<value.length;i++){
+//				var sample=value[i];
+//				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+//			    	+sample+'</li>');
+//			  liHtml.appendTo(divHtml.find("ul"))
+//				
+//			}
+//			divHtml.appendTo('#groupList');
+//			dragInit();
+//		}
+//		var compareSamplesObj=parasObj.groupCompareVenn.compareGroups;
+//		for(key in compareSamplesObj){
+//			var value=compareSamplesObj[key];
+//			var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
+//			var divHtml = $(html);
+//			allCompares.push(key);
+//			for(var i=0;i<value.length;i++){
+//				var sample=value[i];
+//				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+//			    	+sample+'</li>');
+//			  liHtml.appendTo(divHtml.find("ul"))
+//				
+//			}
+//			divHtml.appendTo('#compareList');
+//			dragInit();
+//		}
+//		
+//		var vennSamplesObj=parasObj.groupCompareVenn.vennGroups;
+//		for(key in vennSamplesObj){
+//			var value=vennSamplesObj[key];
+//			var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
+//			var divHtml = $(html);
+//			allVenns.push(key);
+//			for(var i=0;i<value.length;i++){
+//				var sample=value[i];
+//				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+//			    	+sample+'</li>');
+//			  liHtml.appendTo(divHtml.find("ul"))
+//				
+//			}
+//			divHtml.appendTo('#vennList');
+//			dragInit();
+//		}
+//	}	
 	$("#groupName").keydown(function(k){
 		if(k.keyCode==13 ){
 			addGroup();
@@ -1440,6 +1521,7 @@ $(function(){
 				data:{parameter:resultPara},
 				dataType: "json",
 				success:function(data) {
+					if
 					var showData=data["show"];
 					compareData=data["arr"];
 					$("#dgfCarousel").empty();
@@ -1768,13 +1850,11 @@ $(function(){
         visible: 1,
         speed: 800
     });
-    $('a[href="#previousGene"]').on('show.bs.tab', function (e) {
-    	alert(111)
-    	
-		$("#eaDirection").children("a").attr("href","#oEADirection")
-		$('#eaDirection').tab('show')
-//		$("#oEADirection").addClass("active")
-	})
+//  $('a[href="#previousGene"]').on('show.bs.tab', function (e) {
+//		$("#eaDirection").children("a").attr("href","#oEADirection")
+//		$('#eaDirection').tab('show')
+////		$("#oEADirection").addClass("active")
+//	})
 
     function statusUpdate(){
     	$.ajax({
@@ -1791,14 +1871,14 @@ $(function(){
 
     }
 	/*打开任务状态不断更新数据*/
-	var se;
+	var eaSet;
 	$('a[href="#EAStatus"]').on('show.bs.tab', function (e) {
 		statusUpdate();
-		se=window.setInterval(statusUpdate,5000)
+		eaSet=window.setInterval(statusUpdate,5000)
 	})
 	/*关闭任务状态不更新数据*/
 	$('a[href="#EAStatus"]').on('hide.bs.tab', function (e) {
-		window.clearInterval(se)
+		window.clearInterval(eaSet)
 	})
     
     /*使用原始基因*/
@@ -1810,6 +1890,8 @@ $(function(){
 	}
 	//提交参数
 	$("#eaoSubmit_paras").click(function(){
+		var ogInputValue = sessionStorage.getItem("pGeneInput"); 
+		$("#oGeneInput").val(ogInputValue)
 		var formData =  allParams($("#originalGeneParameter"));//取form表单参数
 		if(formData.ogInput==""){
 			alert("请选择输出目录！");
@@ -1909,37 +1991,115 @@ function allParams(dom){
 	return json1;
 };
 
+//-----------------------------------点击打开目录--------------------------------------------	
+var samplesDataUrl = "json/jobUrl.json"; //像后台发送目录的地址
 //打开任务目录
-function openUrl(id,type){
-	var inputValue = $(id).val();  //当前input的值
-
+function opendir_path(id){
+	var inputValue = $("#"+id).val();  //当前input的值
 	$("#inputUrl").val(inputValue);
 	$('#selectUrl').modal('show');
-
-    $("#selected").attr("onClick","geturl('"+id+"','"+type+"')")   //给选择按钮添加事件
-
+    $("#selected").attr("onClick","geturl('#"+id+"','dir')")
 };
+
+
+//选择目录时添加文件或者目录的图标
+function addIcon(State, row) {
+	var typeChr = row.type.charAt(0);
+		
+	if(typeChr == 'd'){
+		return '<span class="glyphicon glyphicon-folder-open"></span>';
+		}
+	else{
+		return '<span class="glyphicon glyphicon-file"></span> ';
+		}
+};
+
+//当模态框加载完成后给input中添加当前用户的根目录
+$(function(){
+  dblCilck('jobUrlTable','inputUrl',samplesDataUrl);
+  $('#selectUrl').on('shown.bs.modal', function () {    //模态框完全显示之后把根目录放入
+//	      	$("#inputUrl").val("/home/agloom");
+  	if($("#inputUrl").val()==''){
+  		$("#inputUrl").val('/');
+  	}
+  	checkUrl($("#inputUrl").val(), samplesDataUrl, 'inputUrl','jobUrlTable');
+  });
+});
+
+
+//回车查目录是否存在
+$(function(){
+	$('#inputUrl').bind('keypress',function(event){
+		if(event.keyCode == "13")    
+		{
+			newUrl = $("#inputUrl").val();
+			checkUrl(newUrl,samplesDataUrl,"inputUrl","jobUrlTable"); //参数依次为需要检查的URL， 后台的地址， 需要更新的输入框id， 需要刷新的bootstrap table
+		}
+	});
+//点击右边箭头，检查	
+	$("#search").click(function(){  
+    	  newUrl = $("#inputUrl").val();
+		  checkUrl(newUrl,samplesDataUrl,"inputUrl","jobUrlTable");
+    });  
+//后退按钮
+	$("#back").click(function(){  
+    	   Url= $("#inputUrl").val();
+		   
+		   lastLen =Url.split('/').pop().length
+		   newUrl = Url.substring(0,Url.length - lastLen-1);
+		   checkUrl(newUrl,samplesDataUrl,"inputUrl","jobUrlTable");
+    }); 
+	
+});
+
 //点击选择关闭模态框，将当前模态框input中的路径取出放入表单中,type 的类型 暂时有两种，dir和 file
 function geturl(formInputId,type){
-	var selected_num = checkedNum("urlTable");
+	var selected_num = checkedNum("jobUrlTable");
 	if(type == "dir"){
 		//只能选择文件夹，单选
 		var newUrl = ""
-
+		
 		if(selected_num == 1){
 			//此时选中了一项，判断是否是目录
+			
 			var singleName = ""   //选择一个文件夹或者文件的名字，单选
-			$.map($('#urlTable').bootstrapTable('getSelections'), function (row) {
+			$.map($('#jobUrlTable').bootstrapTable('getSelections'), function (row) {
 				var d_f_type = "";
 				d_f_type = row.type.charAt(0);
 				if(d_f_type == "d"){
 					singleName = row.name;
 					newUrl = $("#inputUrl").val() + "/"+ singleName;    //点击选择时取input中当前的路径，在加上此时选择的
 					newUrl = newUrl.replace('//','/');
-					$("#selected").removeAttr("onClick");
-					$("#selectUrl").modal('hide');
-					
+					$("#selected").removeAttr("onClick");   //选择按钮
+					$("#selectUrl").modal('hide');          //隐藏目录选择的模态框
 					$(formInputId).val(newUrl);	
+					if(formInputId == "#data_dir"){
+						var sequencingType = $("#seq_type").val();
+						$.ajax({
+								url:samplesDataUrl,  
+								type:'get',
+								data:{url:newUrl},
+								dataType: "json",
+								success:function(data,textStatus) {
+									if(data['status']=='ERROR'){    //请求成功但没有执行成功
+										alert(data['data']);
+									}else{
+										var data1 = data['data'];
+
+										objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
+										console.log(objData)
+										
+										
+										
+										$('#sampleTable').bootstrapTable('load',objData);  //填入table中	
+									}
+								},    
+								error : function(XMLHttpRequest) {
+									alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
+								}
+						}); 
+					
+					};
 				}else{
 					alert("对不起，您选择的必须是目录文件！");
 				
@@ -1956,18 +2116,40 @@ function geturl(formInputId,type){
 			$("#selected").removeAttr("onClick");
 			$("#selectUrl").modal('hide');
 			$(formInputId).val(newUrl);
-		  
-		} else{
+
+			var sequencingType = $("#seq_type").val();
+			$.ajax({
+					url:samplesDataUrl,  
+					type:'get',
+					data:{url:newUrl},
+					dataType: "json",
+					success:function(data,textStatus) {
+						if(data['status']=='ERROR'){    //请求成功但没有执行成功
+							alert(data['data']);
+						}else{
+							var data1 = data['data'];
+							objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
+							console.log(objData)
+							$('#sampleTable').bootstrapTable('load',objData);  //填入table中
+						}
+					},    
+					error : function(XMLHttpRequest) {
+						alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
+					}
+			}); 
+		}
+		else{
 			//选择了多项，直接报错
 			alert("对不起，只能选择一个目录文件！");
 		};
 		
-	} else if(type == "file"){
+	}
+	else if(type == "file"){
 		//只能选择文件，多选
 		var newUrl = ""
 		var files = [];
 		var have_dir = 0
-		$.map($('#urlTable').bootstrapTable('getSelections'), function (row) {
+		$.map($('#jobUrlTable').bootstrapTable('getSelections'), function (row) {
 			var d_f_type = "";
 			d_f_type = row.type.charAt(0);
 			if(d_f_type == "d"){
@@ -1984,20 +2166,25 @@ function geturl(formInputId,type){
 				alert("请选择文件！")
 			}else{
 				//获得当前的目录，取消绑定，关闭模态框，在外面填写
-				var filename_now = '/'+ $('#urlTable').bootstrapTable('getSelections')[0].name;
-				newUrl = $("#inputUrl").val()+filename_now;
+				newUrl = $("#inputUrl").val();
 				newUrl = newUrl.replace('//','/');
 				$("#selected").removeAttr("onClick");
 				$("#selectUrl").modal('hide');
-				$(formInputId).val(newUrl);	
-			}
-		}
+				$(formInputId).val(newUrl);
+				//清空样本
+				$(formInputId).nextAll().remove();
+				for(var i=0; i< files.length; i++){
+					$(formInputId).after('<span class="label label-default span_sample">'+files[i]+'<a href="javascript:void(0);" onclick="remover_this_sample(this)" class="glyphicon glyphicon-remove"></a></span>');
+				};
+			};
+		};
 
-	} else {
+	}
+	else{
 		return false;
 	}
 
-}
+};
 
 </script>
 
