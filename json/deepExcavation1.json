@@ -1,5 +1,5 @@
 {
-	"KEGGScatter":["img/N1_2_classfication_pie.png","img/N2_1_gc.png","img/classfication_bar.png"],
+	"KEGGScatter":["img/classfication_bar.png","img/N1_2_classfication_pie.png","img/N2_1_gc.png"],
 	"KEGGList":[{"compareName":"kegg1",
 			"content":[
 				["Categorykegg1","parentkegg1","sibkegg1","ckegg1","sikegg1"],

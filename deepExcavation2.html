@@ -17,6 +17,7 @@
 	<link href="css/soda_common.css" rel="stylesheet" >
 			<!--轮播样式-->
 	<link href="public/css/style-demo.css" rel="stylesheet" />
+	<link href="public/draw/style/spectrum.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -480,10 +481,30 @@
 				</div>
 				<div style="width: 1185px;">
 					<div class="tab-content input_l">
-						<div class="tab-pane active" id="previousKEGGScatter">		
+						<div class="tab-pane" id="previousKEGGScatter">		
 							<div class="panel  panel-default">				
 								<div class="panel-body" style="height: 439px;">
 									<form class="parameter" id="preKeggScaParameter">
+										<div class="part">
+											<div style="margin-bottom: 30px;">
+												<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
+												<div class="input_b_3" style="width: 180px;float: left;margin-right: 40px;">
+													<select  id="preKeggCompareGroups"  name="preKeggCompareGroups" class="selectpicker select_width" autocomplete="off">
+													</select>
+												</div>
+												<div class="input_b_3" style="width:180px;float: left;">
+													<select  id="preKeggAll"  name="preKeggAll" class="selectpicker select_width" autocomplete="off">
+														<option value="ALL">ALL</option>
+														<option value="UP">UP</option>
+														<option value="DOWN">DOWN</option>
+													</select>
+												</div>		
+											</div>
+										</div>
+										<div class="part">
+											<table data-toggle="table" data-height="200" data-show-footer="false" data-sort-name="id" ></table>	
+										</div>
+										<div class="line"></div>
 										<!--输出目录-->
 										<div class="part">
 											<div class="input_a_l titleNameLeft">输出目录:</div>
@@ -496,9 +517,136 @@
 												</a>	
 											</div>
 										</div>	
+										<div class="part" style="display: none;">
+											<input type="text" id="preKeggInpputPath" name="preKeggInpputPath" />
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">展示数目:</div>
+											<div class="input_a_m" style="width: 345px;">
+												<input id="preNum"  name="preNum" value="20"  type="text" class="form-control" >
+											</div>
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">缩放比例:</div>
+											<div class="input_a_m" style="width: 345px;">
+												<input id="preRatio"  name="preRatio" value="1" type="text" class="form-control" >
+											</div>
+										</div>	
+										<div class="part">
+											<div class="input_e_2 colorInput">
+												最小值颜色:
+											</div>
+											<div class="input_c_4">
+												<input id="preSamllColor" name="preSamllColor" value="red" type="text" class="form-control spectrum">
+											</div>
+											<div class="input_e_2 colorInput" style="margin-left: 10px;">
+												中间颜色:
+											</div>
+											<div class="input_c_4">
+												<input id="preMiddColor" name="preMiddColor" value="green" type="text" class="form-control spectrum">
+											</div>
+											<div class="input_e_2 colorInput" style="margin-left: 10px;">
+												最大值颜色:
+											</div>
+											<div class="input_c_4">
+												<input id="preBigColor" name="preBigColor" value="blue" type="text" class="form-control spectrum">
+											</div>
+										</div>
 										<div class="line"></div>
-										
-	
+										<div class="part">
+											<div class="input_a_l titleNameLeft">标题名称:</div>
+											<div class="input_b_2 inputLeft">
+												<input id="preTitleText" name="preTitleText" value="Statistics of Pathway Enrichment"  type="text" class="form-control">
+											</div>
+											<div class="right">
+												<div class="input_a_l">字体大小:</div>
+												<div class="input_b_2">
+													<input id="preTitleFontsize" name="preTitleFontsize" value="16"  type="text" class="form-control" >
+												</div>
+											</div>
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">字体颜色:</div>
+											<div class="input_b_2 inputLeft">
+												<input id="preTitleColor" name="preTitleColor" value="black" type="text" class="form-control spectrum">
+											</div>
+										</div>
+										<div class="line"></div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">X轴名称:</div>
+											<div class="input_b_2 inputLeft">
+												<input id="preXText" name="preXText" value="Rich factor" type="text" class="form-control">
+											</div>
+											<div class="right">
+												<div class="input_a_l">字体大小:</div>
+												<div class="input_b_2">
+													<input id="preXFontsize" name="preXFontsize" value="14" type="text" class="form-control" >
+												</div>
+											</div>
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">字体颜色:</div>
+											<div class="input_b_2 inputLeft">
+												<input id="preXColor" name="preXColor" value="red" type="text" class="form-control spectrum">
+											</div>
+										</div>
+										<div class="line"></div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">Y轴名称:</div>
+											<div class="input_b_2 inputLeft">
+												<input id="preYText" name="preYText" type="text" class="form-control">
+											</div>
+											<div class="right">
+												<div class="input_a_l">字体大小:</div>
+												<div class="input_b_2">
+													<input id="preYFontsize" name="preYFontsize" type="text" class="form-control">
+												</div>
+											</div>
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">字体颜色:</div>
+											<div class="input_b_2 inputLeft">
+												<input id="preYColor" name="preYColor" value="black" type="text" class="form-control spectrum">
+											</div>
+										</div>
+										<div class="line"></div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">线条类型:</div>
+											<div class="input_b_2 inputLeft">
+												<select id="preLinestyle" name="preLinestyle" class="selectpicker select_width" autocomplete="off">
+													<option value="dashdotted">dashdotted</option>
+													<option value="none">none</option>
+													<option value="dashed">dashed</option>
+													<option value="dotted">dotted</option>
+												</select>
+											</div>
+											<div class="right">
+												<div class="input_a_l">坐标轴:</div>
+												<div class="input_b_2">
+													<select id="preAxis" name="preAxis" class="selectpicker select_width" autocomplete="off">
+														<option value="both">both</option>
+														<option value="x">x</option>
+														<option value="y">y</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">刻度:</div>
+											<div class="input_b_2 inputLeft">
+												<select id="preWhich" name="preWhich" class="selectpicker select_width" autocomplete="off">
+													<option value="both">both</option>
+													<option value="major">major</option>
+													<option value="minor">minor</option>
+												</select>
+											</div>
+											<div class="right">
+												<div class="input_a_l">可见度:</div>
+												<div class="input_b_2">
+													<input id="preAlpha" name="preAlpha" type="text" class="form-control" value="0.5" />
+												</div>
+											</div>
+										</div>
 									</form>
 								</div>
 								<div class="panel-footer" style="height: 51px;">
@@ -506,10 +654,31 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane" id="originalKEGGScatter">
+						<div class="tab-pane active" id="originalKEGGScatter">
 							<div class="panel  panel-default">				
 								<div class="panel-body" style="height: 439px;">
-									<form class="parameter" id="parameter">
+									<form class="parameter" id="orgKeggParameter">
+										<div class="part">
+											<div style="margin-bottom: 30px;">
+												<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
+												<div class="input_b_3" style="width: 180px;float: left;margin-right: 40px;"">
+													<select  id="oriKeggCompareGroups"  name="oriKeggCompareGroups" class="selectpicker select_width" autocomplete="off">
+													</select>
+												</div>	
+												<div class="input_b_3" style="width:180px;float: left;">
+													<select  id="oriKeggAll"  name="oriKeggAll" class="selectpicker select_width" autocomplete="off">
+														<option value="ALL">ALL</option>
+														<option value="UP">UP</option>
+														<option value="DOWN">DOWN</option>
+													</select>
+												</div>	
+											</div>
+										</div>
+										<div class="part">
+											<table data-toggle="table" data-height="200" data-show-footer="false" data-sort-name="id">
+											</table>	
+										</div>
+										<div class="line"></div>
 										<!--输出目录-->
 										<div class="part">
 											<div class="input_a_l titleNameLeft">输出目录:</div>
@@ -521,8 +690,134 @@
 													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
 												</a>
 											</div>
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">展示数目:</div>
+											<div class="input_a_m" style="width: 345px;">
+												<input id="oriNum"  name="oriNum" value="20"  type="text" class="form-control" >
+											</div>
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">缩放比例:</div>
+											<div class="input_a_m" style="width: 345px;">
+												<input id="oriRatio"  name="oriRatio" value="1" type="text" class="form-control" >
+											</div>
 										</div>	
+										<div class="part">
+											<div class="input_e_2 colorInput">
+												最小值颜色:
+											</div>
+											<div class="input_c_4">
+												<input id="oriSamllColor" name="oriSamllColor" value="red"  type="text" class="form-control spectrum">
+											</div>
+											<div class="input_e_2 colorInput" style="margin-left: 10px;">
+												中间颜色:
+											</div>
+											<div class="input_c_4">
+												<input id="oriMiddColor" name="oriMiddColor" value="green" type="text" class="form-control spectrum">
+											</div>
+											<div class="input_e_2 colorInput" style="margin-left: 10px;">
+												最大值颜色:
+											</div>
+											<div class="input_c_4">
+												<input id="oriBigColor" name="oriBigColor" value="blue" type="text" class="form-control spectrum">
+											</div>
+										</div>
 										<div class="line"></div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">标题名称:</div>
+											<div class="input_b_2 inputLeft">
+												<input id="oriTitleText" name="oriTitleText" value="Statistics of Pathway Enrichment"  type="text" class="form-control">
+											</div>
+											<div class="right">
+												<div class="input_a_l">字体大小:</div>
+												<div class="input_b_2">
+													<input id="oriTitleFontsize" name="oriTitleFontsize" value="16"  type="text" class="form-control" >
+												</div>
+											</div>
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">字体颜色:</div>
+											<div class="input_b_2 inputLeft">
+												<input id="oriTitleColor" name="oriTitleColor" value="black" type="text" class="form-control spectrum">
+											</div>
+										</div>
+										<div class="line"></div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">X轴名称:</div>
+											<div class="input_b_2 inputLeft">
+												<input id="oriXText" name="oriXText" value="Rich factor" type="text" class="form-control">
+											</div>
+											<div class="right">
+												<div class="input_a_l">字体大小:</div>
+												<div class="input_b_2">
+													<input id="oriXFontsize" name="oriXFontsize" value="14" type="text" class="form-control" >
+												</div>
+											</div>
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">字体颜色:</div>
+											<div class="input_b_2 inputLeft">
+												<input id="oriXColor" name="oriXColor" value="red" type="text" class="form-control spectrum">
+											</div>
+										</div>
+										<div class="line"></div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">Y轴名称:</div>
+											<div class="input_b_2 inputLeft">
+												<input id="oriYText" name="oriYText" type="text" class="form-control">
+											</div>
+											<div class="right">
+												<div class="input_a_l">字体大小:</div>
+												<div class="input_b_2">
+													<input id="oriYFontsize" name="oriYFontsize" type="text" class="form-control">
+												</div>
+											</div>
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">字体颜色:</div>
+											<div class="input_b_2 inputLeft">
+												<input id="oriYColor" name="oriYColor" value="black" type="text" class="form-control spectrum">
+											</div>
+										</div>
+										<div class="line"></div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">线条类型:</div>
+											<div class="input_b_2 inputLeft">
+												<select id="oriLinestyle" name="oriLinestyle" class="selectpicker select_width" autocomplete="off">
+													<option value="dashdotted">dashdotted</option>
+													<option value="none">none</option>
+													<option value="dashed">dashed</option>
+													<option value="dotted">dotted</option>
+												</select>
+											</div>
+											<div class="right">
+												<div class="input_a_l">坐标轴:</div>
+												<div class="input_b_2">
+													<select id="oriAxis" name="oriAxis" class="selectpicker select_width" autocomplete="off">
+														<option value="both">both</option>
+														<option value="x">x</option>
+														<option value="y">y</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft">刻度:</div>
+											<div class="input_b_2 inputLeft">
+												<select id="oriWhich" name="oriWhich" class="selectpicker select_width" autocomplete="off">
+													<option value="both">both</option>
+													<option value="major">major</option>
+													<option value="minor">minor</option>
+												</select>
+											</div>
+											<div class="right">
+												<div class="input_a_l">可见度:</div>
+												<div class="input_b_2">
+													<input id="oriAlpha" name="oriAlpha" type="text" class="form-control" value="0.5" />
+												</div>
+											</div>
+										</div>
 									</form>
 								</div>
 								<div class="panel-footer" style="height: 51px;">
@@ -562,7 +857,7 @@
 						<div class="tab-pane" id="KEGGStatus">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<table data-toggle="table" data-height="200" data-show-footer="false" data-sort-name="id" id="KEGGStatusTable">
+									<table data-toggle="table" data-show-footer="false" data-sort-name="id" id="KEGGStatusTable">
 										<thead>
 											<tr>
 												<th data-field="flow_mod" data-sortable="true">模块名称</th>
@@ -586,9 +881,9 @@
 									        <a id="KEGGScatterPrev" href="#" class="prev">&lsaquo;</a>
 									        <div id="KEGGScatterCarousel" class="carousel" style="width: 455px;height: 460px;">
 									            <ul>
-									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N1_2_classfication_pie.png" alt="" /></a></li>
-									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/N2_1_gc.png" alt="" /></a></li>
-									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="img/classfication_bar.png" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
+									            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
 									            </ul>
 									        </div>
 									        <a id="KEGGScatterNext" href="#" class="next">&rsaquo;</a>
@@ -967,21 +1262,16 @@
 	<!--FancyBox弹出窗口插件-->
 	<script src="public/js/jquery.mousewheel.pack.js"></script>
 	<script src="public/js/jquery.fancybox.pack.js"></script>
+	
+	<script src="public/draw/script/spectrum.js"></script>
+    <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
 	<script src="public/js/long_common.js"></script>
 	<script src="js/go.js"></script>
 	<script src="js/common1.js"></script>	
 	<script>
-        $(function() {
-
-            $("#KEGGScatterCarousel").jCarouselLite({
-                btnNext: ".default #KEGGScatterNext",
-                btnPrev: ".default #KEGGScatterPrev",
-                visible: 1,
-                speed: 800
-            });
-            
-        })	
-
+	$(".spectrum").spectrum({
+	    
+	});
 		$(document).ready(function() {
 			$(".fancybox-effects-a").fancybox({
 				width:500,
@@ -1218,67 +1508,63 @@ $(function(){
 	}
 	
 	var groupsValues = sessionStorage.getItem("groupSamples");
-	if(groupsValues.length>0){
-		var groupsObg = $.parseJSON( groupsValues ); 
-		if(groupsObg){
-			for(key in groupsObg){
-				var value=groupsObg[key];
-				var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
-				var divHtml = $(html);
-				allgroups.push(key);
-				for(var i=0;i<value.length;i++){
-					var sample=value[i];
-					var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-				    	+sample+'</li>');
-				  liHtml.appendTo(divHtml.find("ul"))
-					
-				}
-				divHtml.appendTo('#groupList');
-				dragInit();
+	var groupsObg = $.parseJSON( groupsValues ); 
+	if(groupsObg){
+		for(key in groupsObg){
+			var value=groupsObg[key];
+			var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
+			var divHtml = $(html);
+			allgroups.push(key);
+			for(var i=0;i<value.length;i++){
+				var sample=value[i];
+				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+			    	+sample+'</li>');
+			  liHtml.appendTo(divHtml.find("ul"))
+				
 			}
-		}
-	}
-	var compareValues = sessionStorage.getItem("compareGroups");
-	if(compareValues.length>0){
-		var compareObg = $.parseJSON( compareValues ); 
-		if(compareObg){
-			for(key in compareObg){
-				var value=compareObg[key];
-				var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
-				var divHtml = $(html);
-				allCompares.push(key);
-				for(var i=0;i<value.length;i++){
-					var sample=value[i];
-					var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-				    	+sample+'</li>');
-				  liHtml.appendTo(divHtml.find("ul"))
-					
-				}
-				divHtml.appendTo('#compareList');
-				dragInit();
-			}
+			divHtml.appendTo('#groupList');
+			dragInit();
 		}
 	}
 	
-	var vennValues = sessionStorage.getItem("vennCompares"); 
-	if(vennValues.length>0){
-		var vennObg = $.parseJSON( vennValues ); 
-		if(vennObg){
-			for(key in vennObg){
-				var value=vennObg[key];
-				var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
-				var divHtml = $(html);
-				allVenns.push(key);
-				for(var i=0;i<value.length;i++){
-					var sample=value[i];
-					var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-				    	+sample+'</li>');
-				  liHtml.appendTo(divHtml.find("ul"))
-					
-				}
-				divHtml.appendTo('#vennList');
-				dragInit();
+	var compareValues = sessionStorage.getItem("compareGroups");
+	var compareObg = $.parseJSON( compareValues ); 
+	if(compareObg){
+		for(key in compareObg){
+			var value=compareObg[key];
+			var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
+			var divHtml = $(html);
+			allCompares.push(key);
+			for(var i=0;i<value.length;i++){
+				var sample=value[i];
+				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+			    	+sample+'</li>');
+			  liHtml.appendTo(divHtml.find("ul"))
+				
 			}
+			divHtml.appendTo('#compareList');
+			dragInit();
+		}
+	}
+	
+	
+	var vennValues = sessionStorage.getItem("vennCompares"); 
+	var vennObg = $.parseJSON( vennValues ); 
+	if(vennObg){
+		for(key in vennObg){
+			var value=vennObg[key];
+			var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
+			var divHtml = $(html);
+			allVenns.push(key);
+			for(var i=0;i<value.length;i++){
+				var sample=value[i];
+				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+			    	+sample+'</li>');
+			  liHtml.appendTo(divHtml.find("ul"))
+				
+			}
+			divHtml.appendTo('#vennList');
+			dragInit();
 		}
 	}
 	
@@ -2041,12 +2327,241 @@ $(function(){
 	
 	
 })
+/*-----------------KEGG通路散点图js代码------------------*/
+$(function(){
+	
+    $("#KEGGScatterCarousel").jCarouselLite({
+        btnNext: ".default #KEGGScatterNext",
+        btnPrev: ".default #KEGGScatterPrev",
+        visible: 1,
+        speed: 800
+    });
+	
+    function statusUpdate(){
+    	$.ajax({
+			url:'json/taskDetail.2.json',  
+			type:'get',
+			dataType: "json",
+			success:function(data) {
+				$('#KEGGStatus table').bootstrapTable('load',data["modStatus"]);
+			},
+			error : function(XMLHttpRequest) {
+			   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+			}
+		})
 
+    }
+	/*打开任务状态不断更新数据*/
+	var keggSet;
+	$('a[href="#KEGGStatus"]').on('show.bs.tab', function (e) {
+		statusUpdate();
+		keggSet=window.setInterval(statusUpdate,5000)
+	})
+	/*关闭任务状态不更新数据*/
+	$('a[href="#KEGGStatus"]').on('hide.bs.tab', function (e) {
+		window.clearInterval(keggSet)
+	})
+	var compareData5=null;
+	$('a[href="#KEGGPathScatter"]').on('show.bs.tab', function (e) {
+		if($("#oriKeggCompareGroups").val()==null){
+			$.ajax({
+				url:'json/deepExcavation2.json',  
+				type:'get',
+				dataType: "json",
+				success:function(data) {
+					compareData5=data["GoList"];
+					$("#oriKeggCompareGroups").empty();
+					for(var i=0;i<compareData5.length;i++){
+						var option="<option value="+compareData5[i]["compareName"]+">"+compareData5[i]["compareName"]+"</option>"
+						$("#oriKeggCompareGroups").append(option);
+					}
+					updateCheckTable("oriKeggCompareGroups","orgKeggParameter",compareData5);
+					$('#oriKeggCompareGroups').selectpicker('refresh');
+					$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
+						updateCheckTable("oriKeggCompareGroups","orgKeggParameter",compareData5);
+					});
+				},
+				error : function(XMLHttpRequest) {
+				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+				}
+			})
+		}
+	})
+	/*使用原始KEGG*/
+	var compareData4=null;
+	$('a[href="#originalKEGGScatter"]').on('show.bs.tab', function (e) {
+		if($("#oriKeggCompareGroups").val()==null){
+			$.ajax({
+				url:'json/deepExcavation2.json',  
+				type:'get',
+				dataType: "json",
+				success:function(data) {
+					compareData4=data["GoList"];
+					$("#oriKeggCompareGroups").empty();
+					for(var i=0;i<compareData4.length;i++){
+						var option="<option value="+compareData4[i]["compareName"]+">"+compareData4[i]["compareName"]+"</option>"
+						$("#oriKeggCompareGroups").append(option);
+					}
+					updateCheckTable("oriKeggCompareGroups","orgKeggParameter",compareData4);
+					$('#oriKeggCompareGroups').selectpicker('refresh');
+					$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
+						updateCheckTable("oriKeggCompareGroups","orgKeggParameter",compareData4);
+					});
+				},
+				error : function(XMLHttpRequest) {
+				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+				}
+			})
+		}
+	})
+	var arr=[]
+	$("#orgKeggParameter table").on("check.bs.table",function(){
+		var data=$(this).bootstrapTable("getSelections");
+		arr.push(data)
+	})
+	//提交参数
+	$("#kpsoSubmit_paras").click(function(){
+		var formData =  allParams($("#orgKeggParameter"));//取form表单参数
+		if(formData.oKeggScaInput==""){
+			alert("请选择输出目录！");
+		}else{
+			var tableDatas=$("#orgKeggParameter table").bootstrapTable("getSelections");
+			var resultPara={"paras":formData,
+							"tableDatas":tableDatas
+							};
+			resultPara = JSON.stringify(resultPara);
+			$.ajax({
+				url: 'json/deepExcavation1.json',  
+				type:'get',
+				data:{parameter:resultPara},
+				dataType: "json",
+				success:function(data) {
+					//kegg散点图
+					var oKeggPathScatter=data["KEGGScatter"];
+					$("#KEGGScatterCarousel").empty();
+					$("#KEGGScatterCarousel").append("<ul></ul>");
+ 					for(var i=0;i<oKeggPathScatter.length;i++){
+ 						$("#KEGGScatterCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+oKeggPathScatter[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + oKeggPathScatter[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#KEGGScatterCarousel").jCarouselLite({
+				        btnNext: ".default #KEGGScatterNext",
+				        btnPrev: ".default #KEGGScatterPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+				},    
+				error : function(XMLHttpRequest) {
+					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
+				}
+			});
+		}
+	})
+	
+	/*使用上一步KEGG*/
+	var compareData3=null;
+	$('a[href="#previousKEGGScatter"]').on('show.bs.tab', function (e) {
+		if($("#preKeggCompareGroups").val()==null){
+			$.ajax({
+				url:'json/deepExcavation1.json',  
+				type:'get',
+				dataType: "json",
+				success:function(data) {
+					compareData3=data["GoList"];
+					$("#preKeggCompareGroups").empty();
+					for(var i=0;i<compareData3.length;i++){
+						var option="<option value="+compareData3[i]["compareName"]+">"+compareData3[i]["compareName"]+"</option>"
+						$("#preKeggCompareGroups").append(option);
+					}
+					updateCheckTable("preKeggCompareGroups","previousKEGGScatter",compareData3);
+					$('#preKeggCompareGroups').selectpicker('refresh');
+					$('#preKeggCompareGroups').on('changed.bs.select', function (e) {
+						updateCheckTable("preKeggCompareGroups","previousKEGGScatter",compareData3);
+					});
+				},
+				error : function(XMLHttpRequest) {
+				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+				}
+			})
+		}
+	})
+	//提交参数
+	$("#kpspSubmit_paras").click(function(){
+		var formData =  allParams($("#preKeggScaParameter"));//取form表单参数
+		if(formData.pKeggScaInput==""){
+			alert("请选择输出目录！");
+		}else{
+			var tableDatas=$("#preKeggScaParameter table").bootstrapTable("getSelections");
+			var resultPara={"paras":formData,
+							"tableDatas":tableDatas
+							}; 		
+			resultPara = JSON.stringify(resultPara);
+			$.ajax({
+				url: 'json/deepExcavation2.json',  
+				type:'get',
+				data:{parameter:resultPara},
+				dataType: "json",
+				success:function(data) {
+					//kegg散点图
+					var pKeggPathScatter=data["KEGGScatter"];
+					$("#KEGGScatterCarousel").empty();
+					$("#KEGGScatterCarousel").append("<ul></ul>");
+ 					for(var i=0;i<pKeggPathScatter.length;i++){
+ 						$("#KEGGScatterCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+pKeggPathScatter[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + pKeggPathScatter[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#KEGGScatterCarousel").jCarouselLite({
+				        btnNext: ".default #KEGGScatterNext",
+				        btnPrev: ".default #KEGGScatterPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+				},    
+				error : function(XMLHttpRequest) {
+					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
+				}
+			});
+		}
+	});
+	
 
-
+})
 
 
 /*-------------公共函数-------------------*/
+function updateCheckTable(selectId,tabPanelId,compareData){
+		if(!compareData) return;
+		var p=$("#"+selectId).selectpicker("val");
+		for(var j=0;j<compareData.length;j++){
+			if(p==compareData[j]["compareName"]){
+				var content=compareData[j]['content'];
+				var head=content[0];
+				var options={
+					clickToSelect:true,
+					showFooter:false,
+					classes:'table',
+					columns: [{field:"state",checkbox:true,checkboxEnabled:true}]
+				}
+				for(var m=0;m<head.length;m++){
+					var obj={order: "asc"};
+					obj["title"]=head[m];
+					obj["field"]=head[m];
+					options.columns.push(obj);
+				}
+				$("#"+tabPanelId+" table").bootstrapTable(options);
+				var tableData=[];
+				for(var i=1;i<content.length;i++){
+					var row=content[i];
+					var rowObj={};
+					for(var k=0;k<row.length;k++){
+						rowObj[head[k]]=row[k];
+					}
+					tableData.push(rowObj);
+				}
+				$("#"+tabPanelId+" table").bootstrapTable('destroy');
+				$("#"+tabPanelId+" table").bootstrapTable(options);
+				$("#"+tabPanelId+" table").bootstrapTable('load',tableData);
+			}
+		}
+	}
 function updateTable(selectId,tabPanelId,compareData){
 		if(!compareData) return;
 		var p=$("#"+selectId).selectpicker("val");
