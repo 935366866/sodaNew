@@ -275,11 +275,19 @@
 }
 .parameter .titleNameLeft {
   float: left;
-  width: 96px;
+  width: 75px;
 }
 .parameter .inputLeft {
 	float: left;
-  width: 163px;
+  width: 145px;
+}
+.parameter .titleIndent {
+	font-size: 17px;
+	font-family: arial;
+	color: #333;
+}
+.parameter .contentIndent {
+	margin-left: 40px;
 }
 .parameter .inputLeft>.titleA{
 	float: left;

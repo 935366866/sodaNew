@@ -175,51 +175,55 @@
 											<input type="text" id="pGeneInput" name="pGeneInput" />
 										</div>
 										<div class="line"></div>
-										<div class="part" style="font-size: 18px;">GO富集参数:</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值类型:</div>
-											<div class="input_b_3" style="width: 305px;float: left;">
-												<select id="pgpTypes"  name="pgpTypes" class="selectpicker select_width" autocomplete="off" >
-													<option value="padj">correct</option>
-													<option value="pval">over_represented_pvalue</option>
-												</select>
-											</div>									
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值大小:</div>
-											<div class="input_a_m" style="width: 305px;">
-												<input  id="pgpValue" name="pgpValue" value="0.05" type="text" class="form-control">
-											</div>								
+										<div class="part titleIndent">GO富集参数:</div>
+										<div class="contentIndent">
+											<div class="part">
+												<div class="input_a_l titleNameLeft" >p值类型:</div>
+												<div class="input_b_3" style="width: 305px;float: left;">
+													<select id="pgpTypes"  name="pgpTypes" class="selectpicker select_width" autocomplete="off" >
+														<option value="padj">correct</option>
+														<option value="pval">over_represented_pvalue</option>
+													</select>
+												</div>									
+											</div>
+											<div class="part">
+												<div class="input_a_l titleNameLeft">p值大小:</div>
+												<div class="input_a_m" style="width: 305px;">
+													<input  id="pgpValue" name="pgpValue" value="0.05" type="text" class="form-control">
+												</div>								
+											</div>
 										</div>
 										<div class="line"></div>
-										<div class="part" style="font-size: 18px;">KEGG富集参数:</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">E值:</div>
-											<div class="input_a_m" style="width: 305px;">
-												<input  id="pgEValue" name="pgEValue" value="1e-5" type="text" class="form-control">
-											</div>								
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">统计检测方法:</div>
-											<div class="input_b_3" style="width: 305px;float: left;">
-												<select id="pgStatisMethod"  name="pgStatisMethod" class="selectpicker select_width" autocomplete="off" >
-													<option value="b">binomial test</option>
-													<option value="c">chi-square test</option>
-													<option value="h">hypergeometric test/Fisher's exact test</option>
-													<option value="x">frequency </option>
-												</select>
-											</div>									
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">FDR矫正方法:</div>
-											<div class="input_b_3" style="width: 305px;float: left;">
-												<select id="pgfdrMethod"  name="pgfdrMethod" class="selectpicker select_width" autocomplete="off" >
-													<option value="BH ">Benjamini and Hochberg</option>
-													<option value="BY ">Benjamini and Yekutieli</option>
-													<option value="QVALUE">QVALUE</option>
-													<option value="None">None</option>
-												</select>
-											</div>									
+										<div class="part titleIndent">KEGG富集参数:</div>
+										<div class="contentIndent">
+											<div class="part">
+												<div class="input_a_l titleNameLeft">E值:</div>
+												<div class="input_a_m" style="width: 305px;">
+													<input  id="pgEValue" name="pgEValue" value="1e-5" type="text" class="form-control">
+												</div>								
+											</div>
+											<div class="part">
+												<div class="input_a_l titleNameLeft" style="width: 100px;">统计检测方法:</div>
+												<div class="input_b_3" style="width: 280px;float: left;">
+													<select id="pgStatisMethod"  name="pgStatisMethod" class="selectpicker select_width" autocomplete="off" >
+														<option value="b">binomial test</option>
+														<option value="c">chi-square test</option>
+														<option value="h">hypergeometric test/Fisher's exact test</option>
+														<option value="x">frequency </option>
+													</select>
+												</div>									
+											</div>
+											<div class="part">
+												<div class="input_a_l titleNameLeft" style="width: 100px;">FDR矫正方法:</div>
+												<div class="input_b_3" style="width: 280px;float: left;">
+													<select id="pgfdrMethod"  name="pgfdrMethod" class="selectpicker select_width" autocomplete="off" >
+														<option value="BH ">Benjamini and Hochberg</option>
+														<option value="BY ">Benjamini and Yekutieli</option>
+														<option value="QVALUE">QVALUE</option>
+														<option value="None">None</option>
+													</select>
+												</div>									
+											</div>											
 										</div>
 									</form>
 								</div>
@@ -248,51 +252,55 @@
 											<input type="text" id="oGeneInput" name="oGeneInput" />
 										</div>
 										<div class="line"></div>
-										<div class="part" style="font-size: 18px;">GO富集参数:</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值类型:</div>
-											<div class="input_b_3" style="width: 305px;float: left;">
-												<select id="ogpTypes"  name="ogpTypes" class="selectpicker select_width" autocomplete="off" >
-													<option value="padj">correct</option>
-													<option value="pval">over_represented_pvalue</option>
-												</select>
-											</div>									
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">p值大小:</div>
-											<div class="input_a_m" style="width: 305px;">
-												<input id="ogpValue" name="ogpValue"  value="0.05" type="text" class="form-control" >
-											</div>								
+										<div class="part titleIndent">GO富集参数:</div>
+										<div class="contentIndent">
+											<div class="part">
+												<div class="input_a_l titleNameLeft">p值类型:</div>
+												<div class="input_b_3" style="width: 305px;float: left;">
+													<select id="ogpTypes"  name="ogpTypes" class="selectpicker select_width" autocomplete="off" >
+														<option value="padj">correct</option>
+														<option value="pval">over_represented_pvalue</option>
+													</select>
+												</div>									
+											</div>
+											<div class="part">
+												<div class="input_a_l titleNameLeft">p值大小:</div>
+												<div class="input_a_m" style="width: 305px;">
+													<input id="ogpValue" name="ogpValue"  value="0.05" type="text" class="form-control" >
+												</div>								
+											</div>
 										</div>
 										<div class="line"></div>
-										<div class="part" style="font-size: 18px;">KEGG富集参数:</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">E值:</div>
+										<div class="part titleIndent">KEGG富集参数:</div>
+										<div class="contentIndent">
+											<div class="part">
+											<div class="input_a_l titleNameLeft">E值:</div>
 											<div class="input_a_m" style="width: 305px;">
 												<input id="ogEValue" name="ogEValue" value="1e-5" type="text" class="form-control">
 											</div>								
 										</div>
 										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">统计检测方法:</div>
-											<div class="input_b_3" style="width: 305px;float: left;">
-												<select id="ogStatisMethod"  name="ogStatisMethod" class="selectpicker select_width" autocomplete="off" >
-													<option value="b">binomial test</option>
-													<option value="c">chi-square test</option>
-													<option value="h">hypergeometric test/Fisher's exact test</option>
-													<option value="x">frequency </option>
-												</select>
-											</div>									
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="margin-left: 40px;">FDR矫正方法:</div>
-											<div class="input_b_3" style="width: 305px;float: left;">
-												<select id="ogfdrMethod"  name="ogfdrMethod" class="selectpicker select_width" autocomplete="off" >
-													<option value="BH ">Benjamini and Hochberg</option>
-													<option value="BY ">Benjamini and Yekutieli</option>
-													<option value="QVALUE">QVALUE</option>
-													<option value="None">None</option>
-												</select>
-											</div>									
+											<div class="input_a_l titleNameLeft" style="width: 100px;">统计检测方法:</div>
+												<div class="input_b_3" style="width: 280px;float: left;">
+													<select id="ogStatisMethod"  name="ogStatisMethod" class="selectpicker select_width" autocomplete="off" >
+														<option value="b">binomial test</option>
+														<option value="c">chi-square test</option>
+														<option value="h">hypergeometric test/Fisher's exact test</option>
+														<option value="x">frequency </option>
+													</select>
+												</div>									
+											</div>
+											<div class="part">
+												<div class="input_a_l titleNameLeft" style="width: 100px;">FDR矫正方法:</div>
+												<div class="input_b_3" style="width: 280px;float: left;">
+													<select id="ogfdrMethod"  name="ogfdrMethod" class="selectpicker select_width" autocomplete="off" >
+														<option value="BH ">Benjamini and Hochberg</option>
+														<option value="BY ">Benjamini and Yekutieli</option>
+														<option value="QVALUE">QVALUE</option>
+														<option value="None">None</option>
+													</select>
+												</div>									
+											</div>
 										</div>
 									</form>
 								</div>
@@ -553,97 +561,103 @@
 											</div>
 										</div>
 										<div class="line"></div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">标题名称:</div>
-											<div class="input_b_2 inputLeft">
-												<input id="preTitleText" name="preTitleText" value="Statistics of Pathway Enrichment"  type="text" class="form-control">
+										<div class="part titleIndent">标题:</div>
+										<div class="contentIndent">
+											<div class="part">
+												<div class="input_a_l titleNameLeft">标题名称:</div>
+												<div class="input_b_2 inputLeft">
+													<input id="preTitleText" name="preTitleText" value="Statistics of Pathway Enrichment"  type="text" class="form-control">
+												</div>
+												<div class="right">
+													<div class="input_a_l">字体大小:</div>
+													<div class="input_b_2">
+														<input id="preTitleFontsize" name="preTitleFontsize" value="16"  type="text" class="form-control" >
+													</div>
+												</div>
 											</div>
-											<div class="right">
-												<div class="input_a_l">字体大小:</div>
-												<div class="input_b_2">
-													<input id="preTitleFontsize" name="preTitleFontsize" value="16"  type="text" class="form-control" >
+											<div class="part">
+												<div class="input_a_l titleNameLeft">字体颜色:</div>
+												<div class="input_b_2 inputLeft">
+													<input id="preTitleColor" name="preTitleColor" value="black" type="text" class="form-control spectrum">
+												</div>
+											</div>
+										</div>	
+										<div class="line"></div>
+										<div class="part titleIndent">X轴:</div>
+										<div class="contentIndent">
+											<div class="part">
+												<div class="input_a_l titleNameLeft">X轴名称:</div>
+												<div class="input_b_2 inputLeft">
+													<input id="preXText" name="preXText" value="Rich factor" type="text" class="form-control">
+												</div>
+												<div class="right">
+													<div class="input_a_l">字体大小:</div>
+													<div class="input_b_2">
+														<input id="preXFontsize" name="preXFontsize" value="12" type="text" class="form-control" >
+													</div>
+												</div>
+											</div>
+											<div class="part">
+												<div class="input_a_l titleNameLeft">字体颜色:</div>
+												<div class="input_b_2 inputLeft">
+													<input id="preXColor" name="preXColor" value="black" type="text" class="form-control spectrum">
 												</div>
 											</div>
 										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">字体颜色:</div>
-											<div class="input_b_2 inputLeft">
-												<input id="preTitleColor" name="preTitleColor" value="black" type="text" class="form-control spectrum">
-											</div>
-										</div>
 										<div class="line"></div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">X轴名称:</div>
-											<div class="input_b_2 inputLeft">
-												<input id="preXText" name="preXText" value="Rich factor" type="text" class="form-control">
-											</div>
-											<div class="right">
-												<div class="input_a_l">字体大小:</div>
-												<div class="input_b_2">
-													<input id="preXFontsize" name="preXFontsize" value="14" type="text" class="form-control" >
+										<div class="part titleIndent">Y轴:</div>
+										<div class="contentIndent">
+											<div class="part">
+												<div class="input_a_l titleNameLeft">字体颜色:</div>
+												<div class="input_b_2 inputLeft">
+													<input id="preYColor" name="preYColor" value="black" type="text" class="form-control spectrum">
+												</div>
+												<div class="right">
+													<div class="input_a_l">字体大小:</div>
+													<div class="input_b_2">
+														<input id="preYFontsize" value="12" name="preYFontsize" type="text" class="form-control">
+													</div>
 												</div>
 											</div>
 										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">字体颜色:</div>
-											<div class="input_b_2 inputLeft">
-												<input id="preXColor" name="preXColor" value="red" type="text" class="form-control spectrum">
-											</div>
-										</div>
 										<div class="line"></div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">Y轴名称:</div>
-											<div class="input_b_2 inputLeft">
-												<input id="preYText" name="preYText" type="text" class="form-control">
-											</div>
-											<div class="right">
-												<div class="input_a_l">字体大小:</div>
-												<div class="input_b_2">
-													<input id="preYFontsize" name="preYFontsize" type="text" class="form-control">
-												</div>
-											</div>
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">字体颜色:</div>
-											<div class="input_b_2 inputLeft">
-												<input id="preYColor" name="preYColor" value="black" type="text" class="form-control spectrum">
-											</div>
-										</div>
-										<div class="line"></div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">线条类型:</div>
-											<div class="input_b_2 inputLeft">
-												<select id="preLinestyle" name="preLinestyle" class="selectpicker select_width" autocomplete="off">
-													<option value="dashdotted">dashdotted</option>
-													<option value="none">none</option>
-													<option value="dashed">dashed</option>
-													<option value="dotted">dotted</option>
-												</select>
-											</div>
-											<div class="right">
-												<div class="input_a_l">坐标轴:</div>
-												<div class="input_b_2">
-													<select id="preAxis" name="preAxis" class="selectpicker select_width" autocomplete="off">
-														<option value="both">both</option>
-														<option value="x">x</option>
-														<option value="y">y</option>
+										<div class="part titleIndent">网格线:</div>
+										<div class="contentIndent">
+											<div class="part">
+												<div class="input_a_l titleNameLeft">线条类型:</div>
+												<div class="input_b_2 inputLeft">
+													<select id="preLinestyle" name="preLinestyle" class="selectpicker select_width" autocomplete="off">
+														<option value="dashdotted">dashdotted</option>
+														<option value="none">none</option>
+														<option value="dashed">dashed</option>
+														<option value="dotted">dotted</option>
 													</select>
 												</div>
+												<div class="right">
+													<div class="input_a_l">坐标轴:</div>
+													<div class="input_b_2">
+														<select id="preAxis" name="preAxis" class="selectpicker select_width" autocomplete="off">
+															<option value="both">both</option>
+															<option value="x">x</option>
+															<option value="y">y</option>
+														</select>
+													</div>
+												</div>
 											</div>
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">刻度:</div>
-											<div class="input_b_2 inputLeft">
-												<select id="preWhich" name="preWhich" class="selectpicker select_width" autocomplete="off">
-													<option value="both">both</option>
-													<option value="major">major</option>
-													<option value="minor">minor</option>
-												</select>
-											</div>
-											<div class="right">
-												<div class="input_a_l">可见度:</div>
-												<div class="input_b_2">
-													<input id="preAlpha" name="preAlpha" type="text" class="form-control" value="0.5" />
+											<div class="part">
+												<div class="input_a_l titleNameLeft">刻度:</div>
+												<div class="input_b_2 inputLeft">
+													<select id="preWhich" name="preWhich" class="selectpicker select_width" autocomplete="off">
+														<option value="both">both</option>
+														<option value="major">major</option>
+														<option value="minor">minor</option>
+													</select>
+												</div>
+												<div class="right">
+													<div class="input_a_l">可见度:</div>
+													<div class="input_b_2">
+														<input id="preAlpha" name="preAlpha" type="text" class="form-control" value="0.5" />
+													</div>
 												</div>
 											</div>
 										</div>
@@ -691,6 +705,9 @@
 												</a>
 											</div>
 										</div>
+										<div class="part" style="display: none;">
+											<input type="text" id="oriKeggInpputPath" name="oriKeggInpputPath" />
+										</div>
 										<div class="part">
 											<div class="input_a_l titleNameLeft">展示数目:</div>
 											<div class="input_a_m" style="width: 345px;">
@@ -724,97 +741,103 @@
 											</div>
 										</div>
 										<div class="line"></div>
-										<div class="part">
+										<div class="part titleIndent">标题:</div>
+										<div class="contentIndent">
+											<div class="part">
 											<div class="input_a_l titleNameLeft">标题名称:</div>
 											<div class="input_b_2 inputLeft">
-												<input id="oriTitleText" name="oriTitleText" value="Statistics of Pathway Enrichment"  type="text" class="form-control">
+													<input id="oriTitleText" name="oriTitleText" value="Statistics of Pathway Enrichment"  type="text" class="form-control">
+												</div>
+												<div class="right">
+													<div class="input_a_l">字体大小:</div>
+													<div class="input_b_2">
+														<input id="oriTitleFontsize" name="oriTitleFontsize" value="16"  type="text" class="form-control" >
+													</div>
+												</div>
 											</div>
-											<div class="right">
-												<div class="input_a_l">字体大小:</div>
-												<div class="input_b_2">
-													<input id="oriTitleFontsize" name="oriTitleFontsize" value="16"  type="text" class="form-control" >
+											<div class="part">
+												<div class="input_a_l titleNameLeft">字体颜色:</div>
+												<div class="input_b_2 inputLeft">
+													<input id="oriTitleColor" name="oriTitleColor" value="black" type="text" class="form-control spectrum">
 												</div>
 											</div>
 										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">字体颜色:</div>
-											<div class="input_b_2 inputLeft">
-												<input id="oriTitleColor" name="oriTitleColor" value="black" type="text" class="form-control spectrum">
-											</div>
-										</div>
 										<div class="line"></div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">X轴名称:</div>
-											<div class="input_b_2 inputLeft">
-												<input id="oriXText" name="oriXText" value="Rich factor" type="text" class="form-control">
+										<div class="part titleIndent">X轴:</div>
+										<div class="contentIndent">
+											<div class="part">
+												<div class="input_a_l titleNameLeft">X轴名称:</div>
+												<div class="input_b_2 inputLeft">
+													<input id="oriXText" name="oriXText" value="Rich factor" type="text" class="form-control">
+												</div>
+												<div class="right">
+													<div class="input_a_l">字体大小:</div>
+													<div class="input_b_2">
+														<input id="oriXFontsize" name="oriXFontsize" value="12" type="text" class="form-control" >
+													</div>
+												</div>
 											</div>
-											<div class="right">
-												<div class="input_a_l">字体大小:</div>
-												<div class="input_b_2">
-													<input id="oriXFontsize" name="oriXFontsize" value="14" type="text" class="form-control" >
+											<div class="part">
+												<div class="input_a_l titleNameLeft">字体颜色:</div>
+												<div class="input_b_2 inputLeft">
+													<input id="oriXColor" name="oriXColor" value="black" type="text" class="form-control spectrum">
 												</div>
 											</div>
 										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">字体颜色:</div>
-											<div class="input_b_2 inputLeft">
-												<input id="oriXColor" name="oriXColor" value="red" type="text" class="form-control spectrum">
-											</div>
-										</div>
 										<div class="line"></div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">Y轴名称:</div>
-											<div class="input_b_2 inputLeft">
-												<input id="oriYText" name="oriYText" type="text" class="form-control">
-											</div>
-											<div class="right">
-												<div class="input_a_l">字体大小:</div>
-												<div class="input_b_2">
-													<input id="oriYFontsize" name="oriYFontsize" type="text" class="form-control">
+										<div class="part titleIndent">Y轴:</div>
+										<div class="contentIndent">
+											<div class="part">
+												<div class="input_a_l titleNameLeft">字体颜色:</div>
+												<div class="input_b_2 inputLeft">
+													<input id="oriYColor" name="oriYColor" value="black" type="text" class="form-control spectrum">
+												</div>
+												<div class="right">
+													<div class="input_a_l">字体大小:</div>
+													<div class="input_b_2">
+														<input id="oriYFontsize" value="12" name="oriYFontsize" type="text" class="form-control">
+													</div>
 												</div>
 											</div>
 										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">字体颜色:</div>
-											<div class="input_b_2 inputLeft">
-												<input id="oriYColor" name="oriYColor" value="black" type="text" class="form-control spectrum">
-											</div>
-										</div>
 										<div class="line"></div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">线条类型:</div>
-											<div class="input_b_2 inputLeft">
-												<select id="oriLinestyle" name="oriLinestyle" class="selectpicker select_width" autocomplete="off">
-													<option value="dashdotted">dashdotted</option>
-													<option value="none">none</option>
-													<option value="dashed">dashed</option>
-													<option value="dotted">dotted</option>
-												</select>
-											</div>
-											<div class="right">
-												<div class="input_a_l">坐标轴:</div>
-												<div class="input_b_2">
-													<select id="oriAxis" name="oriAxis" class="selectpicker select_width" autocomplete="off">
-														<option value="both">both</option>
-														<option value="x">x</option>
-														<option value="y">y</option>
+										<div class="part titleIndent">网格线:</div>
+										<div class="contentIndent">
+											<div class="part">
+												<div class="input_a_l titleNameLeft">线条类型:</div>
+												<div class="input_b_2 inputLeft">
+													<select id="oriLinestyle" name="oriLinestyle" class="selectpicker select_width" autocomplete="off">
+														<option value="dashdotted">dashdotted</option>
+														<option value="none">none</option>
+														<option value="dashed">dashed</option>
+														<option value="dotted">dotted</option>
 													</select>
 												</div>
+												<div class="right">
+													<div class="input_a_l">坐标轴:</div>
+													<div class="input_b_2">
+														<select id="oriAxis" name="oriAxis" class="selectpicker select_width" autocomplete="off">
+															<option value="both">both</option>
+															<option value="x">x</option>
+															<option value="y">y</option>
+														</select>
+													</div>
+												</div>
 											</div>
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft">刻度:</div>
-											<div class="input_b_2 inputLeft">
-												<select id="oriWhich" name="oriWhich" class="selectpicker select_width" autocomplete="off">
-													<option value="both">both</option>
-													<option value="major">major</option>
-													<option value="minor">minor</option>
-												</select>
-											</div>
-											<div class="right">
-												<div class="input_a_l">可见度:</div>
-												<div class="input_b_2">
-													<input id="oriAlpha" name="oriAlpha" type="text" class="form-control" value="0.5" />
+											<div class="part">
+												<div class="input_a_l titleNameLeft">刻度:</div>
+												<div class="input_b_2 inputLeft">
+													<select id="oriWhich" name="oriWhich" class="selectpicker select_width" autocomplete="off">
+														<option value="both">both</option>
+														<option value="major">major</option>
+														<option value="minor">minor</option>
+													</select>
+												</div>
+												<div class="right">
+													<div class="input_a_l">可见度:</div>
+													<div class="input_b_2">
+														<input id="oriAlpha" name="oriAlpha" type="text" class="form-control" value="0.5" />
+													</div>
 												</div>
 											</div>
 										</div>
@@ -1272,149 +1295,22 @@
 	$(".spectrum").spectrum({
 	    
 	});
-		$(document).ready(function() {
-			$(".fancybox-effects-a").fancybox({
-				width:500,
-				height:500,
-				helpers: {
-					title : {
-						type : 'outside'
-					},
-					overlay : {
-						speedOut : 0
-					}
+	$(document).ready(function() {
+		$(".fancybox-effects-a").fancybox({
+			width:500,
+			height:500,
+			helpers: {
+				title : {
+					type : 'outside'
+				},
+				overlay : {
+					speedOut : 0
 				}
-			});
-
+			}
 		});
+
+	});
 		
-$(function(){
-		//波波，这是删除，终止和重跑的地址
-    var delete_url = "";
-    var stop_url = "";
-	var rerun_url = "";
-
-//与后台交互时冻结
-	$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
-
-//------按钮们--------
-//刷新
-	$("#refresh").click(function(){
-		window.location.reload();
-    });
-//终止
-	$("#stop").click(function(){
-		var r=confirm("您确定要终止该任务吗？"); 
-		if(r==true){
-			 var id = $("#taskId").val();
-			 $.ajax({
-				    url:stop_url,  
-				    type:'get',
-				    data:{id:id},
-				    dataType: "json",
-				    success:function(data) {
-				    	if(data['status']=='ERROR'){    //请求成功但没有执行成功
-				    		alert(data['data']);
-				    	}else{
-							alert("任务终止成功！");
-							$(this).find("img").attr("src","img/start.svg") 
-				    	};
-				     },    
-				     error : function(XMLHttpRequest) {
-				       alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText); 
-				     }
-				});  
-		  };
-    });    
-//删除
-	$("#delete").click(function(){
-		var r=confirm("您确定要删除该任务吗？");
-		if(r==true){
-
-			 var id = $("#taskId").val();
-			 $.ajax({
-				    url:delete_url,  
-				    type:'get',
-				    data:{id:id},
-				    dataType: "json",
-				    success:function(data) {
-				    	if(data['status']=='ERROR'){    //请求成功但没有执行成功
-				    		alert(data['data']);
-				    	}else{
-							alert("删除成功！");	
-				    	};
-				     },    
-				     error : function(XMLHttpRequest) {
-				       alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
-				     }
-				});  
-		  };
-    });
-    
-    $(".main_nav3_left_report li").click(function(){
-    	$(this).children("span").css("background",'#13438B').children("a").css("color","#fff");
-    	$(this).siblings("li").children("span").css("background",'#fff').children("a").css("color","#777");
-    })
-	//rerun
-	$("#taskRerun").click(function(){
-		$(this).parent("span").css("background","#13438B").children("a").css("color","#fff");
-		var r=confirm("您确定要rerun该任务吗？");
-		if (r==true)
-			{
-				var id = $("#taskId").val();
-				$.ajax({
-					url:rerun_url,    //甄伟波，rerun的地址  
-					type:'get',
-					data:{id:id},
-					dataType: "json",
-					success:function(data) {
-						if(data['status']=='ERROR'){    //请求成功但没有执行成功
-							alert(data['data']);
-						}else{
-							alert("rerun成功！");
-							$("#taskRerun").parent("span").css("background","#fff").children("a").css("color","#777");
-						}
-					},    
-					error : function(XMLHttpRequest) {
-						alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText); 
-						$("#taskRerun").parent("span").css("background","#fff").children("a").css("color","#777");
-					}
-				});  
-			};
-	});
-	
-});
-
-function openSftp(user,ip,port, eid){
-	window.open('sftp://'+user+'@'+ip+':'+port+$("#"+eid).text());
-}
-	
-function stopTask(taskid){
-	if (typeof(taskStatus)=='undefined' || taskStatus == 'finished' || taskStatus =='failed' ){
-		return false;
-	}
-	
-	if(!confirm("您确定要终止任务吗？")){
-		return false;
-	}
-	
-	$.ajax({
-		url:"__MODULE__/Task/stopTasks",
-		type:'get',
-		data:{id:taskid},
-		dataType: "json",
-		success:function(data){
-			if(data['status']=='SUCCESS'){    
-	    		$("#taskStatus").removeClass('btn-primary').addClass("btn-warning").text("任务已终止");
-	    	}
-			alert(data['data']);
-			window.location.reload();
-		},
-		error : function(XMLHttpRequest) {
-	       	alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
-	    }
-	});
-}
 
 /*-----------------差异倍数页面js代码------------------*/
 $(function(){
@@ -1655,8 +1551,13 @@ $(function(){
 	$("#addVenn").click(function(){
 		addVenn();
 	});
-	
-	
+	var parasValue = sessionStorage.getItem("paras"); 
+	var parasObj = $.parseJSON( parasValue );
+	if(parasObj){
+		var inputPath=parasObj.taskPara[4].value;
+		$("#dfgInputPath").val(inputPath)
+		window.sessionStorage.setItem("dfgInputPath",$("#dfgInputPath").val());
+	}
 	//提交参数
 	$("#dgfSubmit_paras").click(function(){
 		var formData =  allParams($("#dgfParameter"));//取form表单参数
@@ -1760,34 +1661,43 @@ $(function(){
 						}; 
 						
 		resultPara = JSON.stringify(resultPara);
+		console.log(resultPara)
 			$.ajax({
 				url: 'json/taskDetail.2.json',  
 				type:'get',
 				data:{parameter:resultPara},
 				dataType: "json",
 				success:function(data) {
-					var showData=data["show"];
-					compareData=data["arr"];
-					$("#dgfCarousel").empty();
-					$("#dgfCarousel").append("<ul></ul>");
- 					for(var i=0;i<showData.length;i++){
- 						$("#dgfCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+showData[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + showData[i] +"' alt='' /></a></li>")
- 					}
-     				$("#dgfCarousel").jCarouselLite({
-				        btnNext: ".default #dgfNext",
-				        btnPrev: ".default #dgfPrev",
-				        visible: 1,
-				        speed: 800
-				    });
-					for(var i=0;i<compareData.length;i++){
-						var option="<option value="+compareData[i]["compareName"]+">"+compareData[i]["compareName"]+"</option>"
-						$("#compareGroups").append(option);
-					}
-					$('#compareGroups').selectpicker('refresh');
-					$('#compareGroups').on('changed.bs.select', function (e) {
-						updateTable("compareGroups","dgfGeneList",compareData);
-					});
-					window.sessionStorage.setItem("pGeneInput",$("#dgfInput").val());
+					if(data['status']=='ERROR'){    //请求成功但没有执行成功
+						$("#dgfShow .panel-body").empty();
+						var imgHtml="<div id='load'><img src='img/loading.gif' /></div>";
+						$("#dgfShow .panel-body").append(imgHtml);
+						$('#load').show();
+					}else{
+						var data1=data["data"]
+						var showData=data1["show"];
+						compareData=data1["arr"];
+						$("#dgfCarousel").empty();
+						$("#dgfCarousel").append("<ul></ul>");
+	 					for(var i=0;i<showData.length;i++){
+	 						$("#dgfCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+showData[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + showData[i] +"' alt='' /></a></li>")
+	 					}
+	     				$("#dgfCarousel").jCarouselLite({
+					        btnNext: ".default #dgfNext",
+					        btnPrev: ".default #dgfPrev",
+					        visible: 1,
+					        speed: 800
+					    });
+						for(var i=0;i<compareData.length;i++){
+							var option="<option value="+compareData[i]["compareName"]+">"+compareData[i]["compareName"]+"</option>"
+							$("#compareGroups").append(option);
+						}
+						$('#compareGroups').selectpicker('refresh');
+						$('#compareGroups').on('changed.bs.select', function (e) {
+							updateTable("compareGroups","dgfGeneList",compareData);
+						});
+						window.sessionStorage.setItem("pGeneInput",$("#dgfInput").val());						
+					}		
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -2128,23 +2038,20 @@ $(function(){
     /*使用原始基因*/
    	var compareData1 = null;
    	var compareData2 = null;
-	
 	$('a[href="#EAKEGGList"]').on('show.bs.tab', function (e) {
 		updateTable("EAKEGGListCompareGroups","EAKEGGList",compareData1);
 	})
 	$('a[href="#EAGOList"]').on('show.bs.tab', function (e) {
 		updateTable("EAGOListCompareGroups","EAGOList",compareData2);
 	})
-   	var parasValue = sessionStorage.getItem("paras"); 
-	var parasObj = $.parseJSON( parasValue );
-	if(parasObj){
-		var inputPath=parasObj.taskPara[4].value;
-		$("#oGeneInput").val(inputPath)
+	var dirPathValue = sessionStorage.getItem("dir_path"); 
+	if(dirPathValue){
+		if(dirPathValue.length>0){
+			$("#oGeneInput").val(dirPathValue)
+		}
 	}
 	//提交参数
 	$("#eaoSubmit_paras").click(function(){
-		var ogInputValue = sessionStorage.getItem("pGeneInput"); 
-		$("#oGeneInput").val(ogInputValue)
 		var formData =  allParams($("#originalGeneParameter"));//取form表单参数
 		if(formData.ogInput==""){
 			alert("请选择输出目录！");
@@ -2158,6 +2065,7 @@ $(function(){
 		
 		var resultPara={"paras":formData}; 		
 		resultPara = JSON.stringify(resultPara);
+		console.log(resultPara)
 			$.ajax({
 				url: 'json/deepExcavation1.json',  
 				type:'get',
@@ -2238,6 +2146,7 @@ $(function(){
 	$("#eapSubmit_paras").click(function(){
 		var pgInputValue = sessionStorage.getItem("pGeneInput"); 
 		$("#pGeneInput").val(pgInputValue)
+		window.sessionStorage.setItem("pgInput",$("#pgInput").val());
 		var formData =  allParams($("#previousGeneParameter"));//取form表单参数
 		if(formData.pgInput==""){
 			alert("请选择输出目录！");
@@ -2251,6 +2160,7 @@ $(function(){
 		
 		var resultPara={"paras":formData}; 		
 		resultPara = JSON.stringify(resultPara);
+		console.log(resultPara)
 			$.ajax({
 				url: 'json/deepExcavation2.json',  
 				type:'get',
@@ -2419,6 +2329,12 @@ $(function(){
 		var data=$(this).bootstrapTable("getSelections");
 		arr.push(data)
 	})
+	var dirPathValue = sessionStorage.getItem("dir_path"); 
+	if(dirPathValue){
+		if(dirPathValue.length>0){
+			$("#oriKeggInpputPath").val(dirPathValue)
+		}
+	}
 	//提交参数
 	$("#kpsoSubmit_paras").click(function(){
 		var formData =  allParams($("#orgKeggParameter"));//取form表单参数
@@ -2430,6 +2346,7 @@ $(function(){
 							"tableDatas":tableDatas
 							};
 			resultPara = JSON.stringify(resultPara);
+			console.log(resultPara)
 			$.ajax({
 				url: 'json/deepExcavation1.json',  
 				type:'get',
@@ -2486,6 +2403,8 @@ $(function(){
 	})
 	//提交参数
 	$("#kpspSubmit_paras").click(function(){
+		var pkeggInputValue = sessionStorage.getItem("pgInput"); 
+		$("#preKeggInpputPath").val(pkeggInputValue)
 		var formData =  allParams($("#preKeggScaParameter"));//取form表单参数
 		if(formData.pKeggScaInput==""){
 			alert("请选择输出目录！");
@@ -2495,6 +2414,7 @@ $(function(){
 							"tableDatas":tableDatas
 							}; 		
 			resultPara = JSON.stringify(resultPara);
+			console.log(resultPara)
 			$.ajax({
 				url: 'json/deepExcavation2.json',  
 				type:'get',

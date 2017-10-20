@@ -1,5 +1,6 @@
-{
-    "modStatus": [
+{	"status":"ERROR",
+	"data":{
+		"modStatus": [
         {
             "task_name": "ck_rRNA_CHECK",
             "flow_mod": "QC",
@@ -100,4 +101,6 @@
 			]}
 			
 		]
+	
+	}
 }

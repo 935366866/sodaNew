@@ -657,6 +657,7 @@ function getTaskData(url){
 							
 						else{
 								$("#"+key).val(data[key])
+								window.sessionStorage.setItem("dir_path",$("#dir_path").val());
 							};
 					};
 				};
