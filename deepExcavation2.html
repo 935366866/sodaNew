@@ -197,8 +197,15 @@
 										<div class="part titleIndent">KEGG富集参数:</div>
 										<div class="contentIndent">
 											<div class="part">
-												<div class="input_a_l titleNameLeft">E值:</div>
-												<div class="input_a_m" style="width: 305px;">
+												<div class="input_a_l titleNameLeft" style="width: 100px;">KEGG缩写:</div>
+												<div class="input_b_3" style="width: 280px;float: left;">
+													<select id="pgKeggAbb"  name="pgKeggAbb" class="selectpicker select_width" autocomplete="off" >
+													</select>
+												</div>									
+											</div>
+											<div class="part">
+												<div class="input_a_l titleNameLeft" style="width: 100px;">E值:</div>
+												<div class="input_a_m" style="width: 280px;">
 													<input  id="pgEValue" name="pgEValue" value="1e-5" type="text" class="form-control">
 												</div>								
 											</div>
@@ -274,13 +281,20 @@
 										<div class="part titleIndent">KEGG富集参数:</div>
 										<div class="contentIndent">
 											<div class="part">
-											<div class="input_a_l titleNameLeft">E值:</div>
-											<div class="input_a_m" style="width: 305px;">
-												<input id="ogEValue" name="ogEValue" value="1e-5" type="text" class="form-control">
-											</div>								
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="width: 100px;">统计检测方法:</div>
+												<div class="input_a_l titleNameLeft" style="width: 100px;">KEGG缩写:</div>
+												<div class="input_b_3" style="width: 280px;float: left;">
+													<select id="ogKeggAbb"  name="ogKeggAbb" class="selectpicker select_width" autocomplete="off" >
+													</select>
+												</div>									
+											</div>
+											<div class="part">
+												<div class="input_a_l titleNameLeft" style="width: 100px;">E值:</div>
+												<div class="input_a_m" style="width: 280px;">
+													<input id="ogEValue" name="ogEValue" value="1e-5" type="text" class="form-control">
+												</div>								
+											</div>
+											<div class="part">
+												<div class="input_a_l titleNameLeft" style="width: 100px;">统计检测方法:</div>
 												<div class="input_b_3" style="width: 280px;float: left;">
 													<select id="ogStatisMethod"  name="ogStatisMethod" class="selectpicker select_width" autocomplete="off" >
 														<option value="b">binomial test</option>
@@ -1181,7 +1195,7 @@
 											</select>
 										</div>		
 									</div>
-									<table></table>
+									<table ></table>
 								</div>
 							</div>
 						</div>
@@ -1292,6 +1306,7 @@
 	<script src="js/go.js"></script>
 	<script src="js/common1.js"></script>	
 	<script>
+		
 	$(".spectrum").spectrum({
 	    
 	});
@@ -1311,7 +1326,59 @@
 
 	});
 		
+//------按钮们--------
+//刷新
+	$("#refresh").click(function(){
+		window.location.reload();
+    });
+//终止
+	$("#stop").click(function(){
+		var r=confirm("您确定要终止该任务吗？");
+		if(r==true){
+			 var id = $("#taskId").val();
+			 $.ajax({
+				    url:stop_url,  
+				    type:'post',
+				    data:{id:id},
+				    dataType: "json",
+				    success:function(data) {
+				    	if(data['status']=='ERROR'){    //请求成功但没有执行成功
+				    		alert(data['data']);
+				    	}else{
+							alert("任务终止成功！");	
+							$(this).find("img").attr("src","img/start.svg") 
+				    	};
+				     },    
+				     error : function(XMLHttpRequest) {
+				       alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+				     }
+				});  
+		  };
+    });    
+//删除
+	$("#delete").click(function(){
+		var r=confirm("您确定要删除该任务吗？");
+		if(r==true){
 
+			 var id = $("#taskId").val();
+			 $.ajax({
+				    url:delete_url,  
+				    type:'post',
+				    data:{id:id},
+				    dataType: "json",
+				    success:function(data) {
+				    	if(data['status']=='ERROR'){    //请求成功但没有执行成功
+				    		alert(data['data']);
+				    	}else{
+							alert("删除成功！");	
+				    	};
+				     },    
+				     error : function(XMLHttpRequest) {
+				       alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+				     }
+				});  
+		  };
+    });
 /*-----------------差异倍数页面js代码------------------*/
 $(function(){
 	var compareData = null;
@@ -1611,37 +1678,30 @@ $(function(){
 				type:'get',
 				data:{parameter:resultPara},
 				dataType: "json",
-				success:function(data) {
-					if(data['status']=='ERROR'){    //请求成功但没有执行成功
-						$("#dgfShow .panel-body").empty();
-						var imgHtml="<div id='load'><img src='img/loading.gif' /></div>";
-						$("#dgfShow .panel-body").append(imgHtml);
-						$('#load').show();
-					}else{
-						var data1=data["data"]
-						var showData=data1["show"];
-						compareData=data1["arr"];
-						$("#dgfCarousel").empty();
-						$("#dgfCarousel").append("<ul></ul>");
-	 					for(var i=0;i<showData.length;i++){
-	 						$("#dgfCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+showData[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + showData[i] +"' alt='' /></a></li>")
-	 					}
-	     				$("#dgfCarousel").jCarouselLite({
-					        btnNext: ".default #dgfNext",
-					        btnPrev: ".default #dgfPrev",
-					        visible: 1,
-					        speed: 800
-					    });
-						for(var i=0;i<compareData.length;i++){
-							var option="<option value="+compareData[i]["compareName"]+">"+compareData[i]["compareName"]+"</option>"
-							$("#compareGroups").append(option);
-						}
-						$('#compareGroups').selectpicker('refresh');
-						$('#compareGroups').on('changed.bs.select', function (e) {
-							updateTable("compareGroups","dgfGeneList",compareData);
-						});
-						window.sessionStorage.setItem("pGeneInput",$("#dgfInput").val());						
-					}		
+				success:function(data) {	
+					var showData=data["show"];
+					compareData=data["arr"];
+					$("#dgfCarousel").empty();
+					$("#dgfCarousel").append("<ul></ul>");
+ 					for(var i=0;i<showData.length;i++){
+ 						$("#dgfCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+showData[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + showData[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#dgfCarousel").jCarouselLite({
+				        btnNext: ".default #dgfNext",
+				        btnPrev: ".default #dgfPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+					for(var i=0;i<compareData.length;i++){
+						var option="<option value="+compareData[i]["compareName"]+">"+compareData[i]["compareName"]+"</option>"
+						$("#compareGroups").append(option);
+					}
+					$('#compareGroups').selectpicker('refresh');
+					$('#compareGroups').on('changed.bs.select', function (e) {
+						updateTable("compareGroups","dgfGeneList",compareData);
+					});
+					window.sessionStorage.setItem("pGeneInput",$("#dgfInput").val());						
+							
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -1948,12 +2008,21 @@ $(function(){
         visible: 1,
         speed: 800
     });
-//  $('a[href="#previousGene"]').on('show.bs.tab', function (e) {
-//		$("#eaDirection").children("a").attr("href","#oEADirection")
-//		$('#eaDirection').tab('show')
-////		$("#oEADirection").addClass("active")
-//	})
-	
+
+	var keggValue=defaultRefParams["KEGG"][0]["value"];
+	var value = keggValue.split(";")
+	var opts = ""
+	console.log(value)
+	for(var j = 0; j < value.length; j++) {
+		var tmpArr = value[j].split(',');
+		if(tmpArr.length < 2) {
+			tmpArr[1] = tmpArr[0];
+		}
+		opts += '<option value="' + tmpArr[0] + '">' + tmpArr[1] + '</option>'; //给option添加一个value
+	};
+	//添加dropdown的代码
+	$("#ogKeggAbb").append(opts);
+	$("#pgKeggAbb").append(opts);
     function statusUpdate(){
     	$.ajax({
 				url:'json/taskDetail.2.json',  
