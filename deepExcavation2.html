@@ -1464,74 +1464,6 @@ $(function(){
 		}
 	}
 	
-	
-	
-//	//样本分组初始化设置
-//	var parasValue = sessionStorage.getItem("paras"); 
-//	var parasObj = $.parseJSON( parasValue );
-//	if(parasObj){
-//		var inputPath=parasObj.taskPara[4].value;
-//		$("#dfgInputPath").val(inputPath)
-//		window.sessionStorage.setItem("dfgInputPath",$("#dfgInputPath").val());
-//		var samplesArray=parasObj.samples.split(",");
-//		for(var i=0;i<samplesArray.length;i++){
-//			var name = samplesArray[i];
-//			add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
-//			$(add).appendTo('#sampleNames')
-//	
-//		};	
-//		dragInit();
-//		var groupSamplesObj=parasObj.groupCompareVenn.groupSamples;
-//		console.log(groupSamplesObj)
-//		for(key in groupSamplesObj){
-//			var value=groupSamplesObj[key];
-//			var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
-//			var divHtml = $(html);
-//			allgroups.push(key);
-//			for(var i=0;i<value.length;i++){
-//				var sample=value[i];
-//				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-//			    	+sample+'</li>');
-//			  liHtml.appendTo(divHtml.find("ul"))
-//				
-//			}
-//			divHtml.appendTo('#groupList');
-//			dragInit();
-//		}
-//		var compareSamplesObj=parasObj.groupCompareVenn.compareGroups;
-//		for(key in compareSamplesObj){
-//			var value=compareSamplesObj[key];
-//			var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
-//			var divHtml = $(html);
-//			allCompares.push(key);
-//			for(var i=0;i<value.length;i++){
-//				var sample=value[i];
-//				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-//			    	+sample+'</li>');
-//			  liHtml.appendTo(divHtml.find("ul"))
-//				
-//			}
-//			divHtml.appendTo('#compareList');
-//			dragInit();
-//		}
-//		
-//		var vennSamplesObj=parasObj.groupCompareVenn.vennGroups;
-//		for(key in vennSamplesObj){
-//			var value=vennSamplesObj[key];
-//			var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
-//			var divHtml = $(html);
-//			allVenns.push(key);
-//			for(var i=0;i<value.length;i++){
-//				var sample=value[i];
-//				var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-//			    	+sample+'</li>');
-//			  liHtml.appendTo(divHtml.find("ul"))
-//				
-//			}
-//			divHtml.appendTo('#vennList');
-//			dragInit();
-//		}
-//	}	
 	$("#groupName").keydown(function(k){
 		if(k.keyCode==13 ){
 			addGroup();
@@ -1551,13 +1483,23 @@ $(function(){
 	$("#addVenn").click(function(){
 		addVenn();
 	});
-	var parasValue = sessionStorage.getItem("paras"); 
-	var parasObj = $.parseJSON( parasValue );
-	if(parasObj){
-		var inputPath=parasObj.taskPara[4].value;
-		$("#dfgInputPath").val(inputPath)
-		window.sessionStorage.setItem("dfgInputPath",$("#dfgInputPath").val());
+	var dirPathValue = window.sessionStorage.getItem("dir_path"); 
+	if(dirPathValue){
+		if(dirPathValue.length>0){
+			$("#dfgInputPath").val(dirPathValue);
+			window.sessionStorage.setItem("dfgInputPath",$("#dfgInputPath").val());
+		}
 	}
+	var dirId= window.sessionStorage.getItem("id");
+	console.log(dirId)
+	
+	//var parasValue = sessionStorage.getItem("paras"); 
+	//var parasObj = $.parseJSON( parasValue );
+	//if(parasObj){
+	//	var inputPath=parasObj.taskPara[4].value;
+	//	$("#dfgInputPath").val(inputPath)
+	//	window.sessionStorage.setItem("dfgInputPath",$("#dfgInputPath").val());
+	//}
 	//提交参数
 	$("#dgfSubmit_paras").click(function(){
 		var formData =  allParams($("#dgfParameter"));//取form表单参数
@@ -1570,28 +1512,28 @@ $(function(){
 			if($("#diffMultiple").val()<0){
 				alert("差异倍数必须大于等于0！")
 			}
-		var groupCompareVenn={};	//发向服务器的json数据
-		//检查是否有分组，每个分组下的样品名
-		var groups =$('#groupList').find('div');
-		var allGroupItems=[];
-		if(groups.length>0){
-			var groupSamples= {};
-			for(var i=0; i<groups.length; i++){
-				var sampleItems = $($(groups[i]).find('ul')[0]).find('li');
-				if(sampleItems.length==0){
-					continue;
-				}			
-				//组名
-				var curGroup =$($(groups[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");  //空格开头或者结尾
-				var curGroupSamples = new Array();
-				for(var j=0; j < sampleItems.length ;j++){
-					curGroupSamples.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+			var groupCompareVenn={};	//发向服务器的json数据
+			//检查是否有分组，每个分组下的样品名
+			var groups =$('#groupList').find('div');
+			var allGroupItems=[];
+			if(groups.length>0){
+				var groupSamples= {};
+				for(var i=0; i<groups.length; i++){
+					var sampleItems = $($(groups[i]).find('ul')[0]).find('li');
+					if(sampleItems.length==0){
+						continue;
+					}			
+					//组名
+					var curGroup =$($(groups[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");  //空格开头或者结尾
+					var curGroupSamples = new Array();
+					for(var j=0; j < sampleItems.length ;j++){
+						curGroupSamples.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+					}
+					allGroupItems.push(curGroupSamples[0]);
+					groupSamples[curGroup]= curGroupSamples;
 				}
-				allGroupItems.push(curGroupSamples[0]);
-				groupSamples[curGroup]= curGroupSamples;
+				groupCompareVenn['groupSamples']= groupSamples;
 			}
-			groupCompareVenn['groupSamples']= groupSamples;
-		}
 		//检查数据
 		//检查样本是否已全部分组，非强制
 		var samples=$("#sampleNames").find('li');
@@ -1655,7 +1597,9 @@ $(function(){
 				}
 		};
 
-		var resultPara={"paras":formData,
+		var resultPara={
+						"id":dirId,
+						"paras":formData,
 						"samples":samplesStr,
 						"groupCompareVenn":groupCompareVenn
 						}; 
