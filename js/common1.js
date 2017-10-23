@@ -444,7 +444,7 @@ constDefaultRefParams={
             "id": "abbr",
             "name": "KEGG缩写",
             "type": "dropdown",
-			"value":";osa,Oryza_sativa_Japonica(rice);hsa,Homo_sapiens(human)",
+			"value":"osa,Oryza_sativa_Japonica(rice);hsa,Homo_sapiens(human)",
 			"illustration":"KEGG物种缩写。"
         }]
 }

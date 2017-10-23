@@ -1,106 +1,106 @@
-{	"status":"ERROR",
-	"data":{
-		"modStatus": [
-        {
-            "task_name": "ck_rRNA_CHECK",
-            "flow_mod": "QC",
-            "status": "done",
-            "job_number": "536",
-            "submit_time": "2016-08-01 15:40:30",
-            "done_time": null,
-            "consume_time": null
-        },
-        {
-            "task_name": "ck_rRNA_CHECK",
-            "flow_mod": "QC",
-            "status": "failed",
-            "job_number": "536",
-            "submit_time": "2016-08-01 15:40:30",
-            "done_time": null,
-            "consume_time": null
-        },
-        {
-            "task_name": "ck_rRNA_CHECK",
-            "flow_mod": "QC",
-            "status": "failed",
-            "job_number": "536",
-            "submit_time": "2016-08-01 15:40:30",
-            "done_time": null,
-            "consume_time": null
-        },
-        {
-            "task_name": "ck_rRNA_CHECK",
-            "flow_mod": "QC",
-            "status": "failed",
-            "job_number": "536",
-            "submit_time": "2016-08-01 15:40:30",
-            "done_time": null,
-            "consume_time": null
-        },
-        {
-            "task_name": "ck_rRNA_CHECK",
-            "flow_mod": "QC",
-            "status": "pending",
-            "job_number": "536",
-            "submit_time": "2016-08-01 15:40:30",
-            "done_time": null,
-            "consume_time": null
-        },
-        {
-            "task_name": "wll_rRNA_CHECK",
-            "flow_mod": "QC",
-            "status": "done",
-            "job_number": "537",
-            "submit_time": "2016-08-01 15:40:30",
-            "done_time": null,
-            "consume_time": null
-        }
-    ],
-	"show":["img/N1_2_classfication_pie.png","img/N2_1_gc.png","img/classfication_bar.png"],
-	"arr":[{"compareName":"c1",
-			"content":[
-				["Category1","parent1","sib1","c1","si1"],
-				["Upstream1","31929","38478","272720","38816"],
-				["ExonicStopgain1","368000","46600","38500","45000"],
-				["ExonicStoploss1","11100","129000","109000","13000"],
-				["ExonicSynonymous1","854000","1011700","641900","1018200"],
-				["ExonicNon-synonymous1","128580","156160","115460","155070"],
-				["Intronic","508970","587070","342200","59229"],
-				["Splicing","12500","15500","133000","15600"],
-				["Downstream","292620","352230","247610","353930"],
-				["Upstream/Downstream","262900","306900","196100","310700"],
-				["Intergenic","1157181","1362319","1147010","1352341"]
-			]},
-			{"compareName":"c2",
-			"content":[
-				["Category2","parent2","sib2","c2","si2"],
-				["Upstream2","31929","38478","272720","38816"],
-				["ExonicStopgain2","368000","46600","38500","45000"],
-				["ExonicStoploss2","11100","129000","109000","13000"],
-				["ExonicSynonymous2","854000","1011700","641900","1018200"],
-				["ExonicNon-synonymous2","128580","156160","115460","155070"],
-				["Intronic","508970","587070","342200","59229"],
-				["Splicing","12500","15500","133000","15600"],
-				["Downstream","292620","352230","247610","353930"],
-				["Upstream/Downstream","262900","306900","196100","310700"],
-				["Intergenic","1157181","1362319","1147010","1352341"]
-			]},
-			{"compareName":"c3",
-			"content":[
-				["Category3","parent3","sib3","c3","si3"],
-				["Upstream3","31929","38478","272720","38816"],
-				["ExonicStopgain3","368000","46600","38500","45000"],
-				["ExonicStoploss3","11100","129000","109000","13000"],
-				["ExonicSynonymous3","854000","1011700","641900","1018200"],
-				["ExonicNon-synonymous3","128580","156160","115460","155070"],
-				["Intronic","508970","587070","342200","59229"],
-				["Splicing","12500","15500","133000","15600"],
-				["Downstream","292620","352230","247610","353930"],
-				["Upstream/Downstream","262900","306900","196100","310700"],
-				["Intergenic","1157181","1362319","1147010","1352341"]
-			]}
-			
-		]
+{	
 	
-	}
+	"modStatus": [
+    {
+        "task_name": "ck_rRNA_CHECK",
+        "flow_mod": "QC",
+        "status": "done",
+        "job_number": "536",
+        "submit_time": "2016-08-01 15:40:30",
+        "done_time": null,
+        "consume_time": null
+    },
+    {
+        "task_name": "ck_rRNA_CHECK",
+        "flow_mod": "QC",
+        "status": "failed",
+        "job_number": "536",
+        "submit_time": "2016-08-01 15:40:30",
+        "done_time": null,
+        "consume_time": null
+    },
+    {
+        "task_name": "ck_rRNA_CHECK",
+        "flow_mod": "QC",
+        "status": "failed",
+        "job_number": "536",
+        "submit_time": "2016-08-01 15:40:30",
+        "done_time": null,
+        "consume_time": null
+    },
+    {
+        "task_name": "ck_rRNA_CHECK",
+        "flow_mod": "QC",
+        "status": "failed",
+        "job_number": "536",
+        "submit_time": "2016-08-01 15:40:30",
+        "done_time": null,
+        "consume_time": null
+    },
+    {
+        "task_name": "ck_rRNA_CHECK",
+        "flow_mod": "QC",
+        "status": "pending",
+        "job_number": "536",
+        "submit_time": "2016-08-01 15:40:30",
+        "done_time": null,
+        "consume_time": null
+    },
+    {
+        "task_name": "wll_rRNA_CHECK",
+        "flow_mod": "QC",
+        "status": "done",
+        "job_number": "537",
+        "submit_time": "2016-08-01 15:40:30",
+        "done_time": null,
+        "consume_time": null
+    }
+],
+"show":["img/N1_2_classfication_pie.png","img/N2_1_gc.png","img/classfication_bar.png"],
+"arr":[{"compareName":"c1",
+		"content":[
+			["Category1","parent1","sib1","c1","si1"],
+			["Upstream1","31929","38478","272720","38816"],
+			["ExonicStopgain1","368000","46600","38500","45000"],
+			["ExonicStoploss1","11100","129000","109000","13000"],
+			["ExonicSynonymous1","854000","1011700","641900","1018200"],
+			["ExonicNon-synonymous1","128580","156160","115460","155070"],
+			["Intronic","508970","587070","342200","59229"],
+			["Splicing","12500","15500","133000","15600"],
+			["Downstream","292620","352230","247610","353930"],
+			["Upstream/Downstream","262900","306900","196100","310700"],
+			["Intergenic","1157181","1362319","1147010","1352341"]
+		]},
+		{"compareName":"c2",
+		"content":[
+			["Category2","parent2","sib2","c2","si2"],
+			["Upstream2","31929","38478","272720","38816"],
+			["ExonicStopgain2","368000","46600","38500","45000"],
+			["ExonicStoploss2","11100","129000","109000","13000"],
+			["ExonicSynonymous2","854000","1011700","641900","1018200"],
+			["ExonicNon-synonymous2","128580","156160","115460","155070"],
+			["Intronic","508970","587070","342200","59229"],
+			["Splicing","12500","15500","133000","15600"],
+			["Downstream","292620","352230","247610","353930"],
+			["Upstream/Downstream","262900","306900","196100","310700"],
+			["Intergenic","1157181","1362319","1147010","1352341"]
+		]},
+		{"compareName":"c3",
+		"content":[
+			["Category3","parent3","sib3","c3","si3"],
+			["Upstream3","31929","38478","272720","38816"],
+			["ExonicStopgain3","368000","46600","38500","45000"],
+			["ExonicStoploss3","11100","129000","109000","13000"],
+			["ExonicSynonymous3","854000","1011700","641900","1018200"],
+			["ExonicNon-synonymous3","128580","156160","115460","155070"],
+			["Intronic","508970","587070","342200","59229"],
+			["Splicing","12500","15500","133000","15600"],
+			["Downstream","292620","352230","247610","353930"],
+			["Upstream/Downstream","262900","306900","196100","310700"],
+			["Intergenic","1157181","1362319","1147010","1352341"]
+		]}
+		
+	]
+	
+	
 }
