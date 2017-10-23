@@ -524,7 +524,7 @@
 											</div>
 										</div>
 										<div class="part">
-											<table data-toggle="table" data-height="200" data-show-footer="false" data-sort-name="id" ></table>	
+											<table id="preKeggTable"></table>	
 										</div>
 										<div class="line"></div>
 										<!--输出目录-->
@@ -703,7 +703,7 @@
 											</div>
 										</div>
 										<div class="part">
-											<table data-toggle="table" data-height="200" data-show-footer="false" data-sort-name="id">
+											<table id="orgKeggTable" >
 											</table>	
 										</div>
 										<div class="line"></div>
@@ -2298,10 +2298,10 @@ $(function(){
 						var option="<option value="+compareData5[i]["compareName"]+">"+compareData5[i]["compareName"]+"</option>"
 						$("#oriKeggCompareGroups").append(option);
 					}
-					updateCheckTable("oriKeggCompareGroups","orgKeggParameter",compareData5);
+					updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData5);
 					$('#oriKeggCompareGroups').selectpicker('refresh');
 					$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
-						updateCheckTable("oriKeggCompareGroups","orgKeggParameter",compareData5);
+						updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData5);
 					});
 				},
 				error : function(XMLHttpRequest) {
@@ -2325,10 +2325,10 @@ $(function(){
 						var option="<option value="+compareData4[i]["compareName"]+">"+compareData4[i]["compareName"]+"</option>"
 						$("#oriKeggCompareGroups").append(option);
 					}
-					updateCheckTable("oriKeggCompareGroups","orgKeggParameter",compareData4);
+					updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4);
 					$('#oriKeggCompareGroups').selectpicker('refresh');
 					$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
-						updateCheckTable("oriKeggCompareGroups","orgKeggParameter",compareData4);
+						updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4);
 					});
 				},
 				error : function(XMLHttpRequest) {
@@ -2338,7 +2338,7 @@ $(function(){
 		}
 	})
 	var arr=[]
-	$("#orgKeggParameter table").on("check.bs.table",function(){
+	$("#orgKeggTable").on("check.bs.table",function(){
 		var data=$(this).bootstrapTable("getSelections");
 		arr.push(data)
 	})
@@ -2354,7 +2354,7 @@ $(function(){
 		if(formData.oKeggScaInput==""){
 			alert("请选择输出目录！");
 		}else{
-			var tableDatas=$("#orgKeggParameter table").bootstrapTable("getSelections");
+			var tableDatas=$("#orgKeggTable").bootstrapTable("getSelections");
 			var resultPara={"paras":formData,
 							"tableDatas":tableDatas
 							};
@@ -2402,10 +2402,10 @@ $(function(){
 						var option="<option value="+compareData3[i]["compareName"]+">"+compareData3[i]["compareName"]+"</option>"
 						$("#preKeggCompareGroups").append(option);
 					}
-					updateCheckTable("preKeggCompareGroups","previousKEGGScatter",compareData3);
+					updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3);
 					$('#preKeggCompareGroups').selectpicker('refresh');
 					$('#preKeggCompareGroups').on('changed.bs.select', function (e) {
-						updateCheckTable("preKeggCompareGroups","previousKEGGScatter",compareData3);
+						updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3);
 					});
 				},
 				error : function(XMLHttpRequest) {
@@ -2422,7 +2422,7 @@ $(function(){
 		if(formData.pKeggScaInput==""){
 			alert("请选择输出目录！");
 		}else{
-			var tableDatas=$("#preKeggScaParameter table").bootstrapTable("getSelections");
+			var tableDatas=$("#preKeggTable").bootstrapTable("getSelections");
 			var resultPara={"paras":formData,
 							"tableDatas":tableDatas
 							}; 		
@@ -2460,7 +2460,7 @@ $(function(){
 
 
 /*-------------公共函数-------------------*/
-function updateCheckTable(selectId,tabPanelId,compareData){
+function updateCheckTable(selectId,tableId,compareData){
 		if(!compareData) return;
 		var p=$("#"+selectId).selectpicker("val");
 		for(var j=0;j<compareData.length;j++){
@@ -2479,7 +2479,7 @@ function updateCheckTable(selectId,tabPanelId,compareData){
 					obj["field"]=head[m];
 					options.columns.push(obj);
 				}
-				$("#"+tabPanelId+" table").bootstrapTable(options);
+			//	$("#"+tabPanelId+" table").bootstrapTable(options);
 				var tableData=[];
 				for(var i=1;i<content.length;i++){
 					var row=content[i];
@@ -2489,9 +2489,13 @@ function updateCheckTable(selectId,tabPanelId,compareData){
 					}
 					tableData.push(rowObj);
 				}
-				$("#"+tabPanelId+" table").bootstrapTable('destroy');
-				$("#"+tabPanelId+" table").bootstrapTable(options);
-				$("#"+tabPanelId+" table").bootstrapTable('load',tableData);
+				$("#"+tableId).bootstrapTable('destroy');
+	
+				$("#"+tableId).bootstrapTable(options);
+				console.log(options)
+				//alert();
+				$("#"+tableId).bootstrapTable('load',tableData);
+				console.log(tableData)
 			}
 		}
 	}
@@ -2655,9 +2659,6 @@ function geturl(formInputId,type){
 										var data1 = data['data'];
 
 										objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
-										console.log(objData)
-										
-										
 										
 										$('#sampleTable').bootstrapTable('load',objData);  //填入table中	
 									}
