@@ -1,0 +1,14 @@
+{	"status":"success",
+	"data":{
+		"dgfInput": "/s4_2.fq.gz",
+	    "dfgInputPath": "/s4_2.fq.gz/merge_readcou",
+	    "filterCondition": "DESeq",
+	    "dgfPTypes": "padj",
+	    "dgfPValue": "0.05",
+	    "diffMultiple": "2.0",
+	    "group_samples": "{\"1\":[\"s1\",\"cill\"],\"2\":[\"s2\"]}",
+	    "compare_groups": "{\"c1\":[\"1\",\"2\"]}",
+	    "venn_compares": "{\"1\":[\"ck\",\"cill\"],\"2\":[\"wll\"]}",
+	    "samples": "s1,s2"
+	}
+}

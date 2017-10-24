@@ -1,6 +1,6 @@
 {
     "task_name": "dkd",
-    "dir_path": "/home/data1/data01/soda_test/flow1",
+    "dir_path": "/s4_2.fq.gz/merge_readcou",
     "species": "Oryza_sativa_Japonica",
     "is_sslib": "no",
     "seq_type": "SE",

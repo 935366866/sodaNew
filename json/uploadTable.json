@@ -1,0 +1,10 @@
+{
+	"result":{
+		"status":"success",
+		"data":{
+			"url":"wd/ddd/sss.txt",
+			"samples":["geneID","ck1","ck2","ck3","wll1","wll2","wll3"]
+		}
+		
+	}
+}
