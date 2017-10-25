@@ -375,7 +375,7 @@
 													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 													<h4 class="modal-title" id="myModalLabel">组名</h4>
 													<div class="input-group">
-														<input id="groupName" class="form-control" value='' />
+														<input id="groupName" class="form-control" value=''/>
 														<span id='addGroup' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
 													</div>
 												</div>
@@ -1332,9 +1332,10 @@ function dragInit() {
 		});
 };
 
-$('#addBtn').on('click', function(){
-	$("#groupName").focus()
+$('#groupModal').on('shown.bs.modal', function () {
+  $('#groupName').focus()
 })
+
 $('#isRepeat').on('changed.bs.select', function(e) {
 	if(e.target.value){
 		if(e.target.value=="no"){

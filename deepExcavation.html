@@ -1518,7 +1518,6 @@ $(function(){
 	var geneSet;
 	$('a[href="#dgfGeneList"]').on('show.bs.tab', function (e) {
 		updateTable("compareGroups","dgfGeneList",compareData);
-		$("#compareGroups").empty()
 	})
 	
 	/*轮播图片初始化*/
@@ -1786,6 +1785,7 @@ $(function(){
 				        visible: 1,
 				        speed: 800
 				    });
+				    $("#compareGroups").empty()
 					for(var i=0;i<compareData.length;i++){
 						var option="<option value="+compareData[i]["compareName"]+">"+compareData[i]["compareName"]+"</option>"
 						$("#compareGroups").append(option);
@@ -1793,7 +1793,6 @@ $(function(){
 					$('#compareGroups').selectpicker('refresh');
 					$('#compareGroups').on('changed.bs.select', function (e) {
 						updateTable("compareGroups","dgfGeneList",compareData);
-						$("#compareGroups").empty()
 					});
 					window.sessionStorage.setItem("pGeneInput",$("#dgfInput").val());						
 							
@@ -2595,6 +2594,7 @@ function updateCheckTable(selectId,tableId,compareData){
 		}
 	}
 function updateTable(selectId,tabPanelId,compareData){
+	 
 		if(!compareData) return;
 		var p=$("#"+selectId).selectpicker("val");
 		for(var j=0;j<compareData.length;j++){
@@ -2625,7 +2625,15 @@ function updateTable(selectId,tabPanelId,compareData){
 				}
 				$("#"+tabPanelId+" table").bootstrapTable('destroy');
 				$("#"+tabPanelId+" table").bootstrapTable(options);
-				$("#"+tabPanelId+" table").bootstrapTable('load',tableData);
+				var start = new Date().getTime();//起始时间
+				var tableDataTemp=tableData.slice(0,300);
+				$("#"+tabPanelId+" table").bootstrapTable('load',tableDataTemp);
+				setTimeout(function(){
+					tableDataTemp=tableData.slice(300,tableData.length);
+					$("#"+tabPanelId+" table").bootstrapTable('append',tableDataTemp);
+				},500)
+				var end = new Date().getTime();//起始时间
+				console.log(end-start)
 			}
 		}
 	}
