@@ -326,7 +326,7 @@
 											</div>
 											<div style="float:left;width:21%;margin-right: 20px;">
 												<div>
-													<button class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
+													<button id="addBtn" class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
 														<span class="glyphicon glyphicon-plus">Group</span>
 													</button><br />
 												</div>
@@ -1331,6 +1331,10 @@ function dragInit() {
 			})
 		});
 };
+
+$('#addBtn').on('click', function(){
+	$("#groupName").focus()
+})
 $('#isRepeat').on('changed.bs.select', function(e) {
 	if(e.target.value){
 		if(e.target.value=="no"){

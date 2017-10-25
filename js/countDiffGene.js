@@ -1,508 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>查看任务</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="content-type" content="text/html" ; charset="utf-8">
-	<link href="public/css/reset.css" rel="stylesheet" />
-	<link href="public/css/bootstrap.min.css" rel="stylesheet">
-	<link href="public/css/bootstrap-table.css" rel="stylesheet">
-	<link href="public/css/bootstrap-select.css" rel="stylesheet">
-	<link href="public/css/jquery.fileupload.css" rel="stylesheet"> 
-	<link href="public/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" media="screen"  />
-	<link href="public/css/long_common.css" rel="stylesheet"  media="all">
-
-	<!--弹出层样式-->
-	<link href="public/css/jquery.fancybox.css" rel="stylesheet"/>
-	<link href="css/deepExcavation.css" rel="stylesheet" >
-	<link href="css/soda_common.css" rel="stylesheet" >
-			<!--轮播样式-->
-	<link href="public/css/style-demo.css" rel="stylesheet" />
-</head>
-
-<body>
-	<!--前台公共头部-->
-	<div class="top">
-		<div class="main_nav1">
-			<div class="container">
-				<a href="#" class="logo"><img src="public/image/navLogo.svg"/></a>
-				<ul class="main_nav1_left">
-					<li id="main"><a href="main.html">首页</a></li>
-					<li id="sodaIndex"><a href="sodaIndex.html">云中漫步</a></li>
-					<li id="frontierResearch"><a href="frontierResearch.html" >前沿方案</a></li>
-					<li id="marketActive"><a href="marketActive.html">市场活动</a></li>	
-				</ul>
-				<div class="form-group searchNews" id="search_news">
-					<span class="col-sm-2 control-label"><img src="public/image/navSearch.svg"/></span>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="search_news_input">
-					</div>
-				</div>
-				<ul class="main_nav1_right">
-					<li id="searchIcon"><a href="#"><img src="public/image/navSearch.svg" alt="搜索" /></a></li>
-					<li><a href="#"><img src="public/image/navEmail.svg" alt="通知" /></a></li>
-					<li><a href="personalCenter.html"><img src="public/image/navUser.svg" alt="用户" /></a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="main_nav2">
-			<div class="container">
-				<ul class="main_nav2_left">
-					<li class="nav2_list1" style="width: 90px;">
-						<a href="#" class="active">流程方案<img src="public/image/navDown.svg" alt=""></a>
-						<ul class="">
-							<li><a href="">DNA流程方案</a></li>
-							<li><a href="">RNA流程方案</a></li>
-							<li><a href="">医学流程方案</a></li>
-						</ul>				
-					</li>
-					<li class="nav2_list2" style="width: 73px;">
-						<a href="#">小工具<img src="public/image/navDown.svg" alt=""></a>
-						<ul class="">
-							<li><a href="">基本绘图</a></li>
-							<li><a href="">流程绘图</a></li>
-							<li><a href="">高级绘图</a></li>
-							<li><a href="">表格处理</a></li>
-							<li><a href="">计算统计</a></li>
-						</ul>
-					</li>
-					<li class=""><a href="myProject.html">我的项目</a></li>
-					<li class=""><a href="#">我的目录</a></li>
-					<li class=""><a href="recycle.html">回收站</a></li>
-				</ul>
-				<div class="form-group">
-					<div class="col-sm-10">
-						<input type="text" class="form-control" placeholder="搜索想要使用的流程或小工具" id="search_flowapp">
-					</div>
-					<button class="col-sm-2 btn btn_blue" id="search_button">搜索</button>				
-				</div>
-			</div>
-		</div>	
-	<div class="nav_line"></div>
-		<div class="main_nav3" style="box-shadow:-2px 3px 9px 0px #ccc;">
-			<div class="container">
-				<ul class="main_nav3_right_report">
-					<li  class="report_success"><span id="taskStatus"  class="btn btn-primary"><a href="#">任务运行中</a></span></li>
-	
-								<!--<li class="report_running"><span><a href="#">任务运行中</a></span></li>
-								<li class="report_end"><span><a href="#">任务已终止</a></span></li>
-							-->
-					<li id="refresh">
-						<a href="#"><img src="img/refresh.svg" alt="刷新" /></a>
-					</li>
-					<li id="stop">
-						<a href="#"><img src="img/stop.svg" alt="停止" /></a>
-					</li>
-					<li id="delete">
-						<a href="#"><img src="img/delete.svg" alt="删除" /></a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<!--/前台公共头部-->
-	 <div class="center_box" style="float:left;width:100%;margin-top: 145px;">   
-        <!--差异基因筛选-->
-        <div id="diffGeneFilter" class="tab-pane active tabContent" style="padding-top: 0;width: 100%;"> 
-	        <div class="myTab"  style="margin-bottom: 20px;background: #fff;">
-	        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
-					<div class="tabs" style="margin-left: 10px;text-align: left;line-height: 88px;font-size: 15px;color: #656565;">
-						差异基因筛选参数设置
-					</div>	
-					<div class="tabs" style="margin-left: 20px;">
-						<ul class="nav" id="appTabRight">
-							<li><a href="#dgfGeneList" data-toggle="tab">差异基因列表</a></li>
-							<li><a href="#dgfShow" data-toggle="tab">火山图</a></li>
-							<li><a href="#dgfStatus" data-toggle="tab">任务状态</a></li>
-							<li class="active" ><a href="#dgfDirection" data-toggle="tab">使用说明</a></li>	
-						</ul>
-					</div>	
-				</div>	
-			</div>
-			<div style="width: 1185px;">
-				<div class="tab-content input_l">
-					<div class="tab-pane in active">		
-						<div class="panel  panel-default">				
-							<div class="panel-body" style="height: 439px;">
-								<form class="parameter" id="dgfParameter">
-									<!--输入文件-->
-									<div class="part">
-										<div class="input_a_l titleNameLeft">输入文件:</div>
-										<div class="input_a_m inputLeft" style="width: 345px;">
-											<input type="text" class="form-control" id="input" name="input" placeholder="">
-										</div>
-										<div class="input_a_r">
-											<a onclick="openUrl('#input','file')">
-												<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
-											</a>
-											<span class="fileinput-button btn " style="padding: 0 10px;" >
-												<img src="public/draw/imgs/app_02.png" alt=""  style="width: 29px;">
-												<!--<input id="upload_input" name="upload_input" onclick="upload(this)" type="file">-->
-												<input id="upload_input" name="file" onclick="uploadFile('json/uploadTable.json','upload_input','#input')" type="file">
-											</span>
-										</div>
-									</div>
-									<!--输出目录-->
-									<div class="part">
-										<div class="input_a_l titleNameLeft">输出目录:</div>
-										<div class="input_a_m" style="width: 345px;">
-											<input v-model="dgfInput" type="text" class="form-control" id="dgfInput" name="dgfInput" placeholder="">
-										</div>
-										<div class="input_a_r">
-											<a onclick="opendir_path('dgfInput')">
-												<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
-											</a>	
-										</div>
-									</div>	
-									<div class="line"></div>
-									<div class="part">
-										<div class="input_a_l titleNameLeft">筛选软件:</div>
-										<div class="input_b_3" style="width: 345px;float: left;">
-											<select id="filterCondition"  name="filterCondition" class="selectpicker select_width" autocomplete="off" >
-												<option value="DESeq2">DESeq2</option>
-												<option value="DESeq">DESeq</option>
-												<option value="edgeR">edgeR</option>
-												<option value="DEGseq">DEGseq</option>
-											</select>
-										</div>									
-									</div>
-									<div class="part">
-										<div class="input_a_l titleNameLeft">p值类型:</div>
-										<div class="input_b_3" style="width: 345px;float: left;">
-											<select id="dgfPTypes"  name="dgfPTypes" class="selectpicker select_width" autocomplete="off" >
-												<option value="padj">padj</option>
-												<option value="pval">pval</option>
-											</select>
-										</div>									
-									</div>
-									<div class="part">
-										<div class="input_a_l titleNameLeft">p值大小:</div>
-										<div class="input_a_m" style="width: 345px;">
-											<input v-model="dgfPValue" id="dgfPValue" name="dgfPValue" value="0.05" type="text" class="form-control">
-										</div>								
-									</div>
-									<div class="part">
-										<div class="input_a_l titleNameLeft">差异倍数:</div>
-										<div class="input_a_m" style="width: 345px;">
-											<input v-model="diffMultiple" type="text" class="form-control" id="diffMultiple" name="diffMultiple" value="2.0">
-										</div>								
-									</div>
-									<div class="line"></div>
-									<div class="part">
-										<div style="float:left;width:22%;margin-left: 20px;height: 34px;line-height: 34px;">
-											样本名称：
-										</div>
-										<div style="float:left;width:20%;margin-right: 20px;">
-											<div>
-												<button onclick="return false" class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
-													<span class="glyphicon glyphicon-plus">Group</span>
-												</button><br />
-											</div>
-										</div>
-										<div style="float:left;width:22%;margin-right: 20px;">
-											<div>
-												<button onclick="return false" class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
-													<span class="glyphicon glyphicon-plus">Compare</span>
-												</button>
-											</div>   
-										</div>
-										<div style="float:left;width:20%;margin-right: 20px;">
-											<div>
-												<button onclick="return false" class="btn btn-default"  data-target='#vennModal' data-toggle='modal' style="outline: none;">
-													<span class="glyphicon glyphicon-plus">Venn</span>
-												</button>
-											</div>
-										</div>
-									</div>
-									<div class="part">
-										<div style="width:100%;">																				
-											<div style="float:left;width:22%;margin-right: 20px;">
-												<div id="sampleWrap">
-													<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;"></ol>
-												</div>
-											</div>
-											<div id='groupList' style="float:left;width:20%;margin-right:20px;"></div>
-											<div id='compareList' style="float:left;width:20%;margin-right:20px;"></div>
-											<div id='vennList' style="float:left;width:20%"></div>																					
-										</div>
-									</div>
-								</form>
-							</div>
-							<div class="panel-footer" style="height: 51px;">
-								<button id="dgfSubmit_paras" type="button" class="btn btn-success submit">开始运行</button>
-							</div>
-						</div>
-						<!-- group modal -->
-						<div class="row">
-							<div style="width:100%;">
-								<div class="row">
-									<div class="modal fade " id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-										<div class="row">
-											<div id='list_model' class="modal-dialog " style='width:20%'>
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-														<h4 class="modal-title" id="myModalLabel">组名</h4>
-														<div class="input-group">
-															<input id="groupName" class="form-control" value='' />
-															<span id='addGroup' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- /.modal end -->
-								</div>
-							</div>
-						</div>
-						<!-- compare modal -->
-						<div class="row">
-							<div style="width:100%;">
-								<div class="row">
-									<div class="modal fade " id="compareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-										<div class="row">
-											<div id='list_model' class="modal-dialog " style='width:20%'>
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-														<h4 class="modal-title" id="myModalLabel">组间比较</h4>
-														<div class="input-group">
-															<input id="compareName" class="form-control" value='' />
-															<span id='addCompare' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- /.modal end -->
-								</div>
-							</div>
-						</div>
-						<!-- venn modal -->
-						<div class="row">
-							<div style="width:100%;">
-								<div class="row">
-									<div class="modal fade " id="vennModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-										<div class="row">
-											<div id='list_model' class="modal-dialog " style='width:20%'>
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-														<h4 class="modal-title" id="myModalLabel">维恩组</h4>
-														<div class="input-group">
-															<input id="vennName" class="form-control" value='' />
-															<span id='addVenn' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- /.modal end -->
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-		
-				<div class="tab-content input_r">
-					<!-- 使用说明 -->
-					<div class="tab-pane in active" id="dgfDirection">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<p style="font-weight: bolder;">描述：</p>
-								<p class="indent">
-								调整差异分析参数，使用项目计算的定量数据，重新进行差异分析。
-								</p>
-								<p>参数填写：</p>
-								<p class="indent">
-									<p class="indent">1、选择输出目录</p>
-									<p class="indent">计算过程文件和最终结果文件存放的根目录，建议与项目目录不同。若与项目目录相同，则会覆盖之前项目中差异分析的结果文件。</p>
-								</p>
-								<p class="indent">
-									<p class="indent">2、选择比较差异基因的工具</p>
-									<p class="indent">筛选软件：比较差异基因的工具。可选工具包括DESeq2、DESeq、edgeR和DEGSeq，默认使用DESeq2。DEGSeq用于无生物学重复的分析。</p>
-								</p>
-								<p class="indent">
-									<p class="indent">3、设置差异基因筛选阈值</p>
-									<p class="indent">p值类型：筛选差异基因时使用的p值类型。可选p值类型有pval和padj。pval是原始的富集p值，而padj则为校正后的p值。默认使用padj。</p>
-									<p class="indent">p值大小：筛选差异基因时使用的p值大小，默认为0.05。</p>
-									<p class="indent">差异倍数：筛选差异基因时使用的差异倍数（fold change），默认为2。</p>
-								</p>
-								<p class="indent">
-									<p class="indent">4、设置分组信息</p>
-									<p class="indent">根据需要调整分组和比较信息，默认按照原项目设置的分组信息进行后续分析。</p>
-								</p>
-								<p>任务提交：</p>
-								<p class="indent">
-									在设置完所有参数后，点击run按钮，计算任务会在服务器上运行。
-								</p>
-								<p>结果查看：</p>
-								<p class="indent">
-									右侧任务状态选项卡可以查看计算任务的状态。在任务计算完成后，可以从右侧选项卡中查看主要结果文件。在差异基因列表选项卡中，通过下拉框中选择比较组名，查看对应差异基因列表；在火山图选项卡中，通过点击左右按钮，滚动图片，查看各比较组的火山图。同样也可以在输出目录中找到结果文件，下载查看。
-								</p>
-							</div>
-						</div>
-					</div>
-					
-					<!-- 任务状态 -->
-					<div class="tab-pane" id="dgfStatus">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<table data-toggle="table"  data-show-footer="false" data-sort-name="id" id="dgfmodStatusTable">
-									<thead>
-										<tr>
-											<th data-field="flow_mod" data-sortable="true">模块名称</th>
-											<th data-field="task_name" data-sortable="true">程序名称</th>
-											<th data-field="status" data-sortable="true" data-align="center" data-formatter="taskState">状态</th>
-											<th data-field="submit_time" data-sortable="true" data-align="center">任务提交时间</th>
-											<th data-field="done_time" data-sortable="true" data-align="center">任务结束时间</th>
-											<th data-field="consume_time" data-sortable="true" data-align="center">时长</th>
-										</tr>
-									</thead>
-								</table>
-							</div>
-						</div>
-					</div>
-					<!-- 基因列表 -->
-					<div class="tab-pane" id="dgfGeneList">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div style="margin-bottom: 50px;">
-									<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
-									<div class="input_b_3" style="width: 260px;float: left;">
-										<select  id="compareGroups"  name="compareGroups" class="selectpicker select_width" autocomplete="off">
-										</select>
-									</div>		
-								</div>
-								<table ></table>
-							</div>
-						</div>
-					</div>
-					<!-- 绘图展示 -->
-					<div class="tab-pane" id="dgfShow">
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div class="jcl-demo" style="width: 500px;height: 460px;">
-								    <div class="custom-container default">
-								        <a href="#" id="dgfPrev" class="prev">&lsaquo;</a>
-								        <div id="dgfCarousel" class="carousel" style="width: 455px;height: 460px;">
-								            <ul>
-								            	<li style="width: 455px;height: 460px;" id="li1"><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
-								            	<li style="width: 455px;height: 460px;" id="li2"><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
-								            	<li style="width: 455px;height: 460px;" id="li3"><a class="fancybox-effects-a" href="" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="" alt="" /></a></li>
-								            </ul>
-								        </div>
-								        <a href="#" id="dgfNext" class="next">&rsaquo;</a>
-								        <div class="clear"></div>
-								    </div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	
-	
-	<!-- 添加选择目录的模态框 -->
-	<div class="modal fade" id="selectUrl" tabindex="-1" aria-labelledby="选择路径" aria-hidden="true">
-
-		<div class="modal-dialog" style="top:50px; width:800px;">
-			<div class="modal-content ">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-						&times;
-					</button>
-					<h4 class="modal-title">路径</h4>
-					<div class="input-group">
-						<input type="text" class="form-control" id="inputUrl">
-						<span class="input-group-btn">
-							<button class="btn btn-default glyphicon glyphicon-arrow-left" id="back" type="button" style="top: 0px;"></button>
-							<button class="btn btn-default glyphicon glyphicon-arrow-right" id="search" type="button" style="top: 0px;"></button>
-						</span>
-					</div>
-				</div>
-				<!-- -----------------------------------------------------------data-single-select="true"------------------------ -->
-				<div class="modal-body" style="text-align:center; ">
-					<table data-toggle="table" data-url="json/jobUrl.json" data-minimum-count-columns="2" data-id-field="id" data-show-footer="false"
-						data-height="300" data-sort-name="id" data-click-to-select="true" id="jobUrlTable"
-						style="bottom:20px;">
-
-						<thead>
-							<tr>
-								<th data-field="state" data-checkbox="true"></th>
-								<th data-field="icon" data-formatter="addIcon"></th>
-								<th data-field="name" data-align="left" data-sortable="true">name</th>
-								<th data-field="type" data-align="center" data-sortable="true">attribute</th>
-								<th data-field="inodeNum" data-align="center" data-visible="false" data-sortable="true">inodeNum</th>
-								<th data-field="size" data-align="center" data-sortable="true">size</th>
-								<th data-field="owner" data-align="center" data-sortable="true">owner</th>
-								<th data-field="group" data-align="center">group</th>
-								<th data-field="mtime" data-align="center" data-sortable="true">time</th>
-							</tr>
-						</thead>
-					</table>
-				</div>
-				<!-- ----------------------------------------------------------------------------------- -->
-				<div class="modal-footer">
-					<button type="button" id="selected" class="btn btn-primary">
-					选择
-					</button>
-					<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">
-					关闭
-					</button>
-
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="footer_style">
-		<footer class="footerstyle">
-			<p>版权所有 © 2016 京ICP备15033925号</p>
-			<p>北京拓美科基因科技有限公司</p>
-		</footer>
-	</div>
-	<script src="public/js/jquery-1.9.1.min.js"></script>
-	<script src="public/js/bootstrap.min.js"></script>
-	<script src="public/js/bootstrap-table.js"></script>
-	<script src="public/js/bootstrap-select.js"></script>
-	<script src="public/js/jquery.ui.widget.js"></script>
-	<script src="public/js/jquery.fileupload.js"></script>
-	<script src="public/js/jquery.iframe-transport.js"></script>
-	<script src="public/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
-	<script src="public/js/jquery.blockUI.js" type="text/javascript"></script>
-	<!--轮播图片插件-->
-	<script src="public/js/jquery.mousewheel-3.1.12.js"></script>
-	<script src="public/js/jquery.jcarousellite.js"></script>
-	<!--FancyBox弹出窗口插件-->
-	<script src="public/js/jquery.mousewheel.pack.js"></script>
-	<script src="public/js/jquery.fancybox.pack.js"></script>
-
-	<script src="public/js/long_common.js"></script>
-	<script src="js/go.js"></script>
-	<script src="js/common1.js"></script>	
-	<script>	
-	$(document).ready(function() {
-		$(".fancybox-effects-a").fancybox({
-			width:500,
-			height:500,
-			helpers: {
-				title : {
-					type : 'outside'
-				},
-				overlay : {
-					speedOut : 0
-				}
-			}
-		});
-
-	});
-		
 //------按钮们--------
 //刷新
 	$("#refresh").click(function(){
@@ -558,6 +53,19 @@
     });
 /*-----------------差异倍数页面js代码------------------*/
 $(function(){
+	$(".fancybox-effects-a").fancybox({
+			width:500,
+			height:500,
+			helpers: {
+				title : {
+					type : 'outside'
+				},
+				overlay : {
+					speedOut : 0
+				}
+			}
+		});
+	
 	var compareData = null;
 	var geneSet;
 	$('a[href="#dgfGeneList"]').on('show.bs.tab', function (e) {
@@ -595,6 +103,24 @@ $(function(){
 	$('a[href="#dgfStatus"]').on('hide.bs.tab', function (e) {
 		window.clearInterval(setInt)
 	})
+	/*生物学重复*/
+	$('#isRepeat').on('changed.bs.select', function(e) {
+		if(e.target.value){
+			if(e.target.value=="no"){
+				$("#sampleNames li").each(function(){
+					var gname= $(this).text();
+					var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+gname+'</span><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" style="opacity:0.2" ></button><ul class="sampleNames ui-helper-reset"><li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'+gname+'</li></ul></div>';
+					$(html).appendTo('#groupList');
+					allgroups.push(gname);
+					dragInit();
+				})
+			}else{
+				$('#groupList').html("");
+				allgroups=[];
+			}
+		}
+	})
+	
 	
 	$("#groupName").keydown(function(k){
 		if(k.keyCode==13 ){
@@ -621,6 +147,8 @@ $(function(){
 		var formData =  allParams($("#dgfParameter"));//取form表单参数
 		if(formData.dgfInput==""){
 			alert("请选择输出目录！");
+		}else if(formData.input==""){
+			alert("请选择输入文件！");
 		}else{
 			if($("#dgfPValue").val()<0||$("#dgfPValue").val()>1){
 				alert("p值大小必须大于等于0小于等于1！")
@@ -629,7 +157,6 @@ $(function(){
 				alert("差异倍数必须大于等于0！")
 			}
 			var groupCompareVenn={};	
-			
 			var groups =$('#groupList').find('div');
 			var allGroupItems=[];
 			if(groups.length>0){
@@ -656,8 +183,8 @@ $(function(){
 		if(samples.length>0){
 			for(var i=0;i<samples.length;i++){
 				if(allGroupItems.indexOf(samples[i].innerText)==-1){
-					if(!confirm("发现有未分组的样品，确定不分组?")){
-						return false;
+					if(confirm("发现有未分组的样品，确定不分组?")){
+						break;
 					}
 				}
 			}
@@ -675,7 +202,6 @@ $(function(){
 		};
 
 		var resultPara={
-						"id":dirId,
 						"paras":formData,
 						"samples":samplesStr,
 						"groupCompareVenn":groupCompareVenn
@@ -701,6 +227,7 @@ $(function(){
 				        visible: 1,
 				        speed: 800
 				    });
+				    $("#compareGroups").empty();
 					for(var i=0;i<compareData.length;i++){
 						var option="<option value="+compareData[i]["compareName"]+">"+compareData[i]["compareName"]+"</option>"
 						$("#compareGroups").append(option);
@@ -1137,6 +664,18 @@ function uploadFile(url,uploadId,inputId,ddir){
 					var url = data.data.url;
 					$(inputId).val(url);    
 					samplesArr = data.data.samples;
+					samplesArr.shift();
+					$("#sampleNames").empty();
+					//样本分组初始化设置
+					if(samplesArr.length>0){
+						for(var i=0;i<samplesArr.length;i++){
+							var name = samplesArr[i];
+							add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
+							$(add).appendTo('#sampleNames')
+					
+						};	
+						dragInit();
+					}
 					alert("上传成功！");
 					}
 	        }
@@ -1269,6 +808,8 @@ function geturl(formInputId,type){
 								var data1 = data['data'];
 								var samples=data1["samples"];
 								samplesArr=samples;
+								samplesArr.shift();
+								$("#sampleNames").empty();
 								//样本分组初始化设置
 								if(samplesArr.length>0){
 									for(var i=0;i<samplesArr.length;i++){
@@ -1298,10 +839,3 @@ function geturl(formInputId,type){
 	}
 
 };
-
-</script>
-
-
-</body>
-
-</html>
