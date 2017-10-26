@@ -413,13 +413,12 @@ function draftTask(url,dataUrl){
 //直接写入一个json而不从json文件中获得他
 allNodeName =  ["Density", "Saturation", "SNP_INDEL", "AS", "PPI", "GO", "KEGG","QC","Assemble","Novel","DE"];
 constDefaultRefParams={
-
 	"DE": [
         {
             "id": "qval",
             "name": "P-Adjusted Value",
             "type": "input",
-			"value":"0.005",
+			"value":"0.05",
 			"illustration":"p-adjusted value为校正后的p-value值，用于反映差异的显著性，值越小差异越显著。此参数用于筛选差异基因。无生物学重复一般选择0.005，生物学重复一般选择0.05 。"
         },
         {

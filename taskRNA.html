@@ -278,39 +278,27 @@
 						</div>
 					</div>
 					<!-- ---------------------------------------------------------------------- -->
-					<!--第四部分 模块参数设置-->
-
-					<div class="part_box">
-
-						<div class="task_form_height">
-							<label class="task_label"><span>9</span>模块参数设置</label>
-							<!--点击展开参数-->
-							<div class="panel-group params_part" id="parasPanel" style="width: 81%;margin-left: 55px;margin-top: 0;">
-							</div>							
-						</div>
-						
-
-						
-					</div>
-					<!-- ------------------------------参数设置结束-------------------------------- -->
-					<!--第五部分 样本分组、比较、维恩图 -->
+					<!--第四部分 样本分组、比较、维恩图 -->
 					<!-- 样本分组、比较、维恩图 -->
 					<div class="part_box">
 						<!--带星 分组比较标题-->
 						<div class="task_form_height">
-							<label class="task_label"><span>10</span>分组比较</label>
+							<label class="task_label"><span>9</span>分组比较</label>
 							<!--带有拖拽内容的面板-->
 							<div class="sample_part" style="width: 81%;margin-left: 55px;margin-top: 0;">
 								<div class="panel panel-default">
 									<div class="panel-heading">生物学重复</div>
 									<div class="panel-body">
 										<form class="form-horizontal">
-											<label class="col-sm-3 control-label">生物学</label>
-											<div class="col-sm-7">
-											<select id="isRepeat" name="isRepeat" class="selectpicker select_width">
-												<option value="no" >NO</option>
-												<option value="yes" selected="selected">YES</option>
-											</select>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">生物学</label>
+												<div class="col-sm-7">
+													<select id="isRepeat" name="isRepeat" class="selectpicker select_width">
+														<option value="no" >NO</option>
+														<option value="yes" selected="selected">YES</option>
+													</select>
+												</div>
+												
 											</div>
 										</form>
 									</div>
@@ -435,6 +423,21 @@
 							</div>
 						</div>
 					</div>
+					<!--第五部分 模块参数设置-->
+
+					<div class="part_box">
+
+						<div class="task_form_height">
+							<label class="task_label"><span>10</span>模块参数设置</label>
+							<!--点击展开参数-->
+							<div class="panel-group params_part" id="parasPanel" style="width: 81%;margin-left: 55px;margin-top: 0;">
+							</div>							
+						</div>
+						
+
+						
+					</div>
+					<!-- ------------------------------参数设置结束-------------------------------- -->
 				</div>
 
 					<!-- --------------------------------------------------------------------------------------- -->
@@ -695,7 +698,7 @@
 			$("#lockNode").attr("class","btn btn_orange round_Button");
 			$("#unlockNode").attr("class","btn btn_white round_Button");
 			$("#parasPanel").html("");  //清空现有的参数
-			};
+		};
 		//点击锁定模块
 		function selectedNode(){
 			$("#unlockNode").attr("class","btn btn_orange round_Button");
@@ -749,7 +752,7 @@
 						opts += '<option value="' + tmpArr[0] + '">' + tmpArr[1] + '</option>'; //给option添加一个value
 					};
 					//添加dropdown的代码
-					$("#" + key + " form").append('<div class="" ><label title="' + info + '" class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7" ><select class="form-control" id="' + id + '" name="' + id + '"  title="">' + opts + '</select></div></div>');
+					$("#" + key + " form").append('<div class="form-group" ><label title="' + info + '" class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7" ><select class="form-control" id="' + id + '" name="' + id + '"  title="">' + opts + '</select></div></div>');
 				};
 				$("#" + id).selectpicker({
 					liveSearch: true,
@@ -1335,7 +1338,12 @@ function dragInit() {
 $('#groupModal').on('shown.bs.modal', function () {
   $('#groupName').focus()
 })
-
+$('#compareModal').on('shown.bs.modal', function () {
+  $('#compareName').focus()
+})
+$('#vennModal').on('shown.bs.modal', function () {
+  $('#vennName').focus()
+})
 $('#isRepeat').on('changed.bs.select', function(e) {
 	if(e.target.value){
 		if(e.target.value=="no"){
