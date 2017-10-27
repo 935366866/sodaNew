@@ -163,8 +163,8 @@
 								<label class="task_label"><span>6</span>链特异性文库</label>
 								<div class="task_box">
 									<select id="is_sslib" name="is_sslib" class="selectpicker select_width">
-										<option value="no">NO</option>
-										<option value="yes">YES</option>
+										<option value="NO">NO</option>
+										<option value="YES">YES</option>
 									</select>
 								</div>
 							</div>
@@ -173,8 +173,8 @@
 								<label class="task_label"><span>7</span>测序类型</label>
 								<div class="task_box">
 									<select id="seq_type" name="seq_type" class="selectpicker select_width bs-select-hidden">
-										<option selected="selected" value="pe">PE(Pair-End)</option>
-										<option value="se">SE(Single-End)</option>
+										<option selected="selected" value="PE">PE(Pair-End)</option>
+										<option value="SE">SE(Single-End)</option>
 								</select>
 								</div>
 							</div>
@@ -294,8 +294,8 @@
 												<label class="col-sm-3 control-label">生物学</label>
 												<div class="col-sm-7">
 													<select id="isRepeat" name="isRepeat" class="selectpicker select_width">
-														<option value="no" >NO</option>
-														<option value="yes" selected="selected">YES</option>
+														<option value="NO" >NO</option>
+														<option value="YES" selected="selected">YES</option>
 													</select>
 												</div>
 												
@@ -1024,7 +1024,7 @@ function geturl(formInputId,type){
     $(function () {
         $('#removeDataTable').click(function () {
 			if(samplesLock == 1){
-				if($('#seq_type').val()=="pe"){
+				if($('#seq_type').val()=="PE"){
 					var ids = $.map($('#sampleTable').bootstrapTable('getSelections'), function (row) {
 						if(row.fq1){
 							return row.fq1;
@@ -1346,7 +1346,7 @@ $('#vennModal').on('shown.bs.modal', function () {
 })
 $('#isRepeat').on('changed.bs.select', function(e) {
 	if(e.target.value){
-		if(e.target.value=="no"){
+		if(e.target.value=="NO"){
 			$("#sampleNames li").each(function(){
 				var gname= $(this).text();
 				var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+gname+'</span><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"><li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'+gname+'</li></ul></div>';
@@ -1565,7 +1565,6 @@ function checkInput(){
 //任务运行，提交参数
 $("#taskRun").click(function(){
 	var tableDatas=$('#sampleTable').bootstrapTable("getData");
-	console.log(tableDatas)
 	var resultArray=[];
 	for(var i=0;i<tableDatas.length;i++){
 		var rowData=tableDatas[i];
@@ -1716,7 +1715,7 @@ $("#taskRun").click(function(){
 						}; 
 						
 		resultPara = JSON.stringify(resultPara);
-
+console.log(resultPara)
 		window.sessionStorage.setItem("paras",resultPara);
 				
 //向后台传送数据
@@ -1764,7 +1763,7 @@ $(function(){
 	
 	$('#sampleTable').bootstrapTable(options);
 	var names=[]
-  	if($('#seq_type').val()=="pe"){
+  	if($('#seq_type').val()=="PE"){
 		var options=$('#sampleTable').bootstrapTable("getOptions");
 		options.editable=true;
 		options.columns=[{
@@ -1812,7 +1811,7 @@ $(function(){
   	
 	$('#seq_type').on('changed.bs.select', function(e) {
 	    if(e.target.value){
-	      	if(e.target.value=="se"){
+	      	if(e.target.value=="SE"){
 	      	var options=$('#sampleTable').bootstrapTable("getOptions");
 				
 				options.columns=[{

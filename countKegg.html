@@ -282,12 +282,18 @@
 							<div class="panel-body">
 								<div class="list">
 									<div class="listTitle">比较组：</div>
-									<div class="listContent input_b_3">
-										<select  id="compareGroups"  name="compareGroups" class="selectpicker select_width" autocomplete="off">
+									<div class="listContent1" style="margin-right: 40px;">
+										<select  id="compareGroups"  name="compareGroups" class="selectpicker select_width" autocomplete="off"></select>
+									</div>
+									<div  class="listContent1">
+										<select  id="keggAll"  name="keggAll" class="selectpicker select_width" autocomplete="off">
+											<option value="ALL">ALL</option>
+											<option value="UP">UP</option>
+											<option value="DOWN">DOWN</option>
 										</select>
-									</div>		
+									</div>	
 								</div>
-								<table></table>
+								<table id="listTable"></table>
 							</div>
 						</div>
 					</div>

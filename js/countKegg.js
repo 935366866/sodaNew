@@ -65,14 +65,7 @@ $(function(){
 				}
 			}
 		});
-	
-	var compareData = null;
-	var geneSet;
-	$('a[href="#KEGGList"]').on('show.bs.tab', function (e) {
-		updateTable("compareGroups","KEGGList",compareData);
 
-	})
-	
 	var keggValue=defaultRefParams["KEGG"][0]["value"];
 	var value = keggValue.split(";")
 	var opts = ""
@@ -117,7 +110,57 @@ $(function(){
 	$('a[href="#KEGGStatus"]').on('hide.bs.tab', function (e) {
 		window.clearInterval(setInt)
 	})
-	
+	var compareData=null;
+	$('a[href="#KEGGList"]').on('show.bs.tab', function (e) {
+		$.ajax({
+				url:'json/compares1.json',  
+				type:'get',
+				dataType: "json",
+				success:function(data) {
+					var compares=data["compareName"];
+					if(compares.length>0){
+						$("#compareGroups").empty();
+						for(var i=0;i<compares.length;i++){
+							var option="<option value="+compares[i]+">"+compares[i]+"</option>";
+							$("#compareGroups").append(option);
+						}
+						$('#compareGroups').selectpicker('refresh');
+						var groupValue=$("#compareGroups").val();
+						var allValue=$("#keggAll").val();
+						if(groupValue!=null&&allValue!=null){
+							var resultPara={
+										"compareGroups":groupValue,
+										"allValue":allValue
+										}; 
+										
+							resultPara = JSON.stringify(resultPara);
+							$.ajax({
+								url:'json/deep3.json',  
+								type:'get',
+								data:{parameter:resultPara},
+								dataType: "json",
+								success:function(data) {
+									compareData=data["list"];
+									updateCheckTable("compareGroups","KEGGList",compareData,"keggAll");
+									$('#compareGroups').on('changed.bs.select', function (e) {
+										updateCheckTable("compareGroups","KEGGList",compareData,"keggAll");
+									});
+									$('#keggAll').on('changed.bs.select', function (e) {
+										updateCheckTable("compareGroups","KEGGList",compareData,"keggAll");
+									});
+								},
+								error : function(XMLHttpRequest) {
+								   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+								}
+							})
+						}
+					}
+				},
+				error : function(XMLHttpRequest) {
+				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+				}
+		})
+	})
 	//提交参数
 	$("#submit_paras").click(function(){
 		var formData =  allParams($("#parameter"));//取form表单参数
@@ -139,7 +182,6 @@ $(function(){
 				dataType: "json",
 				success:function(data) {	
 					var showData=data["show"];
-					compareData=data["arr"];
 					$("#KeggCarousel").empty();
 					$("#KeggCarousel").append("<ul></ul>");
  					for(var i=0;i<showData.length;i++){
@@ -151,16 +193,7 @@ $(function(){
 				        visible: 1,
 				        speed: 800
 				    });
-				    $("#compareGroups").empty();
-					for(var i=0;i<compareData.length;i++){
-						var option="<option value="+compareData[i]["compareName"]+">"+compareData[i]["compareName"]+"</option>"
-						$("#compareGroups").append(option);
-					}
-					$('#compareGroups').selectpicker('refresh');
-					$('#compareGroups').on('changed.bs.select', function (e) {
-						updateTable("compareGroups","KEGGList",compareData);
-					});					
-							
+				    	
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -172,18 +205,20 @@ $(function(){
 
 
 /*-------------公共函数-------------------*/
-	function updateTable(selectId,tabPanelId,compareData){
+	function updateCheckTable(selectId,tableId,compareData,allId){
 		if(!compareData) return;
-		var p=$("#"+selectId).selectpicker("val");
+		debugger
+		var p=$("#"+selectId).val();
+		var allValues=$("#"+allId).val();
 		for(var j=0;j<compareData.length;j++){
-			if(p==compareData[j]["compareName"]){
+			if(p==compareData[j]["compareName"]&&allValues==compareData[j]["all"]){
 				var content=compareData[j]['content'];
 				var head=content[0];
 				var options={
 					clickToSelect:true,
 					showFooter:false,
 					classes:'table',
-					columns: []
+					columns: [{field:"state",checkbox:true,checkboxEnabled:true}]
 				}
 				for(var m=0;m<head.length;m++){
 					var obj={order: "asc"};
@@ -191,7 +226,6 @@ $(function(){
 					obj["field"]=head[m];
 					options.columns.push(obj);
 				}
-				$("#"+tabPanelId+" table").bootstrapTable(options);
 				var tableData=[];
 				for(var i=1;i<content.length;i++){
 					var row=content[i];
@@ -201,9 +235,9 @@ $(function(){
 					}
 					tableData.push(rowObj);
 				}
-				$("#"+tabPanelId+" table").bootstrapTable('destroy');
-				$("#"+tabPanelId+" table").bootstrapTable(options);
-				$("#"+tabPanelId+" table").bootstrapTable('load',tableData);
+				$("#"+tableId).bootstrapTable('destroy');
+				$("#"+tableId).bootstrapTable(options);
+				$("#"+tableId).bootstrapTable('load',tableData);
 			}
 		}
 	}

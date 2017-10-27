@@ -183,7 +183,7 @@ function dataTableGet(data,sequencingType){
 		var patt3 =/\.fq$/i;    //以.fq结尾
 		var patt4 =/\.fastq$/i;	//以.fastq结尾
 		//双端s
-		if(sequencingType == "pe"){
+		if(sequencingType == "PE"){
 			for(var i=0;i<data.length;i++){  
 				var record = data[i];
 				var name = record.name.trim();
@@ -235,7 +235,7 @@ function dataTableGet(data,sequencingType){
 			}
 		   
 		}
-		if(sequencingType == "se"){
+		if(sequencingType == "SE"){
 			for(var i=0;i<data.length;i++){  
 				var record = data[i];
 				var name = record.name.trim();
@@ -421,6 +421,7 @@ constDefaultRefParams={
 			"value":"0.05",
 			"illustration":"p-adjusted value为校正后的p-value值，用于反映差异的显著性，值越小差异越显著。此参数用于筛选差异基因。无生物学重复一般选择0.005，生物学重复一般选择0.05 。"
         },
+        
         {
             "id":"foldchange",
             "name": "差异倍数",

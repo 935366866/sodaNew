@@ -388,14 +388,20 @@
 						<div class="tab-pane" id="EAKEGGList">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<div style="margin-bottom: 50px;">
-										<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
-										<div class="input_b_3" style="width: 260px;float: left;">
-											<select  id="EAKEGGListCompareGroups"  name="EAKEGGListCompareGroups" class="selectpicker select_width" autocomplete="off">
+									<div class="list">
+										<div class="listTitle">比较组：</div>
+										<div class="listContent1" style="margin-right: 40px;">
+											<select  id="EAKEGGListCompareGroups"  name="EAKEGGListCompareGroups" class="selectpicker select_width" autocomplete="off"></select>
+										</div>
+										<div  class="listContent1">
+											<select  id="keggAll"  name="keggAll" class="selectpicker select_width" autocomplete="off">
+												<option value="ALL">ALL</option>
+												<option value="UP">UP</option>
+												<option value="DOWN">DOWN</option>
 											</select>
-										</div>		
+										</div>	
 									</div>
-									<table></table>
+									<table id="EAKEGGTable"></table>
 								</div>
 							</div>
 						</div>
@@ -425,14 +431,21 @@
 						<div class="tab-pane" id="EAGOList">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<div style="margin-bottom: 50px;">
-										<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
-										<div class="input_b_3" style="width: 260px;float: left;">
+									<div class="list">
+										<div  class="listTitle">比较组：</div>
+										<div class="listContent1" style="margin-right: 40px;">
 											<select  id="EAGOListCompareGroups"  name="EAKEGGListCompareGroups" class="selectpicker select_width" autocomplete="off">
 											</select>
-										</div>		
+										</div>	
+										<div  class="listContent1">
+											<select  id="goAll"  name="goAll" class="selectpicker select_width" autocomplete="off">
+												<option value="ALL">ALL</option>
+												<option value="UP">UP</option>
+												<option value="DOWN">DOWN</option>
+											</select>
+										</div>	
 									</div>
-									<table></table>
+									<table id="EAGOTable"></table>
 								</div>
 							</div>
 						</div>
@@ -508,13 +521,13 @@
 								<div class="panel-body" style="height: 439px;">
 									<form class="parameter" id="preKeggScaParameter">
 										<div class="part">
-											<div style="margin-bottom: 30px;">
-												<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
-												<div class="input_b_3" style="width: 180px;float: left;margin-right: 40px;">
+											<div class="list">
+												<div class="listTitle">比较组：</div>
+												<div class="input_b_3 listContent1" style="margin-right: 40px;">
 													<select  id="preKeggCompareGroups"  name="preKeggCompareGroups" class="selectpicker select_width" autocomplete="off">
 													</select>
 												</div>
-												<div class="input_b_3" style="width:180px;float: left;">
+												<div class="input_b_3 listContent1">
 													<select  id="preKeggAll"  name="preKeggAll" class="selectpicker select_width" autocomplete="off">
 														<option value="ALL">ALL</option>
 														<option value="UP">UP</option>
@@ -687,13 +700,13 @@
 								<div class="panel-body" style="height: 439px;">
 									<form class="parameter" id="orgKeggParameter">
 										<div class="part">
-											<div style="margin-bottom: 30px;">
-												<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
-												<div class="input_b_3" style="width: 180px;float: left;margin-right: 40px;"">
+											<div class="list">
+												<div class="listTitle">比较组：</div>
+												<div class="input_b_3 listContent1" style="margin-right: 40px;"">
 													<select  id="oriKeggCompareGroups"  name="oriKeggCompareGroups" class="selectpicker select_width" autocomplete="off">
 													</select>
 												</div>	
-												<div class="input_b_3" style="width:180px;float: left;">
+												<div class="input_b_3 listContent1">
 													<select  id="oriKeggAll"  name="oriKeggAll" class="selectpicker select_width" autocomplete="off">
 														<option value="ALL">ALL</option>
 														<option value="UP">UP</option>
@@ -2141,16 +2154,112 @@ $(function(){
 	$('a[href="#EAStatus"]').on('hide.bs.tab', function (e) {
 		window.clearInterval(eaSet)
 	})
+    var compareData1 = null;
+    $('a[href="#EAKEGGList"]').on('show.bs.tab', function (e) {
+		$.ajax({
+				url:'json/compares.json',  
+				type:'get',
+				dataType: "json",
+				success:function(data) {
+					var compares=data["compareName"];
+					if(compares.length>0){
+						$("#EAKEGGListCompareGroups").empty();
+						for(var i=0;i<compares.length;i++){
+							var option="<option value="+compares[i]+">"+compares[i]+"</option>";
+							$("#EAKEGGListCompareGroups").append(option);
+						}
+						$('#EAKEGGListCompareGroups').selectpicker('refresh');
+						var groupValue=$('#EAKEGGListCompareGroups').val();
+						var allValue=$("#keggAll").val();
+						if(groupValue!=null&&allValue!=null){
+							var resultPara={
+										"compareGroups":groupValue,
+										"allValue":allValue
+										}; 
+										
+							resultPara = JSON.stringify(resultPara);
+							$.ajax({
+								url:'json/deep3.json',  
+								type:'get',
+								data:{parameter:resultPara},
+								dataType: "json",
+								success:function(data) {
+									compareData1=data["list"];
+									updateCheckTable("EAKEGGListCompareGroups","EAKEGGTable",compareData1,"keggAll");
+									$('#EAKEGGListCompareGroups').on('changed.bs.select', function (e) {
+										updateCheckTable("EAKEGGListCompareGroups","EAKEGGTable",compareData1,"keggAll");
+									});
+									$('#keggAll').on('changed.bs.select', function (e) {
+										updateCheckTable("EAKEGGListCompareGroups","EAKEGGTable",compareData1,"keggAll");
+									});
+								},
+								error : function(XMLHttpRequest) {
+								   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+								}
+							})
+						}
+					}
+				},
+				error : function(XMLHttpRequest) {
+				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+				}
+		})
+	
+	})
     
-    /*使用原始基因*/
-   	var compareData1 = null;
-   	var compareData2 = null;
-	$('a[href="#EAKEGGList"]').on('show.bs.tab', function (e) {
-		updateTable("EAKEGGListCompareGroups","EAKEGGList",compareData1);
-	})
+    var compareData2 = null;
 	$('a[href="#EAGOList"]').on('show.bs.tab', function (e) {
-		updateTable("EAGOListCompareGroups","EAGOList",compareData2);
+		$.ajax({
+			url:'json/compares.json',  
+			type:'get',
+			dataType: "json",
+			success:function(data) {
+				var compares=data["compareName"];
+				if(compares.length>0){
+					$("#EAGOListCompareGroups").empty();
+					for(var i=0;i<compares.length;i++){
+						var option="<option value="+compares[i]+">"+compares[i]+"</option>";
+						$("#EAGOListCompareGroups").append(option);
+					}
+					$('#EAGOListCompareGroups').selectpicker('refresh');
+					var groupValue=$('#EAGOListCompareGroups').val();
+					var allValue=$("#goAll").val();
+					if(groupValue!=null&&allValue!=null){
+						var resultPara={
+									"compareGroups":groupValue,
+									"allValue":allValue
+									}; 
+									
+						resultPara = JSON.stringify(resultPara);
+						$.ajax({
+							url:'json/deep3.json',  
+							type:'get',
+							data:{parameter:resultPara},
+							dataType: "json",
+							success:function(data) {
+								compareData2=data["list"];
+								updateCheckTable("EAGOListCompareGroups","EAGOTable",compareData2,"goAll");
+								$('#EAGOListCompareGroups').on('changed.bs.select', function (e) {
+									updateCheckTable("EAGOListCompareGroups","EAGOTable",compareData2,"goAll");
+								});
+								$('#goAll').on('changed.bs.select', function (e) {
+									updateCheckTable("EAGOListCompareGroups","EAGOTable",compareData2,"goAll");
+								});
+							},
+							error : function(XMLHttpRequest) {
+							   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+							}
+						})
+					}
+				}
+			},
+			error : function(XMLHttpRequest) {
+			   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+			}
+		})
 	})
+	
+    /*使用原始基因*/
 	var dirPathValue = sessionStorage.getItem("dir_path"); 
 	if(dirPathValue){
 		if(dirPathValue.length>0){
@@ -2172,7 +2281,6 @@ $(function(){
 		
 		var resultPara={"paras":formData}; 		
 		resultPara = JSON.stringify(resultPara);
-		console.log(resultPara)
 			$.ajax({
 				url: 'json/deepExcavation1.json',  
 				type:'get',
@@ -2218,28 +2326,6 @@ $(function(){
 				        visible: 1,
 				        speed: 800
 				    });
-				    
-				    compareData1=data["KEGGList"];
-				     $("#EAKEGGListCompareGroups").empty();
-					for(var i=0;i<compareData1.length;i++){
-						var option="<option value="+compareData1[i]["compareName"]+">"+compareData1[i]["compareName"]+"</option>"
-						$("#EAKEGGListCompareGroups").append(option);
-					}
-					$('#EAKEGGListCompareGroups').selectpicker('refresh');
-					$('#EAKEGGListCompareGroups').on('changed.bs.select', function (e) {
-						updateTable("EAKEGGListCompareGroups","EAKEGGList",compareData1);
-					});
-					
-					compareData2=data["GoList"];
-					$("#EAGOListCompareGroups").empty();
-					for(var i=0;i<compareData2.length;i++){
-						var option="<option value="+compareData2[i]["compareName"]+">"+compareData2[i]["compareName"]+"</option>"
-						$("#EAGOListCompareGroups").append(option);
-					}
-					$('#EAGOListCompareGroups').selectpicker('refresh');
-					$('#EAGOListCompareGroups').on('changed.bs.select', function (e) {
-						updateTable("EAGOListCompareGroups","EAGOList",compareData2);
-					});
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -2267,7 +2353,6 @@ $(function(){
 		
 		var resultPara={"paras":formData}; 		
 		resultPara = JSON.stringify(resultPara);
-		console.log(resultPara)
 			$.ajax({
 				url: 'json/deepExcavation2.json',  
 				type:'get',
@@ -2313,27 +2398,6 @@ $(function(){
 				        visible: 1,
 				        speed: 800
 				    });
-				    compareData1=data["KEGGList"];
-				    $("#EAKEGGListCompareGroups").empty();
-					for(var i=0;i<compareData1.length;i++){
-						var option="<option value="+compareData1[i]["compareName"]+">"+compareData1[i]["compareName"]+"</option>"
-						$("#EAKEGGListCompareGroups").append(option);
-					}
-					$('#EAKEGGListCompareGroups').selectpicker('refresh');
-					$('#EAKEGGListCompareGroups').on('changed.bs.select', function (e) {
-						updateTable("EAKEGGListCompareGroups","EAKEGGList",compareData1);
-					});
-					
-					compareData2=data["GoList"];
-					$("#EAGOListCompareGroups").empty();
-					for(var i=0;i<compareData2.length;i++){
-						var option="<option value="+compareData2[i]["compareName"]+">"+compareData2[i]["compareName"]+"</option>"
-						$("#EAGOListCompareGroups").append(option);
-					}
-					$('#EAGOListCompareGroups').selectpicker('refresh');
-					$('#EAGOListCompareGroups').on('changed.bs.select', function (e) {
-						updateTable("EAGOListCompareGroups","EAGOList",compareData2);
-					});
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -2384,50 +2448,50 @@ $(function(){
 				type:'get',
 				dataType: "json",
 				success:function(data) {
-					debugger
 					var compares=data["compareName"];
 					if(compares.length>0){
+						$("#oriKeggCompareGroups").empty();
 						for(var i=0;i<compares.length;i++){
 							var option="<option value="+compares[i]+">"+compares[i]+"</option>";
 							$("#oriKeggCompareGroups").append(option);
 						}
 						$('#oriKeggCompareGroups').selectpicker('refresh');
+						var groupValue=$('#oriKeggCompareGroups').val();
+						var allValue=$("#oriKeggAll").val();
+						if(groupValue!=null&&allValue!=null){
+							var resultPara={
+										"compareGroups":groupValue,
+										"allValue":allValue
+										}; 
+										
+							resultPara = JSON.stringify(resultPara);
+							$.ajax({
+								url:'json/deep3.json',  
+								type:'get',
+								data:{parameter:resultPara},
+								dataType: "json",
+								success:function(data) {
+									compareData5=data["list"];
+									console.log(compareData5)
+									updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData5,"oriKeggAll");
+									$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
+										updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData5,"oriKeggAll");
+									});
+									$('#oriKeggAll').on('changed.bs.select', function (e) {
+										updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData5,"oriKeggAll");
+									});
+								},
+								error : function(XMLHttpRequest) {
+								   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+								}
+							})
+						}
 					}
 				},
 				error : function(XMLHttpRequest) {
 				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 				}
 		})
-	})
-	$('a[href="#KEGGPathScatter"]').on('shown.bs.tab', function (e) {
-		var groupValue=$('#oriKeggCompareGroups').val();
-		console.log(groupValue)
-		if(groupValue!=null){
-			var allValue=$("#oriKeggAll").val();
-			var resultPara={
-						"compareGroups":groupValue,
-						"allValue":allValue
-						}; 
-						
-			resultPara = JSON.stringify(resultPara);
-			$.ajax({
-				url:'json/deep3.json',  
-				type:'get',
-				data:{parameter:resultPara},
-				dataType: "json",
-				success:function(data) {
-					compareData5=data["list"];
-					console.log(compareData5)
-					updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData5);
-					$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
-						updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData5);
-					});
-				},
-				error : function(XMLHttpRequest) {
-				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
-				}
-			})
-		}
 	})
 		
 	/*使用原始KEGG*/
@@ -2440,44 +2504,48 @@ $(function(){
 				success:function(data) {
 					var compares=data["compareName"];
 					if(compares.length>0){
+						$("#oriKeggCompareGroups").empty();
 						for(var i=0;i<compares.length;i++){
 							var option="<option value="+compares[i]+">"+compares[i]+"</option>";
 							$("#oriKeggCompareGroups").append(option);
 						}
 						$('#oriKeggCompareGroups').selectpicker('refresh');
+						var groupValue=$("#oriKeggCompareGroups").val();
+						if(groupValue!=null){
+							var allValue=$("#oriKeggAll").val();
+							var resultPara={
+										"compareGroups":groupValue,
+										"allValue":allValue
+										}; 
+										
+							resultPara = JSON.stringify(resultPara);
+							$.ajax({
+								url:'json/deep3.json',  
+								type:'get',
+								data:{parameter:resultPara},
+								dataType: "json",
+								success:function(data) {
+									compareData4=data["list"];
+									updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4,"oriKeggAll");
+									$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
+										updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4,"oriKeggAll");
+									});
+									$('#oriKeggAll').on('changed.bs.select', function (e) {
+										updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4,"oriKeggAll");
+									});
+								},
+								error : function(XMLHttpRequest) {
+								   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+								}
+							})
+						
+						}
 					}
 				},
 				error : function(XMLHttpRequest) {
 				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 				}
 		})
-		var groupValue=$("#oriKeggCompareGroups").val();
-		if(groupValue!=null){
-			var allValue=$("#oriKeggAll").val();
-			var resultPara={
-						"compareGroups":groupValue,
-						"allValue":allValue
-						}; 
-						
-			resultPara = JSON.stringify(resultPara);
-			$.ajax({
-				url:'json/deep3.json',  
-				type:'get',
-				data:{parameter:resultPara},
-				dataType: "json",
-				success:function(data) {
-					compareData4=data["list"];
-					updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4);
-					$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
-						updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4);
-					});
-				},
-				error : function(XMLHttpRequest) {
-				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
-				}
-			})
-		
-		}
 	})
 	var arr=[]
 	$("#orgKeggTable").on("check.bs.table",function(){
@@ -2538,44 +2606,47 @@ $(function(){
 				success:function(data) {
 					var compares=data["compareName"];
 					if(compares.length>0){
+						$("#preKeggCompareGroups").empty();
 						for(var i=0;i<compares.length;i++){
 							var option="<option value="+compares[i]+">"+compares[i]+"</option>";
 							$("#preKeggCompareGroups").append(option);
 						}
 						$('#preKeggCompareGroups').selectpicker('refresh');
+						var groupValue=$("#preKeggCompareGroups").val();
+						var allValue=$("#preKeggAll").val();
+						if(groupValue!=null&&allValue!=null){
+							var resultPara={
+										"compareGroups":groupValue,
+										"allValue":allValue
+										}; 
+										
+							resultPara = JSON.stringify(resultPara);
+							$.ajax({
+								url:'json/deep3.json',  
+								type:'get',
+								data:{parameter:resultPara},
+								dataType: "json",
+								success:function(data) {
+									compareData3=data["list"];
+									updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3,"preKeggAll");
+									$('#preKeggCompareGroups').on('changed.bs.select', function (e) {
+										updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3,"preKeggAll");
+									});
+									$('#preKeggAll').on('changed.bs.select', function (e) {
+										updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3,"preKeggAll");
+									});
+								},
+								error : function(XMLHttpRequest) {
+								   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+								}
+							})
+						}
 					}
 				},
 				error : function(XMLHttpRequest) {
 				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 				}
 		})
-		var groupValue=$("#preKeggCompareGroups").val();
-		alert(groupValue)
-		if(groupValue!=null){
-			var allValue=$("#preKeggAll").val();
-			var resultPara={
-						"compareGroups":groupValue,
-						"allValue":allValue
-						}; 
-						
-			resultPara = JSON.stringify(resultPara);
-			$.ajax({
-				url:'json/deep3.json',  
-				type:'get',
-				data:{parameter:resultPara},
-				dataType: "json",
-				success:function(data) {
-					compareData3=data["list"];
-					updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3);
-					$('#preKeggCompareGroups').on('changed.bs.select', function (e) {
-						updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3);
-					});
-				},
-				error : function(XMLHttpRequest) {
-				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
-				}
-			})
-		}
 	})
 	//提交参数
 	$("#kpspSubmit_paras").click(function(){
@@ -2623,12 +2694,13 @@ $(function(){
 
 
 /*-------------公共函数-------------------*/
-function updateCheckTable(selectId,tableId,compareData){
+	function updateCheckTable(selectId,tableId,compareData,allId){
 		if(!compareData) return;
 		debugger
 		var p=$("#"+selectId).selectpicker("val");
+		var allValues=$("#"+allId).selectpicker("val");
 		for(var j=0;j<compareData.length;j++){
-			if(p==compareData[j]["compareName"]){
+			if(p==compareData[j]["compareName"]&&allValues==compareData[j]["all"]){
 				var content=compareData[j]['content'];
 				var head=content[0];
 				var options={
