@@ -2384,50 +2384,47 @@ $(function(){
 				type:'get',
 				dataType: "json",
 				success:function(data) {
-					debugger
 					var compares=data["compareName"];
 					if(compares.length>0){
+						$("#oriKeggCompareGroups").empty();
 						for(var i=0;i<compares.length;i++){
 							var option="<option value="+compares[i]+">"+compares[i]+"</option>";
 							$("#oriKeggCompareGroups").append(option);
 						}
 						$('#oriKeggCompareGroups').selectpicker('refresh');
+						var groupValue=$('#oriKeggCompareGroups').val();
+						if(groupValue!=null){
+							var allValue=$("#oriKeggAll").val();
+							var resultPara={
+										"compareGroups":groupValue,
+										"allValue":allValue
+										}; 
+										
+							resultPara = JSON.stringify(resultPara);
+							$.ajax({
+								url:'json/deep3.json',  
+								type:'get',
+								data:{parameter:resultPara},
+								dataType: "json",
+								success:function(data) {
+									compareData5=data["list"];
+									console.log(compareData5)
+									updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData5);
+									$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
+										updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData5);
+									});
+								},
+								error : function(XMLHttpRequest) {
+								   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+								}
+							})
+						}
 					}
 				},
 				error : function(XMLHttpRequest) {
 				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 				}
 		})
-	})
-	$('a[href="#KEGGPathScatter"]').on('shown.bs.tab', function (e) {
-		var groupValue=$('#oriKeggCompareGroups').val();
-		console.log(groupValue)
-		if(groupValue!=null){
-			var allValue=$("#oriKeggAll").val();
-			var resultPara={
-						"compareGroups":groupValue,
-						"allValue":allValue
-						}; 
-						
-			resultPara = JSON.stringify(resultPara);
-			$.ajax({
-				url:'json/deep3.json',  
-				type:'get',
-				data:{parameter:resultPara},
-				dataType: "json",
-				success:function(data) {
-					compareData5=data["list"];
-					console.log(compareData5)
-					updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData5);
-					$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
-						updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData5);
-					});
-				},
-				error : function(XMLHttpRequest) {
-				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
-				}
-			})
-		}
 	})
 		
 	/*使用原始KEGG*/
@@ -2440,44 +2437,45 @@ $(function(){
 				success:function(data) {
 					var compares=data["compareName"];
 					if(compares.length>0){
+						$("#oriKeggCompareGroups").empty();
 						for(var i=0;i<compares.length;i++){
 							var option="<option value="+compares[i]+">"+compares[i]+"</option>";
 							$("#oriKeggCompareGroups").append(option);
 						}
 						$('#oriKeggCompareGroups').selectpicker('refresh');
+						var groupValue=$("#oriKeggCompareGroups").val();
+						if(groupValue!=null){
+							var allValue=$("#oriKeggAll").val();
+							var resultPara={
+										"compareGroups":groupValue,
+										"allValue":allValue
+										}; 
+										
+							resultPara = JSON.stringify(resultPara);
+							$.ajax({
+								url:'json/deep3.json',  
+								type:'get',
+								data:{parameter:resultPara},
+								dataType: "json",
+								success:function(data) {
+									compareData4=data["list"];
+									updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4);
+									$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
+										updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4);
+									});
+								},
+								error : function(XMLHttpRequest) {
+								   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+								}
+							})
+						
+						}
 					}
 				},
 				error : function(XMLHttpRequest) {
 				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 				}
 		})
-		var groupValue=$("#oriKeggCompareGroups").val();
-		if(groupValue!=null){
-			var allValue=$("#oriKeggAll").val();
-			var resultPara={
-						"compareGroups":groupValue,
-						"allValue":allValue
-						}; 
-						
-			resultPara = JSON.stringify(resultPara);
-			$.ajax({
-				url:'json/deep3.json',  
-				type:'get',
-				data:{parameter:resultPara},
-				dataType: "json",
-				success:function(data) {
-					compareData4=data["list"];
-					updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4);
-					$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
-						updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4);
-					});
-				},
-				error : function(XMLHttpRequest) {
-				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
-				}
-			})
-		
-		}
 	})
 	var arr=[]
 	$("#orgKeggTable").on("check.bs.table",function(){
@@ -2538,44 +2536,46 @@ $(function(){
 				success:function(data) {
 					var compares=data["compareName"];
 					if(compares.length>0){
+						$("#preKeggCompareGroups").empty();
 						for(var i=0;i<compares.length;i++){
 							var option="<option value="+compares[i]+">"+compares[i]+"</option>";
 							$("#preKeggCompareGroups").append(option);
 						}
 						$('#preKeggCompareGroups').selectpicker('refresh');
+						var groupValue=$("#preKeggCompareGroups").val();
+						if(groupValue!=null){
+							var allValue=$("#preKeggAll").val();
+							var resultPara={
+										"compareGroups":groupValue,
+										"allValue":allValue
+										}; 
+										
+							resultPara = JSON.stringify(resultPara);
+							$.ajax({
+								url:'json/deep3.json',  
+								type:'get',
+								data:{parameter:resultPara},
+								dataType: "json",
+								success:function(data) {
+									compareData3=data["list"];
+									updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3);
+									$('#preKeggCompareGroups').on('changed.bs.select', function (e) {
+										updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3);
+									});
+								},
+								error : function(XMLHttpRequest) {
+								   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+								}
+							})
+						}
+
+						
 					}
 				},
 				error : function(XMLHttpRequest) {
 				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 				}
 		})
-		var groupValue=$("#preKeggCompareGroups").val();
-		alert(groupValue)
-		if(groupValue!=null){
-			var allValue=$("#preKeggAll").val();
-			var resultPara={
-						"compareGroups":groupValue,
-						"allValue":allValue
-						}; 
-						
-			resultPara = JSON.stringify(resultPara);
-			$.ajax({
-				url:'json/deep3.json',  
-				type:'get',
-				data:{parameter:resultPara},
-				dataType: "json",
-				success:function(data) {
-					compareData3=data["list"];
-					updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3);
-					$('#preKeggCompareGroups').on('changed.bs.select', function (e) {
-						updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3);
-					});
-				},
-				error : function(XMLHttpRequest) {
-				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
-				}
-			})
-		}
 	})
 	//提交参数
 	$("#kpspSubmit_paras").click(function(){
