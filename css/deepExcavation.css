@@ -433,21 +433,21 @@
 	top: 5px; 
 	cursor:pointer;
 }
-.panel .list{
+.panel .showList{
 	margin-bottom: 50px;
 }
-.panel .list .listTitle{
+.panel .showList .listTitle{
 	 display: inline-block;
 	 width: 60px;
 	 float: left;
 	 height: 34px;
 	 line-height: 34px;
 }
-.panel .list .listContent{
+.panel .showList .listContent{
 	width: 260px;
 	float: left;
 }
-.panel .list .listContent1{
+.panel .showList .listContent1{
 	width:180px;
 	float: left;	
 }

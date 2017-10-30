@@ -1,0 +1,242 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>我的目录</title>
+    <link href="public/css/bootstrap.min.css" rel="stylesheet">
+    <script src="public/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="public/js/disk.js"></script>
+    <script src="public/js/bootstrap.min.js"></script>
+
+    <!-- jQuery UI (REQUIRED) -->
+    <link href="public/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" media="screen"  />
+
+    <!-- elFinder CSS (REQUIRED) -->
+    <link rel="stylesheet" type="text/css" href="public/css/elfinder.min.css">
+    <link rel="stylesheet" type="text/css" href="public/css/theme.css">
+
+    <!-- Section JavaScript -->
+    <!-- jQuery and jQuery UI (REQUIRED) -->
+    <script src="public/js/jquery-ui-1.9.2.custom.min.js"></script>
+
+    <!-- elFinder JS (REQUIRED) -->
+    <script src="public/js/elfinder.min.js"></script>
+    <!-- elFinder translation (OPTIONAL) -->
+    <script src="public/js/elfinder.zh_CN.js"></script>
+
+
+    <link href="public/css/disk.css" rel="stylesheet" />
+    <link href="public/css/long_common.css" rel="stylesheet"  media="all">
+<!--点击右键-->   
+    <script src="public/js/jquery.contextify.js"></script>
+    <!-- 引入通用的文件 -->
+	<script src="js/common.js"></script>
+	<link rel="stylesheet" href="css/soda_common.css">
+    <link href="css/indexStyle.css" rel="stylesheet" type="text/css"  media="all" />
+	<script>
+                $(function(){
+
+                        $("#sodaIndex").addClass("active");
+                        $("#mydir").addClass("active");
+
+                                $("#小工具").mouseenter(function(){
+                                $("#小工具").addClass("active");
+                                                          }); 
+                               $("#小工具").mouseleave(function(){
+                                 $("#小工具").removeClass("active");
+                                                         });
+                        
+                        $("#flow").mouseenter(function(){
+                        $("#flow").addClass("active");
+                                                          }); 
+                        $("#flow").mouseleave(function(){
+                        $("#flow").removeClass("active");
+                                                          });
+                       $("#resource").mouseenter(function(){
+                        $("#resource").addClass("active");
+                                                          }); 
+                        $("#resource").mouseleave(function(){
+                        $("#resource").removeClass("active");
+                                                          });
+
+                       
+                        $("#recycle").mouseenter(function(){
+                        $("#recycle").addClass("active");
+                                                          }); 
+                        $("#recycle").mouseleave(function(){
+                        $("#recycle").removeClass("active");
+                                                          });
+                        
+                        $("#myproject").mouseenter(function(){
+                        $("#myproject").addClass("active");
+                                                          }); 
+                        $("#myproject").mouseleave(function(){
+                        $("#myproject").removeClass("active");
+                                                          });
+
+                                $('.typelist li a').hover(function(){
+						$(this).css('color','#333333');
+						$(this).css('font-weight','bold');
+					},function(){
+						$(this).css('color','#959595');
+						$(this).css('font-weight','400');
+					})
+
+				$('#left').css('margin-left','-65px');
+				$('#left1').css('margin-left','-42px');
+                        
+                        $("#navLogo").html("<a href='#' class='logo'><img src='/ddgene/Public/image/navLogo.svg' style='margin-top:11px;'/>");
+                })
+    </script>
+
+  </head>
+  
+  <body style="background-color:#f8f8f8;"> 
+     <div class="top" style="float: left; width: 100%;">
+      <div class="top">
+	<div class="main_nav1">
+		<div class="container">
+                          <span id="navLogo">
+			<a href="#" class="logo"><img src="/Public/image/navLogo.svg"/></a>
+                          </span>
+			<ul class="main_nav1_left">
+				<li id='main' ><a href="/Home/News/showMainPage">首页</a></li>
+                                <li id='sodaIndex' ><a href="/Home/Mainnobase/">产品体验</a></li>
+                          <li id="frontierResearch" ><a href="/Home/News/listNewsbytype?sndType=新品快讯" >新品快讯</a></li>
+                                <li id="marketActive" ><a href="/Home/News/listNewsbytype?sndType=市场活动">市场活动</a></li>
+			</ul>
+				<div class="form-group searchNews" id="search_news">
+					<span class="col-sm-2 control-label"><img src="/Public/image/navSearch.svg"/></span>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="search_news_input">
+					</div>
+				</div>
+			<ul class="main_nav1_right" style="margin-top:1px">
+            	<li id="searchIcon"><a href="#"><img src="/Public/image/navSearch.svg" alt="搜索" /></a></li>
+				                <li><a href="/Home/Notice/index"><img src="/Public/image/navEmail.svg" alt="通知" /></a></li>
+                <li><a href="/Home/User/personCenter"><img src="/Public/image/navUser.svg" alt="用户" title="vivian " /></a></li>			</ul>
+		</div>
+	</div>
+
+	<div class="main_nav2">
+		<div class="container">
+			<ul class="main_nav2_left">
+					<li class="nav2_list1" style="width: 90px;">
+						<a id = "flow" href="/Home/Mainnobase/index?sndType_f=flow">分析流程<img src="/Public/image/navDown.svg" alt=""></a>
+						<ul class="liucheng">
+							<li class="blue">
+								<h4>DNA分析流程</h4>
+								<ul class="liuchengLeft">
+									<li><a href="/Home/Task/getTaskBsa">BSA—混池性状定位</a></li>
+                                                      <li><a href="/Home/Mainnobase/building">变异检测</a></li>	
+								</ul>
+								<ul class="liuchengRight">
+									<li><a href="/Home/Mainnobase/building">扩增子</a></li>
+									<li><a href="/Home/Mainnobase/building">全基因组关联GWAS</a></li>
+								</ul>
+							</li>
+							<li class="skyblue">
+								<h4>RNA分析流程</h4>
+								<ul class="liuchengLeft">
+									<li><a href="/Home/Task/getTask">有参mRNA-seq/DGE</a></li>
+                                                      <li><a href="/Home/Mainnobase/building">LncRNA-seq</a></li>
+                                                      <li><a href="/Home/Mainnobase/building">sRNA-seq</a></li>
+                                                      
+								</ul>
+								<ul class="liuchengRight">
+									<li><a href="/Home/Mainnobase/building">无参mRNA-seq</a></li>
+									<li><a href="/Home/Mainnobase/building">CircRNA-seq</a></li>
+									<li><a href="/Home/Mainnobase/building">ChIP-seq</a></li>
+								</ul>
+							</li>
+							<li class="org">
+								<h4>医学分析流程</h4>
+								<ul class="liuchengLeft">
+									<li><a href="/Home/Mainnobase/building">人全基因组重测序</a></li>
+								</ul>
+								<ul class="liuchengRight">
+									<li><a href="/Home/Mainnobase/building">人外显子组测序</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="nav2_list2" style="width: 73px;">
+						<a onclick="black()" id="小工具"href="/Home/Mainnobase/index?sndType_f=app">小工具<img src="/Public/image/navDown.svg" alt=""></a>
+						<ul class="gongju">
+							<li>
+								<h4>基本绘图</h4>
+								<ul class="gongjuLeft">
+									<li><a href="/Home/Mainnobase/listMainn/path/pieDraw">饼图</a></li>
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/heatmapDraw">热图</a></li>									
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/chinaPieMapDraw">中国-饼图</a></li>                                                            
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/worldPieMapDraw">世界-饼图</a></li>                               
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/chinaHeatMapDraw">中国-热图-省</a></li>                                              
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/worldHeatMapDraw">世界-热图-国</a></li>                      
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/chinaHeatScatterMapDraw">中国-热图-点图</a></li>                               
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/worldHeatScatterMapDraw">世界-热图-点图</a></li>	
+								</ul>
+								<ul class="gongjuRight">
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/lineDraw">折线图</a></li>
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/boxplotDraw">箱线图</a></li>
+									<li><a href="/Home/Mainnobase/listMainn/path/barDraw">柱状图</a></li>
+									<li><a href="/Home/Mainnobase/listMainn/path/scatterDraw">散点图</a></li>
+									<li><a href="/Home/Mainnobase/listMainn/path/jvennDraw">维恩图</a></li>
+									<li><a href="/Home/Mainnobase/listMainn/path/bubbleDraw">气泡图</a></li>
+									<li><a href="/Home/Mainnobase/listMainn/path/frequencyHistogramDraw">直方图</a></li>
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/radarDraw">雷达图</a></li>
+								</ul>
+							</li>
+							<li>
+								<h4>表格处理</h4>
+								<ul class="gongjuLeft">
+								</ul>
+								<ul class="gongjuRight">
+								</ul>
+							</li>
+							<li>
+								<h4>计算统计</h4>
+								<ul class="gongjuLeft">
+								</ul>
+								<ul class="gongjuRight">
+								</ul>
+							</li>
+						</ul>
+				</li>
+				<li><a id = 'myproject' href="/Home/Project">我的项目</a></li>
+				<li><a id = "mydir"     href="/Home/Dir/#elf_l1_Lw">我的目录</a></li>
+				<li><a id = "recycle"   href="/Home/Task/showDelTask" >回收站</a></li>
+                                <li><a id = "resource"  href="/Home/Task/resourceTask">资源监控</a></li>
+			</ul>
+				<div class="form-group">
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="搜索想要使用的流程或小工具" id="search_flowapp">
+					</div>
+					<button class="col-sm-2 btn btn_blue" id="search_button">搜索</button>				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	</div>
+</div>
+
+      </div>
+     
+
+	<div  style="width:100%;float: left;padding-top:120px;">
+   	<div class="change_box"  style="height:582px">
+       
+        	<div id="elfinder"></div>
+   	</div>
+	</div>
+ <!--页脚--> 
+	 <div id="footer_style" style="position:relative;bottom:0px;margin-top:110px">
+        <footer class="footerstyle">
+           <p>版权所有 © 2017 京ICP备17048617号</p>
+            <p>北京拓美科基因科技有限公司</p>
+        </footer>
+    </div>
+        <!--页脚-->
+
+  </body>
+  
+</html>

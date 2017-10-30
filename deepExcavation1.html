@@ -23,108 +23,28 @@
 <body>
 	<!--前台公共头部-->
 	<div class="top">
-		<div class="main_nav1">
-			<div class="container">
-				<a href="#" class="logo"><img src="public/image/navLogo.svg"/></a>
-				<ul class="main_nav1_left">
-					<li id="main"><a href="main.html">首页</a></li>
-					<li id="sodaIndex"><a href="sodaIndex.html">云中漫步</a></li>
-					<li id="frontierResearch"><a href="frontierResearch.html" >前沿方案</a></li>
-					<li id="marketActive"><a href="marketActive.html">市场活动</a></li>	
-				</ul>
-				<div class="form-group searchNews" id="search_news">
-					<span class="col-sm-2 control-label"><img src="public/image/navSearch.svg"/></span>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="search_news_input">
-					</div>
-				</div>
-				<ul class="main_nav1_right">
-					<li id="searchIcon"><a href="#"><img src="public/image/navSearch.svg" alt="搜索" /></a></li>
-					<li><a href="#"><img src="public/image/navEmail.svg" alt="通知" /></a></li>
-					<li><a href="personalCenter.html"><img src="public/image/navUser.svg" alt="用户" /></a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="main_nav2">
-			<div class="container">
-				<ul class="main_nav2_left">
-					<li class="nav2_list1" style="width: 90px;">
-						<a href="#" class="active">流程方案<img src="public/image/navDown.svg" alt=""></a>
-						<ul class="">
-							<li><a href="">DNA流程方案</a></li>
-							<li><a href="">RNA流程方案</a></li>
-							<li><a href="">医学流程方案</a></li>
-						</ul>				
-					</li>
-					<li class="nav2_list2" style="width: 73px;">
-						<a href="#">小工具<img src="public/image/navDown.svg" alt=""></a>
-						<ul class="">
-							<li><a href="">基本绘图</a></li>
-							<li><a href="">流程绘图</a></li>
-							<li><a href="">高级绘图</a></li>
-							<li><a href="">表格处理</a></li>
-							<li><a href="">计算统计</a></li>
-						</ul>
-					</li>
-					<li class=""><a href="myProject.html">我的项目</a></li>
-					<li class=""><a href="#">我的目录</a></li>
-					<li class=""><a href="recycle.html">回收站</a></li>
-				</ul>
-				<div class="form-group">
-					<div class="col-sm-10">
-						<input type="text" class="form-control" placeholder="搜索想要使用的流程或小工具" id="search_flowapp">
-					</div>
-					<button class="col-sm-2 btn btn_blue" id="search_button">搜索</button>				
-				</div>
-			</div>
-		</div>	
-	<div class="nav_line"></div>
-		<div class="main_nav3" style="box-shadow:-2px 3px 9px 0px #ccc;">
-			<div class="container">
-				<ul class="main_nav3_left_report">
-					<li><span id="showReport"><a >查看报告</a></span></li>
-					<li ><span id="downloadReport"><a >下载报告</a></span></li>
-					<!--云超，下载报告的链接-->
-					<li><span ><a id="taskRerun"  href="#">重跑一次</a></span></li>
-					<li><span style="background: #13438b;"><a id="deepBtn" style="color: #fff;" href="#">深度挖掘</a></span></li>
-				</ul>
-				<ul class="main_nav3_right_report">
-					<li  class="report_success"><span id="taskStatus"  class="btn btn-primary"><a href="#">任务运行中</a></span></li>
-	
-								<!--<li class="report_running"><span><a href="#">任务运行中</a></span></li>
-								<li class="report_end"><span><a href="#">任务已终止</a></span></li>
-							-->
-					<li id="refresh">
-						<a href="#"><img src="img/refresh.svg" alt="刷新" /></a>
-					</li>
-					<li id="stop">
-						<a href="#"><img src="img/stop.svg" alt="停止" /></a>
-					</li>
-					<li id="delete">
-						<a href="#"><img src="img/delete.svg" alt="删除" /></a>
-					</li>
-				</ul>
-			</div>
-		</div>
+		<include file= "Application/Home/View/dh1.html"/>
+		<include file= "Application/Home/View/dh2.html"/>
+		<include file= "Application/Home/View/dh3.html"/>
 	</div>
 	<!--/前台公共头部-->
 	 <div class="center_box" style="float:left;width:100%;margin-top: 145px;">
-        <div class="myTab" style="background: #F8F8F8;"> 
+        <div class="myTab"> 
         	<div class="tabs" style="margin-left: 20px;float: none;width: 1185px;margin: 0 auto;">
 				<ul class="nav">
 					<li style="width: 160px;"><a href="#KEGGPathScatter" data-toggle="tab">KEGG通路散点图</a></li>
-					<li style="width: 60px;"><span style="display: inline-block;width: 35px;height: 35px;line-height: 35px; background: url(img/bg_01.png);font-size: 20px;">3</span></li>
+					<li style="width: 60px;"><span style="display: inline-block;width: 35px;height: 35px;line-height: 35px; background: url(__PUBLIC__/img/bg_01.png);font-size: 20px;">3</span></li>
 					<li style="width: 160px;"><a href="#EnrichAnnotation" data-toggle="tab">差异基因富集注释</a></li>
-					<li style="width: 60px;"><span style="display: inline-block;width: 35px;height: 35px;line-height: 35px; background: url(img/bg_01.png);font-size: 20px;">2</span></li>
+					<li style="width: 60px;"><span style="display: inline-block;width: 35px;height: 35px;line-height: 35px; background: url(__PUBLIC__/img/bg_01.png);font-size: 20px;">2</span></li>
 					<li class="active"  style="width: 160px;" ><a href="#diffGeneFilter" data-toggle="tab">差异基因筛选</a></li>
-					<li style="width: 60px;"><span style="display: inline-block;width: 35px;height: 35px;line-height: 35px; background: url(img/bg_01.png);font-size: 20px;">1</span></li>
+					<li style="width: 60px;"><span style="display: inline-block;width: 35px;height: 35px;line-height: 35px; background: url(__PUBLIC__/img/bg_01.png);font-size: 20px;">1</span></li>
 				</ul>
 			</div>	
         </div>       
 		<div class="tab-content">
-			<!--差异基因富集注释-->
-			<div id="EnrichAnnotation" class="tab-pane tabContent" >
-		        <div class="myTab">
+<!--差异基因富集注释-->
+			<div id="EnrichAnnotation" class="tab-pane tabContent" style="padding-top: 0;width: 100%;">
+		        <div class="myTab"  style="margin-bottom: 20px;background: #fff;">
 		        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
 						<div class="tabs" style="margin-left: 10px;text-align: left;line-height: 88px;font-size: 15px;color: #656565;">
 							<ul class="nav">
@@ -385,6 +305,7 @@
 							</div>
 						</div>
 						<!-- KEGG富集列表 -->
+						<!-- KEGG富集列表 -->
 						<div class="tab-pane" id="EAKEGGList">
 							<div class="panel panel-default">
 								<div class="panel-body">
@@ -431,7 +352,7 @@
 						<div class="tab-pane" id="EAGOList">
 							<div class="panel panel-default">
 								<div class="panel-body">
-									<div class="list">
+									<div class="showList">
 										<div  class="listTitle">比较组：</div>
 										<div class="listContent1" style="margin-right: 40px;">
 											<select  id="EAGOListCompareGroups"  name="EAGOListCompareGroups" class="selectpicker select_width" autocomplete="off">
@@ -496,8 +417,8 @@
 				</div>
 			</div>
 	        <!--KEGG通路散点图-->
-			<div id="KEGGPathScatter" class="tab-pane tabContent" >
-		        <div class="myTab" >
+			<div id="KEGGPathScatter" class="tab-pane tabContent" style="padding-top: 0;width: 100%;">
+		        <div class="myTab"  style="margin-bottom: 20px;background: #fff;">
 		        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
 						<div class="tabs" style="margin-left: 10px;text-align: left;line-height: 88px;font-size: 15px;color: #656565;">
 							<ul class="nav">
@@ -508,7 +429,7 @@
 						<div class="tabs" style="margin-left: 20px;">
 							<ul class="nav">							
 								<li><a href="#KEGGScatter" data-toggle="tab">KEGG散点图</a></li>
-								<li ><a href="#KEGGStatus" data-toggle="tab">任务状态</a></li>
+							<!--	<li ><a href="#KEGGStatus" data-toggle="tab">任务状态</a></li>-->
 								<li class="active" ><a href="#KEGGDirection" data-toggle="tab">使用说明</a></li>	
 							</ul>
 						</div>
@@ -521,13 +442,13 @@
 								<div class="panel-body" style="height: 439px;">
 									<form class="parameter" id="preKeggScaParameter">
 										<div class="part">
-											<div class="list">
-												<div class="listTitle">比较组：</div>
-												<div class="input_b_3 listContent1" style="margin-right: 40px;">
+											<div style="margin-bottom: 30px;">
+												<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
+												<div class="input_b_3" style="width: 180px;float: left;margin-right: 40px;">
 													<select  id="preKeggCompareGroups"  name="preKeggCompareGroups" class="selectpicker select_width" autocomplete="off">
 													</select>
 												</div>
-												<div class="input_b_3 listContent1">
+												<div class="input_b_3" style="width:180px;float: left;">
 													<select  id="preKeggAll"  name="preKeggAll" class="selectpicker select_width" autocomplete="off">
 														<option value="ALL">ALL</option>
 														<option value="UP">UP</option>
@@ -537,7 +458,7 @@
 											</div>
 										</div>
 										<div class="part">
-											<table id="preKeggTable" data-height=260></table>	
+											<table id="preKeggTable"  data-height="200" data-show-footer="false" data-sort-name="id" ></table>	
 										</div>
 										<div class="line"></div>
 										<!--输出目录-->
@@ -547,7 +468,7 @@
 												<input id="pKeggScaInput" name="pKeggScaInput"  type="text" class="form-control" >
 											</div>
 											<div class="input_a_r">
-												<a onclick="opendir_path('pKeggScaInput')">
+												<a onclick="opendir_path('pKeggScaInput','preKeggInpputPath')">
 													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
 												</a>	
 											</div>
@@ -654,7 +575,7 @@
 												<div class="input_a_l titleNameLeft">线条类型:</div>
 												<div class="input_b_2 inputLeft">
 													<select id="preLinestyle" name="preLinestyle" class="selectpicker select_width" autocomplete="off">
-														<option value="dashdotted">dashdotted</option>
+														<option value="dashdot">dashdot</option>
 														<option value="none">none</option>
 														<option value="dashed">dashed</option>
 														<option value="dotted">dotted</option>
@@ -700,13 +621,13 @@
 								<div class="panel-body" style="height: 439px;">
 									<form class="parameter" id="orgKeggParameter">
 										<div class="part">
-											<div class="list">
-												<div class="listTitle">比较组：</div>
-												<div class="input_b_3 listContent1" style="margin-right: 40px;"">
+											<div style="margin-bottom: 30px;">
+												<div style="display: inline-block;width: 60px;float: left;height: 34px;line-height: 34px;">比较组：</div>
+												<div class="input_b_3" style="width: 180px;float: left;margin-right: 40px;"">
 													<select  id="oriKeggCompareGroups"  name="oriKeggCompareGroups" class="selectpicker select_width" autocomplete="off">
 													</select>
 												</div>	
-												<div class="input_b_3 listContent1">
+												<div class="input_b_3" style="width:180px;float: left;">
 													<select  id="oriKeggAll"  name="oriKeggAll" class="selectpicker select_width" autocomplete="off">
 														<option value="ALL">ALL</option>
 														<option value="UP">UP</option>
@@ -716,7 +637,7 @@
 											</div>
 										</div>
 										<div class="part">
-											<table id="orgKeggTable" data-height=260>
+											<table id="orgKeggTable"  data-height="200" data-show-footer="false" data-sort-name="id">
 											</table>	
 										</div>
 										<div class="line"></div>
@@ -727,7 +648,7 @@
 												<input id="oKeggScaInput" name="oKeggScaInput"  type="text" class="form-control">
 											</div>
 											<div class="input_a_r">
-												<a onclick="opendir_path('oKeggScaInput')">
+												<a onclick="opendir_path('oKeggScaInput','oriKeggInpputPath')">
 													<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
 												</a>
 											</div>
@@ -834,7 +755,7 @@
 												<div class="input_a_l titleNameLeft">线条类型:</div>
 												<div class="input_b_2 inputLeft">
 													<select id="oriLinestyle" name="oriLinestyle" class="selectpicker select_width" autocomplete="off">
-														<option value="dashdotted">dashdotted</option>
+														<option value="dashdot">dashdot</option>
 														<option value="none">none</option>
 														<option value="dashed">dashed</option>
 														<option value="dotted">dotted</option>
@@ -895,7 +816,7 @@
 									<p>输入：</p>
 									<div class="indent">基因表达量文件，第一列为geneID，其他列为各样本中基因表达量值（FPKM，RPKM或TPM）。</div>
 									<div class="img_box">
-										<img src="public/draw/imgs/bg.jpg" alt="">
+										<img src="__PUBLIC__/draw/imgs/bg.jpg" alt="">
 									</div>
 									<p>输出：</p>
 									<div class="indent">后缀为.png时，输出png图片；后缀为.pdf时，输出pdf图片。</div>
@@ -903,7 +824,7 @@
 							</div>
 						</div>
 						
-						<!-- 任务状态 -->
+						<!-- 任务状态
 						<div class="tab-pane" id="KEGGStatus">
 							<div class="panel panel-default">
 								<div class="panel-body">
@@ -921,7 +842,7 @@
 									</table>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<!-- KEGG散点图 -->
 						<div class="tab-pane" id="KEGGScatter">
 							<div class="panel panel-default">
@@ -948,10 +869,10 @@
 				</div>
 			</div>
 	        <!--差异基因筛选-->
-	        <div id="diffGeneFilter" class="tab-pane active tabContent" > 
-		        <div class="myTab" >
+	        <div id="diffGeneFilter" class="tab-pane active tabContent" style="padding-top: 0;width: 100%;"> 
+		        <div class="myTab"  style="margin-bottom: 20px;background: #fff;">
 		        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
-						<div class="tabs leftTitle">
+						<div class="tabs" style="margin-left: 10px;text-align: left;line-height: 88px;font-size: 15px;color: #656565;">
 							差异基因筛选参数设置
 						</div>	
 						<div class="tabs" style="margin-left: 20px;">
@@ -974,7 +895,7 @@
 										<div class="part">
 											<div class="input_a_l titleNameLeft">输出目录:</div>
 											<div class="input_a_m" style="width: 345px;">
-												<input v-model="dgfInput" type="text" class="form-control" id="dgfInput" name="dgfInput" placeholder="">
+												<input type="text" class="form-control" id="dgfInput" name="dgfInput" placeholder="">
 											</div>
 											<div class="input_a_r">
 												<a onclick="opendir_path('dgfInput','dfgInputPath')">
@@ -983,7 +904,7 @@
 											</div>
 										</div>	
 										<div class="part" style="display: none;">
-											<input type="text" id="dfgInputPath" name="dfgInputPath" />
+											<input type="text" id="dfgInputPath" name="dfgInputPath" value="" />
 										</div>
 										<div class="line"></div>
 										<div class="part">
@@ -1067,7 +988,7 @@
 							<div class="row">
 								<div style="width:100%;">
 									<div class="row">
-										<div class="modal fade " id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										<div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 											<div class="row">
 												<div id='list_model' class="modal-dialog " style='width:20%'>
 													<div class="modal-content">
@@ -1208,7 +1129,7 @@
 											</select>
 										</div>		
 									</div>
-									<table ></table>
+									<table></table>
 								</div>
 							</div>
 						</div>
@@ -1237,32 +1158,38 @@
 				</div>
     		</div>
         </div>
+
 	
-	
+	<input type="hidden" id="id" name="task_id">
+
 	<!-- 添加选择目录的模态框 -->
 	<div class="modal fade" id="selectUrl" tabindex="-1" aria-labelledby="选择路径" aria-hidden="true">
+
 		<div class="modal-dialog" style="top:50px; width:800px;">
 			<div class="modal-content ">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;
 					</button>
-					<h4 class="modal-title">路径</h4>
+					<h4 class="modal-title">
+						路径 (请选择一个"文件夹"，不是一个"文件")
+					</h4>
 					<div class="input-group">
 						<input type="text" class="form-control" id="inputUrl">
 						<span class="input-group-btn">
 							<button class="btn btn-default glyphicon glyphicon-arrow-left" id="back" type="button" style="top: 0px;"></button>
-							<button class="btn btn-default glyphicon glyphicon-arrow-right" id="search" type="button" style="top: 0px;"></button>
+						<!--	<button class="btn btn-default glyphicon glyphicon-arrow-right" id="search" type="button" style="top: 0px;"></button> -->
 						</span>
 					</div>
 				</div>
-				<!-- -----------------------------------------------------------data-single-select="true"------------------------ -->
+				<!-- ---------------data-single-select="true"-------------------------------------------------------------------- -->
 				<div class="modal-body" style="text-align:center; ">
-					<table data-toggle="table" data-url="json/jobUrl.json" data-minimum-count-columns="2" data-id-field="id" data-show-footer="false"
-						data-height="300" data-sort-name="id" data-click-to-select="true" id="jobUrlTable"
-						style="bottom:20px;">
+					<table data-toggle="table" data-minimum-count-columns="2" data-id-field="id" data-show-footer="false" data-height="300" data-sort-name="id"
+						data-click-to-select="true"  id="jobUrlTable" style="bottom:20px;">
+
 						<thead>
 							<tr>
+
 								<th data-field="state" data-checkbox="true"></th>
 								<th data-field="icon" data-formatter="addIcon"></th>
 								<th data-field="name" data-align="left" data-sortable="true">name</th>
@@ -1278,7 +1205,7 @@
 				</div>
 				<!-- ----------------------------------------------------------------------------------- -->
 				<div class="modal-footer">
-					<button type="button" id="selected" class="btn btn-primary">
+					<button type="button" id="selected" class="btn btnBlue">
 					选择
 					</button>
 					<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">
@@ -1288,12 +1215,10 @@
 			</div>
 		</div>
 	</div>
-	<div id="footer_style">
-		<footer class="footerstyle">
-			<p>版权所有 © 2016 京ICP备15033925号</p>
-			<p>北京拓美科基因科技有限公司</p>
-		</footer>
-	</div>
+
+	<!--页脚-->
+<include file="Application/Home/View/box_xgj.html"/>
+        <!--页脚-->
 	<script src="public/js/jquery-1.9.1.min.js"></script>
 	<script src="public/js/bootstrap.min.js"></script>
 	<script src="public/js/bootstrap-table.js"></script>
@@ -1312,123 +1237,89 @@
 	<script src="public/js/long_common.js"></script>
 	<script src="js/go.js"></script>
 	<script src="js/common1.js"></script>	
+        <script>
+		$(function(){
+                       
+			$("#sodaIndex").addClass("active");
+                     
+                    
+		})
+	</script>
+
 	<script>
-		
+	
 	$(".spectrum").spectrum({
 	    
 	});
-	$(document).ready(function() {
-		$(".fancybox-effects-a").fancybox({
-			width:500,
-			height:500,
-			helpers: {
-				title : {
-					type : 'outside'
-				},
-				overlay : {
-					speedOut : 0
+		$(document).ready(function() {
+			$(".fancybox-effects-a").fancybox({
+				width:500,
+				height:500,
+				helpers: {
+					title : {
+						type : 'outside'
+					},
+					overlay : {
+						speedOut : 0
+					}
 				}
-			}
+			});
+
 		});
 		
-//		$.ajax({
-//			url:"json/deep.json",  
-//			type:'get',
-//			dataType: "json",
-//			success:function(data) {
-//				if(data['status']=='ERROR'){    
-//					alert(data['data']);
-//				}else{
-//					var data=data['data'];
-//					for(var key in data){
-//						if(key == "samples"){ 
-//							$('#sampleNames').empty();
-//							var samplesArray=data["samples"].split(",");
-//							for(var i=0;i<samplesArray.length;i++){
-//								var name = samplesArray[i];
-//								add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
-//								$(add).appendTo('#sampleNames')
-//						
-//							};	
-//							dragInit();
-//						}else if(key == "group_samples" || key == "compare_groups" || key=="venn_compares"){  
-//							if(data[key] == null || data[key] == 'null' ||data[key] == ''){
-//								data[key]=[];
-//							}else if(typeof(data[key])!='object'){
-//								data[key]= JSON.parse(data[key]);
-//							}
-//							
-//							if(key == "group_samples"){
-//								$('#groupList').empty();
-//								for(key in data["group_samples"]){
-//									var value=data["group_samples"][key];
-//									var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
-//									var divHtml = $(html);
-//									allgroups.push(key);
-//									for(var i=0;i<value.length;i++){
-//										var sample=value[i];
-//										var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-//									    	+sample+'</li>');
-//									  liHtml.appendTo(divHtml.find("ul"))
-//										
-//									}
-//									divHtml.appendTo('#groupList');
-//									dragInit();
-//								}
-//							}
-//						
-//							if(key == "compare_groups"){
-//								$('#compareList').empty();
-//								for(key in data["compare_groups"]){
-//									var value=data["compare_groups"][key];
-//									var html='<div name="goupCompare" class="ui-widget-content ui-state-default goupCompare" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
-//									var divHtml = $(html);
-//									allCompares.push(key);
-//									for(var i=0;i<value.length;i++){
-//										var sample=value[i];
-//										var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-//									    	+sample+'</li>');
-//									  liHtml.appendTo(divHtml.find("ul"))
-//										
-//									}
-//									divHtml.appendTo('#compareList');
-//									dragInit();
-//								}
-//							}
-//							
-//							if(key == "venn_compares"){
-//								$('#vennList').empty();
-//								for(key in data["venn_compares"]){
-//									var value=data["venn_compares"][key];
-//									var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=margin-left:10px;border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="goupCompare ui-helper-reset"/></ul></div>';
-//									var divHtml = $(html);
-//									allVenns.push(key);
-//									for(var i=0;i<value.length;i++){
-//										var sample=value[i];
-//										var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-//									    	+sample+'</li>');
-//									  liHtml.appendTo(divHtml.find("ul"))
-//										
-//									}
-//									divHtml.appendTo('#vennList');
-//									dragInit();
-//								}
-//							}
-//								
-//						}else if(key == "filterCondition"||key == "dgfPTypes"){
-//							$('#'+key).selectpicker('val',data[key]);
-//		
-//							
-//						}else{
-//							$("#"+key).val(data[key]);
-//						};
-//					}
-//				}
-//			}
-//		})
+$(function(){
+		//波波，这是删除，终止和重跑的地址
+       var delete_url = "__MODULE__/Task/delTask/del_flag/recycle";
+       var stop_url = "__MODULE__/Task/stopTasks";
+       var rerun_url = "__MODULE__/Task/showTaskDetail/flag/rerun";
+//页面加载完成之后，填充数据
+$(document).ready(function(e) {
+         var dirId=window.sessionStorage.getItem("id");
+        //var id=$("#id").val();
+//alert(dirId);
+    $.ajax({
+			url:'__MODULE__/Task/diffList',  
+			type:'post',
+                  data:{task_id:dirId},
+			dataType: "json",
+			success:function(data) {
+                                 //console.log(data)
+                                          if(data==null||data==''){
+                                                      // alert(1111);
+                                                              }
+                              for(var key in data){
+						if(key == "taskStatus"){
+                                                       
+							taskStatus = data.taskStatus;
+                                                     
+							if(taskStatus == "finished"){
+								$("#taskStatus").removeClass("btn-success");
+								$("#taskStatus").addClass("btn-primary").text('任务已完成');
+
 								
-	});
-		
+							}else if(taskStatus == "failed"){ 			   
+								$("#taskStatus").addClass("btn-warning").text('任务已终止');
+                                          
+							}else if(taskStatus == "running"){
+                                                                
+								$("#taskStatus").addClass("btn-success").text('任务运行中');
+                                                                
+								}else{
+                                          $("#taskStatus").removeClass("btn-success");
+							$("#taskStatus").addClass("btn-primary").text('任务已完成');
+                                                          }
+							}
+
+
+
+
+					}
+                                                                   } 
+             })
+                                          });
+//与后台交互时冻结
+	$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+
 //------按钮们--------
 //刷新
 	$("#refresh").click(function(){
@@ -1436,33 +1327,35 @@
     });
 //终止
 	$("#stop").click(function(){
-		var r=confirm("您确定要终止该任务吗？");
+		var r=confirm("您确定要终止该任务吗？"); 
 		if(r==true){
-			 var id = $("#taskId").val();
+			 var id = $("#id").val();
+//alert(id)
 			 $.ajax({
 				    url:stop_url,  
-				    type:'post',
+				    type:'get',
 				    data:{id:id},
 				    dataType: "json",
 				    success:function(data) {
 				    	if(data['status']=='ERROR'){    //请求成功但没有执行成功
 				    		alert(data['data']);
 				    	}else{
-							alert("任务终止成功！");	
+							alert("任务终止成功！");
 							$(this).find("img").attr("src","img/start.svg") 
 				    	};
 				     },    
 				     error : function(XMLHttpRequest) {
-				       alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+				       alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText); 
 				     }
 				});  
 		  };
     });    
 //删除
 	$("#delete").click(function(){
+                  var id = $("#id").val();
 		var r=confirm("您确定要删除该任务吗？");
 		if(r==true){
-			 var id = $("#taskId").val();
+                  
 			 $.ajax({
 				    url:delete_url,  
 				    type:'post',
@@ -1481,46 +1374,75 @@
 				});  
 		  };
     });
-/*-----------------差异倍数页面js代码------------------*/
+    
+    $(".main_nav3_left_report li").click(function(){
+    	$(this).children("span").css("background",'#13438B').children("a").css("color","#fff");
+    	$(this).siblings("li").children("span").css("background",'#fff').children("a").css("color","#777");
+    })
+	//rerun
+	$("#taskRerun").click(function(){
+		$(this).parent("span").css("background","#13438B").children("a").css("color","#fff");
+		var r=confirm("您确定要rerun该任务吗？");
+		if (r==true)
+			{
+				var id = $("#taskId").val();
+				$.ajax({
+					url:rerun_url,    //甄伟波，rerun的地址  
+					type:'get',
+					data:{id:id},
+					dataType: "json",
+					success:function(data) {
+						if(data['status']=='ERROR'){    //请求成功但没有执行成功
+							alert(data['data']);
+						}else{
+							alert("rerun成功！");
+							$("#taskRerun").parent("span").css("background","#fff").children("a").css("color","#777");
+						}
+					},    
+					error : function(XMLHttpRequest) {
+						alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText); 
+						$("#taskRerun").parent("span").css("background","#fff").children("a").css("color","#777");
+					}
+				});  
+			};
+	});
+	
+});
+
+function openSftp(user,ip,port, eid){
+	window.open('sftp://'+user+'@'+ip+':'+port+$("#"+eid).text());
+}
+	
+function stopTask(taskid){
+	if (typeof(taskStatus)=='undefined' || taskStatus == 'finished' || taskStatus =='failed' ){
+		return false;
+	}
+	
+	if(!confirm("您确定要终止任务吗？")){
+		return false;
+	}
+	
+	$.ajax({
+		url:"__MODULE__/Task/stopTasks",
+		type:'get',
+		data:{id:taskid},
+		dataType: "json",
+		success:function(data){
+			if(data['status']=='SUCCESS'){    
+	    		$("#taskStatus").removeClass('btn-primary').addClass("btn-warning").text("任务已终止");
+	    	}
+			alert(data['data']);
+			window.location.reload();
+		},
+		error : function(XMLHttpRequest) {
+	       	alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
+	    }
+	});
+}
+//差异倍数页面js代码
 $(function(){
 	var compareData = null;
-//	function updateTable(){
-//		if(!compareData) return;
-//		var p=$("#compareGroups").selectpicker("val");
-//		for(var j=0;j<compareData.length;j++){
-//			if(p==compareData[j]["compareName"]){
-//				var content=compareData[j]['content'];
-//				var head=content[0];
-//				var options={
-//					clickToSelect:true,
-//					showFooter:false,
-//					classes:'table',
-//					columns: []
-//				}
-//				for(var m=0;m<head.length;m++){
-//					var obj={order: "asc"};
-//					obj["title"]=head[m];
-//					obj["field"]=head[m];
-//					options.columns.push(obj);
-//				}
-//				$("#dgfGeneList table").bootstrapTable(options);
-//
-//				var tableData=[];
-//				for(var i=1;i<content.length;i++){
-////					var thead=content[0];
-//					var row=content[i];
-//					var rowObj={};
-//					for(var k=0;k<row.length;k++){
-//						rowObj[head[k]]=row[k];
-//					}
-//					tableData.push(rowObj);
-//				}
-//				$("#dgfGeneList table").bootstrapTable('destroy');
-//				$("#dgfGeneList table").bootstrapTable(options);
-//				$("#dgfGeneList table").bootstrapTable('load',tableData);
-//			}
-//		}
-//	}
+	
 	var geneSet;
 	$('a[href="#dgfGeneList"]').on('show.bs.tab', function (e) {
 		updateTable("compareGroups","dgfGeneList",compareData);
@@ -1534,45 +1456,144 @@ $(function(){
         speed: 800
     });
     function statusUpdate(){
+          var task_id=$("#id").val();
     	$.ajax({
-				url:'json/taskDetail.2.json',  
+				url:'__MODULE__/Task/diffList',  
 				type:'get',
+                        data:{task_id:dirId,id:task_id,diff_status:1},
 				dataType: "json",
 				success:function(data) {
+                                   //console.log(data);
+                                       if(data==null||data==''){
+                                       
+                                                          }else{
+                             if(data.status=='ERROR'){
+                                 alert(data.data);
+                                 }else{
+                                              for(var key in data){
+						if(key == "taskStatus"){
+                                                       
+							taskStatus = data.taskStatus;
+                                                     
+							if(taskStatus == "finished"){
+								$("#taskStatus").removeClass("btn-success");
+								$("#taskStatus").addClass("btn-primary").text('任务已完成');
+
+								
+							}else if(taskStatus == "failed"){ 			   
+								$("#taskStatus").addClass("btn-warning").text('任务已终止');
+                                          
+							}else if(taskStatus == "running"){
+                                                                
+								$("#taskStatus").addClass("btn-success").text('任务运行中');
+                                                                
+								}else{
+                                          $("#taskStatus").removeClass("btn-success");
+							$("#taskStatus").addClass("btn-primary").text('任务已完成');
+                                                          }
+							}
+
+					                                                     }
+                                  }
 					$('#dgfmodStatusTable').bootstrapTable('load',data["modStatus"]);
+                                         var Task_status=data["taskStatus"];
+                                         var task_id=data["id"];
+                                        if(Task_status=='failed' || Task_status=='finished'){
+                                                         			$("#compareGroups").empty();
+$("#dgfCarousel").empty();
+                                                             window.clearInterval(setInt);
+                                                                   /*列表图片*/
+                                                                    $.ajax({
+                                                                        url:'__MODULE__/Task/listImg',
+ 												type:'get',
+                                                                        data:{id:task_id,diff_status:1},
+ 												dataType:"json",
+												success:function(data){
+                               var data=JSON.parse(data);
+					var showData=data["show"];
+					compareData=data["arr"];
+                                  // console.log(compareData);
+					$("#dgfCarousel").empty();
+					$("#dgfCarousel").append("<ul></ul>");
+ 					for(var i=0;i<showData.length;i++){
+ 						$("#dgfCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+showData[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + showData[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#dgfCarousel").jCarouselLite({
+				        btnNext: ".default #dgfNext",
+				        btnPrev: ".default #dgfPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+					for(var i=0;i<compareData.length;i++){
+						var option="<option value="+compareData[i]["compareName"]+">"+compareData[i]["compareName"]+"</option>"
+						$("#compareGroups").append(option);
+					}
+					$('#compareGroups').selectpicker('refresh');
+					
+					
+					$('#compareGroups').on('changed.bs.select', function (e) {
+						updateTable("compareGroups","dgfGeneList",compareData);
+					});	                                                                                                 
+
+
+															},
+                                                                        error : function(XMLHttpRequest){
+				   										alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+																	}
+                                  								   					 });
+                                                                                              }
+                                                    }
+
 				},
 				error : function(XMLHttpRequest) {
 				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 				}
 			})
+
     }
-	/*打开任务状态不断更新数据*/
+	/*打开任务状态不断更新数据*/ 
 	var setInt;
 	$('a[href="#dgfStatus"]').on('show.bs.tab', function (e) {
-		statusUpdate();
-		setInt=window.setInterval(statusUpdate,5000)
+                statusUpdate();
+                setInt=window.setInterval(statusUpdate,15000);	
+  
 	})
 	/*关闭任务状态不更新数据*/
 	$('a[href="#dgfStatus"]').on('hide.bs.tab', function (e) {
 		window.clearInterval(setInt)
 	})
+	
 	//样本分组初始化设置
 	var sampleValues = sessionStorage.getItem("samples"); 
-	if(sampleValues){
-		if(sampleValues.length>0){
-			var samplesArray=sampleValues.split(",");
-			for(var i=0;i<samplesArray.length;i++){
-				var name = samplesArray[i];
-				add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
-				$(add).appendTo('#sampleNames')
-		
-			};	
-			dragInit();
-		}
-	}
-	
-	var groupsValues = sessionStorage.getItem("groupSamples");
+	var groupsValues = sessionStorage.getItem("groupSamples"); 
 	var groupsObg = $.parseJSON( groupsValues ); 
+	var compareValues = sessionStorage.getItem("compareGroups"); 
+	var compareObg = $.parseJSON( compareValues ); 
+	var vennValues = sessionStorage.getItem("vennCompares"); 
+	var vennObg = $.parseJSON( vennValues ); 
+        var dirPathValue = sessionStorage.getItem("dir_path");
+         var dirId=window.sessionStorage.getItem("id"); 
+       if(dirPathValue){
+              if(dirPathValue.length>0){
+                     $("#dfgInputPath").val(dirPathValue);
+                      window.sessionStorage.setItem("dfgInputPath",$("#dfgInputPath").val()); 
+                         }
+               }
+       
+//console.log(dirId);
+if(sampleValues){
+	if(sampleValues.length>0){
+		var samplesArray=sampleValues.split(",");
+		for(var i=0;i<samplesArray.length;i++){
+			var name = samplesArray[i];
+			add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
+			$(add).appendTo('#sampleNames')
+	
+		};	
+		dragInit();
+	}
+}
+	
 	if(groupsObg){
 		for(key in groupsObg){
 			var value=groupsObg[key];
@@ -1591,8 +1612,6 @@ $(function(){
 		}
 	}
 	
-	var compareValues = sessionStorage.getItem("compareGroups");
-	var compareObg = $.parseJSON( compareValues ); 
 	if(compareObg){
 		for(key in compareObg){
 			var value=compareObg[key];
@@ -1611,9 +1630,6 @@ $(function(){
 		}
 	}
 	
-	
-	var vennValues = sessionStorage.getItem("vennCompares"); 
-	var vennObg = $.parseJSON( vennValues ); 
 	if(vennObg){
 		for(key in vennObg){
 			var value=vennObg[key];
@@ -1631,7 +1647,6 @@ $(function(){
 			dragInit();
 		}
 	}
-	
 	$("#groupName").keydown(function(k){
 		if(k.keyCode==13 ){
 			addGroup();
@@ -1651,21 +1666,7 @@ $(function(){
 	$("#addVenn").click(function(){
 		addVenn();
 	});
-	var dirPathValue = window.sessionStorage.getItem("dir_path"); 
-	if(dirPathValue){
-		if(dirPathValue.length>0){
-			$("#dfgInputPath").val(dirPathValue);
-			window.sessionStorage.setItem("dfgInputPath",$("#dfgInputPath").val());
-		}
-	}
 	
-	//var parasValue = sessionStorage.getItem("paras"); 
-	//var parasObj = $.parseJSON( parasValue );
-	//if(parasObj){
-	//	var inputPath=parasObj.taskPara[4].value;
-	//	$("#dfgInputPath").val(inputPath)
-	//	window.sessionStorage.setItem("dfgInputPath",$("#dfgInputPath").val());
-	//}
 	//提交参数
 	$("#dgfSubmit_paras").click(function(){
 		var formData =  allParams($("#dgfParameter"));//取form表单参数
@@ -1678,40 +1679,41 @@ $(function(){
 			if($("#diffMultiple").val()<0){
 				alert("差异倍数必须大于等于0！")
 			}
-			var groupCompareVenn={};	//发向服务器的json数据
-			//检查是否有分组，每个分组下的样品名
-			var groups =$('#groupList').find('div');
-			var allGroupItems=[];
-			if(groups.length>0){
-				var groupSamples= {};
-				for(var i=0; i<groups.length; i++){
-					var sampleItems = $($(groups[i]).find('ul')[0]).find('li');
-					if(sampleItems.length==0){
-						continue;
-					}			
-					//组名
-					var curGroup =$($(groups[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");  //空格开头或者结尾
-					var curGroupSamples = new Array();
-					for(var j=0; j < sampleItems.length ;j++){
-						curGroupSamples.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
-					}
-					allGroupItems.push(curGroupSamples[0]);
-					groupSamples[curGroup]= curGroupSamples;
+		var groupCompareVenn={};	//发向服务器的json数据
+		//检查是否有分组，每个分组下的样品名
+		var groups =$('#groupList').find('div');
+		var allGroupItems=[];
+		if(groups.length>0){
+			var groupSamples= {};
+			for(var i=0; i<groups.length; i++){
+				var sampleItems = $($(groups[i]).find('ul')[0]).find('li');
+				if(sampleItems.length==0){
+					continue;
+				}			
+				//组名
+				var curGroup =$($(groups[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");  //空格开头或者结尾
+				var curGroupSamples = new Array();
+				for(var j=0; j < sampleItems.length ;j++){
+					curGroupSamples.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
 				}
-				groupCompareVenn['groupSamples']= groupSamples;
+				allGroupItems.push(curGroupSamples[0]);
+				groupSamples[curGroup]= curGroupSamples;
 			}
+			groupCompareVenn['groupSamples']= groupSamples;
+		}
 		//检查数据
 		//检查样本是否已全部分组，非强制
 		var samples=$("#sampleNames").find('li');
 		if(samples.length>0){
 			for(var i=0;i<samples.length;i++){
 				if(allGroupItems.indexOf(samples[i].innerText)==-1){
-					if(!confirm("发现有未分组的样品，确定不分组?")){
-						return false;
+					if(confirm("发现有未分组的样品，确定不分组?")){
+						break;
 					}
 				}
 			}
 		}
+
 		//检查比较组
 		var compares = $('#compareList').find('div');
 		if(compares.length>0){
@@ -1761,44 +1763,32 @@ $(function(){
 				samplesStr += ","+samples[j].innerText;
 				}
 		};
-		var resultPara={
-						"paras":formData,
+                                  //"task_id":dirId, 
+		var resultPara={     "task_id":dirId,          
+                                    "paras":formData,
 						"samples":samplesStr,
 						"groupCompareVenn":groupCompareVenn
 						}; 
-		
+						
 		resultPara = JSON.stringify(resultPara);
-		console.log(resultPara)
+                              // console.log(resultPara);
 			$.ajax({
-				url: 'json/taskDetail.2.json',  
-				type:'get',
+				url: '__MODULE__/Task/discrePancys',  
+				type:'post',
 				data:{parameter:resultPara},
 				dataType: "json",
-				success:function(data) {	
-					var showData=data["show"];
-					compareData=data["arr"];
-					$("#dgfCarousel").empty();
-					$("#dgfCarousel").append("<ul></ul>");
- 					for(var i=0;i<showData.length;i++){
- 						$("#dgfCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+showData[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + showData[i] +"' alt='' /></a></li>")
- 					}
-     				$("#dgfCarousel").jCarouselLite({
-				        btnNext: ".default #dgfNext",
-				        btnPrev: ".default #dgfPrev",
-				        visible: 1,
-				        speed: 800
-				    });
-				    $("#compareGroups").empty()
-					for(var i=0;i<compareData.length;i++){
-						var option="<option value="+compareData[i]["compareName"]+">"+compareData[i]["compareName"]+"</option>"
-						$("#compareGroups").append(option);
-					}
-					$('#compareGroups').selectpicker('refresh');
-					$('#compareGroups').on('changed.bs.select', function (e) {
-						updateTable("compareGroups","dgfGeneList",compareData);
-					});
-					window.sessionStorage.setItem("pGeneInput",$("#dgfInput").val());						
-							
+				success:function(data) {
+                                 if(data['status']=='ERROR'){    //请求成功但没有执行成功
+                                      alert(data['data']);
+                                  // window.location.href= "__MODULE__/Mainnobase/index?sndType_f=flow";
+				    		
+				    	}else{
+				    		$('#id').val(data['data']);
+							alert("执行成功！");alert($('#id').val());
+							//window.location.href= "__MODULE__/Task/getTask/id/"+data['data'];
+				    	}
+
+					
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -1806,6 +1796,7 @@ $(function(){
 			});
 		}
 	});
+		
 });
 
 //初始化拖拽
@@ -2075,6 +2066,8 @@ function addVenn(){
 	dragInit();
 }
 
+
+
 /*-----------------差异基因富集注释js代码------------------*/
 $(function(){
 	//右侧选项卡滚动初始化
@@ -2109,7 +2102,6 @@ $(function(){
 	var keggValue=defaultRefParams["KEGG"][0]["value"];
 	var value = keggValue.split(";")
 	var opts = ""
-	console.log(value)
 	for(var j = 0; j < value.length; j++) {
 		var tmpArr = value[j].split(',');
 		if(tmpArr.length < 2) {
@@ -2121,12 +2113,116 @@ $(function(){
 	$("#ogKeggAbb").append(opts);
 	$("#pgKeggAbb").append(opts);
     function statusUpdate(){
+         var dirId=window.sessionStorage.getItem("id"); 
+       var task_id=$("#id").val();
+
     	$.ajax({
-				url:'json/taskDetail.2.json',  
+				url:'__MODULE__/Task/diffList',  
 				type:'get',
+                        data:{task_id:dirId,
+                                id:task_id,
+                              diff_status:2
+                                       },
 				dataType: "json",
-				success:function(data) {
+    				success:function(data) {
+                          //console.log(data);
+                                             if(data==null||data==''){}else{
+                                 if(data.status=='ERROR'){
+                                 alert(data.data);
+                                 }else{
+                                              for(var key in data){
+						if(key == "taskStatus"){
+                                                       
+							taskStatus = data.taskStatus;
+                                                     
+							if(taskStatus == "finished"){
+								$("#taskStatus").removeClass("btn-success");
+								$("#taskStatus").addClass("btn-primary").text('任务已完成');
+
+								
+							}else if(taskStatus == "failed"){ 			   
+								$("#taskStatus").addClass("btn-warning").text('任务已终止');
+                                          
+							}else if(taskStatus == "running"){
+                                                                
+								$("#taskStatus").addClass("btn-success").text('任务运行中');
+                                                                
+								}else{
+                                          $("#taskStatus").removeClass("btn-success");
+							$("#taskStatus").addClass("btn-primary").text('任务已完成');
+                                                          }
+							}
+
+					                                                     }
+                                  }
+                                 
 					$('#EAStatus table').bootstrapTable('load',data["modStatus"]);
+
+                                         var Task_status=data["taskStatus"];
+                                         var task_id=data["id"];
+                                        if(Task_status=='failed' || Task_status=='finished'){
+                                                         	$("#compareGroups").empty();
+                                                            $("#dgfCarousel").empty();
+                                                             window.clearInterval(eaSet)
+                                                                   /*列表图片*/
+                                                                    $.ajax({
+                                                                        url:'__MODULE__/Task/listImgs',
+ 												type:'get',
+                                                                        data:{id:task_id,diff_status:2},
+ 												dataType:"json",
+												success:function(data){ 
+                                 //kegg散点图
+                                var data=JSON.parse(data);                                           
+					var KEGGScatter=data["KEGGScatter"];
+					$("#EAKEGGScatterCarousel").empty();
+					$("#EAKEGGScatterCarousel").append("<ul></ul>");
+ 					for(var i=0;i<KEGGScatter.length;i++){
+ 						$("#EAKEGGScatterCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+KEGGScatter[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + KEGGScatter[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#EAKEGGScatterCarousel").jCarouselLite({
+				        btnNext: ".default #EAKEGGScatterNext",
+				        btnPrev: ".default EAKEGGScatterPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+				    //go富集柱状图
+				    var GoBar=data["GoBar"];
+					$("#EAGOBarCarousel").empty();
+					$("#EAGOBarCarousel").append("<ul></ul>");
+ 					for(var i=0;i<GoBar.length;i++){
+ 						$("#EAGOBarCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+GoBar[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + GoBar[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#EAGOBarCarousel").jCarouselLite({
+				        btnNext: ".default #EAGOBarNext",
+				        btnPrev: ".default #EAGOBarPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+				    //go富集DAG图
+				    var GoDag=data["GoDag"];
+					$("#EAGODagCarousel").empty();
+					$("#EAGODagCarousel").append("<ul></ul>");
+ 					for(var i=0;i<GoBar.length;i++){
+ 						$("#EAGODagCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+GoDag[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + GoDag[i] +"' alt='' /></a></li>")
+ 					}
+     				$("#EAGODagCarousel").jCarouselLite({
+				        btnNext: ".default #EAGODagNext",
+				        btnPrev: ".default #EAGODagPrev",
+				        visible: 1,
+				        speed: 800
+				    });
+				    
+					
+					
+                                                                                                                              },
+                                                                                                    });
+                                                                                                                             }
+
+
+
+
+
+                                                   }
 				},
 				error : function(XMLHttpRequest) {
 				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
@@ -2138,18 +2234,20 @@ $(function(){
 	var eaSet;
 	$('a[href="#EAStatus"]').on('show.bs.tab', function (e) {
 		statusUpdate();
-		eaSet=window.setInterval(statusUpdate,5000)
+		eaSet=window.setInterval(statusUpdate,15000)
 	})
 	/*关闭任务状态不更新数据*/
 	$('a[href="#EAStatus"]').on('hide.bs.tab', function (e) {
 		window.clearInterval(eaSet)
 	})
-    var compareData1 = null;
+	
+ 	var compareData1 = null;var dirId=window.sessionStorage.getItem("id"); 
     $('a[href="#EAKEGGList"]').on('show.bs.tab', function (e) {
 		$.ajax({
 				url:'json/compares.json',  
 				type:'get',
 				dataType: "json",
+                        data:{task_id:dirId,type:1},
 				success:function(data) {
 					var compares=data["compareName"];
 					if(compares.length>0){
@@ -2162,6 +2260,7 @@ $(function(){
 						var groupValue=$('#EAKEGGListCompareGroups').val();
 						var allValue=$("#keggAll").val();
 						if(groupValue!=null&&allValue!=null){
+							
 							var resultPara={
 										"compareGroups":groupValue,
 										"allValue":allValue
@@ -2171,10 +2270,15 @@ $(function(){
 							$.ajax({
 								url:'json/deep3.json',  
 								type:'get',
-								data:{parameter:resultPara},
+                                                data:{task_id:dirId,type:2},
+								//data:{parameter:resultPara},
 								dataType: "json",
 								success:function(data) {
+            
+                                             
+                                                      console.log(data)
 									compareData1=data["list"];
+                                                                 console.log(compareData1);
 									updateCheckTable("EAKEGGListCompareGroups","EAKEGGTable",compareData1,"keggAll");
 									$('#EAKEGGListCompareGroups').on('changed.bs.select', function (e) {
 										updateCheckTable("EAKEGGListCompareGroups","EAKEGGTable",compareData1,"keggAll");
@@ -2200,8 +2304,9 @@ $(function(){
     var compareData2 = null;
 	$('a[href="#EAGOList"]').on('show.bs.tab', function (e) {
 		$.ajax({
-			url:'json/compares.json',  
+			url:'__MODULE__/Task/OriginalKegg',  
 			type:'get',
+                  data:{task_id:dirId,type:1},
 			dataType: "json",
 			success:function(data) {
 				var compares=data["compareName"];
@@ -2222,11 +2327,13 @@ $(function(){
 									
 						resultPara = JSON.stringify(resultPara);
 						$.ajax({
-							url:'json/deep3.json',  
+							url:'__MODULE__/Task/OriginalKegg',  
 							type:'get',
-							data:{parameter:resultPara},
+                                          data:{task_id:dirId,type:3},
 							dataType: "json",
 							success:function(data) {
+console.log(data)
+								var data=JSON.parse(data);
 								compareData2=data["list"];
 								updateCheckTable("EAGOListCompareGroups","EAGOTable",compareData2,"goAll");
 								$('#EAGOListCompareGroups').on('changed.bs.select', function (e) {
@@ -2248,7 +2355,8 @@ $(function(){
 			}
 		})
 	})
-	
+
+    
     /*使用原始基因*/
 	var dirPathValue = sessionStorage.getItem("dir_path"); 
 	if(dirPathValue){
@@ -2258,6 +2366,7 @@ $(function(){
 	}
 	//提交参数
 	$("#eaoSubmit_paras").click(function(){
+            var dirId=window.sessionStorage.getItem("id"); 
 		var formData =  allParams($("#originalGeneParameter"));//取form表单参数
 		if(formData.ogInput==""){
 			alert("请选择输出目录！");
@@ -2269,53 +2378,29 @@ $(function(){
 				alert("差异倍数必须大于等于0！")
 			}
 		
-		var resultPara={"paras":formData}; 		
+		var resultPara={
+                             "paras":formData,
+                             "diff_status":'0',
+                             "task_id":dirId
+                                     }; 		
 		resultPara = JSON.stringify(resultPara);
+		console.log(resultPara)
 			$.ajax({
-				url: 'json/deepExcavation1.json',  
-				type:'get',
+				url: '__MODULE__/Task/DiffScreen',  
+				type:'post',
 				data:{parameter:resultPara},
 				dataType: "json",
 				success:function(data) {
-					//kegg散点图
-					var KEGGScatter=data["KEGGScatter"];
-					$("#EAKEGGScatterCarousel").empty();
-					$("#EAKEGGScatterCarousel").append("<ul></ul>");
- 					for(var i=0;i<KEGGScatter.length;i++){
- 						$("#EAKEGGScatterCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+KEGGScatter[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + KEGGScatter[i] +"' alt='' /></a></li>")
- 					}
-     				$("#EAKEGGScatterCarousel").jCarouselLite({
-				        btnNext: ".default #EAKEGGScatterNext",
-				        btnPrev: ".default EAKEGGScatterPrev",
-				        visible: 1,
-				        speed: 800
-				    });
-				    //go富集柱状图
-				    var GoBar=data["GoBar"];
-					$("#EAGOBarCarousel").empty();
-					$("#EAGOBarCarousel").append("<ul></ul>");
- 					for(var i=0;i<GoBar.length;i++){
- 						$("#EAGOBarCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+GoBar[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + GoBar[i] +"' alt='' /></a></li>")
- 					}
-     				$("#EAGOBarCarousel").jCarouselLite({
-				        btnNext: ".default #EAGOBarNext",
-				        btnPrev: ".default #EAGOBarPrev",
-				        visible: 1,
-				        speed: 800
-				    });
-				    //go富集DAG图
-				    var GoDag=data["GoDag"];
-					$("#EAGODagCarousel").empty();
-					$("#EAGODagCarousel").append("<ul></ul>");
- 					for(var i=0;i<GoBar.length;i++){
- 						$("#EAGODagCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+GoDag[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + GoDag[i] +"' alt='' /></a></li>")
- 					}
-     				$("#EAGODagCarousel").jCarouselLite({
-				        btnNext: ".default #EAGODagNext",
-				        btnPrev: ".default #EAGODagPrev",
-				        visible: 1,
-				        speed: 800
-				    });
+                                 if(data['status']=='ERROR'){    //请求成功但没有执行成功
+                                      alert(data['data']);
+                                  // window.location.href= "__MODULE__/Mainnobase/index?sndType_f=flow";
+				    		
+				    	}else{
+				    		     $('#id').val(data['data']);
+							alert("执行成功！");
+							//window.location.href= "__MODULE__/Task/getTask/id/"+data['data'];
+				    	}
+					
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -2340,54 +2425,30 @@ $(function(){
 			if($("#pgEValue").val()<0){
 				alert("差异倍数必须大于等于0！")
 			}
+		 var dirId=window.sessionStorage.getItem("id");
+		var resultPara={"paras":formData,
+					"diffStatus":1,
+                              "task_id":dirId
+                                     }; 
 		
-		var resultPara={"paras":formData}; 		
 		resultPara = JSON.stringify(resultPara);
+		console.log(resultPara)
 			$.ajax({
-				url: 'json/deepExcavation2.json',  
-				type:'get',
+				url: '__MODULE__/Task/DiffScreen',  
+				type:'post',
 				data:{parameter:resultPara},
 				dataType: "json",
 				success:function(data) {
-					//kegg散点图
-					var KEGGScatter=data["KEGGScatter"];
-					$("#EAKEGGScatterCarousel").empty();
-					$("#EAKEGGScatterCarousel").append("<ul></ul>");
- 					for(var i=0;i<KEGGScatter.length;i++){
- 						$("#EAKEGGScatterCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+KEGGScatter[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + KEGGScatter[i] +"' alt='' /></a></li>")
- 					}
-     				$("#EAKEGGScatterCarousel").jCarouselLite({
-				        btnNext: ".default #EAKEGGScatterNext",
-				        btnPrev: ".default EAKEGGScatterPrev",
-				        visible: 1,
-				        speed: 800
-				    });
-				    //go富集柱状图
-				    var GoBar=data["GoBar"];
-					$("#EAGOBarCarousel").empty();
-					$("#EAGOBarCarousel").append("<ul></ul>");
- 					for(var i=0;i<GoBar.length;i++){
- 						$("#EAGOBarCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+GoBar[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + GoBar[i] +"' alt='' /></a></li>")
- 					}
-     				$("#EAGOBarCarousel").jCarouselLite({
-				        btnNext: ".default #EAGOBarNext",
-				        btnPrev: ".default #EAGOBarPrev",
-				        visible: 1,
-				        speed: 800
-				    });
-				    //go富集DAG图
-				    var GoDag=data["GoDag"];
-					$("#EAGODagCarousel").empty();
-					$("#EAGODagCarousel").append("<ul></ul>");
- 					for(var i=0;i<GoBar.length;i++){
- 						$("#EAGODagCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+GoDag[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + GoDag[i] +"' alt='' /></a></li>")
- 					}
-     				$("#EAGODagCarousel").jCarouselLite({
-				        btnNext: ".default #EAGODagNext",
-				        btnPrev: ".default #EAGODagPrev",
-				        visible: 1,
-				        speed: 800
-				    });
+					 if(data['status']=='ERROR'){    //请求成功但没有执行成功
+                                      alert(data['data']);
+                                  // window.location.href= "__MODULE__/Mainnobase/index?sndType_f=flow";
+				    		
+				    	}else{
+				    		     $('#id').val(data['data']);
+							alert("执行成功！");
+							//window.location.href= "__MODULE__/Task/getTask/id/"+data['data'];
+				    	}
+					
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -2406,14 +2467,53 @@ $(function(){
         visible: 1,
         speed: 800
     });
-	
+	var task_id=$("#id").val();
+      var dirId=window.sessionStorage.getItem("id");
     function statusUpdate(){
+  
     	$.ajax({
-			url:'json/taskDetail.2.json',  
+			url:'__MODULE__/Task/diffList',  
 			type:'get',
+                  data:{task_id:dirId,id:task_id,diff_status:3},
 			dataType: "json",
 			success:function(data) {
-				$('#KEGGStatus table').bootstrapTable('load',data["modStatus"]);
+                               if(data==null||data==''){}else{
+                               if(data.status=='ERROR'){
+                                 alert(data.data);
+                                 }else{
+                                              for(var key in data){
+						if(key == "taskStatus"){
+                                                       
+							taskStatus = data.taskStatus;
+                                                     
+							if(taskStatus == "finished"){
+								$("#taskStatus").removeClass("btn-success");
+								$("#taskStatus").addClass("btn-primary").text('任务已完成');
+
+								
+							}else if(taskStatus == "failed"){ 			   
+								$("#taskStatus").addClass("btn-warning").text('任务已终止');
+                                          
+							}else if(taskStatus == "running"){
+                                                                
+								$("#taskStatus").addClass("btn-success").text('任务运行中');
+                                                                
+								}else{
+                                          $("#taskStatus").removeClass("btn-success");
+							$("#taskStatus").addClass("btn-primary").text('任务已完成');
+                                                          }
+							}
+
+					                                                     }
+                                  }
+				$('#KEGGStatus table').bootstrapTable('load',data["modStatus"]); 
+                      
+
+
+
+
+
+                                   }
 			},
 			error : function(XMLHttpRequest) {
 			   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
@@ -2433,11 +2533,13 @@ $(function(){
 	})
 	var compareData5=null;
 	$('a[href="#KEGGPathScatter"]').on('show.bs.tab', function (e) {
+            var dirId=window.sessionStorage.getItem("id");  
 		$.ajax({
-				url:'json/compares.json',  
-				type:'get',
+				url:'__MODULE__/Task/KeggDir',  
+				type:'post',
+                        data:{task_id:dirId,type:0},
 				dataType: "json",
-				success:function(data) {
+				success:function(data){
 					var compares=data["compareName"];
 					if(compares.length>0){
 						$("#oriKeggCompareGroups").empty();
@@ -2456,11 +2558,12 @@ $(function(){
 										
 							resultPara = JSON.stringify(resultPara);
 							$.ajax({
-								url:'json/deep3.json',  
-								type:'get',
-								data:{parameter:resultPara},
+								url:'__MODULE__/Task/KeggDir',  
+								type:'post',
+								data:{parameter:resultPara,task_id:dirId,type:3},
 								dataType: "json",
 								success:function(data) {
+                                                                     var data=JSON.parse(data);
 									compareData5=data["list"];
 									console.log(compareData5)
 									updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData5,"oriKeggAll");
@@ -2485,11 +2588,12 @@ $(function(){
 	})
 		
 	/*使用原始KEGG*/
-	var compareData4=null;
+	var compareData4=null;var dirId=window.sessionStorage.getItem("id");  
 	$('a[href="#originalKEGGScatter"]').on('show.bs.tab', function (e) {
 		$.ajax({
-				url:'json/compares.json',  
-				type:'get',
+				url:'__MODULE__/Task/KeggDir',  
+				type:'post',
+                        data:{task_id:dirId,type:0},
 				dataType: "json",
 				success:function(data) {
 					var compares=data["compareName"];
@@ -2501,8 +2605,8 @@ $(function(){
 						}
 						$('#oriKeggCompareGroups').selectpicker('refresh');
 						var groupValue=$("#oriKeggCompareGroups").val();
-						if(groupValue!=null){
-							var allValue=$("#oriKeggAll").val();
+						var allValue=$("#oriKeggAll").val();
+						if(groupValue!=null&&allValue!=null){
 							var resultPara={
 										"compareGroups":groupValue,
 										"allValue":allValue
@@ -2510,11 +2614,12 @@ $(function(){
 										
 							resultPara = JSON.stringify(resultPara);
 							$.ajax({
-								url:'json/deep3.json',  
-								type:'get',
-								data:{parameter:resultPara},
+								url:'__MODULE__/Task/KeggDir',  
+								type:'post',
+								data:{parameter:resultPara,task_id:dirId,type:3},
 								dataType: "json",
 								success:function(data) {
+                                                       var data=JSON.parse(data);
 									compareData4=data["list"];
 									updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4,"oriKeggAll");
 									$('#oriKeggCompareGroups').on('changed.bs.select', function (e) {
@@ -2523,6 +2628,7 @@ $(function(){
 									$('#oriKeggAll').on('changed.bs.select', function (e) {
 										updateCheckTable("oriKeggCompareGroups","orgKeggTable",compareData4,"oriKeggAll");
 									});
+
 								},
 								error : function(XMLHttpRequest) {
 								   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
@@ -2551,6 +2657,7 @@ $(function(){
 	//提交参数
 	$("#kpsoSubmit_paras").click(function(){
 		var formData =  allParams($("#orgKeggParameter"));//取form表单参数
+             
 		if(formData.oKeggScaInput==""){
 			alert("请选择输出目录！");
 		}else{
@@ -2560,24 +2667,33 @@ $(function(){
 							};
 			resultPara = JSON.stringify(resultPara);
 			$.ajax({
-				url: 'json/deepExcavation1.json',  
-				type:'get',
-				data:{parameter:resultPara},
+				url: '__MODULE__/Task/KeegScatter',  
+				type:'post',
+				data:{parameter:resultPara,task_id:dirId,diff_status:0},
 				dataType: "json",
 				success:function(data) {
-					//kegg散点图
+                             var data=data['data'];
+				      if(data['status']=='ERROR'){    //请求成功但没有执行成功
+                                      alert(data['data']);
+				    	}else{
+				    		     $('#id').val(data['id']);
+							alert("执行成功！");
+                              //kegg散点图
+                                       console.log(data["KEGGScatter"]);
 					var oKeggPathScatter=data["KEGGScatter"];
 					$("#KEGGScatterCarousel").empty();
 					$("#KEGGScatterCarousel").append("<ul></ul>");
- 					for(var i=0;i<oKeggPathScatter.length;i++){
- 						$("#KEGGScatterCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+oKeggPathScatter[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + oKeggPathScatter[i] +"' alt='' /></a></li>")
- 					}
+ 					//for(var i=0;i<oKeggPathScatter.length;i++){
+ 						$("#KEGGScatterCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+oKeggPathScatter+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + oKeggPathScatter +"' alt='' /></a></li>")
+ 					//}
      				$("#KEGGScatterCarousel").jCarouselLite({
 				        btnNext: ".default #KEGGScatterNext",
 				        btnPrev: ".default #KEGGScatterPrev",
 				        visible: 1,
 				        speed: 800
 				    });
+
+				    	}	
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -2587,14 +2703,18 @@ $(function(){
 	})
 	
 	/*使用上一步KEGG*/
-	var compareData3=null;
+	var compareData3=null;var dirId=window.sessionStorage.getItem("id");  
 	$('a[href="#previousKEGGScatter"]').on('show.bs.tab', function (e) {
+             
 		$.ajax({
-				url:'json/compares1.json',  
-				type:'get',
+				url:'__MODULE__/Task/KeggDir',  
+				type:'post',
+                        data:{task_id:dirId,type:1},
 				dataType: "json",
 				success:function(data) {
+                                    
 					var compares=data["compareName"];
+                                          // alert(compares);
 					if(compares.length>0){
 						$("#preKeggCompareGroups").empty();
 						for(var i=0;i<compares.length;i++){
@@ -2605,24 +2725,27 @@ $(function(){
 						var groupValue=$("#preKeggCompareGroups").val();
 						var allValue=$("#preKeggAll").val();
 						if(groupValue!=null&&allValue!=null){
-							var resultPara={
+							var resultPara={  
 										"compareGroups":groupValue,
 										"allValue":allValue
 										}; 
 										
 							resultPara = JSON.stringify(resultPara);
 							$.ajax({
-								url:'json/deep3.json',  
-								type:'get',
-								data:{parameter:resultPara},
+								url:'__MODULE__/Task/KeggDir',  
+								type:'post',
+								data:{parameter:resultPara,task_id:dirId,type:4},
 								dataType: "json",
 								success:function(data) {
-									compareData3=data["list"];
+ //console.log(typeof data);
+									 var data=JSON.parse(data);
+                                                      compareData3=data["list"];
 									updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3,"preKeggAll");
 									$('#preKeggCompareGroups').on('changed.bs.select', function (e) {
 										updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3,"preKeggAll");
 									});
 									$('#preKeggAll').on('changed.bs.select', function (e) {
+
 										updateCheckTable("preKeggCompareGroups","preKeggTable",compareData3,"preKeggAll");
 									});
 								},
@@ -2651,26 +2774,35 @@ $(function(){
 							"tableDatas":tableDatas
 							}; 		
 			resultPara = JSON.stringify(resultPara);
-			console.log(resultPara)
+			//console.log(resultPara)
 			$.ajax({
-				url: 'json/deepExcavation2.json',  
-				type:'get',
-				data:{parameter:resultPara},
+				url: '__MODULE__/Task/KeegScatter',  
+				type:'post',
+				data:{parameter:resultPara,task_id:dirId,diff_status:1},
 				dataType: "json",
 				success:function(data) {
-					//kegg散点图
-					var pKeggPathScatter=data["KEGGScatter"];
+				 var data=data['data'];
+				      if(data['status']=='ERROR'){    //请求成功但没有执行成功
+                                      alert(data['data']);
+				    	}else{
+				    		     $('#id').val(data['id']);
+							alert("执行成功！");
+                              //kegg散点图
+                                       console.log(data["KEGGScatter"]);
+					var oKeggPathScatter=data["KEGGScatter"];
 					$("#KEGGScatterCarousel").empty();
 					$("#KEGGScatterCarousel").append("<ul></ul>");
- 					for(var i=0;i<pKeggPathScatter.length;i++){
- 						$("#KEGGScatterCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+pKeggPathScatter[i]+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + pKeggPathScatter[i] +"' alt='' /></a></li>")
- 					}
+ 					//for(var i=0;i<oKeggPathScatter.length;i++){
+ 						$("#KEGGScatterCarousel").find("ul").append("<li style='width: 455px;height: 460px;' ><a class='fancybox-effects-a' href='"+oKeggPathScatter+"' title='Lorem'><img style='width: 455px;height:460px;padding-right: 23px;' src='" + oKeggPathScatter +"' alt='' /></a></li>")
+ 					//}
      				$("#KEGGScatterCarousel").jCarouselLite({
 				        btnNext: ".default #KEGGScatterNext",
 				        btnPrev: ".default #KEGGScatterPrev",
 				        visible: 1,
 				        speed: 800
 				    });
+
+				    	}		
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -2681,12 +2813,10 @@ $(function(){
 	
 
 })
-
-
 /*-------------公共函数-------------------*/
-	function updateCheckTable(selectId,tableId,compareData,allId){
+function updateCheckTable(selectId,tableId,compareData,allId){
 		if(!compareData) return;
-		debugger
+		
 		var p=$("#"+selectId).selectpicker("val");
 		var allValues=$("#"+allId).selectpicker("val");
 		for(var j=0;j<compareData.length;j++){
@@ -2720,7 +2850,7 @@ $(function(){
 			}
 		}
 	}
-	function updateTable(selectId,tabPanelId,compareData){
+function updateTable(selectId,tabPanelId,compareData){
 		if(!compareData) return;
 		var p=$("#"+selectId).selectpicker("val");
 		for(var j=0;j<compareData.length;j++){
@@ -2751,21 +2881,17 @@ $(function(){
 				}
 				$("#"+tabPanelId+" table").bootstrapTable('destroy');
 				$("#"+tabPanelId+" table").bootstrapTable(options);
-				if(tableData.length<1000){
-					$("#"+tabPanelId+" table").bootstrapTable('load',tableData);
-				}else{
-					var start = new Date().getTime();//起始时间
-					var tableDataTemp=tableData.slice(0,300);
+				//$("#"+tabPanelId+" table").bootstrapTable('load',tableData);
+				if(tableData.length>1000){
+					var tableDataTemp=tableData.slice(0,200);
 					$("#"+tabPanelId+" table").bootstrapTable('load',tableDataTemp);
 					setTimeout(function(){
-						tableDataTemp=tableData.slice(300,tableData.length);
+						tableDataTemp=tableData.slice(200,tableData.length);
 						$("#"+tabPanelId+" table").bootstrapTable('append',tableDataTemp);
-					},500)
-					var end = new Date().getTime();//起始时间
-					console.log(end-start)
-					
+					},100)
+				}else{
+					$("#"+tabPanelId+" table").bootstrapTable('load',tableData);
 				}
-				
 			}
 		}
 	}
@@ -2797,9 +2923,9 @@ function allParams(dom){
 	}
 	return json1;
 };
-
+var samplesDataUrl = "__MODULE__/Data/remoteDirView"; //像后台发送目录的地址
+	
 //-----------------------------------点击打开目录--------------------------------------------	
-var samplesDataUrl = "json/jobUrl.json"; //像后台发送目录的地址
 //打开任务目录
 function opendir_path(id,outInputId){
 	var inputValue = $("#"+id).val();  //当前input的值
@@ -2807,6 +2933,7 @@ function opendir_path(id,outInputId){
 	$('#selectUrl').modal('show');
     $("#selected").attr("onClick","geturl('#"+id+"','dir','#"+outInputId+"')")
 };
+
 
 
 //选择目录时添加文件或者目录的图标
@@ -2823,14 +2950,14 @@ function addIcon(State, row) {
 
 //当模态框加载完成后给input中添加当前用户的根目录
 $(function(){
-  dblCilck('jobUrlTable','inputUrl',samplesDataUrl);
-  $('#selectUrl').on('shown.bs.modal', function () {    //模态框完全显示之后把根目录放入
-//	      	$("#inputUrl").val("/home/agloom");
-  	if($("#inputUrl").val()==''){
-  		$("#inputUrl").val('/');
-  	}
-  	checkUrl($("#inputUrl").val(), samplesDataUrl, 'inputUrl','jobUrlTable');
-  });
+		  dblCilck('jobUrlTable','inputUrl',samplesDataUrl);
+		  $('#selectUrl').on('shown.bs.modal', function () {    //模态框完全显示之后把根目录放入
+	      	//$("#inputUrl").val("/home/dodogene/");
+		  	if($("#inputUrl").val()==''){
+		  		$("#inputUrl").val('{$person_dir}');
+		  	}
+		  	checkUrl($("#inputUrl").val(), samplesDataUrl, 'inputUrl','jobUrlTable');
+		  });
 });
 
 
@@ -2851,8 +2978,8 @@ $(function(){
 //后退按钮
 	$("#back").click(function(){  
     	   Url= $("#inputUrl").val();
-		   
-		   lastLen =Url.split('/').pop().length
+		  
+		   lastLen =Url.split('/').pop().length;
 		   newUrl = Url.substring(0,Url.length - lastLen-1);
 		   checkUrl(newUrl,samplesDataUrl,"inputUrl","jobUrlTable");
     }); 
@@ -2861,46 +2988,47 @@ $(function(){
 
 //点击选择关闭模态框，将当前模态框input中的路径取出放入表单中,type 的类型 暂时有两种，dir和 file
 function geturl(formInputId,type,outInputId){
+
 	var selected_num = checkedNum("jobUrlTable");
 	if(type == "dir"){
 		//只能选择文件夹，单选
 		var newUrl = ""
 		
 		if(selected_num == 1){
-			//此时选中了一项，判断是否是目录
-			
+			//此时选中了一项，判断是否是目录			
 			var singleName = ""   //选择一个文件夹或者文件的名字，单选
 			$.map($('#jobUrlTable').bootstrapTable('getSelections'), function (row) {
-				console.log(row);
 				var d_f_type = "";
 				d_f_type = row.type.charAt(0);
 				if(d_f_type == "d"){
 					singleName = row.name;
 					newUrl = $("#inputUrl").val() + "/"+ singleName;    //点击选择时取input中当前的路径，在加上此时选择的
+                              newUrl = newUrl.replace('//','/');
 					if($(outInputId).val()==newUrl){
 						alert("不能和输入目录相同！");
 						return;
 					}
-					newUrl = newUrl.replace('//','/');
 					$("#selected").removeAttr("onClick");   //选择按钮
 					$("#selectUrl").modal('hide');          //隐藏目录选择的模态框
 					$(formInputId).val(newUrl);	
 					if(formInputId == "#data_dir"){
+
 						var sequencingType = $("#seq_type").val();
 						$.ajax({
 								url:samplesDataUrl,  
-								type:'get',
+								type:'post',
 								data:{url:newUrl},
 								dataType: "json",
-								success:function(data,textStatus) {
+								success:function(data,textStatus) { 
+                                                  console.log(data);
 									if(data['status']=='ERROR'){    //请求成功但没有执行成功
 										alert(data['data']);
 									}else{
 										var data1 = data['data'];
-
+                               
 										objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
 										
-										$('#sampleTable').bootstrapTable('load',objData);  //填入table中	
+										$('#sampleTable').bootstrapTable('load',objData);  //填入table中
 									}
 								},    
 								error : function(XMLHttpRequest) {
@@ -2921,7 +3049,7 @@ function geturl(formInputId,type,outInputId){
 			//没有选中任何项，将此时的url传到前面
 
 			newUrl = $("#inputUrl").val();    //点击选择时取input中当前的路径，在加上此时选择的
-			newUrl = newUrl.replace('//','/');
+                   newUrl = newUrl.replace('//','/');
 			$("#selected").removeAttr("onClick");
 			$("#selectUrl").modal('hide');
 			$(formInputId).val(newUrl);
@@ -2929,7 +3057,7 @@ function geturl(formInputId,type,outInputId){
 			var sequencingType = $("#seq_type").val();
 			$.ajax({
 					url:samplesDataUrl,  
-					type:'get',
+					type:'post',
 					data:{url:newUrl},
 					dataType: "json",
 					success:function(data,textStatus) {
@@ -2938,7 +3066,7 @@ function geturl(formInputId,type,outInputId){
 						}else{
 							var data1 = data['data'];
 							objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
-							console.log(objData)
+							
 							$('#sampleTable').bootstrapTable('load',objData);  //填入table中
 						}
 					},    
@@ -2976,14 +3104,15 @@ function geturl(formInputId,type,outInputId){
 			}else{
 				//获得当前的目录，取消绑定，关闭模态框，在外面填写
 				newUrl = $("#inputUrl").val();
-				newUrl = newUrl.replace('//','/');
+				//newUrl = '/ddgene'.newUrl.replace('//','/');
+                        newUrl = newUrl.replace('//','/');
 				$("#selected").removeAttr("onClick");
 				$("#selectUrl").modal('hide');
 				$(formInputId).val(newUrl);
 				//清空样本
 				$(formInputId).nextAll().remove();
 				for(var i=0; i< files.length; i++){
-					$(formInputId).after('<span class="label label-default span_sample">'+files[i]+'<a href="javascript:void(0);" onclick="remover_this_sample(this)" class="glyphicon glyphicon-remove"></a></span>');
+					$(formInputId).after('<span class="label label-default span_sample">'+files[i]+'<a href="javascript:void(0);" onclick="remover_this_sample(this)" class="glyphicon glyphicon-remove colorRNA"></a></span>');
 				};
 			};
 		};
@@ -2994,6 +3123,7 @@ function geturl(formInputId,type,outInputId){
 	}
 
 };
+
 
 </script>
 

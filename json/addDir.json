@@ -1,0 +1,11 @@
+{	"status":"SUCCESS",
+	"data":{
+        "type": "drwxrwxr-x.",
+        "inodeNum": "1",
+        "owner": "agloom",
+        "group": "agloom",
+        "size": "1269",
+        "mtime": "2016-01-14/21:56:46",
+        "name": "Smm"
+    }
+}

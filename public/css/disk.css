@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+html {
+  min-width: 800px;
+  overflow-x: scroll;
+}
+.bigbox {
+  width: 90%;
+  margin: 0 auto;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.bigbox_1200 {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1200px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
