@@ -248,10 +248,8 @@
 								<div class="modal-body" style="text-align:center; ">
 									<table data-toggle="table" data-minimum-count-columns="2" data-id-field="id" data-show-footer="false" data-height="300" data-sort-name="id"
 										data-click-to-select="true"  id="jobUrlTable" style="bottom:20px;">
-
 										<thead>
 											<tr>
-
 												<th data-field="state" data-checkbox="true"></th>
 												<th data-field="icon" data-formatter="addIcon"></th>
 												<th data-field="name" data-align="left" data-sortable="true">name</th>
@@ -267,30 +265,22 @@
 								</div>
 								<!-- ----------------------------------------------------------------------------------- -->
 								<div class="modal-footer">
-									<button type="button" id="add" class="btn btnBlue pull-left" data-target='#dirModal' data-toggle='modal'>增加</button>
-									<button type="button" id="selected" class="btn btnBlue">选择</button>
-									<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">关闭</button>
+									<button type="button" id="add" class="btn btnBlue pull-left" data-target='#dirModal' data-toggle='modal'>新建目录</button>
+									<button type="button" id="selected" class="btn btnBlue">确定</button>
+									<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">取消</button>
 								</div>
 							</div>
 						</div>
 					</div>
-				  	<div class="row">
-						<div style="width:100%;">
-							<div class="row">
-								<div class="modal fade " id="dirModal" tabindex="-1" role="dialog"  aria-hidden="true">
-									<div class="row">
-										<div id='list_model' class="modal-dialog " style='width:20%'>
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-													<h4 class="modal-title">目录名</h4>
-													<div class="input-group">
-														<input id="dirName" class="form-control" value=''/>
-														<span id='addDir' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-													</div>
-												</div>
-											</div>
-										</div>
+					<div class="modal fade " id="dirModal" tabindex="-1" role="dialog"  aria-hidden="true">						
+						<div  class="modal-dialog " style='width:20%;top: 50%;margin-top: -46px;'>
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title">目录名</h4>
+									<div class="input-group">
+										<input id="dirName" class="form-control" value=''/>
+										<span id='addDir' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
 									</div>
 								</div>
 							</div>
@@ -371,77 +361,53 @@
 					
 
 					<!-- group modal -->
-					<div class="row">
-						<div style="width:100%;">
-							<div class="row">
-								<div class="modal fade " id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="row">
-										<div id='list_model' class="modal-dialog " style='width:20%'>
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-													<h4 class="modal-title" id="myModalLabel">组名</h4>
-													<div class="input-group">
-														<input id="groupName" class="form-control" value=''/>
-														<span id='addGroup' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-													</div>
-												</div>
-											</div>
-										</div>
+					<div class="modal fade " id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog " style='width:20%;top: 50%;margin-top: -46px;'>
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">组名</h4>
+									<div class="input-group">
+										<input id="groupName" class="form-control" value=''/>
+										<span id='addGroup' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
 									</div>
 								</div>
-								<!-- /.modal end -->
+							</div>
+						</div>	
+					</div>
+					<!-- /.modal end -->
+					<!-- compare modal -->				
+					<div class="modal fade " id="compareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div  class="modal-dialog" style='width:20%;top: 50%;margin-top: -46px;'>
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">组间比较</h4>
+									<div class="input-group">
+										<input id="compareName" class="form-control" value='' />
+										<span id='addCompare' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-					<!-- compare modal -->
-					<div class="row">
-						<div style="width:100%;">
-							<div class="row">
-								<div class="modal fade " id="compareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="row">
-										<div id='list_model' class="modal-dialog " style='width:20%'>
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-													<h4 class="modal-title" id="myModalLabel">组间比较</h4>
-													<div class="input-group">
-														<input id="compareName" class="form-control" value='' />
-														<span id='addCompare' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- /.modal end -->
-							</div>
-						</div>
-					</div>
+					<!-- /.modal end -->
 					<!-- venn modal -->
-					<div class="row">
-						<div style="width:100%;">
-							<div class="row">
-								<div class="modal fade " id="vennModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="row">
-										<div id='list_model' class="modal-dialog " style='width:20%'>
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-													<h4 class="modal-title" id="myModalLabel">维恩组</h4>
-													<div class="input-group">
-														<input id="vennName" class="form-control" value='' />
-														<span id='addVenn' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-													</div>
-												</div>
-											</div>
-										</div>
+					<div class="modal fade " id="vennModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">									
+						<div class="modal-dialog" style='width:20%;top: 50%;margin-top: -46px;'>
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">维恩组</h4>
+									<div class="input-group">
+										<input id="vennName" class="form-control" value='' />
+										<span id='addVenn' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
 									</div>
 								</div>
-								<!-- /.modal end -->
 							</div>
 						</div>
 					</div>
+					<!-- /.modal end -->
 					<!--第五部分 模块参数设置-->
 
 					<div class="part_box">
@@ -821,20 +787,20 @@ function openDataUrl(){
 };
 $("#addDir").keydown(function(k){
 	if(k.keyCode==13 ){
-		addDir();
+		addDir("dirName","jobUrlTable","inputUrl","dirModal");
 	}
 });
 $("#addDir").click(function(){
-	addDir();
+	addDir("dirName","jobUrlTable","inputUrl","dirModal");
 });
 
-function addDir(){
-	var name=$("#dirName").val();
+function addDir(dirName,tableId,inputUrl,dirModal){
+	var name=$("#"+dirName).val();
 	if(name==""||name==null){
 		alert("请输入目录名");
 	}else{
 		name=$.trim(name);
-		var tableDatas=$("#jobUrlTable").bootstrapTable('getData');
+		var tableDatas=$("#"+tableId).bootstrapTable('getData');
 		for(var i=0;i<tableDatas.length;i++){
 			var rowName=tableDatas[i].name;
 			var rowType=tableDatas[i].type;
@@ -845,7 +811,7 @@ function addDir(){
 			}
 		}
 	}
-	var path=$("#inputUrl").val();
+	var path=$("#"+inputUrl).val();
 	$.ajax({
 			url:"json/addDir.json",  
 			type:'get',
@@ -856,8 +822,8 @@ function addDir(){
 			success:function(data,textStatus) {
 				if(data['status']=='SUCCESS'){ 
 					var data1 = data['data'];
-					$('#jobUrlTable').bootstrapTable('prepend',data1);  //填入table中
-					$("#dirModal").modal('hide');
+					$('#'+tableId).bootstrapTable('prepend',data1);  //填入table中
+					$("#"+dirModal).modal('hide');
 					
 				}else{
 					alert(data['data']);
@@ -1592,7 +1558,8 @@ function checkInput(){
 	
 	var checkTask=$("#creatTask input[name]");
 	var checkNode=$("#parasPanel input[name]");
-
+	var checkDrop=$("#parasPanel select");
+	console.log(checkDrop)
 	var count=0; //计数
 	for(var i=0;i<checkTask.length;i++){
 	  if(checkTask[i].value==""){
@@ -1613,7 +1580,14 @@ function checkInput(){
 		$($("#parasPanel input[name]")[i]).attr("style","border-color:#ccc;")  
 		  };
 	}; 
-
+	
+	for(var i=0;i<checkDrop.length;i++){
+		console.log(checkDrop[i].value)
+	  if(checkDrop[i].value==""){
+		count += 1;
+	  }
+	}; 
+	
 	if(count != 0){
 		alert("还有未填写的参数！");
 		};
@@ -1633,7 +1607,6 @@ function checkInput(){
 //任务运行，提交参数
 $("#taskRun").click(function(){
 	var tableDatas=$('#sampleTable').bootstrapTable("getData");
-	console.log(tableDatas)
 	var resultArray=[];
 	for(var i=0;i<tableDatas.length;i++){
 		var rowData=tableDatas[i];
@@ -1693,13 +1666,13 @@ $("#taskRun").click(function(){
 				var curGroupSamples = new Array();
 				for(var j=0; j < sampleItems.length ;j++){
 					curGroupSamples.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+					allGroupItems.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""))
 				}
-				allGroupItems.push(curGroupSamples[0]);
+//				allGroupItems.push(curGroupSamples);
 				groupSamples[curGroup]= curGroupSamples;
 			}
 			groupCompareVenn['groupSamples']= groupSamples;
 		}
-		
 		//检查数据
 		//检查样本是否已全部分组，非强制
 		var samples=$("#sampleNames").find('li');
@@ -1719,7 +1692,8 @@ $("#taskRun").click(function(){
 			var compareGroups = {};
 			for(var i=0; i<compares.length; i++){
 				var groupItems = $($(compares[i]).find('ul')[0]).find('li');
-				if(groupItems.length==0){
+				if(groupItems.length!=2){
+					alert("分组数必须为2")
 					continue;
 				}
 				//比较组名
@@ -1731,6 +1705,9 @@ $("#taskRun").click(function(){
 				compareGroups[curCompare] = curCompareGroups;
 			}
 			groupCompareVenn['compareGroups']= compareGroups;
+		}else{
+			alert("比较组不能为空！");
+			return false;
 		}
 		//检查venn图
 		var venns = $('#vennList').find('div');

@@ -171,8 +171,9 @@ $(function(){
 					var curGroupSamples = new Array();
 					for(var j=0; j < sampleItems.length ;j++){
 						curGroupSamples.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+						allGroupItems.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
 					}
-					allGroupItems.push(curGroupSamples[0]);
+					
 					groupSamples[curGroup]= curGroupSamples;
 				}
 				groupCompareVenn['groupSamples']= groupSamples;
@@ -189,7 +190,51 @@ $(function(){
 				}
 			}
 		}
-
+		//检查比较组
+		debugger
+		var compares = $('#compareList').find('div');
+		if(compares.length>0){
+			var compareGroups = {};
+			for(var i=0; i<compares.length; i++){
+				var groupItems = $($(compares[i]).find('ul')[0]).find('li');
+				if(groupItems.length!=2){
+					alert("分组数必须为2")
+					continue;
+				}
+				//比较组名
+				var curCompare = $($(compares[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");
+				var curCompareGroups = new Array();
+				for(var j=0; j<groupItems.length; j++){
+					curCompareGroups.push($(groupItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+				}
+				compareGroups[curCompare] = curCompareGroups;
+			}
+			groupCompareVenn['compareGroups']= compareGroups;
+		}else{
+			alert("比较组不能为空！");
+			return false;
+		}
+		//检查venn图
+		var venns = $('#vennList').find('div');
+		if(venns.length>0){
+			var vennCompares={};
+			for(var i=0; i<venns.length; i++){
+				var compareItems = $($(venns[i]).find('ul')[0]).find('li');
+				if(compareItems.length==0){
+					continue;
+				}
+				
+				//比较韦恩图
+				var curVennCompares = $($(venns[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");
+				var curVennGroups = new Array();
+				for(var j=0; j<compareItems.length; j++){
+					curVennGroups.push($(compareItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+				}
+				vennCompares[curVennCompares] = curVennGroups;
+			}
+			groupCompareVenn['vennCompares'] = vennCompares;
+		}
+		
 		//全部的参数	
 		var samplesStr=""
 		for(var j=0;j<samples.length;j++ ){  
@@ -208,6 +253,7 @@ $(function(){
 						}; 
 						
 		resultPara = JSON.stringify(resultPara);
+		console.log(resultPara)
 			$.ajax({
 				url: 'json/taskDetail.2.json',  
 				type:'get',
@@ -348,6 +394,7 @@ function dragInit() {
 		    		alert("超出了最大允许数目"+maxNum);
 		    		return false;
 		    	}
+		    	
 		    	for (var i=0; i<items.length; i++){
 		    		if($(items[i]).text()==itemName){
 		    			alert("有重复的条目"+itemName+"！");
@@ -589,9 +636,12 @@ function opendir_path(id){
 };
 //打开任务目录
 function openUrl(id,type){
+	
 	var inputValue = $(id).val();  //当前input的值
-
-	$("#inputUrl").val(inputValue);
+	if(inputValue=""){
+		$("#inputUrl").val(inputValue);
+	}
+	
 	$('#selectUrl').modal('show');
 
     $("#selected").attr("onClick","geturl('"+id+"','"+type+"')")   //给选择按钮添加事件
@@ -615,7 +665,7 @@ $(function(){
   $('#selectUrl').on('shown.bs.modal', function () {    //模态框完全显示之后把根目录放入
 //	      	$("#inputUrl").val("/home/agloom");
   	if($("#inputUrl").val()==''){
-  		$("#inputUrl").val('/');
+  		$("#inputUrl").val("/home/agloom");
   	}
   	checkUrl($("#inputUrl").val(), samplesDataUrl, 'inputUrl','jobUrlTable');
   });
@@ -792,6 +842,7 @@ function geturl(formInputId,type){
 			if(files.length == 0){
 				alert("请选择文件！")
 			}else{
+				
 				//获得当前的目录，取消绑定，关闭模态框
 				var filename_now = '/'+ $('#jobUrlTable').bootstrapTable('getSelections')[0].name;
 				newUrl = $("#inputUrl").val()+filename_now;
@@ -826,7 +877,6 @@ function geturl(formInputId,type){
 							alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
 						}
 				}); 
-				
 				$("#selected").removeAttr("onClick");
 				$("#selectUrl").modal('hide');
 				$(formInputId).val(newUrl);				
