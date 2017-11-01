@@ -724,10 +724,8 @@ $(function(){
 //打开任务目录
 function openUrl(id,type){
 	var inputValue = $(id).val();  //当前input的值
-
 	$("#inputUrl").val(inputValue);
 	$('#selectUrl').modal('show');
-
     $("#selected").attr("onClick","geturl('"+id+"','"+type+"')")   //给选择按钮添加事件
 
 };
@@ -811,16 +809,13 @@ function geturl(formInputId,type){
 				alert("请选择文件！")
 			}else{
 				//获得当前的目录，取消绑定，关闭模态框，在外面填写
-				
 				var filename_now = '/'+ $('#urlTable').bootstrapTable('getSelections')[0].name;
 				newUrl = $("#inputUrl").val()+filename_now;
 				newUrl = newUrl.replace('//','/');
-				
-				
 				$("#selected").removeAttr("onClick");
 				$("#selectUrl").modal('hide');
 				$(formInputId).val(newUrl);
-				
+				vue.input=newUrl;
 				
 			};
 		};
