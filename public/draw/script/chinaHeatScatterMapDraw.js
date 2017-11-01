@@ -276,7 +276,7 @@ $(function(){
 
 	//支持下载png格式
 	$("#btnPng").click(function(){
-		downloadPic(myChart);
+		downloadPic(myChart);   
 	});
   	function downloadPic(myChart){
 		var $a = document.createElement('a');

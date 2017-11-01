@@ -720,6 +720,7 @@ $(function(){
 	});
 
 });
+
 //打开任务目录
 function openUrl(id,type){
 	var inputValue = $(id).val();  //当前input的值

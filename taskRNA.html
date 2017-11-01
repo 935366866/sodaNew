@@ -1314,28 +1314,33 @@ function dragInit() {
 	          .fadeIn();
 	      });
 	    }
-	    
-	    $("#groupList .glyphicon-remove").each(function(){
-			$(this).click(function(){
-				$(this).parent('div').remove();
-				var value=$(this).siblings("span").text();
-				var index=$.inArray(value,allgroups);
-				
-				if(index==-1){
-					return ;
-				}
-				allgroups.splice(index,1);
-				
-				$("#compareList").find("li").each(function(){
-					if($(this).text()==value){
-						$(this).remove();
-					}
+	    if($("#groupList .glyphicon-remove").length>0){
+		    $("#groupList .glyphicon-remove").each(function(){
+				$(this).click(function(){
+					$(this).parent('div').remove();
+					var value=$(this).siblings("span").text();
+					var index=$.inArray(value,allgroups);
 					
+					if(index==-1){
+						return ;
+					}
+					allgroups.splice(index,1);
+					
+					$("#compareList").find("li").each(function(){
+						if($(this).text()==value){
+							$(this).remove();
+						}
+						
+					})
+	
+					dragInit();
 				})
-
-				dragInit();
-			})
-		});
+			});
+	    }else{
+	    	var htm="<div style='width:140px'></div>";
+	    	$("#groupList").append(htm)
+	    }
+	    
 		$("#compareList .glyphicon-remove").each(function(){
 			$(this).click(function(){
 				$(this).parent('div').remove();
@@ -1381,13 +1386,19 @@ $('#vennModal').on('shown.bs.modal', function () {
 $('#isRepeat').on('changed.bs.select', function(e) {
 	if(e.target.value){
 		if(e.target.value=="NO"){
-			$("#sampleNames li").each(function(){
-				var gname= $(this).text();
-				var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+gname+'</span><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"><li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'+gname+'</li></ul></div>';
-				$(html).appendTo('#groupList');
-				allgroups.push(gname);
-				dragInit();
-			})
+			if($("#groupList .sampleGroup").length!=0){	
+				alert("请先清空分组");
+				return false;
+			}else{
+				$("#sampleNames li").each(function(){
+					var gname= $(this).text();
+					var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+gname+'</span><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"><li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'+gname+'</li></ul></div>';
+					$(html).appendTo('#groupList');
+					allgroups.push(gname);
+					dragInit();
+				})
+			}
+				
 		}else{
 			$('#groupList').html("");
 			allgroups=[];
@@ -1559,7 +1570,6 @@ function checkInput(){
 	var checkTask=$("#creatTask input[name]");
 	var checkNode=$("#parasPanel input[name]");
 	var checkDrop=$("#parasPanel select");
-	console.log(checkDrop)
 	var count=0; //计数
 	for(var i=0;i<checkTask.length;i++){
 	  if(checkTask[i].value==""){
@@ -1582,7 +1592,6 @@ function checkInput(){
 	}; 
 	
 	for(var i=0;i<checkDrop.length;i++){
-		console.log(checkDrop[i].value)
 	  if(checkDrop[i].value==""){
 		count += 1;
 	  }

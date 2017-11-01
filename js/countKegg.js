@@ -111,56 +111,6 @@ $(function(){
 		window.clearInterval(setInt)
 	})
 	var compareData=null;
-	$('a[href="#KEGGList"]').on('show.bs.tab', function (e) {
-		$.ajax({
-				url:'json/compares1.json',  
-				type:'get',
-				dataType: "json",
-				success:function(data) {
-					var compares=data["compareName"];
-					if(compares.length>0){
-						$("#compareGroups").empty();
-						for(var i=0;i<compares.length;i++){
-							var option="<option value="+compares[i]+">"+compares[i]+"</option>";
-							$("#compareGroups").append(option);
-						}
-						$('#compareGroups').selectpicker('refresh');
-						var groupValue=$("#compareGroups").val();
-						var allValue=$("#keggAll").val();
-						if(groupValue!=null&&allValue!=null){
-							var resultPara={
-										"compareGroups":groupValue,
-										"allValue":allValue
-										}; 
-										
-							resultPara = JSON.stringify(resultPara);
-							$.ajax({
-								url:'json/deep3.json',  
-								type:'get',
-								data:{parameter:resultPara},
-								dataType: "json",
-								success:function(data) {
-									compareData=data["list"];
-									updateCheckTable("compareGroups","KEGGList",compareData,"keggAll");
-									$('#compareGroups').on('changed.bs.select', function (e) {
-										updateCheckTable("compareGroups","KEGGList",compareData,"keggAll");
-									});
-									$('#keggAll').on('changed.bs.select', function (e) {
-										updateCheckTable("compareGroups","KEGGList",compareData,"keggAll");
-									});
-								},
-								error : function(XMLHttpRequest) {
-								   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
-								}
-							})
-						}
-					}
-				},
-				error : function(XMLHttpRequest) {
-				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
-				}
-		})
-	})
 	//提交参数
 	$("#submit_paras").click(function(){
 		var formData =  allParams($("#parameter"));//取form表单参数
@@ -174,7 +124,6 @@ $(function(){
 							}; 
 						
 			resultPara = JSON.stringify(resultPara);
-			console.log(resultPara)
 			$.ajax({
 				url: 'json/taskDetail.2.json',  
 				type:'get',
@@ -193,7 +142,7 @@ $(function(){
 				        visible: 1,
 				        speed: 800
 				    });
-				    	
+				    updateTable("listTable",data["list"])
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -205,41 +154,43 @@ $(function(){
 
 
 /*-------------公共函数-------------------*/
-	function updateCheckTable(selectId,tableId,compareData,allId){
-		if(!compareData) return;
-		debugger
-		var p=$("#"+selectId).val();
-		var allValues=$("#"+allId).val();
-		for(var j=0;j<compareData.length;j++){
-			if(p==compareData[j]["compareName"]&&allValues==compareData[j]["all"]){
-				var content=compareData[j]['content'];
-				var head=content[0];
-				var options={
-					clickToSelect:true,
-					showFooter:false,
-					classes:'table',
-					columns: [{field:"state",checkbox:true,checkboxEnabled:true}]
-				}
-				for(var m=0;m<head.length;m++){
-					var obj={order: "asc"};
-					obj["title"]=head[m];
-					obj["field"]=head[m];
-					options.columns.push(obj);
-				}
-				var tableData=[];
-				for(var i=1;i<content.length;i++){
-					var row=content[i];
-					var rowObj={};
-					for(var k=0;k<row.length;k++){
-						rowObj[head[k]]=row[k];
-					}
-					tableData.push(rowObj);
-				}
-				$("#"+tableId).bootstrapTable('destroy');
-				$("#"+tableId).bootstrapTable(options);
-				$("#"+tableId).bootstrapTable('load',tableData);
-			}
+	function updateTable(tableId,data){
+		var head=data[0];
+		var options={
+			clickToSelect:true,
+			showFooter:false,
+			classes:'table',
+			columns: []
 		}
+		for(var m=0;m<head.length;m++){
+			var obj={order: "asc"};
+			obj["title"]=head[m];
+			obj["field"]=head[m];
+			options.columns.push(obj);
+		}
+		$("#"+tableId).bootstrapTable(options);
+		var tableData=[];
+		for(var i=1;i<data.length;i++){
+			var row=data[i];
+			var rowObj={};
+			for(var k=0;k<row.length;k++){
+				rowObj[head[k]]=row[k];
+			}
+			tableData.push(rowObj);
+		}
+		$("#"+tableId).bootstrapTable('destroy');
+		$("#"+tableId).bootstrapTable(options);
+		if(tableData.length<1000){
+			$("#"+tableId).bootstrapTable('load',tableData);
+		}else{
+			var tableDataTemp=tableData.slice(0,300);
+			$("#"+tableId).bootstrapTable('load',tableDataTemp);
+			setTimeout(function(){
+				tableDataTemp=tableData.slice(300,tableData.length);
+				$("#"+tableId).bootstrapTable('append',tableDataTemp);
+			},500)
+			
+		}	
 	}
 //任务的状态
 function taskState(State) {

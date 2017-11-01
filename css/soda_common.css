@@ -420,4 +420,8 @@
 }
 .editableform .form-control{
 	width: 150px !important;
+}	
+.modal-body .fixed-table-container{
+	padding-bottom: 40px !important;
 }
+
