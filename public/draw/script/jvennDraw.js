@@ -35,6 +35,12 @@ $(function(){
 					return;
 				}
 				this.sampleList.splice(index, 1);
+			},
+			openUrlVue:function(index){
+				openUrl('#input'+index,'file',index)
+			},
+			upload:function(index){
+				uploadFile('json/upload.json','upload_input'+index,'#input'+index)
 			}
 		},
 		computed: {
@@ -92,8 +98,10 @@ $(function(){
 			},
 			fileData:function(val,oldVal){
 				for(var item in this.defaults){
-						if(item!="input")
+					if(item!="input"){
 						vue[item]=this.defaults[item];
+					}
+						
 				}
 			},
 			vennType:function(val,oldVal){
@@ -122,7 +130,6 @@ $(function(){
 				}
 			];
 				
-	
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
@@ -150,9 +157,11 @@ $(function(){
 	});
 	//提交参数
 	$("#submit_paras").click(function(){
+		console.log(vue.sampleList)
+		debugger
 		var formData =[];
 		for(var i=0;i<vue.sampleList.length;i++){
-			formData.push(vue.sampleList.file)
+			formData.push(vue.sampleList[i].file)
 		}
 		$.ajax({
 			url: 'public/draw/json/vennDrawFileData.json',  
@@ -162,6 +171,7 @@ $(function(){
 			},
 			dataType: "json",
 			success:function(data) {
+				console.log(data)
 				updateVennData($("#main"),data["files"],vue.sampleList,vue.vennType,vue.statistics,vue.num_size,vue.num_font,vue.sample_size,vue.sample_font,vue.opacityVal,vue.setBorder);
 			},    
 			error : function(XMLHttpRequest) {
@@ -380,13 +390,15 @@ $(function(){
 
 });
 //打开任务目录
-function openUrl(id,type){
+function openUrl(id,type,inputIndex){
+
 	var inputValue = $(id).val();  //当前input的值
 
 	$("#inputUrl").val(inputValue);
 	$('#selectUrl').modal('show');
 
-    $("#selected").attr("onClick","geturl('"+id+"','"+type+"')")   //给选择按钮添加事件
+    $("#selected").attr("onClick","geturl('"+id+"','"+type+"',"+inputIndex+")")   //给选择按钮添加事件
+
 
 };
 
@@ -403,7 +415,7 @@ function addIcon(State, row) {
 };
 
 //点击选择关闭模态框，将当前模态框input中的路径取出放入表单中,type 的类型 暂时有两种，dir和 file
-function geturl(formInputId,type){
+function geturl(formInputId,type,inputIndex){
 	var selected_num = checkedNum("urlTable");
 	if(type == "dir"){
 		//只能选择文件夹，单选
@@ -469,14 +481,13 @@ function geturl(formInputId,type){
 				alert("请选择文件！")
 			}else{
 				//获得当前的目录，取消绑定，关闭模态框，在外面填写
+				
 				var filename_now = '/'+ $('#urlTable').bootstrapTable('getSelections')[0].name;
-				newUrl = $("#inputUrl").val()+filename_now;
+				newUrl = filename_now;
 				newUrl = newUrl.replace('//','/');
 				$("#selected").removeAttr("onClick");
 				$("#selectUrl").modal('hide');
-				$(formInputId).val(newUrl);
-				
-				
+				vue.sampleList[inputIndex].file=newUrl;
 			};
 		};
 

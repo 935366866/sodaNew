@@ -14,7 +14,7 @@
     /* Styling for image based carousel content. Only width and height are mandatory */
     .jcl-demo .carousel>ul>li>img {
         width: 150px;
-        height: 118px;
+        height: 118px;      
         vertical-align:middle;
 
         /* optional */

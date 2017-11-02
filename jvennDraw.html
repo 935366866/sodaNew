@@ -214,20 +214,20 @@
 											<button type="button" class="close" v-on:click="delSample(index)">&times;</button>
 										</div>
 										<div class="input_a_m">
-											<input type="text" v-model="item.file" class="form-control" id="input" name="input" placeholder="输入文件">
+											<input type="text" v-model="sampleList[index].file" v-bind:id="'input'+index" v-bind:name="'input'+index" class="form-control"  placeholder="输入文件">
 										</div>
 										<div class="input_a_r">
-											<a onclick="openUrl('#input','file')">
+											<a v-on:click="openUrlVue(index)">
 												<span class="glyphicon glyphicon-folder-open"></span>
 											</a>
 											<span class="fileinput-button btn " style="padding: 0 10px;" >
 												<img src="public/draw/imgs/app_02.png" alt=""  style="width: 29px;">
-												<input id="upload_input"  name="upload_input" onclick="uploadFile('json/upload.json','upload_input','#input')" type="file">
+												<input v-bind:id="'upload_input'+index" v-on:click="upload(index)"  type="file">
 											</span>
 										</div>
 										<div class="part">
 											<div class="input_a_m" style="margin-left: -15px;width: 267px;">
-												<input v-model="item.sampleName" type="text" class="form-control"  name="input" placeholder="设置样本名">
+												<input v-model="sampleList[index].sampleName" type="text" class="form-control"  placeholder="设置样本名">
 											</div>
 										</div>
 										<div class="part">

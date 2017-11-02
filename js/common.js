@@ -441,7 +441,6 @@ function draftTask(url,dataUrl){
 //直接写入一个json而不从json文件中获得他
 allNodeName =  ["Density", "Saturation", "SNP_INDEL", "AS", "PPI", "GO", "KEGG","QC","Assemble","Novel","DE"];
 constDefaultRefParams={
-
 	"DE": [
         {
             "id": "qval",

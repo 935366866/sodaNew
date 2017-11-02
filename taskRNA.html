@@ -291,10 +291,10 @@
 					<!-- 样本分组、比较、维恩图 -->
 					<div class="part_box">
 						<!--带星 分组比较标题-->
-						<div class="task_form_height">
+						<div class="task_form_height" >
 							<label class="task_label"><span>9</span>分组比较</label>
 							<!--带有拖拽内容的面板-->
-							<div class="sample_part" style="width: 81%;margin-left: 55px;margin-top: 0;">
+							<div id="sampleGroup"  class="sample_part" style="width: 81%;margin-left: 55px;margin-top: 0;">
 								<div class="panel panel-default">
 									<div class="panel-heading">生物学重复</div>
 									<div class="panel-body">
@@ -691,6 +691,11 @@
 			if(nodeLockStatus == 1){  //判断是否是解锁状态
 				$("#parasPanel").html(""); //清空现有的参数
 			for(var key in nodeStatus){
+				if(nodeStatus["DE"] == 1){
+					$("#sampleGroup").show();
+				}else{
+					$("#sampleGroup").hide();
+				}
 				if (nodeStatus[key] == 1){
 		//加载json相应模块的数据到模块参数设置当中
 					//添加该模块的面板
@@ -1314,51 +1319,55 @@ function dragInit() {
 	          .fadeIn();
 	      });
 	    }
-	    if($("#groupList .glyphicon-remove").length>0){
-		    $("#groupList .glyphicon-remove").each(function(){
+	    
+	   		$("#groupList .glyphicon-remove").each(function(){
 				$(this).click(function(){
+					if($("#groupList .glyphicon-remove").length>0){
+						$(this).parent('div').remove();
+						var value=$(this).siblings("span").text();
+						var index=$.inArray(value,allgroups);
+						if(index==-1){
+							return ;
+						}
+						allgroups.splice(index,1);
+						$("#compareList").find("li").each(function(){
+							if($(this).text()==value){
+								$(this).remove();
+							}
+							
+						})
+						dragInit();
+					}else{
+//						var htm="<div class='ui-widget-header' style='width:140px;background:#fff;border:1px solid #fff'></div>";
+//	    				$("#groupList").append(htm);
+	    				$("#compareList").empty();
+	    				$("#vennList").empty();
+					}
+
+				})
+			}); 
+	    
+	    	    
+		$("#compareList .glyphicon-remove").each(function(){
+			$(this).click(function(){
+				if($("#compareList .glyphicon-remove").length>0){
 					$(this).parent('div').remove();
 					var value=$(this).siblings("span").text();
-					var index=$.inArray(value,allgroups);
-					
+					var index=$.inArray(value,allCompares);
 					if(index==-1){
 						return ;
 					}
-					allgroups.splice(index,1);
-					
-					$("#compareList").find("li").each(function(){
+					$("#vennList").find("li").each(function(){
 						if($(this).text()==value){
 							$(this).remove();
 						}
 						
 					})
-	
-					dragInit();
-				})
-			});
-	    }else{
-	    	var htm="<div style='width:140px'></div>";
-	    	$("#groupList").append(htm)
-	    }
-	    
-		$("#compareList .glyphicon-remove").each(function(){
-			$(this).click(function(){
-				$(this).parent('div').remove();
-				var value=$(this).siblings("span").text();
-				var index=$.inArray(value,allCompares);
-				if(index==-1){
-					return ;
+					allCompares.splice(index,1);
+				}else{
+					$("#vennList").empty();
 				}
 				
-				
-				
-				$("#vennList").find("li").each(function(){
-					if($(this).text()==value){
-						$(this).remove();
-					}
-					
-				})
-				allCompares.splice(index,1);
 			})
 		});
 		$("#vennList .glyphicon-remove").each(function(){
@@ -1400,8 +1409,12 @@ $('#isRepeat').on('changed.bs.select', function(e) {
 			}
 				
 		}else{
-			$('#groupList').html("");
+			$('#groupList').empty();
+			$('#compareList').empty();
+			$('#vennList').empty();
 			allgroups=[];
+			allCompares=[];
+			allVenns=[];
 		}
 	}
 })
