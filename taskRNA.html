@@ -291,10 +291,10 @@
 					<!-- 样本分组、比较、维恩图 -->
 					<div class="part_box">
 						<!--带星 分组比较标题-->
-						<div class="task_form_height" >
+						<div class="task_form_height" id="sampleGroup" >
 							<label class="task_label"><span>9</span>分组比较</label>
 							<!--带有拖拽内容的面板-->
-							<div id="sampleGroup"  class="sample_part" style="width: 81%;margin-left: 55px;margin-top: 0;">
+							<div  class="sample_part" style="width: 81%;margin-left: 55px;margin-top: 0;">
 								<div class="panel panel-default">
 									<div class="panel-heading">生物学重复</div>
 									<div class="panel-body">
@@ -413,7 +413,7 @@
 					<div class="part_box">
 
 						<div class="task_form_height">
-							<label class="task_label"><span>10</span>模块参数设置</label>
+							<label class="task_label" id="taskTitle"><span>10</span>模块参数设置</label>
 							<!--点击展开参数-->
 							<div class="panel-group params_part" id="parasPanel" style="width: 81%;margin-left: 55px;margin-top: 0;">
 							</div>							
@@ -695,6 +695,7 @@
 					$("#sampleGroup").show();
 				}else{
 					$("#sampleGroup").hide();
+					$("#taskTitle span").text("9");
 				}
 				if (nodeStatus[key] == 1){
 		//加载json相应模块的数据到模块参数设置当中
@@ -1672,7 +1673,6 @@ $("#taskRun").click(function(){
 		  };
 		}
 
-
 		//检查是否有分组，每个分组下的样品名
 		var groups =$('#groupList').find('div');
 		var allGroupItems=[];
@@ -1700,7 +1700,7 @@ $("#taskRun").click(function(){
 		var samples=$("#sampleNames").find('li');
 		if(samples.length>0){
 			for(var i=0;i<samples.length;i++){
-				if(allGroupItems.indexOf(samples[i].innerText)==-1){
+				if(allGroupItems.indexOf(samples[i].innerText)==-1&&nodeStatus["DE"] == 1){
 					if(confirm("发现有未分组的样品，确定不分组?")){
 						break;
 					}
@@ -1716,7 +1716,7 @@ $("#taskRun").click(function(){
 				var groupItems = $($(compares[i]).find('ul')[0]).find('li');
 				if(groupItems.length!=2){
 					alert("分组数必须为2")
-					continue;
+					return false;
 				}
 				//比较组名
 				var curCompare = $($(compares[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");
@@ -1728,8 +1728,11 @@ $("#taskRun").click(function(){
 			}
 			groupCompareVenn['compareGroups']= compareGroups;
 		}else{
-			alert("比较组不能为空！");
-			return false;
+			if(nodeStatus["DE"] == 1){
+				alert("比较组不能为空！");
+				return false;
+			}
+			
 		}
 		//检查venn图
 		var venns = $('#vennList').find('div');
@@ -1781,6 +1784,10 @@ $("#taskRun").click(function(){
 						"samples":samplesStr,
 						"groupCompareVenn":groupCompareVenn
 						}; 
+		if(nodeStatus["DE"] != 1){
+			delete resultPara.samples;
+			delete resultPara.groupCompareVenn;
+		}
 						
 		resultPara = JSON.stringify(resultPara);
 console.log(resultPara)

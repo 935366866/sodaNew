@@ -157,8 +157,6 @@ $(function(){
 	});
 	//提交参数
 	$("#submit_paras").click(function(){
-		console.log(vue.sampleList)
-		debugger
 		var formData =[];
 		for(var i=0;i<vue.sampleList.length;i++){
 			formData.push(vue.sampleList[i].file)
@@ -171,7 +169,6 @@ $(function(){
 			},
 			dataType: "json",
 			success:function(data) {
-				console.log(data)
 				updateVennData($("#main"),data["files"],vue.sampleList,vue.vennType,vue.statistics,vue.num_size,vue.num_font,vue.sample_size,vue.sample_font,vue.opacityVal,vue.setBorder);
 			},    
 			error : function(XMLHttpRequest) {
@@ -201,6 +198,7 @@ $(function(){
 
 
 function updateVennData(el,filesVal,sampleList,vennType,statistics,num_size,num_font,sample_size,sample_font,opacityVal,setBorder){
+	debugger
 	var sets=[];
 	var files = [];
 	for(var i=0;i<sampleList.length;i++){
