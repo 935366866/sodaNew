@@ -235,7 +235,7 @@
 					<!-- 样本分组、比较、维恩图 -->
 					<div class="part_box">
 						<!--带星 分组比较标题-->
-						<div class="task_form_height">
+						<div class="task_form_height" id="comGroup">
 							<label class="task_label"><span class="colorRNA">9</span>分组比较</label>
 						<!--拖拽分组的还原-->
 					
@@ -262,7 +262,7 @@
 					<!--第四部分 模块参数设置-->
 
 					<div class="part_box">
-						<div class="task_form_height">
+						<div class="task_form_height" id="paraTitle">
 							<label class="task_label"><span class="colorRNA">10</span>模块参数设置</label>
 							<!--点击展开参数-->
 							<div class="panel-group params_part" id="parasPanel"></div>							
@@ -590,6 +590,13 @@ function getTaskData(url){
 							}
 							
 						else if(key == "unselectNode"){
+							if(data.unselectNode.indexOf("DE")==-1){
+								$("#comGroup").show();
+								$("#paraTitle").show();
+							}else{
+								$("#comGroup").hide();	
+								$("#paraTitle").hide();
+							}
 							var unselectNode = data.unselectNode.split(",");
 							for(var i=0;i<unselectNode.length;i++){
 								if(!diagram.findNodeForKey(unselectNode[i])){

@@ -155,14 +155,21 @@ $(function(){
 			}
 		});
 	});
+
 	//提交参数
 	$("#submit_paras").click(function(){
 		var formData =[];
 		for(var i=0;i<vue.sampleList.length;i++){
 			formData.push(vue.sampleList[i].file)
 		}
+		var url;
+		if(vue.sampleList[0].file.indexOf("/")==-1){
+			url='public/draw/json/vennDrawFileData.json'
+		}else{
+			url='public/draw/json/vennDraw'
+		}
 		$.ajax({
-			url: 'public/draw/json/vennDrawFileData.json',  
+			url: url,  
 			type:'get',
 			data:{
 				fileNames:formData

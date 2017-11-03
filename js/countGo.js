@@ -72,7 +72,6 @@ $(function(){
 		updateTable("compareGroups","list",compareData);
 
 	})
-	
 	/*轮播图片初始化*/
     $("#carousel").jCarouselLite({
         btnNext: ".default #next",
@@ -126,11 +125,16 @@ $(function(){
 			var resultPara={
 							"paras":formData
 							}; 
-						
+			if($("#selectNote").val()=="partGene"){
+				delete resultPara.paras.referInput;
+				delete resultPara.paras.gtfInput;
+			}else{
+				delete resultPara.paras.geneInput;
+			}
 			resultPara = JSON.stringify(resultPara);
 			console.log(resultPara)
 			$.ajax({
-				url: 'json/taskDetail.2.json',  
+				url: 'json/taskDetail.3.json',  
 				type:'get',
 				data:{parameter:resultPara},
 				dataType: "json",

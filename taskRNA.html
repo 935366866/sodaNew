@@ -693,9 +693,10 @@
 			for(var key in nodeStatus){
 				if(nodeStatus["DE"] == 1){
 					$("#sampleGroup").show();
+					$("#taskTitle").show();
 				}else{
 					$("#sampleGroup").hide();
-					$("#taskTitle span").text("9");
+					$("#taskTitle").hide();
 				}
 				if (nodeStatus[key] == 1){
 		//加载json相应模块的数据到模块参数设置当中
