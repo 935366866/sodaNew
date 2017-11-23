@@ -78,36 +78,18 @@
 				</div>
 			</div>
 		</div>	
-	<div class="nav_line"></div>
-		<div class="main_nav3" style="box-shadow:-2px 3px 9px 0px #ccc;">
-			<div class="container">
-				<ul class="main_nav3_right_report">
-					<li  class="report_success"><span id="taskStatus"  class="btn btn-primary"><a href="#">任务运行中</a></span></li>
-	
-								<!--<li class="report_running"><span><a href="#">任务运行中</a></span></li>
-								<li class="report_end"><span><a href="#">任务已终止</a></span></li>
-							-->
-					<li id="refresh">
-						<a href="#"><img src="img/refresh.svg" alt="刷新" /></a>
-					</li>
-					<li id="stop">
-						<a href="#"><img src="img/stop.svg" alt="停止" /></a>
-					</li>
-					<li id="delete">
-						<a href="#"><img src="img/delete.svg" alt="删除" /></a>
-					</li>
-				</ul>
-			</div>
-		</div>
 	</div>
 	<!--/前台公共头部-->
-	 <div class="center_box" style="float:left;width:100%;margin-top: 145px;">   
+	 <div class="center_box" style="float:left;width:100%;margin-top: 115px;"> 
+	 	<div class="app_title">
+			<p>KEGG富集分析</p>
+		</div>
         <!--差异基因筛选-->
         <div id="diffGeneFilter" class="tab-pane active tabContent" > 
 	        <div class="myTab">
 	        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
 					<div class="leftTitle tabs">
-						KEGG富集分析
+						
 					</div>	
 					<div class="tabs" style="margin-left: 20px;">
 						<ul class="nav" id="appTabRight">
@@ -169,45 +151,42 @@
 											</a>	
 										</div>
 									</div>	
-									<div class="line"></div>
-									<div class="part titleIndent">KEGG富集参数:</div>
-									<div class="contentIndent">
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="width: 100px;">KEGG缩写:</div>
-											<div class="input_b_3" style="width: 280px;float: left;">
-												<select id="keggAbb"  name="keggAbb" class="selectpicker select_width" autocomplete="off" >
-												</select>
-											</div>									
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="width: 100px;">E值:</div>
-											<div class="input_a_m" style="width: 280px;">
-												<input  id="eValue" name="eValue" value="1e-5" type="text" class="form-control">
-											</div>								
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="width: 100px;">统计检测方法:</div>
-											<div class="input_b_3" style="width: 280px;float: left;">
-												<select id="statisMethod"  name="statisMethod" class="selectpicker select_width" autocomplete="off" >
-													<option value="b">binomial test</option>
-													<option value="c">chi-square test</option>
-													<option value="h">hypergeometric test/Fisher's exact test</option>
-													<option value="x">frequency </option>
-												</select>
-											</div>									
-										</div>
-										<div class="part">
-											<div class="input_a_l titleNameLeft" style="width: 100px;">FDR矫正方法:</div>
-											<div class="input_b_3" style="width: 280px;float: left;">
-												<select id="fdrMethod"  name="fdrMethod" class="selectpicker select_width" autocomplete="off" >
-													<option value="BH ">Benjamini and Hochberg</option>
-													<option value="BY ">Benjamini and Yekutieli</option>
-													<option value="QVALUE">QVALUE</option>
-													<option value="None">None</option>
-												</select>
-											</div>									
-										</div>											
+									<div class="line"></div>									
+									<div class="part">
+										<div class="input_a_l titleNameLeft" style="width: 100px;">KEGG缩写:</div>
+										<div class="input_b_3" style="width: 320px;float: left;">
+											<select id="keggAbb"  name="keggAbb" class="selectpicker select_width" autocomplete="off" >
+											</select>
+										</div>									
 									</div>
+									<div class="part">
+										<div class="input_a_l titleNameLeft" style="width: 100px;">E值:</div>
+										<div class="input_a_m" style="width: 320px;">
+											<input  id="eValue" name="eValue" value="1e-5" type="text" class="form-control">
+										</div>								
+									</div>
+									<div class="part">
+										<div class="input_a_l titleNameLeft" style="width: 100px;">统计检测方法:</div>
+										<div class="input_b_3" style="width: 320px;float: left;">
+											<select id="statisMethod"  name="statisMethod" class="selectpicker select_width" autocomplete="off" >
+												<option value="b">binomial test</option>
+												<option value="c">chi-square test</option>
+												<option value="h">hypergeometric test/Fisher's exact test</option>
+												<option value="x">frequency </option>
+											</select>
+										</div>									
+									</div>
+									<div class="part">
+										<div class="input_a_l titleNameLeft" style="width: 100px;">FDR矫正方法:</div>
+										<div class="input_b_3" style="width: 320px;float: left;">
+											<select id="fdrMethod"  name="fdrMethod" class="selectpicker select_width" autocomplete="off" >
+												<option value="BH ">Benjamini and Hochberg</option>
+												<option value="BY ">Benjamini and Yekutieli</option>
+												<option value="QVALUE">QVALUE</option>
+												<option value="None">None</option>
+											</select>
+										</div>									
+									</div>											
 								</form>
 							</div>
 							<div class="panel-footer" style="height: 51px;">
@@ -222,36 +201,37 @@
 					<div class="tab-pane in active" id="KEGGDirection">
 						<div class="panel panel-default">
 							<div class="panel-body">
-								<p style="font-weight: bolder;">描述：</p>
+								<p class="bold">描述：</p>
 								<p class="indent">
-								调整差异分析参数，使用项目计算的定量数据，重新进行差异分析。
+								对上传的序列或id，使用kobas3.0，进行KEGG富集分析。
 								</p>
-								<p>参数填写：</p>
+								<p class="bold">参数填写：</p>
 								<p class="indent">
-									<p class="indent">1、选择输出目录</p>
-									<p class="indent">计算过程文件和最终结果文件存放的根目录，建议与项目目录不同。若与项目目录相同，则会覆盖之前项目中差异分析的结果文件。</p>
-								</p>
+									<p class="indent">1、选择文件</p>
+									<p class="indent">上传或选择输入文件，fasta格式文件，或是每行一个id的文本文件。</p>
+								</p>                                    
 								<p class="indent">
-									<p class="indent">2、选择比较差异基因的工具</p>
-									<p class="indent">筛选软件：比较差异基因的工具。可选工具包括DESeq2、DESeq、edgeR和DEGSeq，默认使用DESeq2。DEGSeq用于无生物学重复的分析。</p>
-								</p>
-								<p class="indent">
-									<p class="indent">3、设置差异基因筛选阈值</p>
-									<p class="indent">p值类型：筛选差异基因时使用的p值类型。可选p值类型有pval和padj。pval是原始的富集p值，而padj则为校正后的p值。默认使用padj。</p>
-									<p class="indent">p值大小：筛选差异基因时使用的p值大小，默认为0.05。</p>
-									<p class="indent">差异倍数：筛选差异基因时使用的差异倍数（fold change），默认为2。</p>
+									<p class="indent">2、选择文件类型</p>
+									<p class="indent">选择输入文件的类型。fasta:nuc为fasta格式的核酸序列，fasta:pro为fasta格式的蛋白序列，这两种类型基于blast比对注释后，进行富集分析。id:ncbigi为NCBI数据库gi号，id:uniport为uniport号，id:ensembl为Ensembl数据库基因号，id:ncbigene为NCBI数据库基因号，使用id时，需要选用kobas数据库支持的类型的id。</p>
 								</p>
 								<p class="indent">
-									<p class="indent">4、设置分组信息</p>
-									<p class="indent">根据需要调整分组和比较信息，默认按照原项目设置的分组信息进行后续分析。</p>
+									<p class="indent">3、设置输出目录 </p>
+									<p class="indent">计算过程文件和最终结果文件存放的目录，建议与项目目录不同。若与项目目录相同，则会覆盖之前项目中差异分析的结果文件。</p>
 								</p>
-								<p>任务提交：</p>
+								<p class="indent">
+									<p class="indent">4、设置KEGG富集参数</p>
+									<p class="indent">KEGG物种：KEGG注释参考物种。默认使用项目分析时设置的物种。</p>
+									<p class="indent">E值：注释比对时使用的E值，默认为1e-5。</p>
+									<p class="indent">统计检测方法：富集分析时使用的统计检测方法。可选方法有binomial test、chi-square test、hypergeometric test/Fisher's exact test和frequency，默认使用hypergeometric test/Fisher's exact test。</p>
+									<p class="indent">FDR矫正方法：false discovery rate矫正方法。可选方法有BH（Benjamini and Hochberg）和BY（Benjamini and Yekutieli），默认使用BH。</p>                                        
+								</p>
+								<p class="bold">任务提交：</p>
 								<p class="indent">
 									在设置完所有参数后，点击run按钮，计算任务会在服务器上运行。
 								</p>
-								<p>结果查看：</p>
+								<p class="bold">结果查看：</p>
 								<p class="indent">
-									右侧任务状态选项卡可以查看计算任务的状态。在任务计算完成后，可以从右侧选项卡中查看主要结果文件。在差异基因列表选项卡中，通过下拉框中选择比较组名，查看对应差异基因列表；在火山图选项卡中，通过点击左右按钮，滚动图片，查看各比较组的火山图。同样也可以在输出目录中找到结果文件，下载查看。
+									右侧任务状态选项卡可以查看计算任务的状态。在任务计算完成后，可以从右侧选项卡中查看主要结果文件。同样也可以在输出目录中找到结果文件，下载查看。
 								</p>
 							</div>
 						</div>

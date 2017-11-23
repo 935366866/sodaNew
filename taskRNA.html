@@ -738,10 +738,13 @@
 					var opts = ""
 					for(var j = 0; j < value.length; j++) {
 						var tmpArr = value[j].split(',');
-						if(tmpArr.length < 2) {
+						if(tmpArr!=""){
+							if(tmpArr.length < 2) {
 							tmpArr[1] = tmpArr[0];
 						}
 						opts += '<option value="' + tmpArr[0] + '">' + tmpArr[1] + '</option>'; //给option添加一个value
+						}
+						
 					};
 					//添加dropdown的代码
 					$("#" + key + " form").append('<div class="form-group" ><label title="' + info + '" class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7" ><select class="form-control" id="' + id + '" name="' + id + '"  title="">' + opts + '</select></div></div>');
@@ -792,7 +795,7 @@ function openDataUrl(){
 		alert("样本已经锁定，请先解锁")
 	}
 };
-$("#addDir").keydown(function(k){
+$("#dirName").keydown(function(k){
 	if(k.keyCode==13 ){
 		addDir("dirName","jobUrlTable","inputUrl","dirModal");
 	}
@@ -800,6 +803,9 @@ $("#addDir").keydown(function(k){
 $("#addDir").click(function(){
 	addDir("dirName","jobUrlTable","inputUrl","dirModal");
 });
+$('#dirModal').on('shown.bs.modal', function () {
+  $('#dirName').focus()
+})
 
 function addDir(dirName,tableId,inputUrl,dirModal){
 	var name=$("#"+dirName).val();
@@ -1394,6 +1400,8 @@ $('#compareModal').on('shown.bs.modal', function () {
 $('#vennModal').on('shown.bs.modal', function () {
   $('#vennName').focus()
 })
+
+
 $('#isRepeat').on('changed.bs.select', function(e) {
 	if(e.target.value){
 		if(e.target.value=="NO"){
@@ -1581,7 +1589,6 @@ $("#saveDraft").click(function(){
 });
 //检查参数填写情况
 function checkInput(){
-	
 	var checkTask=$("#creatTask input[name]");
 	var checkNode=$("#parasPanel input[name]");
 	var checkDrop=$("#parasPanel select");
@@ -1617,6 +1624,10 @@ function checkInput(){
 		};
 	if(samplesLock == 1){
 		alert("未锁定样本！");
+		count += 1;
+	}
+	if(nodeLockStatus == 1){
+		alert("未锁定模块！");
 		count += 1;
 		}
 	/*
@@ -1791,7 +1802,6 @@ $("#taskRun").click(function(){
 		}
 						
 		resultPara = JSON.stringify(resultPara);
-console.log(resultPara)
 		window.sessionStorage.setItem("paras",resultPara);
 				
 //向后台传送数据

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>个人中心</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link href="public/css/reset.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="public/css/bootstrap.min.css" rel="stylesheet">
+	<link href="public/css/bootstrap-table.css" rel="stylesheet"> 
+	<link href="public/css/long_common.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/user_style.css" rel="stylesheet" type="text/css"  media="all" />
+	<link href="css/description.css" rel="stylesheet"/>
+</head>
+<body>
+	<!--前台公共头部-->
+	<div class="top">
+		<div class="main_nav1">
+			<div class="container">
+				<a href="#" class="logo"><img src="public/image/navLogo.svg"/></a>
+				<ul class="main_nav1_left">
+					<li id="main"><a href="main.html">首页</a></li>
+					<li id="sodaIndex"><a href="sodaIndex.html">云中漫步</a></li>
+					<li id="frontierResearch"><a href="frontierResearch.html" >新闻快讯</a></li>
+				</ul>
+				<div class="form-group searchNews" id="search_news">
+					<span class="col-sm-2 control-label"><img src="public/image/navSearch.svg"/></span>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="search_news_input">
+					</div>
+				</div>
+				<ul class="main_nav1_right">
+					<li id="searchIcon"><a href="#"><img src="public/image/navSearch.svg" alt="搜索" /></a></li>
+					<li><a href="#"><img src="public/image/navEmail.svg" alt="通知" /></a></li>
+					<li><a href="personalCenter.html"><img src="public/image/navUser.svg" alt="用户" /></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="main_nav2">
+			<div class="container">
+				<div class="main_nav2_left">
+					<span>当前位置：</span>
+					<span id="menuPath" style="font-weight: normal;">欢迎使用</span>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="搜索想要使用的流程或小工具" id="search_flowapp">
+					</div>
+					<button class="col-sm-2 btn btn_blue" id="search_button">搜索</button>				
+				</div>
+			</div>
+		</div>	
+	</div>
+	<!--/前台公共头部-->
+
+	<div class="change_box" style="width: 85%;margin-top: 98px;">
+		<div class="user">
+			<div class="left">
+				<div class="nav" id="persongNav" style="margin-top: 0px;">
+					<ul class="menuList">
+						<li class="active" data-id="welcome"><a >欢迎使用</a></li>
+						<li data-id="login"><a href="#">注册及登陆</a></li>
+						<li data-id="index"><a href="#">首页</a></li>
+						<li data-id="data"><a href="#">数据分析</a></li>
+						<li data-id="help"><a href="#">帮助</a></li>
+						<li data-id="manage"><a href="#">管理系统</a></li>
+						<li data-id="quit"><a href="#">退出</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="right">
+				<!--欢迎使用-->
+				<div  id="welcome" >
+					<div class="imgBox" >
+						<img src="img/welcom.png" />
+					</div>
+					<p class="title">DodoGene可视化生信分析一体机</p>
+					<p class="title">使用说明</p>
+					<div class="line"></div>
+					<div class="pBox">
+						<p class="text">
+							DodoGene是基于私有云系统的可视化分析一体机，高性能计算服务器实验室本地部署，可满足多人登录同时使用。Dodogene由拓美科生信团队，读百篇专业文献，花费两年多时间，集国内外数十家优秀数据分析平台之所长，匠心打造而成。用户可根据需求选配不同的分析流程及小工具，同时也为用户开发个性化分析流程及工具，满足用户的个性化需求。
+						</p>
+						<p class="text">
+							NOTICE：进行本机操作的时候，所有的目录、文件、任务等名称都建议以字母、下划线、数字进行组合，尤其不能出现括号、斜线及空格等非法字符。
+						</p>
+					</div>
+				</div>
+				<!--注册及登陆-->
+				<div id="login" class="partBox" style="display: none;">
+					<div class="navBox" >
+						<img src="img/dec_arrow.svg" class="navIcon" />
+						<span class="navText">注册及登陆</span>
+					</div>
+					<div class="contentBox">
+						<p class="text">
+							DodoGene服务器部署于您的实验室或办公室的局域网中。您可以使用笔记本或者台式机，通过已连接的无线或有线网络，使用浏览器登录DodoGene操作界面。
+						</p>
+						<div class="imgWrap" >
+							<img src="img/login_1.png"/>
+						</div>
+						<p class="text">
+							点击首页右上角的【登录】按钮，系统弹出用户登录对话框。选择右下角的【点击注册】，填写个人信息，注册新账户。注册完成后，联系管理员修改状态成功，即可通过用户名和密码登录DodoGene。
+						</p>
+						<p class="text">
+							如果您已经在DodoGene开通过账户，可直接填写用户名和密码进入系统。如果您不慎丢失密码，则不能登录本系统，请点击用户登录对话框左下角的【忘记密码】或者联系管理员，重设账户密码。
+						</p>
+					</div>
+				</div>
+				<div id="index" class="partBox" style="display: none;">
+					<div class="navBox" >
+						<img src="img/dec_arrow.svg" class="navIcon" />
+						<span class="navText">首页</span>
+					</div>
+					<div class="contentBox">
+						<p class="text">
+							登录成功后，展现在您面前的是DodoGene的操作界面。览器登录DodoGene操作界面。
+						</p>
+						<div class="imgWrap" >
+							<img src="img/dec_index.png"/>
+						</div>
+						<p class="text">
+							操作界面的横向导航栏包含【首页】和【数据分析】两个页面，导航栏右侧分布有【使用说明】、【消息中心】、【个人中心】三个图标。
+						</p>
+						<p class="text">
+							【首页】包含实验室简介、DodoGene简介、管理员联系方式以及DodoGene技术支持联系方式四个版块的说明，将鼠标移动到各个版块上可查看详情。
+						</p>
+					</div>
+				</div>
+				<div id="help" class="partBox" style="display: none;">
+					<div class="navBox" >
+						<img src="img/dec_arrow.svg" class="navIcon" />
+						<span class="navText">帮助</span>
+					</div>
+					<div class="contentBox">
+						<p class="text">
+							点击【？】即可获得pdf版本的使用说明文档，介绍了DodoGene的各部分内容及使用方法，帮助您更好的了解本平台。
+						</p>
+						<div class="imgWrap" >
+							<img src="img/dec_help.jpg"/>
+						</div>
+					</div>
+				</div>
+				<div id="manage" class="partBox" style="display: none;">
+					<div class="navBox" >
+						<img src="img/dec_arrow.svg" class="navIcon" />
+						<span class="navText">管理系统</span>
+					</div>
+					<div class="contentBox">
+						<p class="text">
+							每台DodoGene生信分析一体机指定一个管理员账户，可统一管理该机下的所有个人账户。该账户的管理界面含用户管理、资源监控、升级、重启、关机五个字页面。
+						</p>
+						<p class="text">
+							【用户管理】：通过该页面，管理员可以完成用户权限设置、密码重置以及用户名的添加与删除等操作；
+						</p>
+						<div class="imgWrap" >
+							<img src="img/dec_manager1.png"/>
+						</div>
+						<p class="text">
+							【资源监控】：通过该页面，管理员可以查看本台一体机的资源配置以及占用情况；
+						</p>
+						<div class="imgWrap" >
+							<img src="img/dec_manager2.png"/>
+						</div>
+						<p class="text">【升级】：通过该页面完成一体机的系统升级操作；</p>
+						<div class="imgWrap" >
+							<img src="img/dec_manager3.png"/>
+						</div>
+						<p class="text">【重启】：通过该页面完成一体机的重启操作；</p>
+						<div class="imgWrap" >
+							<img src="img/dec_manager4.png"/>
+						</div>
+						<p class="text">【关机】：通过该页面完成一体机的关机操作。</p>
+						<div class="imgWrap" >
+							<img src="img/dec_manager5.png"/>
+						</div>
+						<p class="text">普通用户打开个人中心界面，包含个人信息、消息中心两个页面。</p>
+						<p class="text">【个人信息】：该界面可进行用户名和密码的查看与修改；</p>
+						<div class="imgWrap" >
+							<img src="img/dec_manager6.png"/>
+						</div>
+						<p class="text">【消息中心】：该界面可完成对系统消息的查看、重排、刷新和删除等操作。</p>
+						<div class="imgWrap" >
+							<img src="img/dec_manager7.png"/>
+						</div>
+					</div>
+				</div>
+				<div id="quit" class="partBox" style="display: none;">
+					<div class="navBox" >
+						<img src="img/dec_arrow.svg" class="navIcon" />
+						<span class="navText">退出</span>
+					</div>
+					<div class="contentBox">
+						<p class="text">
+							在个人中心界面单击【退出】按钮，即可退出系统。
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--页脚-->
+	<div id="footer_style">
+		<footer class="footerstyle">
+			<p>版权所有 © 2016 京ICP备15033925号</p>
+			<p>北京拓美科基因科技有限公司</p>
+		</footer>
+	</div>
+	<script src="public/js/jquery-1.11.2.min.js" type="text/javascript" ></script>
+	<script src="public/js/jquery.SuperSlide.2.1.1.js" type="text/javascript" ></script>
+    <script src="public/js/bootstrap.min.js"></script>		
+	<script src="public/js/bootstrap-table.js" type="text/javascript" ></script>
+	<script src="public/js/long_common.js" type="text/javascript" ></script>
+	<script src="js/description.js"></script>
+</body>
+</html>

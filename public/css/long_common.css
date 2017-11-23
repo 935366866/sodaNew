@@ -13,6 +13,9 @@ body{
 .indent {
   text-indent: 2em;
 }
+.bold{
+	font-weight: bold;
+}
 /* 隐藏超出列宽的文字 */
 .contents_hide {
   overflow-x: hidden;

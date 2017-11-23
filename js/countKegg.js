@@ -71,10 +71,13 @@ $(function(){
 	var opts = ""
 	for(var j = 0; j < value.length; j++) {
 		var tmpArr = value[j].split(',');
-		if(tmpArr.length < 2) {
-			tmpArr[1] = tmpArr[0];
+		if(tmpArr!=""){
+			if(tmpArr.length < 2) {
+				tmpArr[1] = tmpArr[0];
+			}
+			opts += '<option value="' + tmpArr[0] + '">' + tmpArr[1] + '</option>'; //给option添加一个value
 		}
-		opts += '<option value="' + tmpArr[0] + '">' + tmpArr[1] + '</option>'; //给option添加一个value
+		
 	};
 	//添加dropdown的代码
 	$("#keggAbb").append(opts);

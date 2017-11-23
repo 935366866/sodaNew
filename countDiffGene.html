@@ -78,36 +78,19 @@
 				</div>
 			</div>
 		</div>	
-	<div class="nav_line"></div>
-		<div class="main_nav3" style="box-shadow:-2px 3px 9px 0px #ccc;">
-			<div class="container">
-				<ul class="main_nav3_right_report">
-					<li  class="report_success"><span id="taskStatus"  class="btn btn-primary"><a href="#">任务运行中</a></span></li>
 	
-								<!--<li class="report_running"><span><a href="#">任务运行中</a></span></li>
-								<li class="report_end"><span><a href="#">任务已终止</a></span></li>
-							-->
-					<li id="refresh">
-						<a href="#"><img src="img/refresh.svg" alt="刷新" /></a>
-					</li>
-					<li id="stop">
-						<a href="#"><img src="img/stop.svg" alt="停止" /></a>
-					</li>
-					<li id="delete">
-						<a href="#"><img src="img/delete.svg" alt="删除" /></a>
-					</li>
-				</ul>
-			</div>
-		</div>
 	</div>
 	<!--/前台公共头部-->
-	 <div class="center_box" style="float:left;width:100%;margin-top: 145px;">   
+	 <div class="center_box" style="float:left;width:100%;margin-top: 115px;">   
+	 	<div class="app_title">
+		<p>差异基因筛选参数设置</p>
+		</div>
         <!--差异基因筛选-->
         <div id="diffGeneFilter" class="tab-pane active tabContent" > 
 	        <div class="myTab">
 	        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
 					<div class="leftTitle tabs">
-						差异基因筛选参数设置
+						
 					</div>	
 					<div class="tabs" style="margin-left: 20px;">
 						<ul class="nav" id="appTabRight">
@@ -321,11 +304,11 @@
 					<div class="tab-pane in active" id="dgfDirection">
 						<div class="panel panel-default">
 							<div class="panel-body">
-								<p style="font-weight: bolder;">描述：</p>
+								<p class="bold">描述：</p>
 								<p class="indent">
 								调整差异分析参数，使用项目计算的定量数据，重新进行差异分析。
 								</p>
-								<p>参数填写：</p>
+								<p class="bold">参数填写：</p>
 								<p class="indent">
 									<p class="indent">1、选择输出目录</p>
 									<p class="indent">计算过程文件和最终结果文件存放的根目录，建议与项目目录不同。若与项目目录相同，则会覆盖之前项目中差异分析的结果文件。</p>
@@ -344,11 +327,11 @@
 									<p class="indent">4、设置分组信息</p>
 									<p class="indent">根据需要调整分组和比较信息，默认按照原项目设置的分组信息进行后续分析。</p>
 								</p>
-								<p>任务提交：</p>
+								<p class="bold">任务提交：</p>
 								<p class="indent">
 									在设置完所有参数后，点击run按钮，计算任务会在服务器上运行。
 								</p>
-								<p>结果查看：</p>
+								<p class="bold">结果查看：</p>
 								<p class="indent">
 									右侧任务状态选项卡可以查看计算任务的状态。在任务计算完成后，可以从右侧选项卡中查看主要结果文件。在差异基因列表选项卡中，通过下拉框中选择比较组名，查看对应差异基因列表；在火山图选项卡中，通过点击左右按钮，滚动图片，查看各比较组的火山图。同样也可以在输出目录中找到结果文件，下载查看。
 								</p>

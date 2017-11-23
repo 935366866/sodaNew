@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>小工具</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="content-type" content="text/html" ; charset="utf-8">
+	<link href="/Public/css/reset.css" rel="stylesheet" />
+	<link href="/Public/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/Public/css/bootstrap-table.css" rel="stylesheet">
+	<link href="/Public/css/bootstrap-select.css" rel="stylesheet">
+	<link href="/Public/css/jquery.fileupload.css" rel="stylesheet"> 
+	<link href="/Public/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" media="screen"  />
+	<link href="/Public/css/long_common.css" rel="stylesheet"  media="all">
+        <link href="/Public/css/indexStyle.css" rel="stylesheet" type="text/css"  media="all" />
+	<!--弹出层样式-->
+	<link href="/Public/css/jquery.fancybox.css" rel="stylesheet"/>
+	<link href="/Public/css/deepExcavation.css" rel="stylesheet" >
+	<link href="/Public/css/soda_common.css" rel="stylesheet" >
+			<!--轮播样式-->
+	<link href="/Public/css/style-demo.css" rel="stylesheet" />
+</head>
+
+<body>
+	
+	<!--/前台公共头部-->
+	 <div class="top">
+		<div class="main_nav1">
+			<div class="container">
+				<a href="#" class="logo"><img src="/Public/image/navLogo.svg"/></a>
+				<ul class="main_nav1_left">
+					<li id='main' ><a href="/Home/News/showMainPage">首页</a></li>
+					<li id='sodaIndex' ><a href="/Home/Mainnobase/">数据分析</a></li>
+					<!--<li id="frontierResearch" ><a href="/Home/News/listNewsbytype?sndType=新品快讯" >新品快讯</a></li>
+					<li id="marketActive" ><a href="/Home/News/listNewsbytype?sndType=市场活动">市场活动</a></li>	-->
+				</ul>
+				<div class="form-group searchNews" id="search_news">
+						<span class="col-sm-2 control-label"><img src="/Public/image/navSearch.svg"/></span>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="search_news_input">
+						</div>
+				</div>
+				<ul class="main_nav1_right">
+					<!--	<li id="searchIcon"><a href="#"><img src="/Public/image/navSearch.svg" alt="搜索" /></a></li> -->
+					<li><a href="/Public/instructions/instructions.pdf"><img src="/Public/image/help.svg" alt="" /></a></li>
+					<li><a href="/Home/Notice/index"><img src="/Public/image/navEmail.svg" alt="通知" /></a></li>
+					<li><a href="/Home/User/personCenter"><img src="/Public/image/navUser.svg" alt="用户" title="test111 " /></a></li>			
+				</ul>
+			</div>
+		</div>
+
+		<div class="main_nav2">
+		<div class="container">
+			<ul class="main_nav2_left">
+					<li class="nav2_list1" style="width: 90px;">
+						<a id = "flow" href="/Home/Mainnobase/index?sndType_f=flow">分析流程<img src="/Public/image/navDown.svg" alt=""></a>
+						<ul class="liucheng">
+							<li class="blue">
+								<h4>DNA分析流程</h4>
+								<ul class="liuchengLeft">
+									<li><a href="/Home/Mainnobase/building">BSA—混池性状定位</a></li>
+                                    <li><a href="/Home/Mainnobase/building">变异检测</a></li>	
+								</ul>
+								<ul class="liuchengRight">
+									<li><a href="/Home/Mainnobase/building">扩增子</a></li>
+									<li><a href="/Home/Mainnobase/building">全基因组关联GWAS</a></li>
+								</ul>
+							</li>
+							<li class="skyblue">
+								<h4>RNA分析流程</h4>
+								<ul class="liuchengLeft">
+									<li><a href="/Home/Task/getTask">有参mRNA-seq/DGE</a></li>
+                                    <li><a href="/Home/Mainnobase/building">LncRNA-seq</a></li>
+                                    <li><a href="/Home/Mainnobase/building">sRNA-seq</a></li>                  
+								</ul>
+								<ul class="liuchengRight">
+									<li><a href="/Home/Mainnobase/building">无参mRNA-seq</a></li>
+									<li><a href="/Home/Mainnobase/building">CircRNA-seq</a></li>
+									<li><a href="/Home/Mainnobase/building">ChIP-seq</a></li>
+								</ul>
+							</li>
+							<li class="org">
+								<h4>医学分析流程</h4>
+								<ul class="liuchengLeft">
+									<li><a href="/Home/Mainnobase/building">人全基因组重测序</a></li>
+								</ul>
+								<ul class="liuchengRight">
+									<li><a href="/Home/Mainnobase/building">人外显子组测序</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="nav2_list2" style="width: 73px;">
+						<a onclick="black()" id="小工具"href="/Home/Mainnobase/index?sndType_f=app">小工具<img src="/Public/image/navDown.svg" alt=""></a>
+						<ul class="gongju">
+							<li>
+								<h4>基本绘图</h4>
+								<ul class="gongjuLeft">
+									<li><a href="/Home/Mainnobase/listMainn/path/pieDraw">饼图</a></li>
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/heatmapDraw">热图</a></li>									
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/chinaPieMapDraw">中国-饼图</a></li>                                                            
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/worldPieMapDraw">世界-饼图</a></li>                               
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/chinaHeatMapDraw">中国-热图-省</a></li>                                              
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/worldHeatMapDraw">世界-热图-国</a></li>                      
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/chinaHeatScatterMapDraw">中国-热图-点图</a></li>                               
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/worldHeatScatterMapDraw">世界-热图-点图</a></li>	
+								</ul>
+								<ul class="gongjuRight">
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/lineDraw">折线图</a></li>
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/boxplotDraw">箱线图</a></li>
+									<li><a href="/Home/Mainnobase/listMainn/path/barDraw">柱状图</a></li>
+									<li><a href="/Home/Mainnobase/listMainn/path/scatterDraw">散点图</a></li>
+									<li><a href="/Home/Mainnobase/listMainn/path/jvennDraw">维恩图</a></li>
+									<li><a href="/Home/Mainnobase/listMainn/path/bubbleDraw">气泡图</a></li>
+									<li><a href="/Home/Mainnobase/listMainn/path/frequencyHistogramDraw">直方图</a></li>
+                                                      <li><a href="/Home/Mainnobase/listMainn/path/radarDraw">雷达图</a></li>
+								</ul>
+							</li>
+							<li>
+								<h4><a href="/Home/Mainnobase/index?sndType=表格工具">表格处理</a></h4>
+								<ul class="gongjuLeft">
+                                                        <li><a href="/Home/Mainnobase/listMainn/path/table">表格合并</a></li>
+								</ul>
+								<ul class="gongjuRight">
+								</ul>
+							</li>
+							<li>
+								<h4 ><a href="/Home/Mainnobase/index?sndType=计算统计" >计算统计</a></h4>
+								<ul class="gongjuLeft">
+                                                           <li><a href="/Home/Mainnobase/listMainn/path/countDiffGene">差异基因筛选</a></li>
+								</ul>
+								<ul class="gongjuRight">
+                                                             <li><a href="/Home/Mainnobase/listMainn/path/countKegg">KEGG富集分析</a></li>
+								</ul>
+							</li>
+						</ul>
+				</li>
+                        <li><a id = "resource"  href="/Home/Task/resourceTask">资源监控</a></li>
+                                <li class=""><a id="mydir">我的目录<img src="/Public/image/navDown.svg" alt=""></a>
+                               
+				<ul class="mulu">
+					<li><a href="/Home/Dir/#elf_l1_Lw">查看文件</a></li>
+                              <li class="hoverA"><a target='__blank' id = "mydir"  href="sftp://tomnbkxl1510916709:a02c033bc53dd3c9bbb0e5d959e4d3@10.128.5.240/project/home/tomnbkxl1510916709">数据传输</a>
+                               </li>
+
+				</ul>
+<div class="tishi" style="display: none;background-color: #FFFFFF;position:absolute;top:87px;border: 1px solid #666;border-radius: 5px;left: 110px;width:500px;z-index: 99">安装火狐浏览器及其插件fireftp，方可成功打开【数据传输】页面</div>
+				</li>
+				<li class=""><a id='myproject'  href="/Home/Project" class="active">我的项目</a></li>
+				
+				<li class=""><a id='recycle'    href="/Home/Task/showDelTask">回收站</a></li>
+                         
+			</ul>
+				<div id="searchFlowapp" style="display:none" class="form-group">
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="搜索想要使用的流程或小工具" id="search_flowapp">
+					</div>
+					<button class="col-sm-2 btn btn_blue" id="search_button">搜索</button>				
+			</div>
+
+		</div>
+	</div>
+
+	</div>
+        <!--前台公共头部-->
+       <div class="center_box" style="float:left;width:100%;margin-top: 115px;">
+        <div class="app_title"><p>KEGG富集分析</p></div>
+        <!--差异基因筛选-->
+        <div id="diffGeneFilter" class="tab-pane active tabContent" > 
+	        <div class="myTab">
+	        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
+					<div class="leftTitle tabs">
+					</div>	
+					<div class="tabs" style="margin-left: 20px;">
+						<ul class="nav" id="appTabRight">
+							<li style="width: 141px;"><a href="#KEGGList" data-toggle="tab">KEGG富集列表</a></li>
+							<li style="width: 141px;"><a href="#KEGGScatter" data-toggle="tab">KEGG散点图</a></li>
+							<li style="width: 141px;"><a href="#KEGGStatus" data-toggle="tab">任务状态</a></li>
+							<li class="active" style="width: 141px;"><a href="#KEGGDirection" data-toggle="tab">使用说明</a></li>	
+						</ul>
+					</div>	
+				</div>	
+			</div> 
+			<div style="width: 1185px;">
+				<div class="tab-content input_l">
+					<div class="tab-pane in active">		
+						<div class="panel  panel-default">				
+							<div class="panel-body" style="height: 439px;">
+								<form class="parameter" id="parameter">
+									<!--输入文件-->
+									<div class="part">
+										<div class="input_a_l titleNameLeft">输入文件:</div>
+										<div class="input_a_m inputLeft" style="width: 345px;">
+											<input type="text" class="form-control" id="input" name="input" placeholder="">
+                                                                  <input type="hidden" id='person_dir' value="/project/home/tomnbkxl1510916709"/>
+                                                                  <input type="hidden" id='id' value=""/>
+                                                                  <input type="hidden" id='url' value=""/>
+										</div>
+										<div class="input_a_r">
+											<a onclick="openUrl('#input','file')">
+												<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;"></span>
+											</a>
+											<span class="fileinput-button btn " style="padding: 0 10px;" >
+												<img src="/Public/draw/imgs/app_02.png" alt=""  style="width: 29px;">
+												<!--<input id="upload_input" name="upload_input" onclick="upload(this)" type="file">-->
+												<input id="upload_input" name="file" onclick="uploadFile('/ddgene/Home/Task/uploadPics','upload_input','#input')" type="file">
+											</span>
+										</div>
+									</div>
+									<!--文件类型-->
+									<div class="part">
+										<div class="input_a_l titleNameLeft">文件类型:</div>
+										<div class="input_a_m" style="width: 345px;">
+											<select  id="inputType"  name="inputType" class="selectpicker select_width" autocomplete="off">
+												<option value="fasta:nuc">fasta:nuc</option>
+												<option value="fasta:pro">fasta:pro</option>
+												<option value="id:ncbigi">id:ncbigi</option>
+												<option value="id:uniprot">id:uniprot</option>
+												<option value="id:ensembl">id:ensembl</option>
+												<option value="id:ncbigene">id:ncbigene</option>
+											</select>
+										</div>
+			
+									</div>	
+									<!--输出目录-->
+									<div class="part">
+										<div class="input_a_l titleNameLeft">输出目录:</div>
+										<div class="input_a_m" style="width: 345px;">
+											<input  type="text" class="form-control" id="dgfInput" name="dgfInput" placeholder="">
+										</div>
+										<div class="input_a_r">
+											<a onclick="opendir_path('dgfInput')">
+												<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
+											</a>	
+										</div>
+									</div>	
+									<div class="line"></div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="width: 100px;">KEGG缩写:</div>
+											<div class="input_b_3" style="width: 320px;float: left;">
+												<select id="keggAbb"  name="keggAbb" class="selectpicker select_width" autocomplete="off" >
+												</select>
+											</div>									
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="width: 100px;">E值:</div>
+											<div class="input_a_m" style="width: 320px;">
+												<input  id="eValue" name="eValue" value="1e-5" type="text" class="form-control">
+											</div>								
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="width: 100px;">统计检测方法:</div>
+											<div class="input_b_3" style="width: 320px;float: left;">
+												<select id="statisMethod"  name="statisMethod" class="selectpicker select_width" autocomplete="off" >
+													<option value="b">binomial test</option>
+													<option value="c">chi-square test</option>
+													<option value="h">hypergeometric test/Fisher's exact test</option>
+													<option value="x">frequency </option>
+												</select>
+											</div>									
+										</div>
+										<div class="part">
+											<div class="input_a_l titleNameLeft" style="width: 100px;">FDR矫正方法:</div>
+											<div class="input_b_3" style="width: 320px;float: left;">
+												<select id="fdrMethod"  name="fdrMethod" class="selectpicker select_width" autocomplete="off" >
+													<option value="BH ">Benjamini and Hochberg</option>
+													<option value="BY ">Benjamini and Yekutieli</option>
+													<option value="QVALUE">QVALUE</option>
+													<option value="None">None</option>
+												</select>
+											</div>									
+										</div>											
+								
+								</form>
+							</div>
+							<div class="panel-footer" style="height: 51px;">
+								<button id="submit_paras" type="button" class="btn btn-success submit">开始运行</button>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+
+				<div class="tab-content input_r">
+                          
+			        <div class="panel-body">
+								<p class="bold">描述：</p>
+								<p class="indent">
+								对上传的序列或id，使用kobas3.0，进行KEGG富集分析。
+								</p>
+								<p class="bold">参数填写：</p>
+								<p class="indent">
+									<p class="indent">1、选择文件</p>
+									<p class="indent">上传或选择输入文件，fasta格式文件，或是每行一个id的文本文件。</p>
+								</p>                                    
+								<p class="indent">
+									<p class="indent">2、选择文件类型</p>
+									<p class="indent">选择输入文件的类型。fasta:nuc为fasta格式的核酸序列，fasta:pro为fasta格式的蛋白序列，这两种类型基于blast比对注释后，进行富集分析。id:ncbigi为NCBI数据库gi号，id:uniport为uniport号，id:ensembl为Ensembl数据库基因号，id:ncbigene为NCBI数据库基因号，使用id时，需要选用kobas数据库支持的类型的id。</p>
+								</p>
+								<p class="indent">
+									<p class="indent">3、设置输出目录 </p>
+									<p class="indent">计算过程文件和最终结果文件存放的目录，建议与项目目录不同。若与项目目录相同，则会覆盖之前项目中差异分析的结果文件。</p>
+								</p>
+								<p class="indent">
+									<p class="indent">4、设置KEGG富集参数</p>
+									<p class="indent">KEGG物种：KEGG注释参考物种。默认使用项目分析时设置的物种。</p>
+									<p class="indent">E值：注释比对时使用的E值，默认为1e-5。</p>
+									<p class="indent">统计检测方法：富集分析时使用的统计检测方法。可选方法有binomial test、chi-square test、hypergeometric test/Fisher's exact test和frequency，默认使用hypergeometric test/Fisher's exact test。</p>
+									<p class="indent">FDR矫正方法：false discovery rate矫正方法。可选方法有BH（Benjamini and Hochberg）和BY（Benjamini and Yekutieli），默认使用BH。</p>                                        
+								</p>
+								<p class="bold">任务提交：</p>
+								<p class="indent">
+									在设置完所有参数后，点击run按钮，计算任务会在服务器上运行。
+								</p>
+								<p class="bold">结果查看：</p>
+								<p class="indent">
+									右侧任务状态选项卡可以查看计算任务的状态。在任务计算完成后，可以从右侧选项卡中查看主要结果文件。同样也可以在输出目录中找到结果文件，下载查看。
+								</p>
+                                                      
+							</div>
+					<!-- 任务状态 -->
+					<div class="tab-pane" id="KEGGStatus">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<table data-toggle="table"  data-show-footer="false" data-sort-name="id" id="modStatusTable">
+									<thead>
+										<tr>
+											<th data-field="flow_mod" data-sortable="true">模块名称</th>
+											<th data-field="task_name" data-sortable="true">程序名称</th>
+											<th data-field="status" data-sortable="true" data-align="center" data-formatter="taskState">状态</th>
+											<th data-field="submit_time" data-sortable="true" data-align="center">任务提交时间</th>
+											<th data-field="done_time" data-sortable="true" data-align="center">任务结束时间</th>
+											<th data-field="consume_time" data-sortable="true" data-align="center">时长</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- KEGG富集列表 -->
+					<div class="tab-pane" id="KEGGList">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<table id="listTable"></table>
+							</div>
+						</div>
+					</div>
+					<!-- KEGG散点图 -->
+					<div class="tab-pane" id="KEGGScatter">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="jcl-demo" style="width: 500px;height: 460px;">
+								    <div class="custom-container default">
+								        <a id="KeggPrev" href="#" class="prev">&lsaquo;</a>
+								        <div id="KeggCarousel" class="carousel" style="width: 455px;height: 460px;">
+								            <ul>
+								            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="/Public/img/N1_2_classfication_pie.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="/Public/img/N1_2_classfication_pie.png" alt="" /></a></li>
+								            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="/Public/img/N2_1_gc.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="/Public/img/N2_1_gc.png" alt="" /></a></li>
+								            	<li style="width: 455px;height: 460px;" ><a class="fancybox-effects-a" href="/Public/img/classfication_bar.png" title="Lorem"><img style="width: 455px;height:460px;padding-right: 23px;" src="/Public/img/classfication_bar.png" alt="" /></a></li>
+								            </ul>
+								        </div>
+								        <a id="keggNext" href="#" class="next">&rsaquo;</a>
+								        <div class="clear"></div>
+								    </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	
+	
+	<!-- 添加选择目录的模态框 -->
+	<div class="modal fade" id="selectUrl" tabindex="-1" aria-labelledby="选择路径" aria-hidden="true">
+
+		<div class="modal-dialog" style="top:50px; width:800px;">
+			<div class="modal-content ">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title">路径</h4>
+					<div class="input-group">
+						<input type="text" class="form-control" id="inputUrl">
+						<span class="input-group-btn">
+							<button class="btn btn-default glyphicon glyphicon-arrow-left" id="back" type="button" style="top: 0px;"></button>
+							<button class="btn btn-default glyphicon glyphicon-arrow-right" id="search" type="button" style="top: 0px;"></button>
+						</span>
+					</div>
+				</div>
+				<!-- -----------------------------------------------------------data-single-select="true"------------------------ -->
+				<div class="modal-body" style="text-align:center; ">
+					<table data-toggle="table" data-url="json/jobUrl.json" data-minimum-count-columns="2" data-id-field="id" data-show-footer="false"
+						data-height="300" data-sort-name="id" data-click-to-select="true" id="jobUrlTable"
+						style="bottom:20px;">
+
+						<thead>
+							<tr>
+								<th data-field="state" data-checkbox="true"></th>
+								<th data-field="icon" data-formatter="addIcon"></th>
+								<th data-field="name" data-align="left" data-sortable="true">name</th>
+								<th data-field="type" data-align="center" data-sortable="true">attribute</th>
+								<th data-field="inodeNum" data-align="center" data-visible="false" data-sortable="true">inodeNum</th>
+								<th data-field="size" data-align="center" data-sortable="true">size</th>
+								<th data-field="owner" data-align="center" data-sortable="true">owner</th>
+								<th data-field="group" data-align="center">group</th>
+								<th data-field="mtime" data-align="center" data-sortable="true">time</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<!-- ----------------------------------------------------------------------------------- -->
+				<div class="modal-footer">
+					<button type="button" id="selected" class="btn btn-primary">
+					选择
+					</button>
+					<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">
+					关闭
+					</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--页脚-->
+          <div id="footer_style">
+        <footer class="footerstyle">
+            <p>© 2015-2017 拓美科8omics.com 版权所有 | 咨询热线：010-53659701</p>
+        </footer>
+    </div>
+
+        <!--页脚-->
+	<script src="/Public/js/jquery-1.11.2.min.js"></script>
+	<script src="/Public/js/bootstrap.min.js"></script>
+	<script src="/Public/js/bootstrap-table.js"></script>
+	<script src="/Public/js/bootstrap-select.js"></script>
+	<script src="/Public/js/jquery.ui.widget.js"></script>
+	<script src="/Public/js/jquery.fileupload.js"></script>
+	<script src="/Public/js/jquery.iframe-transport.js"></script>
+	<script src="/Public/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
+	<script src="/Public/js/jquery.blockUI.js" type="text/javascript"></script>
+	<!--轮播图片插件-->
+	<script src="/Public/js/jquery.mousewheel-3.1.12.js"></script>
+	<script src="/Public/js/jquery.jcarousellite.js"></script>
+	<!--FancyBox弹出窗口插件-->
+	<script src="/Public/js/jquery.mousewheel.pack.js"></script>
+	<script src="/Public/js/jquery.fancybox.pack.js"></script>
+
+	<script src="/Public/js/long_common.js"></script>
+	<script src="/Public/js/go.js"></script>
+	<script src="/Public/js/common.js"></script>	
+	<script src="/Public/js/countKegg.js"></script>
+</body>
+
+</html>
+<script>
+$(function(){
+ $("#sodaIndex").addClass("active");
+ $("#myproject").removeClass("active");
+                $("#小工具").addClass("active");
+})
+</script>

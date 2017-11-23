@@ -186,12 +186,13 @@ $(function(){
 				if(allGroupItems.indexOf(samples[i].innerText)==-1){
 					if(confirm("发现有未分组的样品，确定不分组?")){
 						break;
+					}else{
+						return false;
 					}
 				}
 			}
 		}
 		//检查比较组
-		debugger
 		var compares = $('#compareList').find('div');
 		if(compares.length>0){
 			var compareGroups = {};
