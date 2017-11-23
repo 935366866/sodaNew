@@ -19,7 +19,7 @@ body{
 .menuList li{
 	text-align: left !important; 
 }
-.menuList li.active{
+.menuList>li.active{
 	background-color: #13438B;
 	box-shadow: ;
 }

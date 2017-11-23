@@ -47,7 +47,7 @@ body {
 .page li a.disable:hover {
   background-color: #fff;
 }
-.page li.active a {
+.page>li.active a {
   color: #fff;
   background: #cd3202;
 }
@@ -114,7 +114,7 @@ body {
   color: #fff;
   background-color: #13438b;
 }*/
-.user .left .nav li.active a {
+.user .left .nav li.active>a {
   color: #fff;
   background-color: #13438b;
 }
