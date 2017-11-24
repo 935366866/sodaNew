@@ -12,6 +12,15 @@ body{
 }
 .user .left{
 	margin-top: 0 !important;
+	
+}
+.user .left .nav li{
+	height: 31px !important;
+	line-height: 31px !important;
+	cursor: pointer;
+}
+.user .left .nav li a{
+	font-size: 16px !important;
 }
 .user .right{
 	margin-top: 0 !important;
@@ -25,7 +34,6 @@ body{
 }
 .menuList li a{
 	margin-left: 30px;
-	font-size:16px !important;
 	color: #333;
 }
 

@@ -67,12 +67,27 @@
 							<a href="#" style="display: inline-block;margin-left: 6px;">数据分析</a>
 						</li>
 						<ul id="list" style="display: none;">
-							<li ><a style="padding-left: 20px;">我的目录</a></li>
-							<li ><a style="padding-left: 20px;">分析流程</a></li>
-							<li ><a style="padding-left: 20px;">我的项目</a></li>
-							<li ><a style="padding-left: 20px;">回收站</a></li>
-							<li ><a style="padding-left: 20px;">小工具</a></li>
-							<li ><a style="padding-left: 20px;">资源监控</a></li>
+							<li class="q" data-id="myMenu"><a style="padding-left: 20px;">我的目录</a></li>
+							<li class="q">
+								<span id="icon1" style="margin-left: 30px; background: url(img/dec_arrowLeft.svg);display: inline-block;height: 10px;width: 10px;"></span>
+								<a style="display: inline-block;margin-left: 6px;">分析流程</a>
+							</li>
+							<ul id="list1" style="display: none;">
+								<li data-id="process1"><a style="padding-left: 40px;">分析流程类型</a></li>
+								<li data-id="process2"><a style="padding-left: 40px;">流程工具使用</a></li>
+								<li data-id="process3"><a style="padding-left: 40px;">深度挖掘使用</a></li>
+							</ul>
+							<li class="q"><a style="padding-left: 20px;">我的项目</a></li>
+							<li class="q"><a style="padding-left: 20px;">回收站</a></li>
+							<li class="q">
+								<span id="icon2" style="margin-left: 30px; background: url(img/dec_arrowLeft.svg);display: inline-block;height: 10px;width: 10px;"></span>
+								<a style="display: inline-block;margin-left: 6px;">小工具</a>
+							</li>
+							<ul id="list2" style="display: none;">
+								<li ><a style="padding-left: 40px;">小工具类型</a></li>
+								<li ><a style="padding-left: 40px;">小工具使用</a></li>
+							</ul>
+							<li class="q"><a style="padding-left: 20px;">资源监控</a></li>
 						</ul>
 						<li class="p" data-id="help"><a href="#">帮助</a></li>
 						<li class="p" data-id="manage"><a href="#">管理系统</a></li>
@@ -138,6 +153,207 @@
 							【首页】包含实验室简介、DodoGene简介、管理员联系方式以及DodoGene技术支持联系方式四个版块的说明，将鼠标移动到各个版块上可查看详情。
 						</p>
 					</div>
+				</div>
+				<div id="data" class="partBox" style="display: none;">
+					<div class="navBox" >
+						<img src="img/dec_arrow.svg" class="navIcon" />
+						<span class="navText">数据分析</span>
+					</div>
+					<div class="contentBox">
+						<p class="text">
+							进入【数据分析】界面，您获得了本系统的使用权。该界面包含【分析流程】、【小工具】、【我的项目】、【我的目录】、【回收站】、【资源监控】六个功能页面，同时在右侧布置有搜索框，您可以在搜索框内键入目标分析流程或小工具的名称，并点击【搜索】，从而达到快速搜索的目的。
+						</p>
+						<div class="imgWrap" >
+							<img src="img/dec_data.png"/>
+						</div>
+						<p class="text">
+							【我的目录】：是数据传输、文件查看的操作界面。通过该页面可完成任务相关文件的查看和操作，包括任务文件的打开、新建、选择、剪切、复制、粘贴、删除、重命名、排序，以及数据的上传和下载等操作。
+						</p>
+						<p class="text">
+							【分析流程】：是DodoGene搭载的分析流程的查看与选择界面，可逐个查看DNA/RNA/医学三大类分析流程。
+						</p>
+						<p class="text">
+							【我的项目】：是完成项目的新建、已提交项目详情查看以及项目的删除等操作的界面。
+						</p>
+						<p class="text">
+							【回收站】：是已删除任务存放的界面。您可以选择将任务彻底删除或者撤回删除操作。
+						</p>
+						<p class="text">
+							【小工具】：是DodoGene搭载的小工具的查看与选择界面，可逐个查看基本绘图、表格统计和计算统计三大类小工具。
+						</p>
+					</div>
+				</div>
+				<div id="myMenu" class="partBox" style="display: none;">
+					<div class="navBox" >
+						<img src="img/dec_arrow.svg" class="navIcon" />
+						<span class="navText">我的目录</span>
+					</div>
+					<div class="contentBox">
+						<p class="text">
+							打开【数据分析】-【我的目录】ftp页面，该页面下包含【查看文件】和【数据传输】；两个子页面。
+						</p>
+						<div class="imgWrap" >
+							<img src="img/dec_data_menu.png"/>
+						</div>
+						<p class="text">
+							【查看文件】界面可执行任务文件的打开、新建、选择、剪切、复制、粘贴、删除、重命名、排序等管理操作；
+						</p>
+						<div class="imgWrap" >
+							<img src="img/dec_data_menu1.png"/>
+						</div>
+						<p class="text">
+							【数据传输】界面可完成数据的高速上传和下载。
+						</p>
+						<p class="text">
+							注：安装火狐浏览器及其插件fireftp，方可成功打开【数据传输】页面。
+						</p>
+						<div class="imgWrap" >
+							<img src="img/dec_data_menu2.jpg"/>
+						</div>
+					</div>
+				</div>
+				<div id="process1" class="partBox" style="display: none;">
+					<div class="navBox" >
+						<img src="img/dec_arrow.svg" class="navIcon" />
+						<span class="navText">分析流程类型</span>
+					</div>
+					<div class="contentBox">
+						<p class="text">
+							点击【分析流程】，在下拉菜单中可以看到，所有分析流程被归为【DNA】、【RNA】、【医学】三大类；点击大类按钮，如DNA分析流程，即会显示此大类包含的所有分析流程；单击分析流程名称，即可直接进入使用页面。
+						</p>
+						<div class="imgWrap" >
+							<img src="img/dec_process1.png"/>
+						</div>
+						<p class="text">
+							我们将不断开发新的分析流程和已有分析流程的的更新版本，您可以根据实际情况进行选择。以下是DodoGene的具体类目以及分析内容等信息。
+						</p>
+						<div class="imgWrap" >
+							<p style="color: #13438B;font-size: 20px;font-weight: bold;">DNA分析流程</p>
+						</div>
+						<div>
+							<h4>1、动植物基因组变异检测（WGS）</h4>
+							<p class="text">
+								适用数据：动植物全基因组高通量测序数据
+							</p>
+							<p class="text">
+								分析内容：本流程可检测大量遗传变异信息，如单核苷酸多态性（SNP）/插入缺失标记（InDel）/结构变异（SV）/基因拷贝数变异（CNV）等分子标记及其注释信息，并挖掘功能基因、研究复杂疾病机理等。
+							</p>
+						</div>
+						<div>
+							<h4>2、BSA—混池性状定位(QTL-seq/Mutmap)</h4>
+							<p class="text">
+								适用数据：极端性状的混池子代和家系亲本的基因组高通量测序数据
+							</p>
+							<p class="text">
+								分析内容：可检测与性状相关联的变异位点并注释。本流程含QTL-seq/Mutmap 两种类型，其中QTL-seq可定位数量性状，Mutmap可定位质量性状。
+							</p>
+						</div>
+						<div>
+							<h4>3、动植物全基因组关联分析（GWAS）</h4>
+							<p class="text">
+								适用数据：大样本的基因组高通量测序数据
+							</p>
+							<p class="text">
+								分析内容：本流程可检测数以百万计的SNPs，并结合目标性状的表型数据进行全基因组水平上的相关性分析，快速获得影响目标性状表型变异的染色体区段或基因位点。
+							</p>
+						</div>
+						<div>
+							<h4>4、微生物扩增子分析</h4>
+							<p class="text">
+								适用数据：环境微生物16S/18S/ITS rDNA高通量测序数据
+							</p>
+							<p class="text">
+								分析内容：本流程可快速分析得到微生物种类构成、环境微生物多样性和群落组成差异等结果。
+							</p>
+						</div>
+						<div>
+							<h4>5、ChIP-seq分析</h4>
+							<p class="text">
+								适用数据：染色质免疫沉淀的DNA高通量测序数据
+							</p>
+							<p class="text">
+								分析内容：本流程可检出全基因组范围中与组蛋白、转录因子等互作的DNA区段，预测DNA结合蛋白的功能，研究组蛋白修饰（表观遗传标记）等。  
+							</p>
+						</div>
+						<div class="imgWrap" >
+							<p style="color: #13438B;font-size: 20px;font-weight: bold;">RNA分析流程</p>
+						</div>
+						<div>
+							<h4>1、有参mRNA-seq/DGE</h4>
+							<p class="text">
+								适用数据：真核有参mRNA高通量测序数据
+							</p>
+							<p class="text">
+								分析内容：本流程分析方法经典，可应用真核有参物种特定组织或细胞在某个特定状态下转录的mRNA测序数据，进行基因结构、基因表达以及功能富集注释等分析。
+							</p>
+						</div>
+						<div>
+							<h4>2、LncRNA-seq</h4>
+							<p class="text">
+								适用数据：LncRNA&mRNA高通量测序数据
+							</p>
+							<p class="text">
+								分析内容：本流程可对LncRNA进行准确过滤筛选，分析基因结构及其表达等信息，同时也会对LncRNA和mRNA的分析结果进行关联分析。
+							</p>
+						</div>
+						<div>
+							<h4>3、sRNA-seq</h4>
+							<p class="text">
+								适用数据： sRNA高通量测序数据
+							</p>
+							<p class="text">
+								分析内容：本流程可对样本中所有Small RNA家族进行测序和表达定量，从而解析miRNA、siRNA、piRNA、其它非编码RNA以及相应的靶基因序列。
+							</p>
+						</div>
+						<div>
+							<h4>4、无参mRNA-seq</h4>
+							<p class="text">
+								适用数据：真核无参mRNA高通量测序数据
+							</p>
+							<p class="text">
+								分析内容：本流程可对真核无参物种特定组织或细胞在特定状态下转录的mRNA进行组装拼接，并进行转录本结构以及转录本表达等信息分析。
+							</p>
+						</div>
+						<div>
+							<h4>5、CircRNA-seq</h4>
+							<p class="text">
+								适用数据：CircRNA高通量测序数据
+							</p>
+							<p class="text">
+								分析内容：本流程可完成circRNA的鉴定、预测、表达水平和来源基因分析等，深度挖掘circRNA功能与机制。 
+							</p>
+						</div>
+						<div>
+							<h4>6、原核转录组</h4>
+							<p class="text">
+								适用数据：原核转录组高通量测序数据
+							</p>
+							<p class="text">
+								分析内容：本流程可对原核生物的转录本（mRNA和非编码RNA）进行基因表达、差异基因和基因结构水平等分析，揭示原核生物不同表现型形成的分子调控机制。
+							</p>
+						</div>
+					</div>
+				</div>
+				<div id="process2" class="partBox" style="display: none;">
+					<div class="navBox" >
+						<img src="img/dec_arrow.svg" class="navIcon" />
+						<span class="navText">流程工具使用</span>
+					</div>
+					<div class="contentBox">
+						<p class="text">选择感兴趣的分析流程，点击【方案说明】，查看分析流程的详细说明。</p>
+						<p class="text">以有参转录组流程为例，【方案说明】页面包含【首页】、【基础实验】、【建库测序】、【数据分析】、【报告示例】、【科研产出】六个子页面。</p>
+						<div class="imgWrap" >
+							<img src="img/dec_process2.png"/>
+						</div>
+						<p class="text">【首页】：展示该流程的整体方案，以及最近文献解读，包括实验设计、分析结果等；</p>
+						<p class="text">【基础实验】：包含样本、组织以及样品制备的详情；</p>
+						<p class="text">【建库测序】：包含二代测序文库的构建、检测以及测序原理阐释；</p>
+						<p class="text">【数据分析】：包含该分析流程的分析内容、原理、软件等详情；</p>
+						<p class="text">【报告示例】：展示了一次完整的有参转录组分析报告；</p>
+						<p class="text">【科研产出】：包含文章攻略、数据库、软著申请、专利申请四大部分，提供了将分析结果转化为科研成果的详细指导。</p>
+					</div>
+					
+				
 				</div>
 				<div id="help" class="partBox" style="display: none;">
 					<div class="navBox" >
