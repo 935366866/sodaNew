@@ -8,12 +8,15 @@ $(function () {
    		$("#list li").css("background","#fff").children("a").css("color","#333");
     	$(this).siblings().removeClass("active");
         $(this).addClass("active");
-        var id=$(this).data().id;
-        $("#"+id).show();
-        $(this).siblings().each(function(){
-        	var id1=$(this).data().id;
-        	$("#"+id1).hide();
-        })
+        $("#right").load($(".active").attr("urls"),function(){
+   			
+   		})
+        var id=$(this).attr("urls")
+//      $("#"+id).show();
+//      $(this).siblings().each(function(){
+//      	var id1=$(this).data().id;
+//      	$("#"+id1).hide();
+//      })
         $(this).siblings("ul").children("li").each(function(){
         	var id1=$(this).data().id;
         	$("#"+id1).hide();
