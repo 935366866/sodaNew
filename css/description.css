@@ -42,15 +42,19 @@ body{
 .menuList>li.active{
 	background-color: #13438B;
 }
-.menuList li.open #icon{
-	background: url(../img/dec_arrowDown.svg);
-	
+.menuList>li.active #list{
+	background-color: #fff;
 }
+
 .menuList li.active #icon{
-	background: url(../img/dec_arrowDown1.svg);
+	background: url(../img/dec_arrowLeft1.svg);
 	
 }
-#icon{
+.menuList li.open .icon{
+	background: url(../img/dec_arrowDown1.svg) !important;
+	
+}
+.icon{
 	margin-left: 10px; 
 	background: url(../img/dec_arrowLeft.svg);
 	display: inline-block;
@@ -70,8 +74,8 @@ body{
 #list li.active{
 	background-color: #13438B !important;
 }
-#list li.open .icon{
-	background: url(../img/dec_arrowDown1.svg) !important;;
+#list li.open #icon1{
+	background: url(../img/dec_arrowDown1.svg);
 }
 #list li.active a{
 	color: #fff;

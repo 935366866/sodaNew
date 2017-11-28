@@ -14,14 +14,14 @@ $(function () {
         	var id1=$(this).data().id;
         	$("#"+id1).hide();
         })
-        if(id=="data"){
-        	$("#menuPath").text("数据分析");
+        if(id=="data"&&$("#process").hasClass("open")==false){
+    		$("#menuPath").text("数据分析");
         	$("#process").addClass("open");
         	$("#list").show();
         }else{
-        	$("#menuPath").text($(this).text());
-        	$("#process").removeClass("open")
-        	$("#list").hide();
+    		$("#menuPath").text($(this).text());
+    		$("#process").removeClass("open")
+    		$("#list").hide();
         }
        
     });
@@ -29,14 +29,12 @@ $(function () {
 	$("#list li.q").on('click',function(e){
 			e.stopPropagation();
 			$("#menuPath").text("数据分析>"+e.target.innerHTML);
-			if($("#process").hasClass("active")==false){
-				$(this).siblings().removeClass("active");
-    			$(this).addClass("active");
-			}
-			
 			$("#process").removeClass("active");
+			
+			$(this).siblings().removeClass("active");
+			$(this).addClass("active");
 			var id=$(this).attr("id");
-			if(id=="process1"){
+			if(id=="process1"&&$("#process").removeClass("open")){
 	        	$("#process1").addClass("open");
 	        	$("#list1").show();
 	        }else{
