@@ -1,0 +1,15 @@
+.nav_left{background: #fff;height: 100%;width: 234px;min-height: 600px;position: fixed;top: 98px;left: 20px;box-shadow:1px 1px 5px #ccc ;}
+.nav_leftlist{}
+.nav_leftlist h2{margin-bottom:5px;margin-top: 5px; height: 30px;line-height: 30px;padding-left: 40px;font-size: 16px;background: #fff;color: #333;position: relative;cursor: pointer;}
+.nav_leftlist h2 b{position: absolute;top: 20px;left: 13px;width: 16px;height: 9px;background: url(../img/dec_arrowDown.svg) no-repeat;background-position: 0 0;cursor: pointer;}
+.nav_leftlist h2 b.cur{background-position: -16px 0;}
+.nav_leftlist dl{
+	margin-bottom: 5px;
+}
+.nav_leftlist dl dt{height: 30px;line-height: 30px;background: #fff;font-size: 16px;color: #333;padding-left: 60px;position: relative;cursor: pointer;}
+.nav_leftlist dl dt b{position: absolute;top: 20px;left: 34px;width: 16px;height: 9px;background: url(../img/dec_arrowLeft.svg)rno-repeat;background-position: 0 -10px;}
+.nav_leftlist dl dt b.cur{background-position: -16px -10px;}
+.nav_leftlist dl dd{margin-bottom: 5px;}
+.nav_leftlist dl dd a{display: block;height: 30px;line-height: 30px;color: #333;padding-left: 80px;font-size: 16px;position: relative;}
+.nav_leftlist dl dd a.cur{color: #ee581c;}
+.nav_leftlist dl dd a.cur b{display: block;position: absolute;top: 16px;right: -1px;width: 11px;height: 18px;background: url(../img/dec_arrowLeft.svg) no-repeat;background-position: 0 -20px;}

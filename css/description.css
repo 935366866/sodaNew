@@ -15,12 +15,23 @@ body{
 	
 }
 .user .left .nav li{
+	height:auto;
+	cursor: pointer;
+}
+.user .left .nav li .pro-head{
 	height: 31px !important;
 	line-height: 31px !important;
 	cursor: pointer;
 }
-.user .left .nav li a{
-	font-size: 16px !important;
+.user .left .nav li.active .pro-head{
+	background: #13438B;
+}
+.user .left .nav li.active .pro-head a{
+	color: #fff;
+}
+
+.nav .open>a{
+	background-color: #fff ;
 }
 .user .right{
 	margin-top: 0 !important;
@@ -30,14 +41,41 @@ body{
 }
 .menuList>li.active{
 	background-color: #13438B;
-	box-shadow: ;
 }
-
+.menuList li.open #icon{
+	background: url(../img/dec_arrowDown.svg);
+	
+}
+.menuList li.active #icon{
+	background: url(../img/dec_arrowDown1.svg);
+	
+}
+#icon{
+	margin-left: 10px; 
+	background: url(../img/dec_arrowLeft.svg);
+	display: inline-block;
+	height: 10px;
+	width: 10px;
+}
 .menuList li a{
 	margin-left: 30px;
 	color: #333;
 }
-
+.user .left .menuList li.open li.active{
+	background-color: #13438B !important;
+}
+.user .left .menuList>li.open>li.active>a{
+	color: #fff !important;
+}
+#list li.active{
+	background-color: #13438B !important;
+}
+#list li.open .icon{
+	background: url(../img/dec_arrowDown1.svg) !important;;
+}
+#list li.active a{
+	color: #fff;
+}
 #welcome .title{
 	text-align: center;
 	font-weight: bolder;

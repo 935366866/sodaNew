@@ -11,12 +11,12 @@ $(function () {
         $("#right").load($(".active").attr("urls"),function(){
    			
    		})
-        var id=$(this).attr("urls")
-//      $("#"+id).show();
-//      $(this).siblings().each(function(){
-//      	var id1=$(this).data().id;
-//      	$("#"+id1).hide();
-//      })
+        var id=$(this).data().id
+        $("#"+id).show();
+        $(this).siblings().each(function(){
+        	var id1=$(this).data().id;
+        	$("#"+id1).hide();
+        })
         $(this).siblings("ul").children("li").each(function(){
         	var id1=$(this).data().id;
         	$("#"+id1).hide();
