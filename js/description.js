@@ -4,14 +4,12 @@ $(function () {
 	var data2=0;
     //左边导航的效果
    $("#persongNav li.p").on('click',function(e){
+   	    var id=$(this).data().id
    		$("#menuPath").text($(this).children("a").text());
    		$("#list li").css("background","#fff").children("a").css("color","#333");
     	$(this).siblings().removeClass("active");
         $(this).addClass("active");
-        $("#right").load($(".active").attr("urls"),function(){
-   			
-   		})
-        var id=$(this).data().id
+		
         $("#"+id).show();
         $(this).siblings().each(function(){
         	var id1=$(this).data().id;
@@ -49,7 +47,16 @@ $(function () {
 	        	$("#icon2").css("background","url(img/dec_arrowDown.svg)");
 	        }
         }
-       
+        if(id=="welcome"){
+        	$("#right .navBox").hide();
+        	$("#content").hide();
+        }else{
+        	$("#right .navBox").show();
+        	$("#content").show();
+        	myAjax(id);
+        }
+        
+        
     });
 	$("#list li.q").on('click',function(e){
 		var id=$(this).data().id;
@@ -109,12 +116,14 @@ $(function () {
 	        	$("#icon2").css("background","url(img/dec_arrowDown.svg)");
 	        }
 		}
+		myAjax(id);
 		
 	})
 	
 	$("#list1 li").on("click",function(){
 		var id=$(this).data().id;
         $("#"+id).show();
+        
         $("#persongNav li.p").each(function(){
         	var id2=$(this).data().id;
         	$("#"+id2).hide();
@@ -137,6 +146,7 @@ $(function () {
         }else{
         	$("#icon1").css("background","url(img/dec_arrowDown.svg)");
         }
+        myAjax(id);
 	})
 	$("#list2 li").on("click",function(){
 		$("#menuPath").text("数据分析>小工具>"+$(this).children("a").text());
@@ -152,3 +162,22 @@ $(function () {
 	})
 
 })
+
+function myAjax(id){
+	var texts= $("[data-id="+id+"]").text();
+	$("#navText").text(texts)
+	$.ajax({
+			url:'json/content.json',     //陈向伟，传给你id  
+			type:'get',
+			data:{id:id},
+			dataType: "json",
+			success:function(data){
+				$("#content").empty();
+				$("#content").append(data.data["detail"])
+			},
+			error: function(XMLHttpRequest){
+				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
+			}
+			 
+		});  
+}
