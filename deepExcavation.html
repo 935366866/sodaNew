@@ -89,19 +89,12 @@
 					<li><span style="background: #13438b;"><a id="deepBtn" style="color: #fff;" href="#">深度挖掘</a></span></li>
 				</ul>
 				<ul class="main_nav3_right_report">
-					<li  class="report_success"><span id="taskStatus"  class="btn btn-primary"><a href="#">任务运行中</a></span></li>
-	
-								<!--<li class="report_running"><span><a href="#">任务运行中</a></span></li>
-								<li class="report_end"><span><a href="#">任务已终止</a></span></li>
-							-->
+					<li  class="report_success"><span id="taskStatus" style="display: none;"  class="btn btn-success"><a href="#">任务运行中</a></span></li>
 					<li id="refresh">
 						<a href="#"><img src="img/refresh.svg" alt="刷新" /></a>
 					</li>
 					<li id="stop">
 						<a href="#"><img src="img/stop.svg" alt="停止" /></a>
-					</li>
-					<li id="delete">
-						<a href="#"><img src="img/delete.svg" alt="删除" /></a>
 					</li>
 				</ul>
 			</div>
@@ -1659,13 +1652,8 @@ $(function(){
 		}
 	}
 	
-	//var parasValue = sessionStorage.getItem("paras"); 
-	//var parasObj = $.parseJSON( parasValue );
-	//if(parasObj){
-	//	var inputPath=parasObj.taskPara[4].value;
-	//	$("#dfgInputPath").val(inputPath)
-	//	window.sessionStorage.setItem("dfgInputPath",$("#dfgInputPath").val());
-	//}
+	var isRefrish=false;
+	var isShow=false;
 	//提交参数
 	$("#dgfSubmit_paras").click(function(){
 		var formData =  allParams($("#dgfParameter"));//取form表单参数
@@ -1797,13 +1785,35 @@ $(function(){
 					$('#compareGroups').on('changed.bs.select', function (e) {
 						updateTable("compareGroups","dgfGeneList",compareData);
 					});
-					window.sessionStorage.setItem("pGeneInput",$("#dgfInput").val());						
+					window.sessionStorage.setItem("pGeneInput",$("#dgfInput").val());	
+					isShow=true;
 							
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
 				}
 			});
+			
+			
+			if(isShow){
+				$("#taskStatus").show()
+				if(isRefrish){
+					var setInt=window.setInterval(updataStatus,5000)
+				}else{
+					window.clearInterval(setInt)
+				}
+				
+			}else{
+				$("#taskStatus").hide()
+			}
+			
+			function updataStatus(tableId){
+				$("#"+tableId).bootstrap("getData",function(){
+					
+				})
+			}
+			
+			
 		}
 	});
 });
