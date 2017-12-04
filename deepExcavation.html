@@ -120,7 +120,7 @@
 		        <div class="myTab">
 		        	<div style="width: 1200px;margin: 0 auto;height: 100%;">
 						<div class="tabs" style="margin-left: 10px;text-align: left;line-height: 88px;font-size: 15px;color: #656565;">
-							<ul class="nav">
+							<ul class="nav" id="leftNav">
 								<li style="width: 230px;"><a href="#previousGene" data-toggle="tab">使用上一步新差异基因注释</a></li>
 								<li style="width: 230px;" class="active"><a href="#originalGene" data-toggle="tab">使用原始差异基因注释</a></li>
 							</ul>
@@ -1652,8 +1652,7 @@ $(function(){
 		}
 	}
 	
-	var isRefrish=false;
-	var isShow=false;
+
 	//提交参数
 	$("#dgfSubmit_paras").click(function(){
 		var formData =  allParams($("#dgfParameter"));//取form表单参数
@@ -1793,27 +1792,6 @@ $(function(){
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
 				}
 			});
-			
-			
-			if(isShow){
-				$("#taskStatus").show()
-				if(isRefrish){
-					var setInt=window.setInterval(updataStatus,5000)
-				}else{
-					window.clearInterval(setInt)
-				}
-				
-			}else{
-				$("#taskStatus").hide()
-			}
-			
-			function updataStatus(tableId){
-				$("#"+tableId).bootstrap("getData",function(){
-					
-				})
-			}
-			
-			
 		}
 	});
 });
@@ -2688,6 +2666,27 @@ $(function(){
 			});
 		}
 	});
+	
+	$('a[href="#EnrichAnnotation"]').on('show.bs.tab', function (e) {
+		$.ajax({
+			url:'json/compares.json',  
+			type:'get',
+			dataType: "json",
+			success:function(data) {
+				if(data.status=="none"){
+					$("#").hide()
+				}else{
+					$("#").show();
+					if(data.status=="finishede"){
+						$("#").addClass("pramiry")
+					}
+				}
+			},
+			error : function(XMLHttpRequest) {
+			   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
+			}
+		})
+	})
 	
 
 })

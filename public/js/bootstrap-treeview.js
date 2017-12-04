@@ -56,7 +56,7 @@
 		showBorder: true,
 		showIcon: true,
 		showCheckbox: false,
-		showTags: false,
+		showTags: true,
 		multiSelect: false,
 
 		// Event handlers
