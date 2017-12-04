@@ -89,7 +89,7 @@
 					<li><span style="background: #13438b;"><a id="deepBtn" style="color: #fff;" href="#">深度挖掘</a></span></li>
 				</ul>
 				<ul class="main_nav3_right_report">
-					<li  class="report_success"><span id="taskStatus" style="display: none;"  class="btn btn-success"><a href="#">任务运行中</a></span></li>
+					<li  class="report_success"><span id="taskStatus"  class="btn btn-success"><a href="#">任务运行中</a></span></li>
 					<li id="refresh">
 						<a href="#"><img src="img/refresh.svg" alt="刷新" /></a>
 					</li>
@@ -1532,7 +1532,12 @@ $(function(){
 				type:'get',
 				dataType: "json",
 				success:function(data) {
+					
+					$("#taskStatus a").html(data["modStatus"].status);
 					$('#dgfmodStatusTable').bootstrapTable('load',data["modStatus"]);
+					
+					
+					
 				},
 				error : function(XMLHttpRequest) {
 				   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    

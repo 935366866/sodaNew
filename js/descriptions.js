@@ -45,6 +45,10 @@ $(function () {
  
 	
 	});
+	debugger
+	$(".badge").onclick(function(){
+		alert();
+	});
 	
 	$("#search_button").on("click",function(){
 		var searchText= $("#search_flowapp").val();
@@ -58,6 +62,7 @@ $(function () {
 			}
 		});
 	})
+	
 })
 
 function getTree(){
