@@ -45,10 +45,15 @@ $(function () {
  
 	
 	});
-	debugger
-	$(".badge").onclick(function(){
-		alert();
-	});
+	
+	$("#add").on("click",function(){
+		var arr=$('#tree').treeview('getChecked'); 
+	 	console.log(arr)
+		var singleNode = {  
+                    text: "小小" 
+                  };  
+        $("#tree").treeview("addNode", [singleNode,arr]);  
+	})
 	
 	$("#search_button").on("click",function(){
 		var searchText= $("#search_flowapp").val();
@@ -64,6 +69,8 @@ $(function () {
 	})
 	
 })
+
+	
 
 function getTree(){
 	   var tree = [
