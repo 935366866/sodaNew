@@ -28,7 +28,14 @@ body{
 .user .right{
 	margin-top: 10px !important;
 }
-
+.user .treeBox{
+	position: fixed;
+	width: 234px;
+	height: 100%;
+	background: #fff;
+	box-shadow: 1px 1px 5px #ccc;
+	padding-top: 1px;
+}
 
 #welcome .title{
 	text-align: center;
