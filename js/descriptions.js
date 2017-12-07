@@ -64,16 +64,105 @@ $(function () {
 				
 			}
 	}); 
-	
 	$("#search_button").on("click",function(){
+		$("#welcome").hide();
+		$("#content").hide();
+		$("#navBox").hide();
+		$("#search").show();
+		$("#showAll").show();
+		$('#tree').treeview('disableAll');
 		var searchText= $("#search_flowapp").val();
+		$("#searchContent").text(searchText)
 		$.ajax({
-			type:"post",
-			url:"",
+			type:"get",
+			url:"json/searchResult.json",
 			data:{texts:searchText},
 			dataType: "json",
-			success:function(data,textStatus){
-				
+			success:function(data,status){
+				if(status=="success"){
+					var datas=data.data;
+					var total=datas["total"];
+					$("#searchTotal").text("("+total+"个结果)")
+					var lists=total=datas["lists"];
+					for(var i=0;i<lists.length;i++){
+						var html="<li><a><h4>"+lists[i]["title"]+"</h4><p>"+lists[i]["content"]+"</p></a></li>"
+						$("#searchResult").prepend(html);
+					}
+				}
+			}
+		});
+	})
+	
+	$("#search_flowapp").keydown(function(k){
+		if(k.keyCode==13 ){
+		$("#welcome").hide();
+		$("#content").hide();
+		$("#navBox").hide();
+		$("#search").show();
+		$("#showAll").show();
+		$('#tree').treeview('disableAll');
+		var searchText= $("#search_flowapp").val();
+		$("#searchContent").text(searchText)
+		$.ajax({
+			type:"get",
+			url:"json/searchResult.json",
+			data:{texts:searchText},
+			dataType: "json",
+			success:function(data,status){
+				if(status=="success"){
+					var datas=data.data;
+					var total=datas["total"];
+					$("#searchTotal").text("("+total+"个结果)")
+					var lists=total=datas["lists"];
+					$("#searchResult").empty();
+					for(var i=0;i<lists.length;i++){
+						var str=lists[i]["title"].replace(searchText,"<span style='color:#13438b'>"+searchText+"</span>")
+						var html="<li unId="+lists[i]["unId"]+"><a><h4>"+str+"</h4><p>"+lists[i]["content"]+"</p></a></li>"
+						$("#searchResult").prepend(html);
+					}
+				}
+			}
+		});
+		}
+	});
+	
+	$("#searchResult").on("click","li",function(){
+		$('#tree').treeview('enableAll', { silent: true });
+		console.log($(this).data("unId"))
+		$.ajax({
+				url:'json/dec1.json',     
+				type:'get',
+				data:{},
+				dataType: "json",
+				success:function(data,textStatus){
+					if(textStatus=="success"){
+						$("#content").empty();
+						$("#content").append(data.data["detail"])
+					}
+
+				},
+				error: function(XMLHttpRequest){
+					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
+				}
+				 
+			}); 
+	})
+	$("#expand").on("click",function(){
+		$("#showAll").hide();
+		var searchText= $("#search_flowapp").val();
+		$.ajax({
+			type:"get",
+			url:"json/searchAll.json",
+			dataType: "json",
+			success:function(data,status){
+				if(status=="success"){
+					var datas=data.data;
+					for(var i=0;i<datas.length;i++){
+						var str=datas[i]["title"].replace(searchText,"<span style='color:#13438b'>"+searchText+"</span>")
+						var html="<li><a><h4>"+str+"</h4><p>"+datas[i]["content"]+"</p></a></li>"
+						$("#searchResult").append(html);
+					}
+				}
 			}
 		});
 	})

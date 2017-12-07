@@ -1,5 +1,6 @@
 body{
 	font-family: "微软雅黑";
+	color: #333;
 }
 .main_nav2 .main_nav2_left span{
 	font-weight: bolder;
@@ -53,7 +54,7 @@ body{
 	width: 160px;
 	height: 160px;
 }
-#welcome .line{
+.right .line{
 	margin-top: 35px;
 	text-align: center;
 	width: 835px;
@@ -107,4 +108,37 @@ body{
 }
 .list-group-item:first-child{
 	border-radius: 0px;
+}
+
+#search .titleBox{
+	font-size: 24px;
+}
+#search .titleBox p{
+	margin: 30px 0px -20px 20px;
+}
+#search .titleBox small{
+	font-size: 16px;
+	color: #a8a8a8;
+	margin-left: 10px;
+}
+#search ul{
+	margin-top: 30px;
+	margin-left: 20px;
+}
+#search ul li{
+	margin-bottom: 20px;
+}
+#search ul li>a{
+	color: #333;
+}
+#search ul li>a p{
+	font-size: 16px;
+}
+#showAll img{
+	width:26px;
+	margin-left: 15px;
+}
+#showAll span{
+	font-size: 18px;
+	margin-left: 22px;
 }
