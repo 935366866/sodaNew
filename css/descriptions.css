@@ -25,6 +25,7 @@ body{
 }
 .user .left .nav li.active .pro-head a{
 	color: #fff;
+	
 }
 .user .right{
 	margin-top: 10px !important;
@@ -124,14 +125,13 @@ body{
 #search ul{
 	margin-top: 30px;
 	margin-left: 20px;
+	color: #333;
 }
 #search ul li{
 	margin-bottom: 20px;
+	cursor: pointer;
 }
-#search ul li>a{
-	color: #333;
-}
-#search ul li>a p{
+#search ul li p{
 	font-size: 16px;
 }
 #showAll img{

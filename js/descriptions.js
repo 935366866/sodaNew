@@ -21,13 +21,14 @@ $(function () {
 							$("#right .navBox").hide();
 							$("#content").empty();
 						}else{
+							$("#search").hide()
+							$("#content").show();
 							if(data.parentId){
 								var nodes=$('#tree').treeview('getNodes',{nodeId:data.parentId});
 								for(var i=0;i<nodes.length;i++){
 									if(nodes[i].nodeId==data.parentId){
 										$("#menuPath").text(nodes[i].text+">"+data.text);
 										if(nodes[i].parentId){
-											debugger
 											var nodes1=$('#tree').treeview('getNodes',{nodeId:nodes[i].parentId});
 											for(var j=0;j<nodes1.length;j++){
 												if(nodes1[j].nodeId==nodes[i].parentId){
@@ -85,7 +86,7 @@ $(function () {
 					$("#searchTotal").text("("+total+"个结果)")
 					var lists=total=datas["lists"];
 					for(var i=0;i<lists.length;i++){
-						var html="<li><a><h4>"+lists[i]["title"]+"</h4><p>"+lists[i]["content"]+"</p></a></li>"
+						var html="<li><h4>"+lists[i]["title"]+"</h4><p>"+lists[i]["content"]+"</p></li>"
 						$("#searchResult").prepend(html);
 					}
 				}
@@ -117,7 +118,7 @@ $(function () {
 					$("#searchResult").empty();
 					for(var i=0;i<lists.length;i++){
 						var str=lists[i]["title"].replace(searchText,"<span style='color:#13438b'>"+searchText+"</span>")
-						var html="<li unId="+lists[i]["unId"]+"><a><h4>"+str+"</h4><p>"+lists[i]["content"]+"</p></a></li>"
+						var html="<li unId="+lists[i]["unId"]+"><h4>"+str+"</h4><p>"+lists[i]["content"]+"</p></li>"
 						$("#searchResult").prepend(html);
 					}
 				}
@@ -128,24 +129,16 @@ $(function () {
 	
 	$("#searchResult").on("click","li",function(){
 		$('#tree').treeview('enableAll', { silent: true });
-		console.log($(this).data("unId"))
-		$.ajax({
-				url:'json/dec1.json',     
-				type:'get',
-				data:{},
-				dataType: "json",
-				success:function(data,textStatus){
-					if(textStatus=="success"){
-						$("#content").empty();
-						$("#content").append(data.data["detail"])
-					}
+		var nodes=$('#tree').treeview('getNodes');
+		for(var i=0;i<nodes.length;i++){
+			if(nodes[i].unId==$(this).attr("unid")){
+//				nodes[i].$el.trigger("nodeSelected",[nodes[i]])
+				$('#tree').treeview('revealNode', [nodes[i], { silent: false } ]);
+				$('#tree').treeview('selectNode', [nodes[i], { silent: false } ]);
+				
+			}
 
-				},
-				error: function(XMLHttpRequest){
-					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
-				}
-				 
-			}); 
+		}
 	})
 	$("#expand").on("click",function(){
 		$("#showAll").hide();
@@ -159,7 +152,7 @@ $(function () {
 					var datas=data.data;
 					for(var i=0;i<datas.length;i++){
 						var str=datas[i]["title"].replace(searchText,"<span style='color:#13438b'>"+searchText+"</span>")
-						var html="<li><a><h4>"+str+"</h4><p>"+datas[i]["content"]+"</p></a></li>"
+						var html="<li><h4>"+str+"</h4><p>"+datas[i]["content"]+"</p></li>"
 						$("#searchResult").append(html);
 					}
 				}
