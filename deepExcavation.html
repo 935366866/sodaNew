@@ -1686,8 +1686,9 @@ $(function(){
 					var curGroupSamples = new Array();
 					for(var j=0; j < sampleItems.length ;j++){
 						curGroupSamples.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+						allGroupItems.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""))
 					}
-					allGroupItems.push(curGroupSamples[0]);
+					<!--allGroupItems.push(curGroupSamples[0]);-->
 					groupSamples[curGroup]= curGroupSamples;
 				}
 				groupCompareVenn['groupSamples']= groupSamples;

@@ -59,7 +59,8 @@ body{
 	margin-top: 35px;
 	text-align: center;
 	width: 835px;
-	border:1px solid #13438B ;
+	border:1px solid #13438B;
+	background-color: #13438B;
 }
 #welcome .pBox{
 	margin-top: 35px !important;
@@ -141,4 +142,27 @@ body{
 #showAll span{
 	font-size: 18px;
 	margin-left: 22px;
+}
+#searchFail{
+	display: none;
+}
+#searchFail .leftBox{
+	text-align: center;
+	float: left;
+	margin-left: 70px;
+	margin-top: 140px;
+	margin-bottom: 140px;
+}
+#searchFail .leftBox div{
+	font-size: 22px;
+	color: #333;
+	text-align: left;
+}
+#searchFail .rightBox{
+	float: left;
+}
+#searchFail .rightBox img{
+	width: 280px;
+	margin-top: 70px;
+	margin-left: 70px;
 }

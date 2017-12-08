@@ -1707,6 +1707,7 @@ $("#taskRun").click(function(){
 			}
 			groupCompareVenn['groupSamples']= groupSamples;
 		}
+		
 		//检查数据
 		//检查样本是否已全部分组，非强制
 		var samples=$("#sampleNames").find('li');
@@ -1727,7 +1728,7 @@ $("#taskRun").click(function(){
 			for(var i=0; i<compares.length; i++){
 				var groupItems = $($(compares[i]).find('ul')[0]).find('li');
 				if(groupItems.length!=2){
-					alert("分组数必须为2")
+					alert("比较组必须含有两个组")
 					return false;
 				}
 				//比较组名

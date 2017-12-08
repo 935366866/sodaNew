@@ -1,4 +1,5 @@
 $(function () {
+	console.log("宽度"+window.screen.width+"高度"+window.screen.height)
 	$.ajax({
 			type:"get",
 			url:"json/getNode.json",
@@ -10,7 +11,8 @@ $(function () {
 						expandIcon: 'glyphicon glyphicon-chevron-right',
 						collapseIcon: 'glyphicon glyphicon-chevron-down',
 						selectedColor: '#FFFFFF',
-						selectedBackColor: '#13438b'
+						selectedBackColor: '#13438b',
+						showTags:false
 					});
 					
 					$('#tree').on('nodeSelected', function(event, data) {
@@ -66,64 +68,12 @@ $(function () {
 			}
 	}); 
 	$("#search_button").on("click",function(){
-		$("#welcome").hide();
-		$("#content").hide();
-		$("#navBox").hide();
-		$("#search").show();
-		$("#showAll").show();
-		$('#tree').treeview('disableAll');
-		var searchText= $("#search_flowapp").val();
-		$("#searchContent").text(searchText)
-		$.ajax({
-			type:"get",
-			url:"json/searchResult.json",
-			data:{texts:searchText},
-			dataType: "json",
-			success:function(data,status){
-				if(status=="success"){
-					var datas=data.data;
-					var total=datas["total"];
-					$("#searchTotal").text("("+total+"个结果)")
-					var lists=total=datas["lists"];
-					for(var i=0;i<lists.length;i++){
-						var html="<li><h4>"+lists[i]["title"]+"</h4><p>"+lists[i]["content"]+"</p></li>"
-						$("#searchResult").prepend(html);
-					}
-				}
-			}
-		});
+		search();
 	})
 	
 	$("#search_flowapp").keydown(function(k){
 		if(k.keyCode==13 ){
-		$("#welcome").hide();
-		$("#content").hide();
-		$("#navBox").hide();
-		$("#search").show();
-		$("#showAll").show();
-		$('#tree').treeview('disableAll');
-		var searchText= $("#search_flowapp").val();
-		$("#searchContent").text(searchText)
-		$.ajax({
-			type:"get",
-			url:"json/searchResult.json",
-			data:{texts:searchText},
-			dataType: "json",
-			success:function(data,status){
-				if(status=="success"){
-					var datas=data.data;
-					var total=datas["total"];
-					$("#searchTotal").text("("+total+"个结果)")
-					var lists=total=datas["lists"];
-					$("#searchResult").empty();
-					for(var i=0;i<lists.length;i++){
-						var str=lists[i]["title"].replace(searchText,"<span style='color:#13438b'>"+searchText+"</span>")
-						var html="<li unId="+lists[i]["unId"]+"><h4>"+str+"</h4><p>"+lists[i]["content"]+"</p></li>"
-						$("#searchResult").prepend(html);
-					}
-				}
-			}
-		});
+			search();
 		}
 	});
 	
@@ -132,10 +82,8 @@ $(function () {
 		var nodes=$('#tree').treeview('getNodes');
 		for(var i=0;i<nodes.length;i++){
 			if(nodes[i].unId==$(this).attr("unid")){
-//				nodes[i].$el.trigger("nodeSelected",[nodes[i]])
 				$('#tree').treeview('revealNode', [nodes[i], { silent: false } ]);
 				$('#tree').treeview('selectNode', [nodes[i], { silent: false } ]);
-				
 			}
 
 		}
@@ -152,7 +100,7 @@ $(function () {
 					var datas=data.data;
 					for(var i=0;i<datas.length;i++){
 						var str=datas[i]["title"].replace(searchText,"<span style='color:#13438b'>"+searchText+"</span>")
-						var html="<li><h4>"+str+"</h4><p>"+datas[i]["content"]+"</p></li>"
+						var html="<li unId="+datas[i]["unId"]+"><h4>"+str+"</h4><p>"+datas[i]["content"]+"</p></li>"
 						$("#searchResult").append(html);
 					}
 				}
@@ -162,5 +110,41 @@ $(function () {
 	
 })
 
-	
+function search(){
+	$("#welcome").hide();
+	$("#content").hide();
+	$("#navBox").hide();
+	$('#tree').treeview('disableAll');
+	var searchText= $("#search_flowapp").val();
+	$("#searchContent").text(searchText)
+	$.ajax({
+		type:"get",
+		url:"json/searchResult.json",
+		data:{texts:searchText},
+		dataType: "json",
+		success:function(data,status){
+			if(status=="success"){
+				var datas=data.data;
+				var total=datas["total"];
+				$("#searchTotal").text("("+total+"个结果)")
+				if(total!=0){
+					$("#search").show();
+					$("#showAll").show();
+					var lists=datas["lists"];
+					$("#searchResult").empty();
+					for(var i=0;i<lists.length;i++){
+						var str=lists[i]["title"].replace(searchText,"<span style='color:#13438b'>"+searchText+"</span>")
+						var html="<li unId="+lists[i]["unId"]+"><h4>"+str+"</h4><p>"+lists[i]["content"]+"</p></li>"
+						$("#searchResult").prepend(html);
+					}
+				}else{
+					$("#search").hide();
+					$("#showAll").hide();
+					$("#searchFail").show()
+				}
+				
+			}
+		}
+	});
+}
 
