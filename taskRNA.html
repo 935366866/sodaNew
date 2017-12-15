@@ -413,7 +413,7 @@
 					<div class="part_box">
 
 						<div class="task_form_height">
-							<label class="task_label" id="taskTitle"><span>10</span>模块参数设置</label>
+							<label class="task_label"><span id="taskTitle">10</span>模块参数设置</label>
 							<!--点击展开参数-->
 							<div class="panel-group params_part" id="parasPanel" style="width: 81%;margin-left: 55px;margin-top: 0;">
 							</div>							
@@ -693,10 +693,10 @@
 			for(var key in nodeStatus){
 				if(nodeStatus["DE"] == 1){
 					$("#sampleGroup").show();
-					$("#taskTitle").show();
+					$("#taskTitle").text("10");
 				}else{
 					$("#sampleGroup").hide();
-					$("#taskTitle").hide();
+					$("#taskTitle").text("9");
 				}
 				if (nodeStatus[key] == 1){
 		//加载json相应模块的数据到模块参数设置当中
@@ -713,6 +713,7 @@
 		};
 		//在参数设置中 给node名字为key的模块 添加input或dropdown参数
 		function addPara(key) {
+			
 			var data = defaultRefParams;
 			items = data[key]; //找到参数中键为key的node项目
 			if(typeof(items) == 'undefined' || items == null) {
@@ -726,7 +727,7 @@
 					var value = items[i]["value"]
 					var info = items[i]["illustration"]
 					//添加input的代码		
-					$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id="' + id + '" name="' + id + '" title="' + info + '"></div><a class="col-sm-2 control-label"  style=" text-align:left;" onclick="paraDefult(' + key + ',' + id + ')">默认值</a></div>');		
+					$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id="' + id + '" name="' + id + '" title="' + info + '"></div><a class="col-sm-2 control-label"  style=" text-align:left;cursor: pointer;text-decoration: none;" onclick="paraDefult(' + key + ',' + id + ')">默认值</a></div>');		
 					//向input中添加默认值
 					$("#" + id).val(value);
 				};
@@ -750,11 +751,12 @@
 					$("#" + key + " form").append('<div class="form-group" ><label title="' + info + '" class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7" ><select class="form-control" id="' + id + '" name="' + id + '"  title="">' + opts + '</select></div></div>');
 				};
 				$("#" + id).selectpicker({
-					liveSearch: true,
+					liveSearch: true
 				});
 			};
 		};//点击恢复默认值
 function paraDefult(key,id){
+	debugger
 	var key = key.id;
 	var id = id.id;	
 //	$.getJSON(nodeParaUrl,function(data){  //始终从json文件中读取默认值
@@ -1119,6 +1121,7 @@ var samples = []
 //点击锁定样本，获得样本名称
 bindGroupClick()
 $("#getSamples").click(function(){
+	var num=0;
 	if(samplesLock == 1){
 		var data = $("#sampleTable").bootstrapTable('getData');
 		if(data.length == 0){
@@ -1129,12 +1132,18 @@ $("#getSamples").click(function(){
 			for(var i=0;i<data.length;i++){
 				var name = data[i].sample;
 				if($.inArray(name, array) == -1){
+					if(name.length>8){
+						num=1;
+					}
 					array.push(name)
 					add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
 					$(add).appendTo('#sampleNames')
 				};
 
 			};
+			if(num==1){
+				alert("样本名过长，不利于报告美观，建议修改！");
+			}
 			samples = array;
 			dragInit();
 			samplesLock = 0;
@@ -1589,10 +1598,14 @@ $("#saveDraft").click(function(){
 });
 //检查参数填写情况
 function checkInput(){
+
 	var checkTask=$("#creatTask input[name]");
 	var checkNode=$("#parasPanel input[name]");
 	var checkDrop=$("#parasPanel select");
 	var count=0; //计数
+//	var patt = /^[a-zA-Z0-9_]{1,}$/i; 
+
+	
 	for(var i=0;i<checkTask.length;i++){
 	  if(checkTask[i].value==""){
 		$($("#creatTask input[name]")[i]).attr("style","border-color:red;")
@@ -1619,9 +1632,9 @@ function checkInput(){
 	  }
 	}; 
 	
-	if(count != 0){
-		alert("还有未填写的参数！");
-		};
+//	if(count != 0){
+//		alert("还有未填写的参数！");
+//	};
 	if(samplesLock == 1){
 		alert("未锁定样本！");
 		count += 1;
@@ -1647,20 +1660,27 @@ $("#taskRun").click(function(){
 		var rowData=tableDatas[i];
 		var obj={};
 		if(rowData.fq1||rowData.fq2){
+			var trs=$('#sampleTable tr')
+			obj["oldName"]=trs[i+1].children[1].children[0].getAttribute("data-value");
+			obj["newName"]=rowData.sample;
 			obj[rowData.sample]=[rowData.fq1,rowData.fq2];
 		}else{
 			obj[rowData.sample]=[rowData.fq];
 		}
-		
 		resultArray.push(obj)
 	}
 	var nullNum = checkInput()
 	if(nullNum==0){
+	var value=$("#task_name").val();
+	var  patrn=/^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$/; 
+	if(!patrn.test(value)){
+		alert("只能由字母、数字、下划线组成，且不能以下划线开始结束！");
+		return false;
+	}
 		var groupCompareVenn={};	//发向服务器的json数据
 //任务参数有关的信息
 		
 		var taskPara = $("#creatTask").serializeArray();
-		console.log(taskPara)
 	//	taskPara = decodeURIComponent(taskPara,true);
 		//taskPara = JSON.stringify(taskPara);
 		
@@ -1801,12 +1821,12 @@ $("#taskRun").click(function(){
 			delete resultPara.samples;
 			delete resultPara.groupCompareVenn;
 		}
-						
+				
 		resultPara = JSON.stringify(resultPara);
 		window.sessionStorage.setItem("paras",resultPara);
 				
 //向后台传送数据
-		 $.ajax({
+		 		 $.ajax({
 //				    url:"__MODULE__/Task/addUpdateTask/submitType/job",  
 					url:"json/job.json",
 				    type:'get',
@@ -1827,10 +1847,9 @@ $("#taskRun").click(function(){
 				       alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText); 
 				     }
 				});  
-		}; //检查参数
-	  });
-	
-}
+		} //检查参数
+	});
+}	
 
 $(function(){
 	var options={
@@ -1863,12 +1882,12 @@ $(function(){
 			editable: {
                 type: 'text',
                 validate: function (v) {
-                	var patrn=/^(\w){1,10}$/; 
+                	var patrn=/^(\w){1,8}$/; 
                     if (!v&&v.trim().length<=0){
                     	return '用户名不能为空';
                     } 
                     if (!patrn.exec(v)) {
-						return '只能包含字母数字下划线，长度不超过10';
+						return '只能包含字母数字下划线，长度不超过8';
 					}
                     var data = $("#sampleTable").bootstrapTable('getData');
                     for(var i=0;i<data.length;i++){
@@ -1911,12 +1930,12 @@ $(function(){
 					editable: {
 	                    type: 'text',
 	                    validate: function (v) {
-	                    	var patrn=/^(\w){1,10}$/; 
+	                    	var patrn=/^(\w){1,8}$/; 
 	                        if (!v&&v.trim().length<=0){
 	                        	return '用户名不能为空';
 	                        } 
 	                        if (!patrn.exec(v)) {
-								return '只能包含字母数字下划线，长度不超过10';
+								return '只能包含字母数字下划线，长度不超过8';
 							}
 	                        var data = $("#sampleTable").bootstrapTable('getData');
 	                        for(var i=0;i<data.length;i++){
@@ -1952,12 +1971,12 @@ $(function(){
 					editable: {
 		                type: 'text',
 		                validate: function (v) {
-		                	var patrn=/^(\w){1,10}$/; 
+		                	var patrn=/^(\w){1,8}$/; 
 		                    if (!v&&v.trim().length<=0){
 		                    	return '用户名不能为空';
 		                    } 
 		                    if (!patrn.exec(v)) {
-								return '只能包含字母数字下划线，长度不超过10';
+								return '只能包含字母数字下划线，长度不超过8';
 							}
 		                    var data = $("#sampleTable").bootstrapTable('getData');
 		                    for(var i=0;i<data.length;i++){

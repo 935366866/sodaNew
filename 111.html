@@ -6,6 +6,7 @@
 	<meta http-equiv="content-type" content="text/html" ; charset="utf-8">
 	<link href="public/css/reset.css" rel="stylesheet" />
 	<link href="public/css/bootstrap.min.css" rel="stylesheet">
+	<link href="public/css/bootstrap-editable.css" rel="stylesheet" />
 	<link href="public/css/bootstrap-table.css" rel="stylesheet">
 	<link href="public/css/bootstrap-select.css" rel="stylesheet">
 	<link href="public/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" media="screen"  />
@@ -130,14 +131,15 @@
 
 							<div class="task_form_height">
 								<label class="task_label"><span>4</span>任务目录</label>
-								<div class="task_box" >
+								<div class="task_box">
 									<input type="url" class="form-control" id="dir_path" name="dir_path" placeholder="请选择任务目录" readonly>
 
 								</div>
-								<a onclick="opendir_path()">
-									<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
-								</a>							
-
+								<div class="dir">
+									<a onclick="opendir_path()">
+										<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
+									</a>							
+								</div>
 							</div>
 
 
@@ -161,10 +163,8 @@
 								<label class="task_label"><span>6</span>链特异性文库</label>
 								<div class="task_box">
 									<select id="is_sslib" name="is_sslib" class="selectpicker select_width">
-				
-										<option value="no">NO</option>
-										<option value="yes">YES</option>
-				
+										<option value="NO">NO</option>
+										<option value="YES">YES</option>
 									</select>
 								</div>
 							</div>
@@ -172,52 +172,55 @@
 							<div class="task_form_height">
 								<label class="task_label"><span>7</span>测序类型</label>
 								<div class="task_box">
-									<select id="seq_type" name="seq_type" class="selectpicker select_width">
-		
-									<option value="pe">PE(Pair-End)</option>
-									<option value="se">SE(Single-End)</option>
-			
+									<select id="seq_type" name="seq_type" class="selectpicker select_width bs-select-hidden">
+										<option selected="selected" value="PE">PE(Pair-End)</option>
+										<option value="SE">SE(Single-End)</option>
 								</select>
 								</div>
 							</div>
 
 							<!--数据目录-->
-							<div class="task_form_height">
+							<div class="task_form_height" style="position: relative;">
 								<label class="task_label"><span>8</span>数据目录</label>
 								<div class="task_box" >
 									<input type="url" class="form-control " required id="data_dir" name="data_dir" placeholder="请选择数据目录" readonly>
+									
 								</div>
-								<a onclick="openDataUrl()">
-									<span class="glyphicon glyphicon-folder-open" style="font-size:20px; cursor:pointer;color:#7f8080;"></span>
-								</a>
+								<div style="display: inline-block;margin-top: 7px;">
+									<div style="display:inline-block;">
+										<span id="dataTip"  class="glyphicon glyphicon-question-sign" style="font-size: 20px;"></span>
+									</div>
+									
+									<a onclick="openDataUrl()">
+										<span class="glyphicon glyphicon-folder-open" style="font-size:20px; cursor:pointer;color:#7f8080;"></span>
+									</a>
+								</div>
+								<!--提示提示框-->
+								<div id="dataTipModal" style="display:none; width: 430px;height: 140px;position: absolute;top:50px;right:-131px;z-index: 100;color:#fff;padding: 30px 15px 10px 15px;background: url(img/tipBj.png);">
+									目录下需要包含命令格式为*_*.fq.gz或者*_*.fastq.gz结尾的测序数据文件，第一个星号用来区分不同样本的信息，由数字、字母、下划线任意组合构成，
+								        不可以包含空格，第二个星号代表read1或者read2的信息，用“1”或者“R1”表示。例如Sample1_L1_1.fq.gz。
+								</div>
 							</div>
 
 						</form>
 
-					<!--第二部分 选择sample的表格 -->
-					<div class="task_form_height">
-					<div class="task_label">&nbsp;</div>
-					<div class="task_box">
-						<div id="toolbar">
-							<button id="removeDataTable" class="btn btn-default">删除行</button>
+					<!--第二部分 选择sample的表格 -->								
+					<div class="task_form_height" style="position: relative;">
+						<div class="task_label">&nbsp;</div>
+						<div class="task_box" style="width: 81%;margin-left: 55px;margin-top: 0;">
+							<div id="toolbar">
+								<button id="removeDataTable" class="btn btn-default">删除行</button>
+							</div>
+							<table id="sampleTable" ></table>
+							<div style="width:360px;margin:0 auto;padding-top:40px;padding-bottom:40px;">
+								<button id="getSamples" class="btn btn_orange round_Button" style="margin-top: 10px;">锁定样本</button>
+								<button class="btn btn_white round_Button" id="unlockSamples" style="margin-top: 10px; margin-left:20px;">清空样本</button>
+							</div>
+							<!--样本名格式提示框-->
+							<div id="sampleTipModal" style="display:none; width: 290px;height: 115px;position: absolute;top:7px;left: 122px;z-index: 100;color:#fff;padding: 17px 15px 20px 15px;background: url(img/sampleTipBj.png) no-repeat;">
+								建议点击每个样本的名称进行样本名的修改，由数字、字母、下划线任意组合构成，不能包含空格，长度不超过10个字符
+							</div>
 						</div>
-						<table data-toggle="table" data-toolbar="#toolbar" data-click-to-select="true" data-show-footer="false" data-height="250" 						id="sampleTable">
-							<thead>
-								<tr>
-									<th data-field="state" data-checkbox="true"></th>
-									<th data-field="sample" data-align="left" data-sortable="true">样本名称</th>
-									<th data-field="fq" data-align="center" data-sortable="true">FastQ文件 </th>
-									<th data-field="adap" data-align="center" data-sortable="true">Adaptor文件</th>
-
-								</tr>
-							</thead>
-						</table>
-						<div style="width:360px;margin:0 auto;padding-top:40px;padding-bottom:40px;">
-							<button id="getSamples" class="btn btn_orange round_Button" style="margin-top: 10px;">锁定样本</button>
-							<button class="btn btn_white round_Button" id="unlockSamples" style="margin-top: 10px; margin-left:20px;">清空样本</button>
-						</div>
-					</div>
-					</div>
 
 					</div>
 					<!-- ------------------------------------------------------------------------------------------------- -->
@@ -245,7 +248,6 @@
 								<div class="modal-body" style="text-align:center; ">
 									<table data-toggle="table" data-minimum-count-columns="2" data-id-field="id" data-show-footer="false" data-height="300" data-sort-name="id"
 										data-click-to-select="true"  id="jobUrlTable" style="bottom:20px;">
-
 										<thead>
 											<tr>
 												<th data-field="state" data-checkbox="true"></th>
@@ -263,25 +265,157 @@
 								</div>
 								<!-- ----------------------------------------------------------------------------------- -->
 								<div class="modal-footer">
-									<button type="button" id="selected" class="btn btnBlue">
-									选择
-									</button>
-									<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">
-									关闭
-									</button>
+									<button type="button" id="add" class="btn btnBlue pull-left" data-target='#dirModal' data-toggle='modal'>新建目录</button>
+									<button type="button" id="selected" class="btn btnBlue">确定</button>
+									<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal fade " id="dirModal" tabindex="-1" role="dialog"  aria-hidden="true">						
+						<div  class="modal-dialog " style='width:20%;top: 50%;margin-top: -46px;'>
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title">目录名</h4>
+									<div class="input-group">
+										<input id="dirName" class="form-control" value=''/>
+										<span id='addDir' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<!-- ---------------------------------------------------------------------- -->
-					<!--第四部分 模块参数设置-->
+					<!--第四部分 样本分组、比较、维恩图 -->
+					<!-- 样本分组、比较、维恩图 -->
+					<div class="part_box">
+						<!--带星 分组比较标题-->
+						<div class="task_form_height" id="sampleGroup" >
+							<label class="task_label"><span>9</span>分组比较</label>
+							<!--带有拖拽内容的面板-->
+							<div  class="sample_part" style="width: 81%;margin-left: 55px;margin-top: 0;">
+								<div class="panel panel-default">
+									<div class="panel-heading">生物学重复</div>
+									<div class="panel-body">
+										<form class="form-horizontal">
+											<div class="form-group">
+												<label class="col-sm-3 control-label">生物学</label>
+												<div class="col-sm-7">
+													<select id="isRepeat" name="isRepeat" class="selectpicker select_width">
+														<option value="NO" >NO</option>
+														<option value="YES" selected="selected">YES</option>
+													</select>
+												</div>
+												
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="panel panel-default" style="padding:0px;">
+									<div class="panel-heading">
+										<h4><span class="glyphicon glyphicon-edit"></span> Sample Group</h4>
+									</div>
+									<div class="panel-body" style="padding: 15px 0px 15px 20px !important;">
+										<div style="margin-bottom: 55px;">
+											<div style="float:left;width:24%;margin-right: 20px;">
+												<div><label class='control-label'><b>样本名称：</b></label></div>
+											</div>
+											<div style="float:left;width:21%;margin-right: 20px;">
+												<div>
+													<button id="addBtn" class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
+														<span class="glyphicon glyphicon-plus">Group</span>
+													</button><br />
+												</div>
+											</div>
+											<div style="float:left;width:21%;margin-right: 20px;">
+												<div>
+													<button class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
+														<span class="glyphicon glyphicon-plus">Compare</span>
+													</button>
+												</div>   
+											</div>
+											<div style="float:left;width:21%;margin-right: 20px;">
+												<div>
+													<button class="btn btn-default"  data-target='#vennModal' data-toggle='modal' style="outline: none;">
+														<span class="glyphicon glyphicon-plus">Venn</span>
+													</button>
+												</div>
+											</div>
+										</div>
+										<div style="width:100%;">																				
+											<div style="float:left;width:24%;margin-right: 20px;">
+												<div id="sampleWrap">
+													<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;"></ol>
+												</div>
+											</div>
+											<div id='groupList' style="float:left;width:21%;margin-right:20px;"></div>
+											<div id='compareList' style="float:left;width:21%;margin-right:20px;"></div>
+											<div id='vennList' style="float:left;width:21%"></div>																					
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>						
+
+					
+
+					<!-- group modal -->
+					<div class="modal fade " id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog " style='width:20%;top: 50%;margin-top: -46px;'>
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">组名</h4>
+									<div class="input-group">
+										<input id="groupName" class="form-control" value=''/>
+										<span id='addGroup' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</div>
+					<!-- /.modal end -->
+					<!-- compare modal -->				
+					<div class="modal fade " id="compareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div  class="modal-dialog" style='width:20%;top: 50%;margin-top: -46px;'>
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">组间比较</h4>
+									<div class="input-group">
+										<input id="compareName" class="form-control" value='' />
+										<span id='addCompare' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /.modal end -->
+					<!-- venn modal -->
+					<div class="modal fade " id="vennModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">									
+						<div class="modal-dialog" style='width:20%;top: 50%;margin-top: -46px;'>
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">维恩组</h4>
+									<div class="input-group">
+										<input id="vennName" class="form-control" value='' />
+										<span id='addVenn' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /.modal end -->
+					<!--第五部分 模块参数设置-->
 
 					<div class="part_box">
 
 						<div class="task_form_height">
-							<label class="task_label"><span>9</span>模块参数设置</label>
+							<label class="task_label" id="taskTitle"><span>10</span>模块参数设置</label>
 							<!--点击展开参数-->
-							<div class="panel-group params_part" id="parasPanel">
+							<div class="panel-group params_part" id="parasPanel" style="width: 81%;margin-left: 55px;margin-top: 0;">
 							</div>							
 						</div>
 						
@@ -289,121 +423,6 @@
 						
 					</div>
 					<!-- ------------------------------参数设置结束-------------------------------- -->
-					<!--第五部分 样本分组、比较、维恩图 -->
-					<!-- 样本分组、比较、维恩图 -->
-					<div class="part_box">
-						<!--带星 分组比较标题-->
-						<div class="task_form_height">
-							<label class="task_label"><span>10</span>分组比较</label>
-								<!--带有拖拽内容的面板-->
-						<div class="sample_part">
-							<div class="panel panel-default" style="padding:0px;">
-								<div class="panel-heading">
-									<h4><span class="glyphicon glyphicon-edit"></span> Sample Group</h4>
-								</div>
-								<div class="panel-body" style="padding: 15px 2px 15px 20px !important;">
-                  
-									<div>
-									<div style="float:left;width:18%;margin-right:15px;">
-										<div>
-										<label class='control-label'><b>样本名称：</b></label>
-										</div>
-									</div>
-									<div style="float:left;width:22%;margin-right:14px;">
-										<div>
-											<button class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
-												<span class="glyphicon glyphicon-plus">Group</span>
-											</button><br />
-										</div>
-									</div>
-									<div style="float:left;width:22%;margin-right:14px;">
-										<div>
-											<button class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
-												<span class="glyphicon glyphicon-plus">Compare</span>
-											</button>
-										</div>
-									</div>
-									<div style="float:left;width:22%">
-										<div>
-											<button class="btn btn-default" id='addVenn' style="outline: none;">
-												<span class="glyphicon glyphicon-plus">Venn</span>
-											</button>
-										</div>
-									</div>
-									</div>
-									<div >
-									<div style="width:100%;">
-										<div>
-										<div style="float:left;width:18%;margin-right:15px;">
-											<br>
-											<div>
-											<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;">
-											</ol>
-											</div>
-										</div>
-										<div id='groupList' style="float:left;width:22%;margin-right:14px;"><br></div>
-										<div id='compareList' style="float:left;width:22%;margin-right:14px;"><br></div>
-										<div id='vennList' style="float:left;width:22%"><br></div>
-										</div>
-									</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						</div>						
-
-					
-
-					<!-- group modal -->
-					<div class="row">
-						<div style="width:100%;">
-							<div class="row">
-								<div class="modal fade " id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="row">
-										<div id='list_model' class="modal-dialog " style='width:20%'>
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-													<h4 class="modal-title" id="myModalLabel">组名</h4>
-													<div class="input-group">
-														<input id="groupName" class="form-control" value='' />
-
-														<span id='addGroup' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- /.modal end -->
-							</div>
-						</div>
-					</div>
-					<!-- venn modal -->
-					<div class="row">
-						<div style="width:100%;">
-							<div class="row">
-								<div class="modal fade " id="compareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="row">
-										<div id='list_model' class="modal-dialog " style='width:20%'>
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-													<h4 class="modal-title" id="myModalLabel">组间比较</h4>
-													<div class="input-group">
-														<input id="compareName" class="form-control" value='' />
-														<span id='addCompare' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- /.modal end -->
-							</div>
-						</div>
-					</div>
-
 				</div>
 
 					<!-- --------------------------------------------------------------------------------------- -->
@@ -436,15 +455,24 @@
 	</div>
 	<script src="public/js/jquery-1.11.2.min.js"></script>
 	<script src="public/js/bootstrap.min.js"></script>
+	<script src="public/js/bootstrap-editable.js"></script>
 	<script src="public/js/bootstrap-table.js"></script>
 	<script src="public/js/bootstrap-select.js"></script>
+	<script src="public/js/bootstrap-table-editable.js"></script>
 	<script src="public/js/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
 	<script src="public/js/jquery.blockUI.js" type="text/javascript"></script>
 	<script src="public/js/long_common.js"></script>
 	<script src="js/go.js"></script>
-	<script src="js/common.js"></script>
+	<script src="js/common1.js"></script>
 	<script>
 		$(function(){
+			//数据目录问号图标监听移入移出事件
+			$('#dataTip').on("mouseover",function(){
+				$('#dataTipModal').fadeIn(300); 
+			});  
+			$('#dataTip').on("mouseout",function(){
+				$('#dataTipModal').fadeOut(300); 
+			});  
 			$('#creatTask label').addClass('label_width');   //含有任务名称等基本信息的表格中label
 		});
 		//判断是否是草稿，加载任务参数填写时option的值
@@ -542,36 +570,35 @@
 			
 		  );  
 		//单击元素，直接获得 key
-		diagram.addDiagramListener("ObjectSingleClicked",
-			      function(e) {
-					  if(nodeLockStatus == 1){
-							var part = e.subject.part;
-							var color = part.elt(0).fill;
-							obj = part
-							
-					     if(  jQuery.inArray(obj.data.key, requiredNode) == -1 ){   //单击的节点不在必选的节点当中
-							 if(color == selectColor){
-								part.elt(0).fill = unselectColor;
-								nodeStatus[obj.data.key] = 0;
-						//		nodeStatus[nodeName] = 0;
-								findChildren(obj);
-						//		console.log(nodeStatus[nodeName])
+		diagram.addDiagramListener("ObjectSingleClicked",function(e) {
+			if(nodeLockStatus == 1){
+					var part = e.subject.part;
+					var color = part.elt(0).fill;
+					obj = part
+					
+			     if(  jQuery.inArray(obj.data.key, requiredNode) == -1 ){   //单击的节点不在必选的节点当中
+					 if(color == selectColor){
+						part.elt(0).fill = unselectColor;
+						nodeStatus[obj.data.key] = 0;
+				//		nodeStatus[nodeName] = 0;
+						findChildren(obj);
+				//		console.log(nodeStatus[nodeName])
+				
+						}
 						
-								}
-								
-							if(color == unselectColor){
-								part.elt(0).fill = selectColor;
-								nodeStatus[obj.data.key] = 1;
-						//		nodeStatus[nodeName] = 1;
-								findParents(obj);
-						//		console.log(nodeStatus[nodeName])
-								}
-						  };
-					  };
-					  if(nodeLockStatus == 0){
-						  alert("无法编辑，请先解锁模块")
-						  };
-			      });
+					if(color == unselectColor){
+						part.elt(0).fill = selectColor;
+						nodeStatus[obj.data.key] = 1;
+				//		nodeStatus[nodeName] = 1;
+						findParents(obj);
+				//		console.log(nodeStatus[nodeName])
+						}
+				  };
+			};
+				if(nodeLockStatus == 0){
+					alert("无法编辑，请先解锁模块")
+				};
+	    });
 			//找到选中节点的子节点
 			function findChildren(obj){
 				var it = obj.findTreeChildrenNodes();    //找到所有的子节点
@@ -650,7 +677,7 @@
 			$("#lockNode").attr("class","btn btn_orange round_Button");
 			$("#unlockNode").attr("class","btn btn_white round_Button");
 			$("#parasPanel").html("");  //清空现有的参数
-			};
+		};
 		//点击锁定模块
 		function selectedNode(){
 			$("#unlockNode").attr("class","btn btn_orange round_Button");
@@ -658,6 +685,13 @@
 			if(nodeLockStatus == 1){  //判断是否是解锁状态
 				$("#parasPanel").html(""); //清空现有的参数
 			for(var key in nodeStatus){
+				if(nodeStatus["DE"] == 1){
+					$("#sampleGroup").show();
+					$("#taskTitle").show();
+				}else{
+					$("#sampleGroup").hide();
+					$("#taskTitle").hide();
+				}
 				if (nodeStatus[key] == 1){
 		//加载json相应模块的数据到模块参数设置当中
 					//添加该模块的面板
@@ -698,13 +732,16 @@
 					var opts = ""
 					for(var j = 0; j < value.length; j++) {
 						var tmpArr = value[j].split(',');
-						if(tmpArr.length < 2) {
+						if(tmpArr!=""){
+							if(tmpArr.length < 2) {
 							tmpArr[1] = tmpArr[0];
 						}
 						opts += '<option value="' + tmpArr[0] + '">' + tmpArr[1] + '</option>'; //给option添加一个value
+						}
+						
 					};
 					//添加dropdown的代码
-					$("#" + key + " form").append('<div class="" ><label title="' + info + '" class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7" ><select class="form-control" id="' + id + '" name="' + id + '"  title="">' + opts + '</select></div></div>');
+					$("#" + key + " form").append('<div class="form-group" ><label title="' + info + '" class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7" ><select class="form-control" id="' + id + '" name="' + id + '"  title="">' + opts + '</select></div></div>');
 				};
 				$("#" + id).selectpicker({
 					liveSearch: true,
@@ -749,6 +786,57 @@ function openDataUrl(){
 		alert("样本已经锁定，请先解锁")
 	}
 };
+$("#dirName").keydown(function(k){
+	if(k.keyCode==13 ){
+		addDir("dirName","jobUrlTable","inputUrl","dirModal");
+	}
+});
+$("#addDir").click(function(){
+	addDir("dirName","jobUrlTable","inputUrl","dirModal");
+});
+$('#dirModal').on('shown.bs.modal', function () {
+  $('#dirName').focus()
+})
+function addDir(dirName,tableId,inputUrl,dirModal){
+	var name=$("#"+dirName).val();
+	if(name==""||name==null){
+		alert("请输入目录名");
+	}else{
+		name=$.trim(name);
+		var tableDatas=$("#"+tableId).bootstrapTable('getData');
+		for(var i=0;i<tableDatas.length;i++){
+			var rowName=tableDatas[i].name;
+			var rowType=tableDatas[i].type;
+			if(rowType=="drwxrwxr-x."){
+				if(name==rowName){
+					alert("目录名已存在！");
+				}
+			}
+		}
+	}
+	var path=$("#"+inputUrl).val();
+	$.ajax({
+			url:"json/addDir.json",  
+			type:'get',
+			data:{dirName:name,
+				InputPath:path
+				},
+			dataType: "json",
+			success:function(data,textStatus) {
+				if(data['status']=='SUCCESS'){ 
+					var data1 = data['data'];
+					$('#'+tableId).bootstrapTable('prepend',data1);  //填入table中
+					$("#"+dirModal).modal('hide');
+					
+				}else{
+					alert(data['data']);
+				}
+			  },    
+			error : function(XMLHttpRequest) {
+				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
+			 }
+		}); 
+}
 //选择目录时添加文件或者目录的图标
 function addIcon(State, row) {
 	var typeChr = row.type.charAt(0);
@@ -762,14 +850,14 @@ function addIcon(State, row) {
 };
 //当模态框加载完成后给input中添加当前用户的根目录
 $(function(){
-		  dblCilck('jobUrlTable','inputUrl',samplesDataUrl);
-		  $('#selectUrl').on('shown.bs.modal', function () {    //模态框完全显示之后把根目录放入
+  dblCilck('jobUrlTable','inputUrl',samplesDataUrl);
+  $('#selectUrl').on('shown.bs.modal', function () {    //模态框完全显示之后把根目录放入
 //	      	$("#inputUrl").val("/home/agloom");
-		  	if($("#inputUrl").val()==''){
-		  		$("#inputUrl").val('/');
-		  	}
-		  	checkUrl($("#inputUrl").val(), samplesDataUrl, 'inputUrl','jobUrlTable');
-		  });
+  	if($("#inputUrl").val()==''){
+  		$("#inputUrl").val('/');
+  	}
+  	checkUrl($("#inputUrl").val(), samplesDataUrl, 'inputUrl','jobUrlTable');
+  });
 });
 //回车查目录是否存在
 $(function(){
@@ -866,8 +954,11 @@ function geturl(formInputId,type){
 									}else{
 										var data1 = data['data'];
 										objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
+										console.log(objData)
 										
-										$('#sampleTable').bootstrapTable('load',objData);  //填入table中
+										
+										
+										$('#sampleTable').bootstrapTable('load',objData);  //填入table中	
 									}
 								},    
 								error : function(XMLHttpRequest) {
@@ -903,7 +994,7 @@ function geturl(formInputId,type){
 						}else{
 							var data1 = data['data'];
 							objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
-							
+							console.log(objData)
 							$('#sampleTable').bootstrapTable('load',objData);  //填入table中
 						}
 					},    
@@ -961,17 +1052,41 @@ function geturl(formInputId,type){
     $(function () {
         $('#removeDataTable').click(function () {
 			if(samplesLock == 1){
-				var ids = $.map($('#sampleTable').bootstrapTable('getSelections'), function (row) {
-					return row.fq;
-				});
-				$('#sampleTable').bootstrapTable('remove', {
-					field: 'fq',
-					values: ids
-				});
+				if($('#seq_type').val()=="PE"){
+					var ids = $.map($('#sampleTable').bootstrapTable('getSelections'), function (row) {
+						if(row.fq1){
+							return row.fq1;
+						}else{
+							return row.fq2;
+						}
+					});
+					var index=ids[0].lastIndexOf("_");
+					var arr=ids[0].split(""); 
+					if(arr[index+1]=="2"||arr[index+2]=="2"){
+						$('#sampleTable').bootstrapTable('remove', {
+							field: 'fq2',
+							values: ids
+						});
+					}
+				if(arr[index+1]=="1"||arr[index+2]=="1"){
+						$('#sampleTable').bootstrapTable('remove', {
+							field: 'fq1',
+							values: ids
+						});
+					}
+				}else{
+					var ids = $.map($('#sampleTable').bootstrapTable('getSelections'), function (row) {
+						return row.fq;
+					});
+					$('#sampleTable').bootstrapTable('remove', {
+						field: 'fq',
+						values: ids
+					});
+				}
 			};
 			if(samplesLock == 0){
 				alert("样本已经锁定，请先解锁")
-				}
+			}
         });
     });
 </script>
@@ -991,20 +1106,28 @@ $("#getSamples").click(function(){
 		else{
 			var array = new Array()    //用来去重
 			for(var i=0;i<data.length;i++){
-				var name = data[i]["sample"]
+				var name = data[i].sample;
 				if($.inArray(name, array) == -1){
+					if(name.length>8){
+						alert("样本名过长，不利于报告美观，建议修改！");
+						return false;
+					}
 					array.push(name)
 					add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
 					$(add).appendTo('#sampleNames')
 				};
-			samples = array;
-				
 			};
+			samples = array;
 			dragInit();
 			samplesLock = 0;
 			$("#unlockSamples").attr("class","btn btn_orange round_Button");
 			$("#getSamples").attr("class","btn btn_white round_Button");
 		};
+		
+		$(".editable-click").editable("disable");
+		$(".editable-click").parent().click(function(){
+			alert("样本已锁定，请先解锁！")
+		})
 	};
 }); 
 //解锁样本
@@ -1017,7 +1140,12 @@ $("#unlockSamples").click(function(){
 	$('#groupList').html("");
 	$('#compareList').html("");
 	$('#vennList').html("");
-	});
+	allgroups=[];
+	allCompares=[];
+	allVenns=[];
+	$(".editable-click").parent().off("click")
+	$(".editable-click").editable("enable");
+});
 //var curCont=null;
 function dragInit() {
 	var $sampleNames = $( "#sampleNames" ),
@@ -1034,16 +1162,14 @@ function dragInit() {
 	    });
 	//分组拖动
 	$( ".sampleGroup" ).draggable({
-	      cancel: "li",
-	      revert: "invalid", 
-	      containment: "document",
-	      helper: "clone",
-	      cursor: "move"
-	   });
+	    revert: "invalid", 
+	    containment: "document",
+	    helper: "clone",
+	    cursor: "move"
+	});
 	
 	//比较组拖动
 	$(".goupCompare").draggable({
-	      cancel: ".list-group-item", 
 	      revert: "invalid", 
 	      containment: "document",
 	      helper: "clone",
@@ -1053,7 +1179,7 @@ function dragInit() {
 	$venn.droppable({
 	      accept: "#compareList>div",
 	      activeClass: "ui-state-highlight",
-	      tolerance:"touch",
+	      tolerance:"pointer",
 	      drop: function( event, ui ) {
 	        dropItem( ui.draggable ,$(this),'red', 5);
 	      }
@@ -1062,69 +1188,107 @@ function dragInit() {
 	$compareGroup.droppable({
 	      accept: ".sampleGroup",
 	      activeClass: "ui-state-highlight",
-	      tolerance:"touch",
+	      tolerance:"pointer",
 	      drop: function( event, ui ) {
 	        dropItem( ui.draggable ,$(this),'green',2);
 	      }
 	    });
 	//分组接收样本
+	var maxNum=$("#sampleNames li").length
 	$sampleGroup.droppable({
 	      accept: "#sampleNames > li, .sampleGroup li",
 	      activeClass: "ui-state-highlight",
-	      tolerance:"touch",
+	      tolerance:"pointer",
 	      drop: function( event, ui ) {
-	        deleteItem( ui.draggable ,$(this));
+	        dropItem( ui.draggable ,$(this),'#333',maxNum);
 	      }
 	    });
-	 
-	    // 可以接收从样品组中拖回的样品
-	    $sampleNames.droppable({
-	      accept: ".sampleGroup li",
-	      activeClass: "custom-state-active",
-	      drop: function( event, ui ) {
-	        recycleItem( ui.draggable );
-	      }
-	    });
-	    function deleteItem( $item ,$container) {
-	        $item.fadeOut(function() {
-	          var $list = $( "ul", $container ).length ?
-	            $( "ul", $container ) :
-	            $( "<ul class='sampleNames ui-helper-reset'/>" ).appendTo($container );
-	          $item.find( "a.ui-icon-sampleGroup" ).remove();
-	          $item.appendTo( $list ).fadeIn(function() {
-	            $item
-	              .find( "img" )
-	                .animate({ height: "36px" });
-	          });
-	          $item.css("background","none").css("border","none");
-	        });
-	      }
+	 if(maxNum>12){
+	 	$("#sampleNames").css({
+	 		height:'360px',
+	 		overflow:'auto'
+	 	})
+	 }
+	if($("#groupList .sampleGroup").length>12){
+		$("#groupList").css({
+	 		height:'360px',
+	 		overflow:'auto'
+	 	})
+	}
+//	    // 可以接收从样品组中拖回的样品
+//	    $sampleNames.droppable({
+//	      accept: ".sampleGroup li",
+//	      activeClass: "custom-state-active",
+//	      drop: function( event, ui ) {
+//	        recycleItem( ui.draggable );
+//	      }
+//	    });
+	    
+//	    function deleteItem( $item ,$container) {
+//	        $item.fadeOut(function() {
+//	          var $list = $( "ul", $container ).length ?
+//	            $( "ul", $container ) :
+//	            $( "<ul class='sampleNames ui-helper-reset'/>" ).appendTo($container );
+//
+//	          $item.find( "a.ui-icon-sampleGroup" ).remove();
+//	          $item.appendTo( $list ).fadeIn(function() {
+//	            $item
+//	              .find( "img" )
+//	                .animate({ height: "36px" });
+//	          });
+//	          $item.css("background","none").css("border","none");
+//	        });
+//	    }
 	    curcontainer= null;
 	    function dropItem($item ,$container,$color,maxNum){
-	    	var itemName = $item.children("span").text();
-	    	//遍历container查看已包含哪些元素
-	    	var containItems= new Array();
-	    	var items = $container.find('li');
-	    	if(items.length>=maxNum){
-	    		alert("超出了最大允许数目"+maxNum);
-	    		return false;
-	    	}
-	    	for (var i=0; i<items.length; i++){
-	    		if($(items[i]).text()==itemName){
-	    			alert("有重复的条目"+itemName+"！");
-	    			return false;
-	    		}
-	    	}
-	    	
-	    	var $list = $( "ul", $container ).length ?
-		            $( "ul", $container ) :
-		            $( "<ul class='goupCompare ui-helper-reset'/>" ).appendTo($container);
-		    $('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;color:'+$color+'">'
+	    	if($item.context.localName=='li'){
+	    		var itemName = $item.text();
+	    		var items = $container.find('li');
+		    	if(items.length>=maxNum){
+		    		alert("超出了最大允许数目"+maxNum);
+		    		return false;
+		    	}
+		    	for (var i=0; i<items.length; i++){
+		    		if($(items[i]).text()==itemName){
+		    			alert("有重复的条目"+itemName+"！");
+		    			return false;
+		    		}
+		    	}
+	    		var $list = $( "ul", $container ).length ?$( "ul", $container ) :$( "<ul class='sampleNames ui-helper-reset'/>" ).appendTo($container);
+			    $('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;color:'+$color+'">'
 		    	+itemName+'</li>').appendTo($list).fadeIn(function() {
-		            $item
-		              .find( "img" )
-		                .animate({ height: "36px" });
-		          });;
+		  	            $item
+			              	.find( "img" )
+			                .animate({ height: "36px" });
+			          	});
+			        
+	    	}else{
+	    		var itemName = $item.children("span").text();
+		    	//遍历container查看已包含哪些元素
+		    	var containItems= new Array();
+		    	var items = $container.find('li');
+		    	if(items.length>=maxNum){
+		    		alert("超出了最大允许数目"+maxNum);
+		    		return false;
+		    	}
+		    	for (var i=0; i<items.length; i++){
+		    		if($(items[i]).text()==itemName){
+		    			alert("有重复的条目"+itemName+"！");
+		    			return false;
+		    		}
+		    	}
+		    	
+		    	var $list = $( "ul", $container ).length ?
+			            $( "ul", $container ) :
+			            $( "<ul class='goupCompare ui-helper-reset'/>" ).appendTo($container);
+			    $('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;color:'+$color+'">'
+			    	+itemName+'</li>').appendTo($list).fadeIn(function() {
+			            $item
+			              .find( "img" )
+			                .animate({ height: "36px" });
+			         });
+		    		
+	    	}
 	    }
 	    
 	    function recycleItem( $item ) {
@@ -1142,43 +1306,118 @@ function dragInit() {
 	      });
 	    }
 	    
-	    $("#groupList .glyphicon-remove").each(function(){
-			$(this).click(function(){
-				$(this).parent('div').remove();
-				var value=$(this).siblings("span").text();
-				console.log(allgroups)
-				var index=$.inArray(value,allgroups);
-				allgroups.splice(index,1);
-				recycleItem($(this).parent('div').find("li"));
-				dragInit();
-			})
-		});
+	   		$("#groupList .glyphicon-remove").each(function(){
+				$(this).click(function(){
+					if($("#groupList .glyphicon-remove").length>0){
+						$(this).parent('div').remove();
+						var value=$(this).siblings("span").text();
+						var index=$.inArray(value,allgroups);
+						if(index==-1){
+							return ;
+						}
+						allgroups.splice(index,1);
+						$("#compareList").find("li").each(function(){
+							if($(this).text()==value){
+								$(this).remove();
+							}
+							
+						})
+						dragInit();
+					}else{
+//						var htm="<div class='ui-widget-header' style='width:140px;background:#fff;border:1px solid #fff'></div>";
+//	    				$("#groupList").append(htm);
+	    				$("#compareList").empty();
+	    				$("#vennList").empty();
+					}
+				})
+			}); 
+	    
+	    	    
 		$("#compareList .glyphicon-remove").each(function(){
 			$(this).click(function(){
-				$(this).parent('div').remove();
-				var value=$(this).siblings("span").text();
-				var index=$.inArray(value,allCompares);
-				allCompares.splice(index,1);
+				if($("#compareList .glyphicon-remove").length>0){
+					$(this).parent('div').remove();
+					var value=$(this).siblings("span").text();
+					var index=$.inArray(value,allCompares);
+					if(index==-1){
+						return ;
+					}
+					$("#vennList").find("li").each(function(){
+						if($(this).text()==value){
+							$(this).remove();
+						}
+						
+					})
+					allCompares.splice(index,1);
+				}else{
+					$("#vennList").empty();
+				}
+				
 			})
 		});
 		$("#vennList .glyphicon-remove").each(function(){
 			$(this).click(function(){
+				var value=$(this).siblings("span").text();
+				var index=$.inArray(value,allVenns);
+				if(index==-1){
+					return ;
+				}
+				allVenns.splice(index,1);
 				$(this).parent('div').remove();
 			})
 		});
 };
+$('#groupModal').on('shown.bs.modal', function () {
+  $('#groupName').focus()
+})
+$('#compareModal').on('shown.bs.modal', function () {
+  $('#compareName').focus()
+})
+$('#vennModal').on('shown.bs.modal', function () {
+  $('#vennName').focus()
+})
+$('#isRepeat').on('changed.bs.select', function(e) {
+	if(e.target.value){
+		if(e.target.value=="NO"){
+			if($("#groupList .sampleGroup").length!=0){	
+				alert("请先清空分组");
+				return false;
+			}else{
+				$("#sampleNames li").each(function(){
+					var gname= $(this).text();
+					var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+gname+'</span><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"><li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'+gname+'</li></ul></div>';
+					$(html).appendTo('#groupList');
+					allgroups.push(gname);
+					dragInit();
+				})
+			}
+				
+		}else{
+			$('#groupList').empty();
+			$('#compareList').empty();
+			$('#vennList').empty();
+			allgroups=[];
+			allCompares=[];
+			allVenns=[];
+		}
+	}
+})
+var patrn=/^(\w){1,10}$/i; 
 var allgroups = new Array();	//all groups
 function addGroup(){
 	var gname= $("#groupName").val();
 	if(gname=='' ||gname==null){
 		return false;
 	}
+    if (!patrn.exec(gname)) {
+    	alert('只能包含字母数字下划线，长度不超过10');
+		return false;
+	}
 	if(-1!=allgroups.indexOf(gname,0)){
 		alert('分组名'+gname+"已存在！");
 		return false;
 	}
-	
-	if($('#sampleNames li').length<allgroups.length){
+	if($('#sampleNames>li').length<=allgroups.length){
 		alert("分组数不能超过样本数！");
 		return false;
 	}
@@ -1195,7 +1434,11 @@ function addCompare(){
 		alert('此为组间比较，至少需要两个样本组，请先填写样本组信息！');
 		return false;
 	}
-	var cname= $('#compareName').val().replace(/(^\s*)|(\s*$)/g, "");
+	var cname= $('#compareName').val();
+	if (!patrn.exec(cname)) {
+    	alert('只能包含字母数字下划线，长度不超过10');
+		return false;
+	}
 	if(cname=='' ||cname==null){
 		return false;
 	}
@@ -1209,13 +1452,28 @@ function addCompare(){
 	allCompares.push(cname);
 	dragInit();
 }
+var allVenns = new Array(); 
 function addVenn(){
-	if(allCompares.length ==0){
+	if(allCompares.length <2){
 		alert("维恩图至少需要两个比较组，请先填写比较组信息！");
 		return false;
 	}
-	var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=border-radius:3px;><span style="height:28px;display:inline-block;"></span><span class="ui-widget-header glyphicon glyphicon-remove closeBorder" style="left: 90%;top:-10px;"></span></div>'
+	var cname= $('#vennName').val();
+	if (!patrn.exec(cname)) {
+    	alert('只能包含字母数字下划线，长度不超过10');
+		return false;
+	}
+	if(cname=='' ||cname==null){
+		return false;
+	}
+	if(-1!=allVenns.indexOf(cname,0)){
+		alert('维恩组'+cname+"已存在！");
+		return false;
+	}
+	$('#vennName').val('');
+	var html='<div name="venn" class="ui-widget-content ui-state-default venn" style=border-radius:3px;><span class="ui-widget-header" style="font-size:18px;border:none;color:red;background:none;height:28px;display:inline-block;" >'+cname+'</span><span class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
 	$(html).appendTo('#vennList');
+	allVenns.push(cname);
 	dragInit();
 }
 function bindGroupClick(){
@@ -1277,7 +1535,7 @@ $("#saveDraft").click(function(){
 				"samples":samplesStr
 				}; 
 		draft = JSON.stringify(draft);
-//console.log(draft)
+		console.log(draft)
 		 $.ajax({
 				    url:"__MODULE__/Task/addUpdateTask/submitType/draft",  
 				    type:'post',
@@ -1298,9 +1556,9 @@ $("#saveDraft").click(function(){
 });
 //检查参数填写情况
 function checkInput(){
-	
 	var checkTask=$("#creatTask input[name]");
 	var checkNode=$("#parasPanel input[name]");
+	var checkDrop=$("#parasPanel select");
 	var count=0; //计数
 	for(var i=0;i<checkTask.length;i++){
 	  if(checkTask[i].value==""){
@@ -1321,11 +1579,22 @@ function checkInput(){
 		$($("#parasPanel input[name]")[i]).attr("style","border-color:#ccc;")  
 		  };
 	}; 
+	
+	for(var i=0;i<checkDrop.length;i++){
+	  if(checkDrop[i].value==""){
+		count += 1;
+	  }
+	}; 
+	
 	if(count != 0){
 		alert("还有未填写的参数！");
 		};
 	if(samplesLock == 1){
 		alert("未锁定样本！");
+		count += 1;
+	}
+	if(nodeLockStatus == 1){
+		alert("未锁定模块！");
 		count += 1;
 		}
 	/*
@@ -1338,12 +1607,26 @@ function checkInput(){
 	};
 //任务运行，提交参数
 $("#taskRun").click(function(){
+	var tableDatas=$('#sampleTable').bootstrapTable("getData");
+	var resultArray=[];
+	for(var i=0;i<tableDatas.length;i++){
+		var rowData=tableDatas[i];
+		var obj={};
+		if(rowData.fq1||rowData.fq2){
+			obj[rowData.sample]=[rowData.fq1,rowData.fq2];
+		}else{
+			obj[rowData.sample]=[rowData.fq];
+		}
+		
+		resultArray.push(obj)
+	}
 	var nullNum = checkInput()
 	if(nullNum==0){
 		var groupCompareVenn={};	//发向服务器的json数据
 //任务参数有关的信息
 		
 		var taskPara = $("#creatTask").serializeArray();
+		console.log(taskPara)
 	//	taskPara = decodeURIComponent(taskPara,true);
 		//taskPara = JSON.stringify(taskPara);
 		
@@ -1366,41 +1649,50 @@ $("#taskRun").click(function(){
 				}
 		  };
 		}
-		//检查数据
-		//检查样本是否已全部分组，非强制
-		if($("#sampleNames").find('li').length>0){
-			if(!confirm("发现有未分组的样品，确定不分组?")){
-				return false;
-			}
-		}
 		//检查是否有分组，每个分组下的样品名
 		var groups =$('#groupList').find('div');
+		var allGroupItems=[];
 		if(groups.length>0){
 			var groupSamples= {};
 			for(var i=0; i<groups.length; i++){
 				var sampleItems = $($(groups[i]).find('ul')[0]).find('li');
 				if(sampleItems.length==0){
 					continue;
-				}
+				}			
 				//组名
 				var curGroup =$($(groups[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");  //空格开头或者结尾
 				var curGroupSamples = new Array();
 				for(var j=0; j < sampleItems.length ;j++){
 					curGroupSamples.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+					allGroupItems.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""))
 				}
+//				allGroupItems.push(curGroupSamples);
 				groupSamples[curGroup]= curGroupSamples;
 			}
 			groupCompareVenn['groupSamples']= groupSamples;
 		}
 		
+		//检查数据
+		//检查样本是否已全部分组，非强制
+		var samples=$("#sampleNames").find('li');
+		if(samples.length>0){
+			for(var i=0;i<samples.length;i++){
+				if(allGroupItems.indexOf(samples[i].innerText)==-1&&nodeStatus["DE"] == 1){
+					if(confirm("发现有未分组的样品，确定不分组?")){
+						break;
+					}
+				}
+			}
+		}
 		//检查比较组
 		var compares = $('#compareList').find('div');
 		if(compares.length>0){
 			var compareGroups = {};
 			for(var i=0; i<compares.length; i++){
 				var groupItems = $($(compares[i]).find('ul')[0]).find('li');
-				if(groupItems.length==0){
-					continue;
+				if(groupItems.length!=2){
+					alert("比较组必须含有两个组")
+					return false;
 				}
 				//比较组名
 				var curCompare = $($(compares[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");
@@ -1411,24 +1703,38 @@ $("#taskRun").click(function(){
 				compareGroups[curCompare] = curCompareGroups;
 			}
 			groupCompareVenn['compareGroups']= compareGroups;
+		}else{
+			if(nodeStatus["DE"] == 1){
+				alert("比较组不能为空！");
+				return false;
+			}
+			
 		}
 		//检查venn图
 		var venns = $('#vennList').find('div');
 		if(venns.length>0){
-			var vennCompares= new Array();
+			var vennCompares={};
 			for(var i=0; i<venns.length; i++){
 				var compareItems = $($(venns[i]).find('ul')[0]).find('li');
 				if(compareItems.length==0){
 					continue;
 				}
-				//维恩图没有命名,仅存在数组中
-				var curVennCompares = new Array();
+				
+				//比较韦恩图
+				var curVennCompares = $($(venns[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");
+				var curVennGroups = new Array();
 				for(var j=0; j<compareItems.length; j++){
-					curVennCompares.push($(compareItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+					curVennGroups.push($(compareItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
 				}
-				vennCompares.push(curVennCompares);
+				vennCompares[curVennCompares] = curVennGroups;
+//				//维恩图没有命名,仅存在数组中
+//				var curVennCompares = new Array();
+//				for(var j=0; j<compareItems.length; j++){
+//					curVennCompares.push($(compareItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+//				}
+//				vennCompares.push(curVennCompares);
 			}
-			groupCompareVenn['vennCompares'] = vennCompares;
+			groupCompareVenn['vennGroups'] = vennCompares;
 		}
 		//groupCompareVenn = JSON.stringify(groupCompareVenn);
 //		$('#groupCompareVenn').val(JSON.stringify(groupCompareVenn));
@@ -1436,24 +1742,33 @@ $("#taskRun").click(function(){
 		var samplesStr=""
 		for(var j=0;j<samples.length;j++ ){  
 			if(samplesStr == ""){
-				samplesStr += samples[j];
+				samplesStr += samples[j].innerText;
 				}
 			else{
-				samplesStr += ","+samples[j];
+				samplesStr += ","+samples[j].innerText;
 				}
 		};
-		var resultPara={"taskPara":taskPara,
+		var resultPara={
+						"sampleData":resultArray,
+						"taskPara":taskPara,
 						"nodePara":nodePara,
 						"unselectNode":unselectNode,
 						"samples":samplesStr,
 						"groupCompareVenn":groupCompareVenn
-						};   
+						}; 
+		if(nodeStatus["DE"] != 1){
+			delete resultPara.samples;
+			delete resultPara.groupCompareVenn;
+		}
+						
 		resultPara = JSON.stringify(resultPara);
-				//console.log(resultPara)
+		window.sessionStorage.setItem("paras",resultPara);
+				
 //向后台传送数据
 		 $.ajax({
-				    url:"__MODULE__/Task/addUpdateTask/submitType/job",  
-				    type:'post',
+//				    url:"__MODULE__/Task/addUpdateTask/submitType/job",  
+					url:"json/job.json",
+				    type:'get',
 				    data:{parameter:resultPara},
 				    dataType: "json",
 				    success:function(data) {
@@ -1462,7 +1777,9 @@ $("#taskRun").click(function(){
 				    	}else{
 				    		$('#id').val(data['data']);
 							alert("执行成功！");
-							window.location.href= "__MODULE__/Task/getTask/id/"+data['data'];
+							
+//							window.location.href= "__MODULE__/Task/getTask/id/"+data['data'];
+//							window.location.href= "taskDetailRNA.html";
 				    	}
 				     },    
 				     error : function(XMLHttpRequest) {
@@ -1473,6 +1790,167 @@ $("#taskRun").click(function(){
 	  });
 	
 }
+$(function(){
+	var options={
+		editable:true,
+		toolbar:"#toolbar",
+		clickToSelect:true,
+		showFooter:false,
+		classes:'table',
+		height:"250",
+		columns: [  
+	        {field:"state",edit:false,checkbox:true,checkboxEnabled:true},  
+	        {align: "left", field: "sample", order: "asc",editable:{type:'text'}, title: "样本名称 <span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>"},
+	        {align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "},
+	        {align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "}
+      	]
+	}
+	
+	$('#sampleTable').bootstrapTable(options);
+	var names=[]
+  	if($('#seq_type').val()=="PE"){
+		var options=$('#sampleTable').bootstrapTable("getOptions");
+		options.editable=true;
+		options.columns=[{
+			checkbox:true,checkboxEnabled:true,field:"state",title:""
+		},{
+			align: "left",
+			field: "sample", 
+			order: "asc",
+			title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>",
+			editable: {
+                type: 'text',
+                validate: function (v) {
+                	var patrn=/^(\w){1,10}$/; 
+                    if (!v&&v.trim().length<=0){
+                    	return '用户名不能为空';
+                    } 
+                    if (!patrn.exec(v)) {
+						return '只能包含字母数字下划线，长度不超过10';
+					}
+                    var data = $("#sampleTable").bootstrapTable('getData');
+                    for(var i=0;i<data.length;i++){
+                    	if(v==data[i].sample){
+                    		return '样本名已存在';
+                    	}
+                    }
+               }
+        	}
+        	
+		},{
+			align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "
+		},{
+			align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "
+		}];
+		$('#sampleTable').bootstrapTable('destroy');
+		$('#sampleTable').bootstrapTable(options);
+  		$('#sampleTable').bootstrapTable("resetView");
+  		$('#sampleTip').on("mouseover",function(){
+			$('#sampleTipModal').show(); 
+		});
+		$('#sampleTip').on("mouseout",function(){
+			$('#sampleTipModal').hide(); 
+		});
+  		 
+  	}
+  	
+	$('#seq_type').on('changed.bs.select', function(e) {
+	    if(e.target.value){
+	      	if(e.target.value=="SE"){
+	      	var options=$('#sampleTable').bootstrapTable("getOptions");
+				
+				options.columns=[{
+					checkbox:true,checkboxEnabled:true,field:"state",title:""
+				},{
+					align: "left", 
+					field: "sample",
+					order: "asc",
+					editable: {
+	                    type: 'text',
+	                    validate: function (v) {
+	                    	var patrn=/^(\w){1,10}$/; 
+	                        if (!v&&v.trim().length<=0){
+	                        	return '用户名不能为空';
+	                        } 
+	                        if (!patrn.exec(v)) {
+								return '只能包含字母数字下划线，长度不超过10';
+							}
+	                        var data = $("#sampleTable").bootstrapTable('getData');
+	                        for(var i=0;i<data.length;i++){
+	                        	if(v==data[i].sample){
+	                        		return '样本名已存在';
+	                        	}
+	                        }
+	                   }
+                	}, 
+                	title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>"
+				},{
+					align: "center", field: "fq", order: "asc", title: "FastQ文件 "
+				}];
+				$('#sampleTable').bootstrapTable('destroy');
+				$('#sampleTable').bootstrapTable(options);
+				$('#sampleTip').on("mouseover",function(){
+					$('#sampleTipModal').show(); 
+				});  
+				$('#sampleTip').on("mouseout",function(){
+					$('#sampleTipModal').hide(); 
+				}); 
+				
+	    	}else{
+				var options=$('#sampleTable').bootstrapTable("getOptions");
+				options.editable=true;
+				options.columns=[{
+					checkbox:true,checkboxEnabled:true,field:"state",title:""
+				},{
+					align: "left",
+					field: "sample", 
+					order: "asc",
+					title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>",
+					editable: {
+		                type: 'text',
+		                validate: function (v) {
+		                	var patrn=/^(\w){1,10}$/; 
+		                    if (!v&&v.trim().length<=0){
+		                    	return '用户名不能为空';
+		                    } 
+		                    if (!patrn.exec(v)) {
+								return '只能包含字母数字下划线，长度不超过10';
+							}
+		                    var data = $("#sampleTable").bootstrapTable('getData');
+		                    for(var i=0;i<data.length;i++){
+		                    	if(v==data[i].sample){
+		                    		return '样本名已存在';
+		                    	}
+		                    }
+		               }
+		        	}
+		        	
+				},{
+					align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "
+				},{
+					align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "
+				}];
+				$('#sampleTable').bootstrapTable('destroy');
+				$('#sampleTable').bootstrapTable(options);
+		  		$('#sampleTable').bootstrapTable("resetView");
+		  		$('#sampleTip').on("mouseover",function(){
+					$('#sampleTipModal').show(); 
+				});  
+				$('#sampleTip').on("mouseout",function(){
+					$('#sampleTipModal').hide(); 
+				});
+		  		 
+		  	}
+	    }
+    });
+	$('#sampleTip').on("mouseover",function(){
+		$('#sampleTipModal').show(); 
+		$("body").css("overflow","hidden")
+	});  
+	$('#sampleTip').on("mouseout",function(){
+		$('#sampleTipModal').hide(); 
+	}); 
+})
 </script>
 
 

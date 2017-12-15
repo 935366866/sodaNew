@@ -1,5 +1,4 @@
 $(function () {
-	console.log("宽度"+window.screen.width+"高度"+window.screen.height)
 	$.ajax({
 			type:"get",
 			url:"json/getNode.json",
@@ -68,12 +67,19 @@ $(function () {
 			}
 	}); 
 	$("#search_button").on("click",function(){
-		search();
+		var searchText= $("#search_flowapp").val();
+		if(searchText!=""){
+			search();
+		}
+		
 	})
 	
 	$("#search_flowapp").keydown(function(k){
+		var searchText= $("#search_flowapp").val();
 		if(k.keyCode==13 ){
-			search();
+			if(searchText!=""){
+				search();
+			}
 		}
 	});
 	
@@ -98,6 +104,7 @@ $(function () {
 			success:function(data,status){
 				if(status=="success"){
 					var datas=data.data;
+					console.log(datas.length)
 					for(var i=0;i<datas.length;i++){
 						var str=datas[i]["title"].replace(searchText,"<span style='color:#13438b'>"+searchText+"</span>")
 						var html="<li unId="+datas[i]["unId"]+"><h4>"+str+"</h4><p>"+datas[i]["content"]+"</p></li>"
