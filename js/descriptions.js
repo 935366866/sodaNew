@@ -94,6 +94,7 @@ $(function () {
 
 		}
 	})
+	
 	$("#expand").on("click",function(){
 		$("#showAll").hide();
 		var searchText= $("#search_flowapp").val();
@@ -104,7 +105,6 @@ $(function () {
 			success:function(data,status){
 				if(status=="success"){
 					var datas=data.data;
-					console.log(datas.length)
 					for(var i=0;i<datas.length;i++){
 						var str=datas[i]["title"].replace(searchText,"<span style='color:#13438b'>"+searchText+"</span>")
 						var html="<li unId="+datas[i]["unId"]+"><h4>"+str+"</h4><p>"+datas[i]["content"]+"</p></li>"
@@ -113,10 +113,11 @@ $(function () {
 				}
 			}
 		});
+		totalNum=$("#searchResult li").length;
 	})
 	
 })
-
+var totalNum;
 function search(){
 	$("#welcome").hide();
 	$("#content").hide();
@@ -135,23 +136,30 @@ function search(){
 				var total=datas["total"];
 				$("#searchTotal").text("("+total+"个结果)")
 				if(total!=0){
-					$("#search").show();
-					$("#showAll").show();
+					if(total>5){
+						$("#search").show();
+						$("#showAll").show();		
+					}else{
+						$("#search").show();
+						$("#showAll").hide();
+					}
 					var lists=datas["lists"];
 					$("#searchResult").empty();
 					for(var i=0;i<lists.length;i++){
 						var str=lists[i]["title"].replace(searchText,"<span style='color:#13438b'>"+searchText+"</span>")
 						var html="<li unId="+lists[i]["unId"]+"><h4>"+str+"</h4><p>"+lists[i]["content"]+"</p></li>"
 						$("#searchResult").prepend(html);
-					}
+					}				
 				}else{
 					$("#search").hide();
 					$("#showAll").hide();
 					$("#searchFail").show()
 				}
-				
+				totalNum=$("#searchResult li").length;
+				console.log(totalNum)
 			}
 		}
 	});
+	
 }
 
