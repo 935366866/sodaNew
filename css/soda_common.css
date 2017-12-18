@@ -424,4 +424,19 @@
 .modal-body .fixed-table-container{
 	padding-bottom: 40px !important;
 }
-
+.panel .btnTip{
+	position: relative;
+}
+.panel .btnTip .tipContent{
+	display:none;
+	width:142px;
+	height: 84px;
+	color: #fff; 
+	position: absolute;
+	padding:8px;
+	top:-90px;
+	left:-35px;
+	border-radius: 4px;
+	background: url(../img/groupbj.png);
+	background-repeat:no-repeat;
+}

@@ -415,7 +415,7 @@ allNodeName =  ["Density", "Saturation", "SNP_INDEL", "AS", "PPI", "GO", "KEGG",
 constDefaultRefParams={
 	"Alignment":[
 		{
-			"id": "Alignment",
+			"id": "alignment",
             "name": "比对软件",
             "type": "dropdown",
 			"value":"Hisat2;Tophat2"
@@ -424,7 +424,7 @@ constDefaultRefParams={
 	],
 	"Assemble":[
 		{
-			"id": "Assemble",
+			"id": "assemble",
             "name": "组装软件",
             "type": "dropdown",
 			"value":"Cufflinks;Stringtie"
