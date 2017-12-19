@@ -580,6 +580,7 @@
 
 		//单击元素，直接获得 key
 		diagram.addDiagramListener("ObjectSingleClicked",function(e) {
+	
 			if(nodeLockStatus == 1){
 					var part = e.subject.part;
 					var color = part.elt(0).fill;
@@ -756,8 +757,6 @@
 					
 					//添加dropdown的代码
 					$("#" + key + " form").append('<div class="form-group" ><label title="' + info + '" class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7" ><select class="form-control" id="' + id + '" name="' + id + '"  title="">' + opts + '</select></div></div>');
-					console.log(id);
-					console.log($("#" + id).get(0).tagName)
 					$("#" + id).selectpicker({
 						liveSearch: true
 					});

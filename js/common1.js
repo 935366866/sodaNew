@@ -478,5 +478,4 @@ constDefaultRefParams={
 			"illustration":"KEGG物种缩写。"
         }]
 }
-
 defaultRefParams = JSON.parse(JSON.stringify(constDefaultRefParams));

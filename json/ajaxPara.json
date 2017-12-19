@@ -1,0 +1,146 @@
+{
+	"status":"success",
+	"data":{
+		"processModule":[
+			{
+				"nodeName":"Basic_QC",
+				"loc":"0 0",
+				"linkData":[
+							{
+								"name":"Alignment",
+								"curviness":0
+							}
+						],
+				"status":1
+			
+			},
+			{
+				"nodeName":"Alignment",
+				"loc":"-5 100",
+				"status":1,
+				"linkData":[
+							{
+								"name":"Advanced_QC",
+								"curviness":0
+							},
+							{
+								"name":"Assemble",
+								"curviness":0
+							}	
+						]			
+			},
+			{
+				"nodeName":"Advanced_QC",
+				"loc":"150 100",
+				"status":1,
+				"linkData":[
+							{
+								"name":"SNP_INDEL",
+								"curviness":0
+							}
+						]
+							
+			},
+			{
+				"nodeName":"SNP_INDEL",
+				"loc":"160 200",
+				"linkData":[],
+				"status":1
+			},
+			{
+				"nodeName":"Assemble",
+				"loc":"0 200",
+				"linkData":[
+							{
+								"name":"AS",
+								"curviness":0
+							},
+							{
+								"name":"DE",
+								"curviness":0
+							}					
+						],
+				"status":1
+			},
+			{
+				"nodeName":"AS",
+				"loc":"-100 200",
+				"linkData":[],
+				"status":1
+			},
+			{
+				"nodeName":"DE",
+				"loc":"25 300",
+				"linkData":[
+							{
+								"name":"PPI",
+								"curviness":-20
+							},
+							{
+								"name":"GO",
+								"curviness":0
+							},
+							{
+								"name":"KEGG",
+								"curviness":20
+							}							
+						],
+				"status":1
+			},
+			{
+				"nodeName":"PPI",
+				"loc":"-70 400",
+				"linkData":[],
+				"status":1
+			},
+			{
+				"nodeName":"GO",
+				"loc":"25 400",
+				"linkData":[],
+				"status":1
+			},
+			{
+				"nodeName":"KEGG",
+				"loc":"120 400",
+				"linkData":[],
+				"status":1
+			}
+		],
+		"taskPara": [
+			{
+				"num":1,
+				"id":"species",
+				"title":"物种名称",
+				"type":"select",
+				"value":[
+						{"name":"Homo_sapiens (human)","value":"Homo_sapiens"},
+						{"name":"Oryza_sativa_Japonica (rice)","value":"Oryza_sativa_Japonica"},
+						{"name":"Sus_scrofa (Sus_scrofa)","value":"Sus_scrofa"}
+					]
+			
+			},
+			{
+				"num":2,
+				"id":"is_sslib",
+				"title":"链特异性文库",
+				"type":"select",
+				"value":[
+							{"name":"YES","value":"YES"},
+							{"name":"NO","value":"NO"}
+						]
+			},
+			{
+				"num":3,
+				"id":"seq_type",
+				"title":"测序类型",
+				"type":"select",
+				"value":[
+						{"name":"PE(Pair-End)","value":"PE"},
+						{"name":"SE(Single-End)","value":"SE"}
+					]
+			}
+		
+		]
+	}
+
+}
