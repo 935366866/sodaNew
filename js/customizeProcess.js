@@ -3,7 +3,8 @@ var nodeParaUrl="json/draft.json";  // 节点参数的默认值的url
 var samplesDataUrl = "json/jobUrl.json"; //像后台发送目录的地址
 var nodeLockStatus=1  //可编辑
 var nodeStatus={};  //判断是否是草稿，加载任务参数填写时option的值
-var groupNum;
+var defaultRefParamDatas=[];
+var defaultRefParams;
 $(function(){
 	//blockUI，请求失败提示
 	$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
@@ -136,14 +137,27 @@ $(function(){
 					}
 				}
 				$("#dataNum").text(taskDatas.length+5);
-				groupNum=taskDatas.length+5;
-
+				$("#groupNum").text(taskDatas.length+6)
+				defaultRefParamDatas.push(data.data["defaultRefParams"])
+				
 			};
 		 },   
 		 error : function(XMLHttpRequest) {
 		   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 		 }
 	}); 
+	
+	mouse("addBtn","groupTip");
+	mouse("compareBtn","compareTip")
+	mouse("vennBtn","vennTip")
+	
+	$('#dataTip').on("mouseover",function(){
+		$('#dataTipModal').fadeIn(300); 
+	});  
+	$('#dataTip').on("mouseout",function(){
+		$('#dataTipModal').fadeOut(300); 
+	});  
+	$('#creatTask label').addClass('label_width');   //含有任务名称等基本信息的表格中label
 	
 	$("#dirName").keydown(function(k){
 		if(k.keyCode==13 ){
@@ -158,8 +172,8 @@ $(function(){
 	})
 	
 })
-
-
+//defaultRefParams=defaultRefParamDatas[0];
+//console.log(defaultRefParams)
 //找到选中节点的子节点
 function findChildren(obj){
 	var it = obj.findTreeChildrenNodes();    //找到所有的子节点
@@ -204,6 +218,7 @@ function unlock(){
 };
 //点击锁定模块
 function selectedNode(){
+	console.log(defaultRefParams)
 	$("#unlockNode").attr("class","btn btn_orange round_Button");
 	$("#lockNode").attr("class","btn btn_white round_Button");
 	if(nodeLockStatus == 1){  //判断是否是解锁状态
