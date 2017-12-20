@@ -3,7 +3,6 @@ var nodeParaUrl="json/draft.json";  // 节点参数的默认值的url
 var samplesDataUrl = "json/jobUrl.json"; //像后台发送目录的地址
 var nodeLockStatus=1  //可编辑
 var nodeStatus={};  //判断是否是草稿，加载任务参数填写时option的值
-var defaultRefParamDatas=[];
 var defaultRefParams;
 $(function(){
 	//blockUI，请求失败提示
@@ -13,6 +12,7 @@ $(function(){
 	$.ajax({
 		url:"json/ajaxPara.json",  
 		type:'get',
+		async: false,
 		dataType: "json",
 		success:function(data,status) {
 			if(status=="success"){    
@@ -137,8 +137,9 @@ $(function(){
 					}
 				}
 				$("#dataNum").text(taskDatas.length+5);
-				$("#groupNum").text(taskDatas.length+6)
-				defaultRefParamDatas.push(data.data["defaultRefParams"])
+				$("#groupNum").text(taskDatas.length+6);
+				defaultRefParams=data.data["defaultRefParams"];
+				
 				
 			};
 		 },   
@@ -146,7 +147,6 @@ $(function(){
 		   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 		 }
 	}); 
-	
 	mouse("addBtn","groupTip");
 	mouse("compareBtn","compareTip")
 	mouse("vennBtn","vennTip")
@@ -172,8 +172,7 @@ $(function(){
 	})
 	
 })
-//defaultRefParams=defaultRefParamDatas[0];
-//console.log(defaultRefParams)
+
 //找到选中节点的子节点
 function findChildren(obj){
 	var it = obj.findTreeChildrenNodes();    //找到所有的子节点
