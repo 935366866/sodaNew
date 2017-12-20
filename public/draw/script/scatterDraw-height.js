@@ -221,6 +221,7 @@ $(function(){
 			}
 		}
 	});
+	
  	var myChart = echarts.init(document.getElementById('main'));
         // 指定图表的配置项和数据
     var option = {
@@ -264,7 +265,7 @@ $(function(){
 	        	type : 'value',
 	            scale:true,
 	            axisLabel : {
-	                formatter: '{value} cm'
+	                formatter: '{value}'
 	            },
 	            nameLocation:'middle',
 	            nameGap: 23,
@@ -289,7 +290,7 @@ $(function(){
                 	}
             	},
 	            axisLabel : {
-	                formatter: '{value} kg'
+	                formatter: '{value}'
 	            }
 	        }
 	    ],
@@ -303,6 +304,7 @@ $(function(){
 			orient:vue.legendLayout
 		}
 	};
+	
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 	$("select").on("change.bs.select",function(){
@@ -318,7 +320,7 @@ $(function(){
 			vue.color=color3;
 		}
 	});
-	console.log(vue.pointsize)
+
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
@@ -331,7 +333,6 @@ $(function(){
 				for(var item in data){
 					vue[item]=data[item];
 				}
-				
 			},    
 			error : function(XMLHttpRequest) {
 				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
@@ -356,7 +357,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"]);
+					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.yColumnField);
 				},    
 				error : function(XMLHttpRequest) {
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
@@ -459,137 +460,93 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData){
+function updateEchartsData(echarts,echartsStyle,echartsData,xAxis,yAxis){
 	if(echartsData&&echartsData.length>0){
 		var option = echarts.getOption();
 		option.series=[];
-//		echarts.clear();
-		var heads = echartsData[0];
-		var sexIndex;
-		var heightIndex;
-		var weightIndex;
+		echarts.clear();
 		var dataMap = {};//用来存储每一个系列的数据
+		var type = "sex";
+//		var xAxis = "weight";
+//		var yAxis = "height";
+		var typeIndex = null;
+		var xAxisIndex=null;
+		var yAxisIndex=null;
+		
+		
+		var heads = echartsData[0];
 		for(var i=0;i<heads.length;i++){//循环表头
-			if(heads[i]=="sex"){
-				sexIndex=i;
-			}else if(heads[i]=="height"){
-				heightIndex=i;
-			}else{
-				weightIndex=i;
+			if(heads[i] == type){
+				typeIndex = i;
 			}
-		}
-		var mandatas=[];
-		var womanDatas=[];
-		for(var i=1;i<echartsData.length;i++){
-			var row=echartsData[i]
-			var sex=row[sexIndex];	
-			var manData=[];
-			var womanData=[];
-			if(sex=="man"){
-				manData[0]=row[heightIndex];
-				manData[1]=row[weightIndex];
-				mandatas.push(manData);
-			}else{
-				womanData[0]=row[heightIndex];
-				womanData[1]=row[weightIndex];
-				womanDatas.push(womanData);
+			if(heads[i] == xAxis){
+				xAxisIndex = i;
 			}
-		}
-	
-		dataMap["man"] = {
-					type:"scatter",
-					symbolSize: echartsStyle.pointsize,
-					name:"man",
-					data:[],
-					markArea: {
-		                silent: true,
-		                itemStyle: {
-		                    normal: {
-		                        color: 'transparent',
-		                        borderWidth: 1,
-		                        borderType: 'dashed'
-		                    }
-		                },
-		                data: [[{
-		                    name: '男性分布区间',
-		                    xAxis: 'min',
-		                    yAxis: 'min'
-		                }, {
-		                    xAxis: 'max',
-		                    yAxis: 'max'
-		                }]]
-		            },
-		            markPoint : {
-		                data : [
-		                    {type : 'max', name: '最大值'},
-		                    {type : 'min', name: '最小值'}
-		                ]
-		            },
-		            markLine : {
-		                lineStyle: {
-		                    normal: {
-		                        type: 'solid'
-		                    }
-		                },
-		                data : [
-		                    {type : 'average', name: '平均值'},
-		                    { xAxis: 170 }
-		                ]
-		            }
-				}
-		dataMap["man"]["data"]=mandatas;
-		dataMap["woman"] = {
-					type:"scatter",
-					symbolSize: echartsStyle.pointsize,
-					name:"woman",
-					data:[],
-					markArea: {
-		                silent: true,
-		                itemStyle: {
-		                    normal: {
-		                        color: 'transparent',
-		                        borderWidth: 1,
-		                        borderType: 'dashed'
-		                    }
-		                },
-		                data: [[{
-		                    name: '女性分布区间',
-		                    xAxis: 'min',
-		                    yAxis: 'min'
-		                }, {
-		                    xAxis: 'max',
-		                    yAxis: 'max'
-		                }]]
-		            },
-		            markPoint : {
-		                data : [
-		                    {type : 'max', name: '最大值'},
-		                    {type : 'min', name: '最小值'}
-		                ]
-		            },
-		            markLine : {
-		                lineStyle: {
-		                    normal: {
-		                        type: 'solid'
-		                    }
-		                },
-		                data : [
-		                    {type : 'average', name: '平均值'},
-		                    { xAxis: 160 }
-		                ]
-		            }
-				}
-		dataMap["woman"]["data"]=womanDatas;
-		option.legend={};
-		option.legend.data=["man","woman"];
-		for(var key in dataMap){
-			option.series.push(dataMap[key])
+			if(heads[i] == yAxis){
+				yAxisIndex = i;
+			}
 		}
 		
+
+		for(var i=1;i<echartsData.length;i++){
+			var row = echartsData[i];
+			if(!dataMap[row[typeIndex]]){
+				dataMap[row[typeIndex]]= [];
+			}
+			dataMap[row[typeIndex]].push([row[xAxisIndex],row[yAxisIndex]]);
+			
+		}
+		option.legend={
+			data:[]
+		};
+		for(key in dataMap){
+			option.legend.data.push(key);
+			var serie =  {
+				type:"scatter",
+				symbolSize: echartsStyle.pointsize,
+				name:key,
+				data:dataMap[key],
+				markArea: {
+	                silent: true,
+	                itemStyle: {
+	                    normal: {
+	                        color: 'transparent',
+	                        borderWidth: 1,
+	                        borderType: 'dashed'
+	                    }
+	                },
+	                data: [[{
+	                    name: key+'分布区间',
+	                    xAxis: 'min',
+	                    yAxis: 'min'
+	                }, {
+	                    xAxis: 'max',
+	                    yAxis: 'max'
+	                }]]
+	            },
+	            markPoint : {
+	                data : [
+	                    {type : 'max', name: '最大值'},
+	                    {type : 'min', name: '最小值'}
+	                ]
+	            },
+	            markLine : {
+	                lineStyle: {
+	                    normal: {
+	                        type: 'solid'
+	                    }
+	                },
+	                data : [
+	                    {type : 'average', name: '平均值'},
+	                    { xAxis: 170 }
+	                ]
+	            }
+			};
+			option.series.push(serie)
+		}
 		var numD=parseInt(echartsStyle.legendDiameter);
 		option.legend.itemHeight=numD;
 		option.legend.itemWidth=numD;
-
 		echarts.setOption(option);	
 	}
 	

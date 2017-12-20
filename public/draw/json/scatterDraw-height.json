@@ -16,9 +16,8 @@
     "ylab_size": "12",
     "ylab_font": "normal",
     "pointsize": "10",
-    "xColumnField":"pc1",
-    "yColumnField":"pc2",
-    "groupColumnField":"group",
+    "xColumnField":"height",
+    "yColumnField":"weight",
     "Xgrid": "hide",
     "Ygrid": "hide"
 }
