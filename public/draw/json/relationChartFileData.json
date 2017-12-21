@@ -1,0 +1,80 @@
+{
+	"name":"SNP_data.txt",
+	"size":null,
+	"rowNums":11,
+	"columnNums":5,
+	"content":[
+				["nodeName","x","y","links"],
+				["李丽","755","432","强强,李兰,韩梅梅"],
+				["强强","423","260","李丽,李雷"],
+				["李雷","122","74","王璐丹"],
+				["小海","448","888","韩梅梅"],
+				["李兰","635","142","强强"],
+				["小军","423","78","李丽,李雷,李想"],
+				["韩梅梅","122","23","李丽"],
+				["王璐丹","147","494","李雷"],
+				["李想","842","423","小军,小海"]
+	],
+	"nodes":[
+			{
+				"x":122,
+				"y":269,
+				"id":0,
+				"label":"nan",
+				"size": 16,
+				"color":"green"
+			},
+			{
+				"x":822,
+				"y":752,
+				"id":1,
+				"label":"nv",
+				"size": 38,
+				"color":"red"
+			},	
+			{
+				"x":745,
+				"y":455,
+				"id":2,
+				"label":"zhongxing",
+				"size": 16,
+				"color":"blue"
+			},
+			{
+				"x":478,
+				"y":324,
+				"id":3,
+				"label":"zhodffnng",
+				"size": 16,
+				"color":"blue"
+			},
+			{
+				"x":123,
+				"y":44,
+				"id":4,
+				"label":"nikk",
+				"size": 16,
+				"color":"yellow"
+			},
+			{
+				"x":12,
+				"y":544,
+				"id":5,
+				"label":"hdf",
+				"size": 16,
+				"color":"blue"
+			}
+		
+		],
+	"edges":[
+		{"sourceID":1,"targetID":0},
+		{"sourceID":0,"targetID":2},
+		{"sourceID":1,"targetID":2},
+		{"sourceID":0,"targetID":4},
+		{"sourceID":1,"targetID":5},
+		{"sourceID":3,"targetID":4},
+		{"sourceID":1,"targetID":3}
+	],
+	"lines":11,
+	"resultFlag":null
+}		

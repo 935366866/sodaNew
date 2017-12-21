@@ -1,60 +1,31 @@
-var paramUrl = 'public/draw/json/jobUrl.json'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
+var paramUrl = 'public/draw/json/jobUrl'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 
 $(function(){	
-	var color1=["#37458b","#de1615"];
-	var color2=["#da9034","#7c5f47"];
-	var color3=["#719657","#44657f"];
+	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
+	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
+	var color3=["#4357a5","#c43c32","#719657","#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"男性女性身高体重分布",
-			xlab:"X轴标题",
-			ylab:"Y轴标题",
-			pointsize:"5",
+			title:"雷达图",
+			legendWidth:"10",
+			legendHeight:"10",
+			legendX_sel:"left",
+			legendY_sel:"bottom",
+			titleX_sel:"center",
+			titleY_sel:"top",
+			legendLayout_sel:"vertical",
+			xColumn_sel:null,
 			fileData:{
 				content:[]
 			},
 			title_size_sel:"18",
 			title_font_sel:"bold",
-			xlab_size_sel:"12",
-			xlab_font_sel:"normal",
-			ylab_size_sel:"12",
-			ylab_font_sel:"normal",
-			titleX_sel:"",
-			titleY_sel:"",
-			legendDiameter:"80",
-			legendX_sel:"center",
-			legendY_sel:"bottom",
-			legendLayout_sel:"horizontal",
-			xColumnField_sel:null,
-			yColumnField_sel:null,
-			typeField_sel:null,
 			color:color1,
-			Xgrid:"show",
-			Ygrid:"show"
+			dataMax:0.45
 		},
 		computed: {
-			legendDatas:function(){
-				var datas=this.fileData.content[0];
-				console.log(datas)
-				if(!datas){
-					return new Array();
-				}
-				var typeIndex;
-				for(var i=0;i<datas.length;i++){
-					if(datas[i]==this.typeField){
-						typeIndex=i;
-					}
-				}
-				var resultArr=[];
-				for(var i=1;i<this.fileData.content.length;i++){
-					if($.inArray(this.fileData.content[i][typeIndex],resultArr)==-1){
-						resultArr.push(this.fileData.content[i][typeIndex])
-					}
-				}
-				return resultArr;
-			},
 			title_size: {
 			    get: function () {
 			      return this.title_size_sel;
@@ -73,43 +44,26 @@ $(function(){
 			       $("#title_font").selectpicker("val",newValue);
 			    }
 			},
-			xlab_size:{
+			legendX:{
 			  	get: function () {
-			      return this.xlab_size_sel;
-			    },
+			      return this.legendX_sel;
+			   },
 			    set: function (newValue) {
-			    	this.xlab_size_sel = newValue;
-			       $("#xlab_size").selectpicker("val",newValue);
+			    	if(!newValue) return;
+			    	this.legendX_sel = newValue;
+			       $("#legendX").selectpicker("val",newValue);
 			    }
-			},
-			xlab_font:{
+			  },
+			legendY:{
 			  	get: function () {
-			      return this.xlab_font_sel;
-			    },
+			      return this.legendY_sel;
+			   },
 			    set: function (newValue) {
-			    	this.xlab_font_sel = newValue;
-			       $("#xlab_font").selectpicker("val",newValue);
+			    	this.legendY_sel = newValue;
+			       $("#legendY").selectpicker("val",newValue);
 			    }
 			},
-			ylab_size:{
-			 	get: function () {
-			      return this.ylab_size_sel;
-			    },
-			    set: function (newValue) {
-			    	this.ylab_size_sel = newValue;
-			       $("#ylab_size").selectpicker("val",newValue);
-			    }
-			},
-			ylab_font:{
-			  	get: function () {
-			      return this.ylab_font_sel;
-			    },
-			    set: function (newValue) {
-			    	this.ylab_font_sel = newValue;
-			       $("#ylab_font").selectpicker("val",newValue);
-			    }
-			},
-		  titleX:{
+			titleX:{
 			  	get: function () {
 			      return this.titleX_sel;
 			   },
@@ -122,97 +76,44 @@ $(function(){
 			titleY:{
 			  	get: function () {
 			      return this.titleY_sel;
-			   	},
+			   },
 			    set: function (newValue) {
 			    	if(!newValue) return;
 			    	this.titleY_sel = newValue;
 			       $("#titleY").selectpicker("val",newValue);
 			    }
-			},
-			legendX:{
-			  	get: function () {
-			      return this.legendX_sel;
-			   	},
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.legendX_sel = newValue;
-			       $("#legendX").selectpicker("val",newValue);
-			    }
-			},
-			legendY:{
-			  	get: function () {
-			      return this.legendY_sel;
-			   },
-			    set: function (newValue) {
-			    	this.legendY_sel = newValue;
-			       $("#legendY").selectpicker("val",newValue);
-			    }
-			},
+			  },
 			legendLayout:{
 			  	get: function () {
 			      return this.legendLayout_sel;
-			   	},
+			   },
 			    set: function (newValue) {
 			    	this.legendLayout_sel = newValue;
 			       $("#legendLayout").selectpicker("val",newValue);
 			    }
 			},
-			xColumnField:{
+			xColumn:{
 			  	get: function () {
-			      return this.xColumnField_sel;
+			      return this.xColumn_sel;
 			    },
 			    set: function (newValue) {
 			    	if(!newValue) return;
-			    	this.xColumnField_sel = newValue;
-			        $("#xColumnField").selectpicker("val",newValue);
+			    	this.xColumn_sel = newValue;
+			        $("#xColumn").selectpicker("val",newValue);
 			    }
-			},
-			yColumnField:{
-			  	get: function () {
-			      return this.yColumnField_sel;
-			    },
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.yColumnField_sel = newValue;
-			        $("#yColumnField").selectpicker("val",newValue);
-			    }
-			},
-			typeField:{
-			  	get: function () {
-			      return this.typeField_sel;
-			    },
-			    set: function (newValue) {
-			    	if(!newValue) return;
-			    	this.typeField_sel = newValue;
-			        $("#typeField").selectpicker("val",newValue);
-			    }
-			},
-			gridX:function(){
-				if(this.Xgrid=="show"){
-					return true;
-				}else{
-					return false;
-				}
-			},
-			gridY:function(){
-				if(this.Ygrid=="show"){
-					return true;
-				}else{
-					return false;
-				}
 			}
 		},
 		watch:{
 			input:function(val,oldVal){
 				$.ajax({
-					url: 'public/draw/json/scatterDrawFileData-height.json',  
+					url: 'public/draw/json/relationChartFileData.json',  
 					type:'get',
 					data:{
 						fileName:val
 					},
 					dataType: "json",
 					success:function(data) {
-						 vue["fileData"]=data; 
+						 vue["fileData"]=data;
 					},    
 					error : function(XMLHttpRequest) {
 						//alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
@@ -221,29 +122,14 @@ $(function(){
 			},
 			fileData:function(val,oldVal){
 				this.$nextTick(function(){
-					$('#yColumnField').selectpicker('refresh');
-					$('#xColumnField').selectpicker('refresh');
-					$('#typeField').selectpicker('refresh');
+					$('#xColumn').selectpicker('refresh');				
+					this.xColumn_sel=$('#xColumn').selectpicker("val");
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
 					});
 				});
 			},
-			xColumnField:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			},
-			yColumnField:function(val,oldVal){
-				this.$nextTick(function(){
-					$(".spectrum").spectrum({
-						preferredFormat: "hex3"
-					});
-				});
-			},
-			typeField:function(val,oldVal){
+			xColumn:function(val,oldVal){
 				this.$nextTick(function(){
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
@@ -259,88 +145,34 @@ $(function(){
 			}
 		}
 	});
-	
- 	var myChart = echarts.init(document.getElementById('main'));
-        // 指定图表的配置项和数据
+
+	 // 指定图表的配置项和数据
+   	var myChart = echarts.init(document.getElementById('main'));
     var option = {
     	backgroundColor: '#fff',
 	    title: {
-	        text: ''
-	    },
-	    tooltip : {
-	        showDelay : 0,
-	        formatter : function (params) {
-	            if (params.value.length > 1) {
-	                return params.seriesName + ' :<br/>'
-	                + params.value[0] + 'cm '
-	                + params.value[1] + 'kg ';
-	            }
-	            else {
-	                return params.seriesName + ' :<br/>'
-	                + params.name + ' : '
-	                + params.value + 'kg ';
-	            }
+	        text: '',
+	        textStyle:{
+	        	fontStyle:'normal',
+	        	fontWeight:'normal',
+	        	fontSize:14
 	        },
-	        axisPointer:{
-	            show: true,
-	            type : 'cross',
-	            lineStyle: {
-	                type : 'dashed',
-	                width : 1
-	            }
-	        }
+	        x:vue.titleX,
+	        y:vue.titleY,
+	        top:10
+	       
 	    },
-		toolbox: {
-	        feature: {
-	            dataZoom: {},
-	            brush: {
-	                type: ['rect', 'polygon', 'clear']
-	            }
-	        }
-	    },
-	    xAxis : [
-	        {	
-	        	type : 'value',
-	            scale:true,
-	            axisLabel : {
-	                formatter: '{value}'
-	            },
-	            nameLocation:'middle',
-	            nameGap: 23,
-	            splitLine:{
-                	show:vue.gridX,
-                	lineStyle:{
-                		type:'solid'
-                	}
-            	}	
-	        }
-	    ],
-	    yAxis : [
-	        {
-	            type : 'value',
-	            scale:true,
-	            nameLocation:'middle',
-	            nameGap: 60,
-	            splitLine:{
-                	show:vue.gridY,
-                	lineStyle:{
-                		type:'solid'
-                	}
-            	},
-	            axisLabel : {
-	                formatter: '{value}'
-	            }
-	        }
-	    ],
-	    grid:{
-//	    	show:true,
-	    	left:80
-	    },
-		legend: {
-			y:vue.legendY,
+	    tooltip : {},
+	    legend: {
+	    	data: [],
+	    	align:'left',
+	    	y:vue.legendY,
 			x:vue.legendX,
 			orient:vue.legendLayout
-		}
+		},
+		animationDurationUpdate: 1500,
+        animationEasingUpdate: 'quinticInOut',
+		series:[]
 	};
 	
     // 使用刚指定的配置项和数据显示图表。
@@ -353,16 +185,14 @@ $(function(){
 			vue.color=color1;
 		}else if($(this).selectpicker("val")=="project2"){
 			vue.color=color2;
-		}
-		else{
+		}else{
 			vue.color=color3;
 		}
 	});
-
 	//点击示例文件，加载已有参数
 	$("#use_default").click(function(){
 		$.ajax({
-			url: 'public/draw/json/scatterDraw-height.json',  
+			url: 'public/draw/json/relationChart.json',  
 			type:'get',
 			data:tool_id,
 			dataType: "json",
@@ -387,7 +217,7 @@ $(function(){
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
 			myChart.showLoading();
 			$.ajax({
-				url: 'public/draw/json/scatterDrawFileData-height.json',  
+				url: 'public/draw/json/relationChartFileData.json',  
 				type:'get',
 				data:{
 					fileName:formData.input
@@ -395,15 +225,17 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.xColumnField,vue.yColumnField,vue.typeField);
+					updateEchartsData(myChart,formData,data["content"],vue.xColumn,data["nodes"],data["edges"]);
+					
 				},    
 				error : function(XMLHttpRequest) {
-					console.log(vue.legend)
 					alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);
 				}
-			});
+			});			
 		}
+		
 	});
+	
 	
 	$("#btnPdf").click(function(){
 		var baseURL=myChart.getConnectedDataURL({
@@ -430,9 +262,8 @@ $(function(){
 	    $form[0].submit();
 	    $iframe.remove();
 	}
-
-
-//	支持下载png格式
+	
+	//支持下载png格式
 	$("#btnPng").click(function(){
 		downloadPic(myChart);
 	});
@@ -445,7 +276,7 @@ $(function(){
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
 	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
-	        pixelRatio: 4,
+	        pixelRatio:2,
 	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;
@@ -479,26 +310,14 @@ function updateEcharts(echarts,data){
 		var colorStr = $(this).spectrum("get").toHexString();
 		color.push(colorStr);
 	});
+
 	echarts.setOption({
 		title:{
+			padding: 0,
 			text:data.title,
-			textStyle:buildTextStyle(data.title_font,data.title_size),
 			x:data.titleX,
-			y:data.titleY
-		},
-		xAxis :{
-			name:data.xlab,
-			nameTextStyle:buildTextStyle(data.xlab_font,data.xlab_size),
-			splitLine:{
-            	show:data.XgridShow
-        	}
-		},
-		yAxis :{
-			name:data.ylab,
-			nameTextStyle:buildTextStyle(data.ylab_font,data.ylab_size),
-			splitLine:{
-            	show:data.YgridShow
-        	}
+			y:data.titleY,
+			textStyle:buildTextStyle(data.title_font,data.title_size)
 		},
 		legend:{
 			x:data.legendX,
@@ -527,98 +346,105 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,xAxis,yAxis,type){
-	if(echartsData&&echartsData.length>0){
-		var option = echarts.getOption();
-		option.series=[];
-//		echarts.clear();
-		var dataMap = {};//用来存储每一个系列的数据
-		var typeIndex = null;
-		var xAxisIndex=null;
-		var yAxisIndex=null;
-		var heads = echartsData[0];
-		for(var i=0;i<heads.length;i++){//循环表头
-			if(heads[i] == type){
-				typeIndex = i;
-			}
-			if(heads[i] == xAxis){
-				xAxisIndex = i;
-			}
-			if(heads[i] == yAxis){
-				yAxisIndex = i;
-			}
-		}
-		
-
-		for(var i=1;i<echartsData.length;i++){
-			var row = echartsData[i];
-			if(!dataMap[row[typeIndex]]){
-				dataMap[row[typeIndex]]= [];
-			}
-			dataMap[row[typeIndex]].push([row[xAxisIndex],row[yAxisIndex]]);
-			
-		}
-
-		option.legend={
-			data:[]
-		};
-		for(key in dataMap){
-			option.legend.data.push(key);
-			var serie =  {
-				type:"scatter",
-				symbolSize: echartsStyle.pointsize,
-				name:key,
-				data:dataMap[key],
-				markArea: {
-	                silent: true,
-	                itemStyle: {
-	                    normal: {
-	                        color: 'transparent',
-	                        borderWidth: 1,
-	                        borderType: 'dashed'
-	                    }
-	                },
-	                data: [[{
-	                    name: key+'分布区间',
-	                    xAxis: 'min',
-	                    yAxis: 'min'
-	                }, {
-	                    xAxis: 'max',
-	                    yAxis: 'max'
-	                }]]
-	            },
-	            markPoint : {
-	                data : [
-	                    {type : 'max', name: '最大值'},
-	                    {type : 'min', name: '最小值'}
-	                ]
-	            },
-	            markLine : {
-	                lineStyle: {
-	                    normal: {
-	                        type: 'solid'
-	                    }
-	                },
-	                data : [
-	                    {type : 'average', name: '平均值'},
-	                    { xAxis: 170 }
-	                ]
-	            }
-			};
-			option.series.push(serie)
-		}
-		var numD=parseInt(echartsStyle.legendDiameter);
-		option.legend.itemHeight=numD;
-		option.legend.itemWidth=numD;
-		console.log(option)
-		echarts.setOption(option);	
+function updateEchartsData(echarts,echartsStyle,echartsData,xColumnField,echartNodes,echartlinks){
+	if(!echartsData||echartsData.length<=0){
+		return ;
 	}
-	
+	var option = echarts.getOption();
+	option.series=[];
+	var dataMap = {};//用来存储每一个系列的数据
+	var heads=echartsData[0];
+	var nodeName="nodeName";
+	var xCol="x";
+	var yCol="y";
+	var linkCol="links"
+	var nodeIndex=null;
+	var xIndex=null;
+	var yIndex=null;
+	var linkIndex=null;
+	for(var i=0;i<heads.length;i++){
+		if(heads[i]==nodeName){
+			nodeIndex=i;
+		}
+		if(heads[i]==xCol){
+			xIndex=i;
+		}
+		if(heads[i]==yCol){
+			yIndex=i;
+		}
+		if(heads[i]==linkCol){
+			linkIndex=i;
+		}
+	};
+	var nodes=[];
+	var linksDatas=[]
+	for(var i=1;i<echartsData.length;i++){
+		var nodeObj={};
+		debugger
+		var row = echartsData[i];
+		nodeObj[xCol]=row[xIndex];
+		nodeObj[yCol]=row[yIndex];
+		nodeObj[nodeName]=row[nodeIndex];
+		var linkTargets=row[linkIndex].split(",");
+		for(var j=0;j<linkTargets.length;j++){
+			var linkObj={};
+			linkObj["source"]=row[nodeIndex];
+			linkObj["target"]=linkTargets[j];
+			linksDatas.push(linkObj)
+		}
+		nodes.push(nodeObj);
+	}
+	console.log(linksDatas)
+    var option = {
+        series : [
+            {
+                type: 'graph',
+                layout: 'none',
+                data: echartNodes.map(function (node) {
+                    return {
+                        x: node.x,
+                        y: node.y,
+                        id: node.id,
+                        name: node.label,
+                        symbolSize: node.size,
+                        itemStyle: {
+                            normal: {
+                                color: node.color
+                            }
+                        }
+                    };
+                }),
+                edges: echartlinks.map(function (edge) {
+                    return {
+                        source: edge.sourceID,
+                        target: edge.targetID
+                    };
+                }),
+                label: {
+                    emphasis: {
+                        position: 'right',
+                        show: true
+                    }
+                },
+                roam: true,
+                focusNodeAdjacency: true,
+                lineStyle: {
+                    normal: {
+                        width: 0.5,
+                        curveness: 0.3,
+                        opacity: 0.7
+                    }
+                }
+            }
+        ]
+    }
+	echarts.setOption(option);
 }
 
 //---------------------------------------------------函数---------------------------
 //参数组装
 function allParams(){
+
 	var app = $("#parameter").serializeArray();
 	var json1 = {};
 	for(var i=0;i<app.length;i++){
@@ -775,7 +601,6 @@ function geturl(formInputId,type){
 				$("#selectUrl").modal('hide');
 				$(formInputId).val(newUrl);
 				vue.input=newUrl;
-				
 			};
 		};
 

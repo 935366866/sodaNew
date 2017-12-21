@@ -590,22 +590,21 @@ function getTaskData(url){
 							}
 							
 						else if(key == "unselectNode"){
-							if(data.unselectNode.indexOf("DE")==-1){
-								$("#comGroup").show();
-								$("#paraTitle").show();
-							}else{
-								$("#comGroup").hide();	
-								$("#paraTitle").hide();
+							if(data[key]!=""){
+								var unselectNode = data.unselectNode.split(",");
+								for(var i=0;i<unselectNode.length;i++){
+									if(!diagram.findNodeForKey(unselectNode[i])){
+										continue;
+									}
+									if(unselectNode[i]=="DE"){
+										$("#comGroup").hide();	
+										$("#paraTitle").hide();
+									}
+									diagram.findNodeForKey(unselectNode[i]).elt(0).fill=unselectColor;	//未选中模块变成灰色
+									nodeStatus[unselectNode[i]] = 0;
+								};
 							}
-							var unselectNode = data.unselectNode.split(",");
-							for(var i=0;i<unselectNode.length;i++){
-								if(!diagram.findNodeForKey(unselectNode[i])){
-									continue;
-								}
-								diagram.findNodeForKey(unselectNode[i]).elt(0).fill=unselectColor;	//未选中模块变成灰色
-								nodeStatus[unselectNode[i]] = 0;
-							};
-
+				
 							var runMod = data.runMod.split(",");
 							for(var i=0;i<runMod.length;i++){
 								if(!diagram.findNodeForKey(runMod[i])){
@@ -625,8 +624,8 @@ function getTaskData(url){
 							var nodePara = data.nodePara   //填充模块参数
 							for(var i=0;i<nodePara.length;i++){
 								$("#"+nodePara[i].name).val(nodePara[i].value)
-								};
-							 }
+							};
+						}
 						else if(key == "modStatus"){  //填充任务状态table
 							var jsonData = JSON.stringify(data[key]);
 							

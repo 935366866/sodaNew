@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>新建APP任务</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="content-type" content="text/html" ; charset="utf-8">
+    <meta http-equiv="content-type" content="text/html" ; charset="utf-8">   
     <link href="public/css/reset.css" rel="stylesheet" />
     <link href="public/css/bootstrap.min.css" rel="stylesheet">
     <link href="public/css/bootstrap-table.css" rel="stylesheet">
@@ -14,7 +15,6 @@
     <link href="css/soda_common.css" rel="stylesheet">
     <link href="public/draw/style/spectrum.css" rel="stylesheet"/>
 </head>
-
 <body style="background-color:#fff;">
 	<div class="top" style="float:left;width:100%;">
 		<div class="main_nav1">
@@ -22,7 +22,7 @@
 			<a href="#" class="logo"><img src="public/image/navLogo.svg"/></a>
 				<ul class="main_nav1_left">
 					<li id="mainIndex"><a href="main.html">首页</a></li>
-					<li id="sodaIndex"><a href="sodaIndex.html">云中漫步</a></li>
+					<li id="sodaIndex"><a href="sodaIndex.html">产品体验</a></li>
 					<li id="frontierResearch"><a href="frontierResearch.html" >前沿方案</a></li>
 					<li id="marketActive"><a href="marketActive.html">市场活动</a></li>	
 				</ul>
@@ -76,7 +76,7 @@
 
     <div class="center_box" style="float:left;width:100%;">
 		<div class="app_title">
-			<p>散点图绘制工具</p>
+			<p>关系图绘制工具</p>
 		</div>
         <div class="change_box" id='taskPanel'> </div>       
         <div class="myTab">
@@ -126,35 +126,16 @@
 									<div class="inputLeft" >
 										<div class="input_a_l" style="width: 75px;">X轴数据：</div>
 										<div class="input_a_m" style="width: 88px;">
-											<select v-model="xColumnField" id="xColumnField"  name="xColumnField" class=" select_width" autocomplete="off" >
-												<option v-for="item in fileData['content'][0]" v-if="item!=fileData['content'][0][0]" :value="item">{{item}}</option>
-											</select>
-										</div>	
-									</div>
-									<div class="right">
-										<div class="input_a_l" style="width: 80px;">Y轴数据：</div>
-										<div class="input_a_m" style="width: 158px;">
-											<select v-model="yColumnField" id="yColumnField"  name="yColumnField" class="select_width" autocomplete="off" >
-												<option v-for="item in fileData['content'][0]" v-if="item!=fileData['content'][0][0]" :value="item">{{item}}</option>
-											</select>
-										</div>	
-									</div>
-								</div>
-								<div class="part">
-									<div class="input_a_l titleNameLeft">&nbsp&nbsp&nbsp&nbsp</div>	
-									<div class="inputLeft" >
-										<div class="input_a_l" style="width: 75px;">分组数据:</div>
-										<div class="input_a_m" style="width: 88px;">
-											<select v-model="typeField" id="typeField"  name="typeField" class=" select_width" autocomplete="off" >
+											<select v-model="xColumn" id="xColumn"  name="xColumn" class=" select_width" autocomplete="off" >
 												<option v-for="item in fileData['content'][0]" :value="item">{{item}}</option>
 											</select>
 										</div>	
 									</div>
 									<div class="right">
-										<div class="input_a_l" style="width: 80px;">散点大小：</div>
-										<div class="input_b_2 inputLeft">
-											<input v-model="pointsize" type="text" class="form-control" id="pointsize" name="pointsize" placeholder="">
-										</div>
+										<div class="input_a_l" style="width: 94px;">极坐标范围：</div>
+										<div class="input_a_m" style="width: 146px;">
+											<input v-model="dataMax" type="text" class="form-control" id="dataMax" name="dataMax" placeholder="">
+										</div>	
 									</div>
 								</div>
 								<div class="line"></div>
@@ -177,7 +158,7 @@
 											<select v-model="title_size"  id="title_size" name="title_size" class="selectpicker select_width" autocomplete="off" >
 												<option value="12">12</option>
 												<option value="18">18</option>
-												<option value="30">30</option>
+												<option value="24">24</option>
 											</select>
 										</div>	
 									</div>
@@ -204,56 +185,7 @@
 											</select>
 										</div>	
 									</div>
-								</div>			
-								<div class="line"></div>
-								<div class="part">
-									<div class="input_a_l titleNameLeft">X轴名称:</div>
-									<div class="input_b_2 inputLeft">
-										<input v-model="xlab"  type="text" class="form-control" id="xlab" name="xlab" placeholder="">
-									</div>
-									<div class="right">
-										<div class="input_b_t1">字体:</div>
-										<div class="input_b_3">
-											<select v-model="xlab_font" id="xlab_font" name="xlab_font" class="selectpicker select_width" autocomplete="off" >
-												<option value="normal">常规</option>
-												<option value="bold">加粗</option>
-												<option value="italic">斜体</option>
-											</select>
-										</div>	
-										<div class="input_b_t1">大小:</div>	
-										<div class="input_b_3">
-											<select v-model="xlab_size"  id="xlab_size" name="xlab_size" class="selectpicker select_width" autocomplete="off" >
-												<option value="12">12</option>
-												<option value="18">18</option>
-												<option value="30">30</option>
-											</select>
-										</div>	
-									</div>
-								</div>
-								<div class="part">
-									<div class="input_a_l titleNameLeft">Y轴名称:</div>
-									<div class="input_b_2 inputLeft">
-										<input v-model="ylab" type="text" class="form-control" id="ylab" name="ylab" placeholder="">
-									</div>
-									<div class="right">
-										<div class="input_b_t1">字体:</div>
-										<div class="input_b_3">
-											<select v-model="ylab_font" id="ylab_font" name="ylab_font" class="selectpicker select_width" autocomplete="off" >
-												<option value="normal">常规</option>
-												<option value="bold">加粗</option>
-												<option value="italic">斜体</option>
-											</select>
-										</div>	
-										<div class="input_b_t1">大小:</div>	
-										<div class="input_b_3">
-											<select v-model="ylab_size"  id="ylab_size" name="ylab_size" class="selectpicker select_width" autocomplete="off" >
-												<option value="12">12</option>
-												<option value="18">18</option>
-												<option value="30">30</option>
-											</select>
-										</div>	
-									</div>
-								</div>
+								</div>				
 								<div class="line"></div>
 								<div class="part">
 									<div class="input_a_l titleNameLeft">颜色方案:</div>
@@ -265,8 +197,8 @@
 										</select>
 									</div>									
 								</div>
-								<div v-for="(item,index) in legendDatas" class="part">
-									<div class="input_e_1">						
+								<div v-for="(item,index) in fileData['content'][0]" v-if="item!=xColumn" class="part">
+									<div class="input_e_1" style="width: 20%;">						
 											{{item}}:
 									</div>
 									<div class="input_e_2 colorInput">
@@ -275,75 +207,13 @@
 									<div class="input_c_4">
 										<input v-bind:value="color[index]" type="text" class="form-control spectrum">
 									</div>	
-								</div>
-								<div class="line"></div>
-								<div class="part">
-									<div class="input_a_l titleNameLeft">图例直径:</div>
-									<div class="input_b_2 inputLeft">
-										<input v-model="legendDiameter" type="text" class="form-control" id="legendDiameter" name="legendDiameter" placeholder="">
-									</div>
-								</div>
-								<div class="part">
-									<div class="input_a_l titleNameLeft">图例位置:</div>
-									<div class="inputLeft">
-										<div class="input_b_t1 titleA">水平:</div>	
-										<div class="input_b_3 inputA">
-											<select v-model="legendX" id="legendX"  name="legendX" class="selectpicker select_width" autocomplete="off" >
-												<option value="left">Left</option>
-												<option value="center">Center</option>
-												<option value="right">Right</option>
-											</select>
-										</div>	
-									</div>	
-									<div class="right">
-										<div class="input_b_t1">垂直:</div>
-										<div class="input_b_3" style="width: 108px;">
-											<select v-model="legendY" id="legendY" name="legendY" class="selectpicker select_width" autocomplete="off" >
-												<option value="top">Top</option>
-												<option value="center">Center</option>
-												<option value="bottom">Bottom</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="part">
-									<div class="input_a_l titleNameLeft">图例布局:</div>
-									<div class="input_b_3 inputLeft">
-										<select v-model="legendLayout" id="legendLayout"  name="legendLayout" class="selectpicker select_width" autocomplete="off" >
-											<option value="horizontal">Horizontal</option>
-											<option value="vertical">Vertical</option>
+									<div class="input_c_4">
+										<select class="selectpicker select_width">
+											<option value="Top">Top</option>
+											<option value="Bottom">Bottom</option>
+											<option value="Left">Left</option>
+											<option value="Right">Right</option>
 										</select>
-									</div>	
-								</div>	
-								<div class="line"></div>
-								<div class="part">
-									<div class="input_a_l titleNameLeft">X轴网格线:</div>
-									<div id="radioArea" class="input_f_2" style="width: auto;">
-										<div class="radio" style="display: inline-block;">
-											  <label for="XgridShow">
-											    <input v-model="Xgrid"   type="radio" name="XgridShow" id="XgridShow" value="show" >显示
-											  </label>
-										</div>
-										<div class="radio" style="display: inline-block;margin-left: 10px;">
-											  <label for="XgridHide">
-											    <input v-model="Xgrid" type="radio" name="XgridHide" id="XgridHide" value="hide">隐藏
-											  </label>
-										</div>
-									</div>
-								</div>
-								<div class="part">
-									<div class="input_a_l titleNameLeft">Y轴网格线:</div>
-									<div id="radioArea" class="input_f_2" style="width: auto;">
-										<div class="radio" style="display: inline-block;">
-											  <label for="YgridShow">
-											    <input v-model="Ygrid"   type="radio" name="YgridShow" id="YgridShow" value="show" >显示
-											  </label>
-										</div>
-										<div class="radio" style="display: inline-block;margin-left: 10px;">
-											  <label for="YgridHide">
-											    <input v-model="Ygrid" type="radio" name="YgridHide" id="YgridHide" value="hide">隐藏
-											  </label>
-										</div>
 									</div>
 								</div>
 							</form>
@@ -387,8 +257,8 @@
 								<button id="btnPdf" class="btn btn-primary">PDF</button>
 							</div>
 						</div>
-						<div class="panel-body">
-								<div id="main" style="width: 520px;height: 420px;margin-top: 20px;"></div>
+						<div class="panel-body" style="padding: 0;">
+								<div id="main" style="width: 550px;height: 450px;margin-top: 25px;"></div>
 						</div>
 					</div>
 				</div>
@@ -481,7 +351,6 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 	<div id="pdf" style="display: none;"></div>
     <!--页脚-->
@@ -513,17 +382,17 @@
     <script src="public/draw/script/spectrum.js"></script>
     <script src="public/draw/script/jquery.spectrum-zh-cn.js"></script>
     <script src="js/common.js"></script>
-    <script src="public/draw/script/scatterDraw-height.js"></script>  
+    <script src="public/draw/script/relationChart.js"></script> 
     <script>
-	    function upload(dom){
+    	function upload(dom){
 			uploadFile('/ddgene/Home/Upload/uploadPics','upload_input','#input');
 			vue.input=$("#input").val();
 		}
-	    $(function(){
-			$("#xColumnField").selectpicker({noneSelectedText:'请选择'});
-			$("#yColumnField").selectpicker({noneSelectedText:'请选择'});
-			$("#typeField").selectpicker({noneSelectedText:'请选择'});
-		})	
+    	$(function(){
+    		$("#xColumn").selectpicker({noneSelectedText:'请选择'});
+    		$("#funColumn").selectpicker({noneSelectedText:'请选择'});
+    		
+    	})
     </script>
 </body>
 

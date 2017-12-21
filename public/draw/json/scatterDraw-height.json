@@ -18,6 +18,7 @@
     "pointsize": "10",
     "xColumnField":"height",
     "yColumnField":"weight",
+    "typeField":"sex",
     "Xgrid": "hide",
     "Ygrid": "hide"
 }

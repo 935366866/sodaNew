@@ -270,7 +270,7 @@ $(function(){
 	        }
 	    ]
 	};
-	
+
 	//点击柱子，对应的数据高亮显示
 	myChart.on('click', function (parmas) {
 		$('#appTabLeft li:eq(0) a').tab('show');
@@ -318,6 +318,7 @@ $(function(){
 				for(var item in data){
 					vue[item]=data[item];
 				}
+				
 			},    
 			error : function(XMLHttpRequest) {
 				alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    

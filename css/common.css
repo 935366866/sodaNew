@@ -15,16 +15,18 @@
 /* 任务查看界面-----------------------------------------------------------------------------------------*/
 .task_font{ font-size:16px;}
 .samplesDIV{
-	/*background-color:rgb(140,220,255);*/
+	background-color:rgb(140,220,255);
 	text-align: left;
-	overflow-x:hidden;white-space:nowrap;text-overflow:ellipsis;
+	overflow-x:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
 	height:30px; padding-left:5px; padding-right:5px; padding-top:5px;margin-bottom: 5px;
     -moz-border-radius: 5px;      /* Gecko browsers */
     -webkit-border-radius: 5px;   /* Webkit browsers */
     border-radius:5px;            /* W3C syntax */
 }
 .groupDIV{
-/*	background-color:#359fff;*/
+	background-color:#359fff;
 	text-align:center;
 	overflow-x:hidden;white-space:nowrap;text-overflow:ellipsis;
 	padding-left:5px; padding-right:5px; padding-top:5px;margin-bottom: 5px;
