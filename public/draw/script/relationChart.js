@@ -214,6 +214,7 @@ $(function(){
 		if(formData.input==""){
 			alert("请输入文件");
 		}else{
+			debugger
 			updateEcharts(myChart,formData);//更新echarts设置 标题 xy轴文字之类的
 			myChart.showLoading();
 			$.ajax({
@@ -225,7 +226,7 @@ $(function(){
 				dataType: "json",
 				success:function(data) {
 					myChart.hideLoading();
-					updateEchartsData(myChart,formData,data["content"],vue.xColumn,data["nodes"],data["edges"]);
+					updateEchartsData(myChart,formData,data["content"]);
 					
 				},    
 				error : function(XMLHttpRequest) {
@@ -346,12 +347,11 @@ function buildTextStyle(font,fontSize){
 		fontSize:fontSize
 	}
 }
-function updateEchartsData(echarts,echartsStyle,echartsData,xColumnField,echartNodes,echartlinks){
+function updateEchartsData(echarts,echartsStyle,echartsData){
 	if(!echartsData||echartsData.length<=0){
 		return ;
 	}
 	var option = echarts.getOption();
-	option.series=[];
 	var dataMap = {};//用来存储每一个系列的数据
 	var heads=echartsData[0];
 	var nodeName="nodeName";
@@ -394,30 +394,29 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xColumnField,echartN
 		}
 		nodes.push(nodeObj);
 	}
-	console.log(linksDatas)
-    var option = {
-        series : [
+
+	option.series=[
             {
                 type: 'graph',
                 layout: 'none',
-                data: echartNodes.map(function (node) {
+                data: nodes.map(function (node) {
+                	console.log(node)
                     return {
-                        x: node.x,
-                        y: node.y,
-                        id: node.id,
-                        name: node.label,
-                        symbolSize: node.size,
+                        x: node[xCol],
+                        y: node[yCol],
+                        name: node.nodeName,
+//                      symbolSize: node.size,
                         itemStyle: {
                             normal: {
-                                color: node.color
+//                              color: node.color
                             }
                         }
                     };
                 }),
-                edges: echartlinks.map(function (edge) {
+                edges: linksDatas.map(function (edge) {
                     return {
-                        source: edge.sourceID,
-                        target: edge.targetID
+                        source: edge.source,
+                        target: edge.target
                     };
                 }),
                 label: {
@@ -436,8 +435,8 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xColumnField,echartN
                     }
                 }
             }
-        ]
-    }
+	]
+console.log(option)
 	echarts.setOption(option);
 }
 

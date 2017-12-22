@@ -1,0 +1,15 @@
+{
+	"name":"SNP_data.txt",
+	"size":null,
+	"rowNums":11,
+	"columnNums":5,
+	"content":[
+				["人种","水分","脂肪"],
+				["亚洲人","44","45"],
+				["非洲人","77","32"],
+				["欧洲人","15","72"]
+				
+	],
+	"lines":11,
+	"resultFlag":null
+}		

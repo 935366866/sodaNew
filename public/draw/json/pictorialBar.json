@@ -1,0 +1,14 @@
+{
+    "input": "/whx/abc/1.txt",
+    "title": "象形柱图",
+    "title_size": "18",
+    "title_font": "bold",
+    "titleX":"center",
+    "titleY":"top",
+    "xColumnField":"RPKMinterval",
+    "legendWidth":10,  
+    "legendHeight":10,
+    "legendY":"center",
+    "legendX":"right",
+    "legendLayout":"vertical"
+}
