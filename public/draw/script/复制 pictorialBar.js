@@ -1,7 +1,9 @@
 var paramUrl = 'public/draw/json/jobUrl'; //module+'/Data/remoteDirView';  //选择路径的模态框，向后台请求的地址
 
 $(function(){	
-var color=["#37458b","#de1615","#0b8543","#991c54","#b11e23","#057e7c","#5b2379","#308cc6","#808080","#191717"];
+	var color1=["#b09b84","#da9034","#4ab1c9","#0f9a82","#3a5183","#eb977b","#828db0","#b3d4ab","#cf151b","#7c5f47"];
+	var color2=["#37458b","#de1615","#0b8543","#5b2379","#057e7c","#b11e23","#308cc6","#991c54","#808080","#191717"];
+	var color3=["#eae185","#44657f","#ea8f10","#5ca8d1","#7c2163","#72be68","#cf91a2"];
 	vue=new Vue({
 		el:"#myTabContent",
 		data:{
@@ -21,7 +23,7 @@ var color=["#37458b","#de1615","#0b8543","#991c54","#b11e23","#057e7c","#5b2379"
 			},
 			title_size_sel:"18",
 			title_font_sel:"bold",
-			color:color,
+			color:color1,
 			dataMax:0.45
 		},
 		computed: {
@@ -134,7 +136,7 @@ var color=["#37458b","#de1615","#0b8543","#991c54","#b11e23","#057e7c","#5b2379"
 					$('#xColumn').selectpicker('refresh');	
 					$('#yColumn').selectpicker('refresh');	
 					this.xColumn_sel=$('#xColumn').selectpicker("val");
-					this.yColumn_sel=$('#yColumn').selectpicker("val");
+					this.xColumn_sel=$('#yColumn').selectpicker("val");
 					$(".spectrum").spectrum({
 						preferredFormat: "hex3"
 					});
@@ -181,13 +183,21 @@ var color=["#37458b","#de1615","#0b8543","#991c54","#b11e23","#057e7c","#5b2379"
 	       
 	    },
 	    tooltip : {},
+	    legend: {
+	    	data: [],
+	    	align:'left',
+	    	y:vue.legendY,
+			x:vue.legendX,
+			orient:vue.legendLayout,
+	        selectedMode: 'single'
+
+		},
 	    xAxis: {
 	        data: [],
 	        axisTick: {show: false},
         	axisLine: {show: false}
 	    },
 	    yAxis: {
-	    	axisLine: {show: false},
 	    	max: bodyMax,
 	        offset: 20,
 	        splitLine: {show: false}
@@ -207,15 +217,13 @@ var color=["#37458b","#de1615","#0b8543","#991c54","#b11e23","#057e7c","#5b2379"
 	$("select").on("change.bs.select",function(){
 		vue[$(this).attr("id")]=$(this).selectpicker("val");
 	})
-	vue.color=["#37458b"];
 	$("#colorProject").on("change.bs.select",function(){
 		if($(this).selectpicker("val")=="project1"){
-			vue.color=color[0];
+			vue.color=color1;
 		}else if($(this).selectpicker("val")=="project2"){
-			vue.color=color[1];
-		}
-		else{
-			vue.color=color[2];
+			vue.color=color2;
+		}else{
+			vue.color=color3;
 		}
 	});
 	//点击示例文件，加载已有参数
@@ -304,7 +312,7 @@ var color=["#37458b","#de1615","#0b8543","#991c54","#b11e23","#057e7c","#5b2379"
 	    var url = myChart.getConnectedDataURL({
 	        type: type,
 	        backgroundColor:myChart.getModel().get('backgroundColor') || '#fff',
-	        pixelRatio:6,
+	        pixelRatio:2,
 	        excludeComponents: ['toolbox']
 	    });
 	    $a.href = url;
@@ -347,10 +355,12 @@ function updateEcharts(echarts,data){
 			y:data.titleY,
 			textStyle:buildTextStyle(data.title_font,data.title_size)
 		},
-		color:color,
-		yAxis: {
-	    	axisLine: {show: true}
-	    }
+		legend:{
+			x:data.legendX,
+			y:data.legendY,
+			orient:data.legendLayout
+		},
+		color:color
 	});
 }
 
@@ -425,11 +435,15 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xColumn,yColumn){
 	};
 	var option = {
 		series:[],
-		xAxis:{
+		xAxis:{},
+		legend: {
 			data:[]
 		}
 	};
 	var heads=echartsData[0];
+	var personKind=xColumn;
+	var type1="水分";
+	var type2="脂肪"
 	var resultData = new Array();  //先声明一维
 	for(var k=0;k<echartsData[0].length;k++){    //一维长度为i,i为变量，可以根据实际情况改变
 		resultData[k]=new Array();  //声明二维，每一个一维数组里面的一个元素都是一个数组；
@@ -448,10 +462,9 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xColumn,yColumn){
 		var head = row[0];
 		row.shift();
 		var data = row;	
-		if(head==xColumn){
+		if(head==personKind){
 			option.xAxis.data=data;
-		}
-		if(head==yColumn){
+		}else if(head==type1){
 			var datas=[];
 			for(var j=0;j<data.length;j++){
 				var obj={};
@@ -469,8 +482,27 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xColumn,yColumn){
 		        markLine: markLineSetting,
 		        z: 10
 			});
-
-		}
+			option.legend.data.push(head);
+		}else{
+			var datas=[];
+			for(var j=0;j<data.length;j++){
+				var obj={};
+				obj["value"]=data[j];
+				obj["symbol"]=symbols[j];
+				datas.push(obj);
+			}
+			option.series.push({
+				type:"pictorialBar",
+				name:head,
+				symbolClip: true,
+		        symbolBoundingData: bodyMax,
+		        label: labelSetting,
+				data:datas,
+		        markLine: markLineSetting,
+		        z: 10
+			});
+			option.legend.data.push(head);
+		}	
 		var datas=[]
 		for(var j=0;j<data.length;j++){
 			var obj={};
@@ -499,6 +531,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xColumn,yColumn){
 //---------------------------------------------------函数---------------------------
 //参数组装
 function allParams(){
+
 	var app = $("#parameter").serializeArray();
 	var json1 = {};
 	for(var i=0;i<app.length;i++){
@@ -510,6 +543,7 @@ function allParams(){
 };
 
 function allJsonParams(){
+
 	var app = $("#parameter").serializeArray();
 	var json1 = {};
 	for(var i=0;i<app.length;i++){

@@ -410,72 +410,72 @@ function draftTask(url,dataUrl){
 	});
 };
 
-////直接写入一个json而不从json文件中获得他
-//allNodeName =  ["Density", "Saturation", "SNP_INDEL", "AS", "PPI", "GO", "KEGG","QC","Assemble","Novel","DE"];
-//constDefaultRefParams={
-//	"Alignment":[
-//		{
-//			"id": "alignment",
-//          "name": "比对软件",
-//          "type": "dropdown",
-//			"value":"Hisat2;Tophat2"
-//
-//		}
-//	],
-//	"Assemble":[
-//		{
-//			"id": "assemble",
-//          "name": "组装软件",
-//          "type": "dropdown",
-//			"value":"Cufflinks;Stringtie"
-//		}
-//	],
-//	"DE": [
-//		{
-//          "id": "DiffTool",
-//          "name": "差异工具",
-//          "type": "dropdown",
-//			"value":"DESeq;DESeq2;edgeR;DEGseq"
-//
-//     	},
-//		{
-//          "id": "pType",
-//          "name": "P-Type",
-//          "type": "dropdown",
-//			"value":"padj;pval"
-//
-//     },
-//      {
-//          "id": "qval",
-//          "name": "P-Value",
-//          "type": "input",
-//			"value":"0.05",
-//			"illustration":"p-adjusted value为校正后的p-value值，用于反映差异的显著性，值越小差异越显著。此参数用于筛选差异基因。无生物学重复一般选择0.005，生物学重复一般选择0.05 。"
-//      },
-//      {
-//          "id":"foldchange",
-//          "name": "差异倍数",
-//          "type": "input",
-//			"value":"",
-//			"illustration":"此参数为foldchange，即差异倍数。值越大，表示基因表达水平差异越大。用于筛选差异基因。无生物学重复一般取2，有生物学重复一般设置为1。"
-//      }
-//],
-//	"PPI": [
-//      {
-//          "id": "ppi",
-//          "name": "PPI号",
-//          "type": "dropdown",
-//			"value":";39947,Oryza_sativa_Japonica(rice)",
-//			"illustration":"用于PPI(Protein-Protein Interactions)分析的ppi number。"
-//      }],
-//
-//	"KEGG": [
-//      {
-//          "id": "abbr",
-//          "name": "KEGG缩写",
-//          "type": "dropdown",
-//			"value":"osa,Oryza_sativa_Japonica(rice);hsa,Homo_sapiens(human)",
-//			"illustration":"KEGG物种缩写。"
-//      }]
-//}
-//defaultRefParams = JSON.parse(JSON.stringify(constDefaultRefParams));
+//直接写入一个json而不从json文件中获得他
+allNodeName =  ["Density", "Saturation", "SNP_INDEL", "AS", "PPI", "GO", "KEGG","QC","Assemble","Novel","DE"];
+constDefaultRefParams={
+	"Alignment":[
+		{
+			"id": "alignment",
+            "name": "比对软件",
+            "type": "dropdown",
+			"value":"Hisat2;Tophat2"
+
+		}
+	],
+	"Assemble":[
+		{
+			"id": "assemble",
+            "name": "组装软件",
+            "type": "dropdown",
+			"value":"Cufflinks;Stringtie"
+		}
+	],
+	"DE": [
+		{
+            "id": "DiffTool",
+            "name": "差异工具",
+            "type": "dropdown",
+			"value":"DESeq;DESeq2;edgeR;DEGseq"
+
+       	},
+		{
+            "id": "pType",
+            "name": "P-Type",
+            "type": "dropdown",
+			"value":"padj;pval"
+
+       },
+        {
+            "id": "qval",
+            "name": "P-Value",
+            "type": "input",
+			"value":"0.05",
+			"illustration":"p-adjusted value为校正后的p-value值，用于反映差异的显著性，值越小差异越显著。此参数用于筛选差异基因。无生物学重复一般选择0.005，生物学重复一般选择0.05 。"
+        },
+        {
+            "id":"foldchange",
+            "name": "差异倍数",
+            "type": "input",
+			"value":"",
+			"illustration":"此参数为foldchange，即差异倍数。值越大，表示基因表达水平差异越大。用于筛选差异基因。无生物学重复一般取2，有生物学重复一般设置为1。"
+        }
+],
+	"PPI": [
+        {
+            "id": "ppi",
+            "name": "PPI号",
+            "type": "dropdown",
+			"value":";39947,Oryza_sativa_Japonica(rice)",
+			"illustration":"用于PPI(Protein-Protein Interactions)分析的ppi number。"
+        }],
+
+	"KEGG": [
+        {
+            "id": "abbr",
+            "name": "KEGG缩写",
+            "type": "dropdown",
+			"value":"osa,Oryza_sativa_Japonica(rice);hsa,Homo_sapiens(human)",
+			"illustration":"KEGG物种缩写。"
+        }]
+}
+defaultRefParams = JSON.parse(JSON.stringify(constDefaultRefParams));

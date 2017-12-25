@@ -75,11 +75,11 @@
 	</div>
 	<!--/前台公共头部-->
 	<div class="center_box" style="float:left;width:100%;">
-		<div class="flow_title themeRNA">
-			<p>有参转录组分析流程V1.0</p>
-			<button class="btn btn_title round_Button" onclick="javascrtpt:window.location.href='../flowIntroduction_report/video.html'">使用说明</button>
+		<div id="flowHead" class="flow_title">
+			<p></p>
+			<button class="btn btn_title round_Button" >使用说明</button>
 		</div>
-			<div class=" change_box" style="padding-left: 0px; padding-right:0px;padding-bottom:50px;">
+		<div class=" change_box" style="padding-left: 0px; padding-right:0px;padding-bottom:50px;">
 				<!--第一部分 流程图 -->
 				<div class="part_box" style=" padding-top:0px; ">
 					<div class="task_form_height">
@@ -93,8 +93,8 @@
 					</div>
 				</div>
 
-					<!--第二部分表格的填写-->
-					<div class="part_box">
+				<!--第二部分表格的填写-->
+				<div class="part_box">
 						<form class="form-horizontal" id="creatTask" role="form" style="margin-top: 30px;" action="newTask" method="post" onsubmit="return submitForm(this)">
 							<input type='hidden' id='task_type' name='task_type' value='ref' />
 							<input type='hidden' id='id' name="id" value="{$id} "></input>
@@ -128,52 +128,12 @@
 									</a>							
 								</div>
 							</li>
-							
-							<!--数据目录-->
-							<li class="task_form_height" style="position: relative;">
-								<label class="task_label"><span id="dataNum">8</span>数据目录</label>
-								<div class="task_box" >
-									<input type="url" class="form-control " required id="data_dir" name="data_dir" placeholder="请选择数据目录" readonly>
-								</div>
-								<div style="display: inline-block;margin-top: 7px;">
-									<div style="display:inline-block;">
-										<span id="dataTip"  class="glyphicon glyphicon-question-sign" style="font-size: 20px;"></span>
-									</div>
-									<a onclick="openDataUrl()">
-										<span class="glyphicon glyphicon-folder-open" style="font-size:20px; cursor:pointer;color:#7f8080;"></span>
-									</a>
-								</div>
-								<!--提示提示框-->
-								<div id="dataTipModal" style="display:none; width: 430px;height: 140px;position: absolute;top:50px;right:-131px;z-index: 100;color:#fff;padding: 30px 15px 10px 15px;background: url(img/tipBj.png);">
-									目录下需要包含命令格式为*_*.fq.gz或者*_*.fastq.gz结尾的测序数据文件，第一个星号用来区分不同样本的信息，由数字、字母、下划线任意组合构成，
-								        不可以包含空格，第二个星号代表read1或者read2的信息，用“1”或者“R1”表示。例如Sample1_L1_1.fq.gz。
-								</div>
-							</li>
 							</ul>
 						</form>
-
-					<!--第二部分 选择sample的表格 -->								
-					<div class="task_form_height" style="position: relative;">
-						<div class="task_label">&nbsp;</div>
-						<div class="task_box" style="width: 81%;margin-left: 55px;margin-top: 0;">
-							<div id="toolbar">
-								<button id="removeDataTable" class="btn btn-default">删除行</button>
-							</div>
-							<table id="sampleTable" ></table>
-							<div style="width:360px;margin:0 auto;padding-top:40px;padding-bottom:40px;">
-								<button id="getSamples" class="btn btn_orange round_Button" style="margin-top: 10px;">锁定样本</button>
-								<button class="btn btn_white round_Button" id="unlockSamples" style="margin-top: 10px; margin-left:20px;">清空样本</button>
-							</div>
-							<!--样本名格式提示框-->
-							<div id="sampleTipModal" style="display:none; width: 290px;height: 115px;position: absolute;top:7px;left: 122px;z-index: 100;color:#fff;padding: 17px 15px 20px 15px;background: url(img/sampleTipBj.png) no-repeat;">
-								建议点击每个样本的名称进行样本名的修改，由数字、字母、下划线任意组合构成，不能包含空格，长度不超过10个字符
-							</div>
-						</div>
-
 					</div>
-					<!-- ------------------------------------------------------------------------------------------------- -->
-					<!-- 添加选择目录的模态框 -->
-					<div class="modal fade" id="selectUrl" tabindex="-1" aria-labelledby="选择路径" aria-hidden="true">
+				<!-- ------------------------------------------------------------------------------------------------- -->
+				<!-- 添加选择目录的模态框 -->
+				<div class="modal fade" id="selectUrl" tabindex="-1" aria-labelledby="选择路径" aria-hidden="true">
 						<div class="modal-dialog" style="top:50px; width:800px;">
 							<div class="modal-content ">
 								<div class="modal-header">
@@ -215,7 +175,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="modal fade " id="dirModal" tabindex="-1" role="dialog"  aria-hidden="true">						
+				<div class="modal fade " id="dirModal" tabindex="-1" role="dialog"  aria-hidden="true">						
 						<div  class="modal-dialog " style='width:20%;top: 50%;margin-top: -46px;'>
 							<div class="modal-content">
 								<div class="modal-header">
@@ -229,139 +189,8 @@
 							</div>
 						</div>
 					</div>
-					<!-- ---------------------------------------------------------------------- -->
-					<!--第四部分 样本分组、比较、维恩图 -->
-					<!-- 样本分组、比较、维恩图 -->
-					<div class="part_box" >
-						<!--带星 分组比较标题-->
-						<div class="task_form_height" id="sampleGroup" >
-							<label class="task_label"><span id="groupNum"></span>分组比较</label>
-							<!--带有拖拽内容的面板-->
-							<div  class="sample_part" style="width: 81%;margin-left: 55px;margin-top: 0;">
-								<div class="panel panel-default" >
-									<div class="panel-heading">生物学重复</div>
-									<div class="panel-body">
-										<form class="form-horizontal">
-											<div class="form-group">
-												<label class="col-sm-3 control-label">生物学</label>
-												<div class="col-sm-7">
-													<select id="isRepeat" name="isRepeat" class="selectpicker select_width">
-														<option value="NO" >NO</option>
-														<option value="YES" selected="selected">YES</option>
-													</select>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-								<div class="panel panel-default" style="padding:0px;">
-									<div class="panel-heading">
-										<h4><span class="glyphicon glyphicon-edit"></span> Sample Group</h4>
-									</div>
-									<div class="panel-body" style="padding: 15px 0px 15px 20px !important;">
-										<div style="margin-bottom: 55px;">
-											<div style="float:left;width:24%;margin-right: 20px;">
-												<div><label class='control-label'><b>样本名称：</b></label></div>
-											</div>
-											<div style="float:left;width:21%;margin-right: 20px;">
-												<div class="btnTip">
-													<div id="groupTip" class="tipContent">每个group中可以有1个及以上的生物学重复</div>
-													<button id="addBtn" class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
-														<span  class="glyphicon glyphicon-plus">Group</span>
-													</button><br />
-												</div>
-											</div>
-											<div style="float:left;width:21%;margin-right: 20px;">
-												<div class="btnTip">
-													<div id="compareTip" class="tipContent" style="background: url(img/groupbj1.png) no-repeat;top: -76px;">每个compare中必须有两个group</div>
-													<button id="compareBtn" class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
-														<span class="glyphicon glyphicon-plus">Compare</span>
-													</button>
-												</div>   
-											</div>
-											<div style="float:left;width:21%;margin-right: 20px;">
-												<div class="btnTip">
-													<div id="vennTip" class="tipContent" style="background: url(img/groupbj1.png) no-repeat;top: -76px;">每个韦恩图中有2个到5个compare</div>
-													<button id="vennBtn" class="btn btn-default"  data-target='#vennModal' data-toggle='modal' style="outline: none;">
-														<span class="glyphicon glyphicon-plus">Venn</span>
-													</button>
-												</div>
-											</div>
-										</div>
-										<div style="width:100%;">																				
-											<div style="float:left;width:24%;margin-right: 20px;">
-												<div id="sampleWrap">
-													<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;"></ol>
-												</div>
-											</div>
-											<div id='groupList' style="float:left;width:21%;margin-right:20px;"></div>
-											<div id='compareList' style="float:left;width:21%;margin-right:20px;"></div>
-											<div id='vennList' style="float:left;width:21%"></div>																					
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>						
+				<!-- ---------------------------------------------------------------------- -->
 
-
-					<!-- group modal -->
-					<div class="modal fade " id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog " style='width:20%;top: 50%;margin-top: -46px;'>
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="myModalLabel">组名</h4>
-									<div class="input-group">
-										<input id="groupName" class="form-control" value=''/>
-										<span id='addGroup' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-									</div>
-								</div>
-							</div>
-						</div>	
-					</div>
-					<!-- /.modal end -->
-					<!-- compare modal -->				
-					<div class="modal fade " id="compareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div  class="modal-dialog" style='width:20%;top: 50%;margin-top: -46px;'>
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="myModalLabel">组间比较</h4>
-									<div class="input-group">
-										<input id="compareName" class="form-control" value='' />
-										<span id='addCompare' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /.modal end -->
-					<!-- venn modal -->
-					<div class="modal fade " id="vennModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">									
-						<div class="modal-dialog" style='width:20%;top: 50%;margin-top: -46px;'>
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title" id="myModalLabel">维恩组</h4>
-									<div class="input-group">
-										<input id="vennName" class="form-control" value='' />
-										<span id='addVenn' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /.modal end -->
-					<!--第五部分 模块参数设置-->
-					<div class="part_box">
-						<div class="task_form_height">
-							<label class="task_label"><span id="taskTitle">10</span>模块参数设置</label>
-							<!--点击展开参数-->
-							<div class="panel-group params_part" id="parasPanel" style="width: 81%;margin-left: 55px;margin-top: 0;">
-							</div>							
-						</div>
-					</div>
-				</div>
 				<!-- ------------------------------参数设置结束-------------------------------- -->
 				<div class="task_form_height">
 					<label class="task_label"><span><img style="padding-bottom: 5px;" src="img/arrowLeft.svg"></span>提交任务</label>
@@ -392,18 +221,6 @@
 	<script src="js/go.js"></script>
 	<script src="js/common1.js"></script>
 	<script src="js/customizeProcess.js"></script>
-	<script>
-
-//		$(document).ready(function(){ 
-//			//调出默认数据存为变量
-//			var id = $("#id").val().replace(' ','');
-//			if(id==null || id==''){
-//				return ;
-//			}
-//			draftTask(nodeParaUrl,samplesDataUrl);   //传入草稿的数据,发送数据目录的地址
-//		});
-	
-</script>
 </body>
 
 </html>

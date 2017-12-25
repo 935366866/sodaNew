@@ -333,7 +333,6 @@ $(function(){
 	        }
 	    ],
 	    grid:{
-//	    	show:true,
 	    	left:80
 	    },
 		legend: {
@@ -562,7 +561,19 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxis,yAxis,type){
 		option.legend={
 			data:[]
 		};
+
 		for(key in dataMap){
+			var data=dataMap[key];
+			var sum=0;
+			var min=0;
+			for(var i=0;i<data.length;i++){
+				sum+=Number(data[i][0]);
+				if(Number(data[i][0])<min){
+					min=Number(data[i][0]);
+				}
+			}
+			var ave=sum/data.length;
+			console.log(min)
 			option.legend.data.push(key);
 			var serie =  {
 				type:"scatter",
@@ -601,7 +612,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxis,yAxis,type){
 	                },
 	                data : [
 	                    {type : 'average', name: '平均值'},
-	                    { xAxis: 170 }
+	                    { xAxis: ave }
 	                ]
 	            }
 			};

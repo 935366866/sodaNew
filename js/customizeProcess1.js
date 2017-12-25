@@ -15,15 +15,7 @@ $(function(){
 		async: false,
 		dataType: "json",
 		success:function(data,status) {
-			if(status=="success"){  
-				var $=jQuery;
-				/*流程头部设置*/
-				var flowHead=data.data["flowHead"];
-				$("#flowHead").addClass(flowHead["style"]);
-				$("#flowHead>p").text(flowHead["flow_tile"]);
-				$("#flowHead>button").on("click",function(){
-					window.location.href='../barDraw.html'
-				})
+			if(status=="success"){    
 				/*模块节点设置*/
 				var moduleDatas=data.data["processModule"];
 				for(var i=0;i<moduleDatas.length;i++){
@@ -125,14 +117,46 @@ $(function(){
 			   	});
 				diagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);	
 				diagram.initialContentAlignment = go.Spot.Center; //整个图居中	
+				/********节点设置结束**************/
+				var $=jQuery;
+				var taskDatas=data.data["taskPara"];
+				for(var i=0;i<taskDatas.length;i++){
+					var num=taskDatas[i]['num']+4;
+					if(taskDatas[i]["type"]=="select"){
+						var value=taskDatas[i]["value"];
+						var options='';
+						for(var j=0;j<value.length;j++){
+							var htm="<option value="+value[j]["value"]+">"+value[j]["name"]+"</option>"
+							options=options+htm;
+						}
+						var htms="<li class='task_form_height'><label class='task_label'><span>"+num+"</span>"+taskDatas[i]['title']+"</label><div class='task_box'><select class='form-control' id="+taskDatas[i]['id']+" name="+taskDatas[i]['id']+">"+options+"</select></div></li>"
+						$('#taskLists > li:last-child').before(htms);
+						$("#" + taskDatas[i]['id']).selectpicker({
+							liveSearch: true
+						});
+					}
+				}
+				$("#dataNum").text(taskDatas.length+5);
+				$("#groupNum").text(taskDatas.length+6);
+				defaultRefParams=data.data["defaultRefParams"];
+				
+				
 			};
 		 },   
 		 error : function(XMLHttpRequest) {
 		   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 		 }
 	}); 
-
-
+	mouse("addBtn","groupTip");
+	mouse("compareBtn","compareTip")
+	mouse("vennBtn","vennTip")
+	
+	$('#dataTip').on("mouseover",function(){
+		$('#dataTipModal').fadeIn(300); 
+	});  
+	$('#dataTip').on("mouseout",function(){
+		$('#dataTipModal').fadeOut(300); 
+	});  
 	$('#creatTask label').addClass('label_width');   //含有任务名称等基本信息的表格中label
 	
 	$("#dirName").keydown(function(k){

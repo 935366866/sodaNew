@@ -131,6 +131,14 @@
 											</select>
 										</div>	
 									</div>
+									<div class="right">
+										<div class="input_a_l" style="width: 80px;">Y轴数据：</div>
+										<div class="input_a_m" style="width: 158px;">
+											<select v-model="yColumn" id="yColumn"  name="yColumn" class="select_width" autocomplete="off" >
+												<option v-for="item in fileData['content'][0]" v-if="item!=fileData['content'][0][0]" :value="item">{{item}}</option>
+											</select>
+										</div>	
+									</div>
 								</div>
 								<div class="line"></div>
 								<div class="part">
@@ -191,24 +199,11 @@
 										</select>
 									</div>									
 								</div>
-								<div v-for="(item,index) in fileData['content'][0]" v-if="item!=xColumn" class="part">
-									<div class="input_e_1" style="width: 20%;">						
-											{{item}}:
-									</div>
+								<div class="part">
+									<div class="input_a_l titleNameLeft">自定义颜色:</div>
 									<div class="input_e_2 colorInput">
-										自定义颜色:
-									</div>
-									<div class="input_c_4">
-										<input v-bind:value="color[index]" type="text" class="form-control spectrum">
+										<input v-bind:value="color" type="text" class="form-control spectrum">
 									</div>	
-									<div class="input_c_4">
-										<select class="selectpicker select_width">
-											<option value="Top">Top</option>
-											<option value="Bottom">Bottom</option>
-											<option value="Left">Left</option>
-											<option value="Right">Right</option>
-										</select>
-									</div>
 								</div>
 							</form>
 						</div>
@@ -384,8 +379,7 @@
 		}
     	$(function(){
     		$("#xColumn").selectpicker({noneSelectedText:'请选择'});
-    		$("#funColumn").selectpicker({noneSelectedText:'请选择'});
-    		
+    		$("#yColumn").selectpicker({noneSelectedText:'请选择'});
     	})
     </script>
 </body>
