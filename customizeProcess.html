@@ -80,127 +80,228 @@
 			<button class="btn btn_title round_Button" >使用说明</button>
 		</div>
 		<div class=" change_box" style="padding-left: 0px; padding-right:0px;padding-bottom:50px;">
-				<!--第一部分 流程图 -->
-				<div class="part_box" style=" padding-top:0px; ">
-					<div class="task_form_height">
-						<label class="task_label"><span>1</span>流程分析</label>
-					</div>
-					<!--流程图的div-->
-					<div id="myDiagramDiv"></div>
-					<div style="margin:0 auto ;width:360px;">
-						<button type="button" class="btn btn_orange round_Button" id="lockNode" onclick="selectedNode()">锁定模块</button>
-						<button type="button" class="btn btn_white round_Button" id="unlockNode" style="margin-left:20px;float:right;" onclick="unlock()">解除锁定</button>
-					</div>
-				</div>
-
-				<!--第二部分表格的填写-->
-				<div class="part_box">
-						<form class="form-horizontal" id="creatTask" role="form" style="margin-top: 30px;" action="newTask" method="post" onsubmit="return submitForm(this)">
-							<input type='hidden' id='task_type' name='task_type' value='ref' />
-							<input type='hidden' id='id' name="id" value="{$id} "></input>
-							<ul id="taskLists">
-							<li class=" task_form_height">						
-								<label class="task_label"><span>2</span>任务名称</label>
-								<div class="task_box" >
-									<input type="text" class="form-control" required id="task_name" name="task_name" placeholder="请填写任务名称">
-								</div>
-							</li>
-							<li class="task_form_height">
-								<label class="task_label"><span>3</span>所属项目</label>
-								<div class="task_box">
-									<select id="project_id" name="project_id" class="selectpicker select_width" data-live-search="true" >
-										<optgroup label="可选项目">
-										<foreach name='projList' item='proj'>
-										<option value="{$proj.id}">{$proj.project_name}</option>
-										</foreach>
-										</optgroup>
-									</select>
-								</div>
-							</li>
-							<li class="task_form_height">
-								<label class="task_label"><span>4</span>任务目录</label>
-								<div class="task_box">
-									<input type="url" class="form-control" id="dir_path" name="dir_path" placeholder="请选择任务目录" readonly>
-								</div>
-								<div class="dir">
-									<a onclick="opendir_path()">
-										<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
-									</a>							
-								</div>
-							</li>
-							</ul>
-						</form>
-					</div>
-				<!-- ------------------------------------------------------------------------------------------------- -->
-				<!-- 添加选择目录的模态框 -->
-				<div class="modal fade" id="selectUrl" tabindex="-1" aria-labelledby="选择路径" aria-hidden="true">
-						<div class="modal-dialog" style="top:50px; width:800px;">
-							<div class="modal-content ">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title">路径</h4>
-									<div class="input-group">
-										<input type="text" class="form-control" id="inputUrl">
-										<span class="input-group-btn">
-											<button class="btn btn-default glyphicon glyphicon-arrow-left" id="back" type="button" style="top: 0px;"></button>
-											<button class="btn btn-default glyphicon glyphicon-arrow-right" id="search" type="button" style="top: 0px;"></button>
-										</span>
-									</div>
-								</div>
-								<!-- ---------------data-single-select="true"-------------------------------------------------------------------- -->
-								<div class="modal-body" style="text-align:center; ">
-									<table data-toggle="table" data-minimum-count-columns="2" data-id-field="id" data-show-footer="false" data-height="300" data-sort-name="id"
-										data-click-to-select="true"  id="jobUrlTable" style="bottom:20px;">
-										<thead>
-											<tr>
-												<th data-field="state" data-checkbox="true"></th>
-												<th data-field="icon" data-formatter="addIcon"></th>
-												<th data-field="name" data-align="left" data-sortable="true">name</th>
-												<th data-field="type" data-align="center" data-sortable="true">attribute</th>
-												<th data-field="inodeNum" data-align="center" data-visible="false" data-sortable="true">inodeNum</th>
-												<th data-field="size" data-align="center" data-sortable="true">size</th>
-												<th data-field="owner" data-align="center" data-sortable="true">owner</th>
-												<th data-field="group" data-align="center">group</th>
-												<th data-field="mtime" data-align="center" data-sortable="true">time</th>
-											</tr>
-										</thead>
-									</table>
-								</div>
-								<!-- ----------------------------------------------------------------------------------- -->
-								<div class="modal-footer">
-									<button type="button" id="add" class="btn btnBlue pull-left" data-target='#dirModal' data-toggle='modal'>新建目录</button>
-									<button type="button" id="selected" class="btn btnBlue">确定</button>
-									<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">取消</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				<div class="modal fade " id="dirModal" tabindex="-1" role="dialog"  aria-hidden="true">						
-						<div  class="modal-dialog " style='width:20%;top: 50%;margin-top: -46px;'>
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title">目录名</h4>
-									<div class="input-group">
-										<input id="dirName" class="form-control" value=''/>
-										<span id='addDir' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				<!-- ---------------------------------------------------------------------- -->
-
-				<!-- ------------------------------参数设置结束-------------------------------- -->
+			<!--第一部分 流程图 -->
+			<div class="part_box" style=" padding-top:0px; ">
 				<div class="task_form_height">
-					<label class="task_label"><span><img style="padding-bottom: 5px;" src="img/arrowLeft.svg"></span>提交任务</label>
-					<div class="run_style">
-						<button type="submit" class="btn submitBut" id="taskRun" style="float:left;padding: 0px; border-width: 0px;">
-							<img src="img/grunGreen.svg" alt="">
-						</button>
+					<label class="task_label"><span>1</span>流程分析</label>
+				</div>
+				<!--流程图的div-->
+				<div id="myDiagramDiv"></div>
+				<div style="margin:0 auto ;width:360px;">
+					<button type="button" class="btn btn_orange round_Button" id="lockNode" onclick="selectedNode()">锁定模块</button>
+					<button type="button" class="btn btn_white round_Button" id="unlockNode" style="margin-left:20px;float:right;" onclick="unlock()">解除锁定</button>
+				</div>
+			</div>
+
+			<!--第二部分表格的填写-->
+			<div class="part_box">
+				<form class="form-horizontal" id="creatTask" role="form" style="margin-top: 30px;" action="newTask" method="post" onsubmit="return submitForm(this)">
+					<input type='hidden' id='task_type' name='task_type' value='ref' />
+					<input type='hidden' id='id' name="id" value="{$id} "></input>
+					<div class=" task_form_height">						
+						<label class="task_label"><span>2</span>任务名称</label>
+						<div class="task_box" >
+							<input type="text" class="form-control" required id="task_name" name="task_name" placeholder="请填写任务名称">
+						</div>
+					</div>
+					<div class="task_form_height">
+						<label class="task_label"><span>3</span>所属项目</label>
+						<div class="task_box">
+							<select id="project_id" name="project_id" class="selectpicker select_width" data-live-search="true" >
+								<optgroup label="可选项目">
+								<foreach name='projList' item='proj'>
+								<option value="{$proj.id}">{$proj.project_name}</option>
+								</foreach>
+								</optgroup>
+							</select>
+						</div>
+					</div>
+					<div class="task_form_height">
+						<label class="task_label"><span>4</span>任务目录</label>
+						<div class="task_box" style="margin-right: 0px;">
+							<input type="url" class="form-control" id="dir_path" name="dir_path" placeholder="请选择任务目录" readonly>
+						</div>
+						<div style="width: 4%;float: left;">&nbsp;</div>
+						<div class="dir" style="padding-left: 0px;">
+							<a onclick="opendir_path()">
+								<span class="glyphicon glyphicon-folder-open" style="font-size:20px; top: 5px; cursor:pointer;color:#7f8080;"></span>
+							</a>							
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="part_box">
+				<div class="task_form_height" id="parasBox" style="display: block;">
+					<label class="task_label"><span id="taskTitle">5</span>模块参数设置</label>
+					<!--点击展开参数-->
+					<div class="panel-group params_part" id="parasPanel" style="width: 91%;margin-left: 20px;">
+						<!--<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#Assemble" href="#Assemble_panel_body">Basic_QC 参数设置</a>
+								</h4>
+							</div>
+							<div id="Assemble_panel_body" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<form class="form-horizontal">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">任务目录</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="path1" name="path1"/>
+											</div>
+											<a class="col-sm-2" onclick="opendir_path()">
+												<span class="glyphicon glyphicon-folder-open"></span>
+											</a>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#Assemble" href="#Assemble_panel_body">Basic_QC 参数设置</a>
+								</h4>
+							</div>
+							<div id="Assemble_panel_body" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<form class="form-horizontal">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">任务目录</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" id="path1" name="path1"/>
+											</div>
+											<a class="col-sm-2" onclick="opendir_path()">
+												<span class="glyphicon glyphicon-folder-open"></span>
+											</a>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-8 col-sm-offset-2">
+												<button id="removeDataTable" class="btn btn-default">删除行</button>
+												<table id="sampleTable" ></table>
+												<div style="width:360px;margin:0 auto;padding-top:40px;padding-bottom:40px;">
+													<button id="getSamples" class="btn btn_orange round_Button" style="margin-top: 10px;">锁定样本</button>
+													<button class="btn btn_white round_Button" id="unlockSamples" style="margin-top: 10px; margin-left:20px;">清空样本</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>-->
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#Assemble" href="#Assemble_panel_body">Basic_QC 参数设置</a>
+								</h4>
+							</div>
+							<div id="Assemble_panel_body" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<form class="form-horizontal">
+										<div class="form-group">
+											<div class="col-sm-3">
+												<label class=' control-label'><b>样本名称：</b></label>
+											</div>
+											<div class="btnTip col-sm-3">
+												<button id="addBtn" class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
+													<span  class="glyphicon glyphicon-plus">Group</span>
+												</button><br />
+											</div>
+											<div class="btnTip col-sm-3">
+												<button id="compareBtn" class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
+													<span class="glyphicon glyphicon-plus">Compare</span>
+												</button>
+											</div>   
+											<div class="btnTip col-sm-3">
+												<button id="vennBtn" class="btn btn-default"  data-target='#vennModal' data-toggle='modal' style="outline: none;">
+													<span class="glyphicon glyphicon-plus">Venn</span>
+												</button>
+											</div>
+										</div>																			
+										<div class="form-group">
+											<div id="sampleWrap">
+												<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;"></ol>
+											</div>
+											<div id='groupList' style="float:left;width:21%;margin-right:20px;"></div>
+											<div id='compareList' style="float:left;width:21%;margin-right:20px;"></div>
+											<div id='vennList' style="float:left;width:21%"></div>																					
+										</div>	
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>							
+				</div>
+			</div>
+				
+			<!-- 添加选择目录的模态框 -->
+			<div class="modal fade" id="selectUrl" tabindex="-1" aria-labelledby="选择路径" aria-hidden="true">
+				<div class="modal-dialog" style="top:50px; width:800px;">
+					<div class="modal-content ">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">路径</h4>
+							<div class="input-group">
+								<input type="text" class="form-control" id="inputUrl">
+								<span class="input-group-btn">
+									<button class="btn btn-default glyphicon glyphicon-arrow-left" id="back" type="button" style="top: 0px;"></button>
+									<button class="btn btn-default glyphicon glyphicon-arrow-right" id="search" type="button" style="top: 0px;"></button>
+								</span>
+							</div>
+						</div>
+						<!-- ---------------data-single-select="true"-------------------------------------------------------------------- -->
+						<div class="modal-body" style="text-align:center; ">
+							<table data-toggle="table" data-minimum-count-columns="2" data-id-field="id" data-show-footer="false" data-height="300" data-sort-name="id"
+								data-click-to-select="true"  id="jobUrlTable" style="bottom:20px;">
+								<thead>
+									<tr>
+										<th data-field="state" data-checkbox="true"></th>
+										<th data-field="icon" data-formatter="addIcon"></th>
+										<th data-field="name" data-align="left" data-sortable="true">name</th>
+										<th data-field="type" data-align="center" data-sortable="true">attribute</th>
+										<th data-field="inodeNum" data-align="center" data-visible="false" data-sortable="true">inodeNum</th>
+										<th data-field="size" data-align="center" data-sortable="true">size</th>
+										<th data-field="owner" data-align="center" data-sortable="true">owner</th>
+										<th data-field="group" data-align="center">group</th>
+										<th data-field="mtime" data-align="center" data-sortable="true">time</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+						<!-- ----------------------------------------------------------------------------------- -->
+						<div class="modal-footer">
+							<button type="button" id="add" class="btn btnBlue pull-left" data-target='#dirModal' data-toggle='modal'>新建目录</button>
+							<button type="button" id="selected" class="btn btnBlue">确定</button>
+							<button type="button" id="cancel" class="btn btn-default" data-dismiss="modal">取消</button>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="modal fade " id="dirModal" tabindex="-1" role="dialog"  aria-hidden="true">						
+				<div  class="modal-dialog " style='width:20%;top: 50%;margin-top: -46px;'>
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">目录名</h4>
+							<div class="input-group">
+								<input id="dirName" class="form-control" value=''/>
+								<span id='addDir' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<!-- ------------------------------参数设置结束-------------------------------- -->
+			<div class="task_form_height">
+				<label class="task_label"><span><img style="padding-bottom: 5px;" src="img/arrowLeft.svg"></span>提交任务</label>
+				<div class="run_style">
+					<button type="submit" class="btn submitBut" id="taskRun" style="float:left;padding: 0px; border-width: 0px;">
+						<img src="img/grunGreen.svg" alt="">
+					</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!--页脚-->
 	<div id="footer_style">

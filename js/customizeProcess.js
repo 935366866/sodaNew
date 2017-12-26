@@ -10,7 +10,7 @@ $(function(){
 	var nodeDataArray=[];  //节点名称及坐标
 	var linkDataArray=[]	//连线节点
 	$.ajax({
-		url:"json/ajaxPara.json",  
+		url:"json/ajaxModule.json",  
 		type:'get',
 		async: false,
 		dataType: "json",
@@ -193,74 +193,211 @@ function unlock(){
 };
 //点击锁定模块
 function selectedNode(){
-	console.log(defaultRefParams)
 	$("#unlockNode").attr("class","btn btn_orange round_Button");
 	$("#lockNode").attr("class","btn btn_white round_Button");
 	if(nodeLockStatus == 1){  //判断是否是解锁状态
 		$("#parasPanel").html(""); //清空现有的参数
-	for(var key in nodeStatus){
-		if(nodeStatus["DE"] == 1){
-			$("#sampleGroup").show();
-			$("#taskTitle").text("10");
-		}else{
-			$("#sampleGroup").hide();
-			$("#taskTitle").text("9");
-		}
-		if (nodeStatus[key] == 1){
-			if(! defaultRefParams[key]){
-				continue;
+		$.ajax({
+			url:"json/ajaxPara.json",  
+			type:'get',
+			dataType: "json",
+			success:function(data,status){
+				if(status=="success"){ 
+					$("#parasBox").show()
+					var datas=data.data;
+					for(var key in datas){
+						if(nodeStatus[key]==1){
+							$("#parasPanel").append('<div class="panel panel-default"  id="' + key + '"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#' + key + '" href="#' + key + '_panel_body">' + key + ' 参数设置</a></h4></div><div id="' + key + '_panel_body" class="panel-collapse collapse in"><div class="panel-body"><form class="form-horizontal" role="form"></form></div></div></div>');
+							var paraDatas=datas[key];
+							addPara(paraDatas,key); //添加面板中的参数
+						}
+					}
+				}	
+			},	
+			error : function(XMLHttpRequest) {
+			   alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
 			}
-			$("#parasPanel").append('<div class="panel panel-default"  id="' + key + '"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#' + key + '" href="#' + key + '_panel_body">' + key + ' 参数设置</a></h4></div><div id="' + key + '_panel_body" class="panel-collapse collapse in"><div class="panel-body"><form class="form-horizontal" role="form"></form></div></div></div>');
-			addPara(key); //添加面板中的参数
-		};
+		})
+		nodeLockStatus=0; 	
 	};
-	};
-	nodeLockStatus=0; 
+	
 };
-
+var samplesLock=1 //没有锁定
 //在参数设置中 给node名字为key的模块 添加input或dropdown参数
-function addPara(key) {
-	var data = defaultRefParams;
-	items = data[key]; //找到参数中键为key的node项目
-	if(typeof(items) == 'undefined' || items == null) {
-		return;
-	}
-	for(var i = 0; i < items.length; i++) { //遍历其中的许多参数
-		if(items[i]["type"] == "input") { //添加一个input框
-			var name = items[i]["name"]
-			var id = items[i]["id"]
-			var value = items[i]["value"]
-			var info = items[i]["illustration"]
+function addPara(paraDatas,key) {
+	for(var i=0;i<paraDatas.length;i++){
+		if(typeof(paraDatas[i]) == 'undefined' || paraDatas[i] == null) {
+			return;
+		}
+		if(paraDatas[i]["showType"] == "input") { //添加一个input框
+			var name = paraDatas[i]["para_name"];
+			var id = paraDatas[i]["id"];
+			var value = paraDatas[i]["para_value"];
+			var info = ""
 			//添加input的代码		
 			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id="' + id + '" name="' + id + '" title="' + info + '"></div><a class="col-sm-2 control-label"  style=" text-align:left;cursor: pointer;text-decoration: none;" onclick="paraDefult(' + key + ',' + id + ')">默认值</a></div>');		
 			//向input中添加默认值
 			$("#" + id).val(value);
 		};
-		if(items[i]["type"] == "dropdown") { //添加一个下拉框
-			var name = items[i]["name"]
-			var id = items[i]["id"]
-			var value = items[i]["value"].split(";")
-			var info = items[i]["illustration"]
-			var opts = ""
-			for(var j = 0; j < value.length; j++) {
-				var tmpArr = value[j].split(',');
-				if(tmpArr!=""){
-					if(tmpArr.length < 2) {
-					tmpArr[1] = tmpArr[0];
-				}
-				opts += '<option value="' + tmpArr[0] + '">' + tmpArr[1] + '</option>'; //给option添加一个value
-				}
-				
-			}; 
-			
-			//添加dropdown的代码
-			$("#" + key + " form").append('<div class="form-group" ><label title="' + info + '" class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7" ><select class="form-control" id="' + id + '" name="' + id + '"  title="">' + opts + '</select></div></div>');
-
+		if(paraDatas[i]["showType"] == "select") { //添加一个下拉框
+			var name = paraDatas[i]["para_name"];
+			var id = paraDatas[i]["id"];
+			var value = paraDatas[i]["para_value"];
+			var info = ""
+			var options='';
+			for(var j=0;j<value.length;j++){
+				var htm="<option value="+value[j]["value"]+">"+value[j]["name"]+"</option>"
+				options=options+htm;
+			}
+			$("#" + key + " form").append('<div class="form-group" ><label title="' + info + '" class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7" ><select class="form-control" id="' + id + '" name="' + id + '"  title="">' + options + '</select></div></div>');
 			$("#" + id).selectpicker({
 				liveSearch: true
 			});
 		};
-	};
+		
+		if(paraDatas[i]["showType"] == "path") { //添加一个下拉框
+			var name = paraDatas[i]["para_name"];
+			var id = paraDatas[i]["id"];
+			var value = paraDatas[i]["para_value"];
+			var info = ""
+			var options='';
+			//添加input的代码		
+			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id="' + id + '" name="' + id + '" title="' + info + '"></div><a class="col-sm-2"  style=" text-align:left;cursor: pointer;text-decoration: none;" onclick="opendir_path()"><span class="glyphicon glyphicon-folder-open"></span></a></div>');		
+			//向input中添加默认值
+			$("#" + id).val(value);
+		};
+		
+		if(paraDatas[i]["showType"] == "path_list") { //添加一个下拉框
+			var name = paraDatas[i]["para_name"];
+			var id = paraDatas[i]["id"];
+			var value = paraDatas[i]["para_value"];
+			var info = ""
+			var options='';
+
+			//添加input的代码
+			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id=' + id + ' name=' + id + ' title=' + info + '></div><a class="col-sm-2"  style=" text-align:left;cursor: pointer;text-decoration: none;" onclick="openDataUrl('+id+')"><span class="glyphicon glyphicon-folder-open"></span></a></div>');		
+		
+			var htms="<div class='form-group'><div class='col-sm-8 col-sm-offset-2'><button id='removeDataTable' class='btn btn-default'>删除行</button><table id='sampleTable'></table><div style='width:360px;margin:0 auto;padding:40px 0;'><button id='getSamples' class='btn btn_orange round_Button'>锁定样本</button><button id='unlockSamples' class='btn btn_white round_Button'>清空样本</button></div></div></div>"
+			$("#" + key + " form").append(htms);
+			var options={
+				editable:true,
+				toolbar:"#toolbar",
+				clickToSelect:true,
+				showFooter:false,
+				classes:'table',
+				height:"250",
+				columns: [  
+			        {field:"state",edit:false,checkbox:true,checkboxEnabled:true},  
+			        {align: "left", field: "sample", order: "asc",editable:{type:'text'}, title: "样本名称 <span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>"},
+			        {align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "},
+			        {align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "}
+		      	]
+			}
+			$('#sampleTable').bootstrapTable(options);
+			
+			
+			
+			var samples = []
+			//点击锁定样本，获得样本名称
+			bindGroupClick()
+			$("#getSamples").on("click",function(){
+				if(samplesLock == 1){
+					var data = $("#sampleTable").bootstrapTable('getData');
+					if(data.length == 0){
+						alert("还没有选择样本")
+						}
+					else{
+					
+						var array = new Array()    //用来去重
+						for(var i=0;i<data.length;i++){
+							var name = data[i].sample;
+							if($.inArray(name, array) == -1){
+								if(name.length>8){
+									alert("样本名过长，不利于报告美观，建议修改！");
+									return false;
+								}
+								array.push(name)
+								add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
+								$(add).appendTo('#sampleNames')
+							};
+			
+						};
+						samples = array;
+//						dragInit();
+						samplesLock = 0;
+						$("#unlockSamples").attr("class","btn btn_orange round_Button");
+						$("#getSamples").attr("class","btn btn_white round_Button");
+					};
+					
+					$(".editable-click").editable("disable");
+					$(".editable-click").parent().click(function(){
+						alert("样本已锁定，请先解锁！")
+					})
+				};
+				return false
+			}); 
+			
+			//解锁样本
+			$("#unlockSamples").click(function(){
+				samplesLock = 1;
+				$("#unlockSamples").attr("class","btn btn_white round_Button");
+				$("#getSamples").attr("class","btn btn_orange round_Button");
+				$('#sampleNames').html("");
+				$('#groupList').html("");
+				$('#compareList').html("");
+				$('#vennList').html("");
+				allgroups=[];
+				allCompares=[];
+				allVenns=[];
+				$(".editable-click").parent().off("click")
+				$(".editable-click").editable("enable");
+			});
+		};
+		
+		if(paraDatas[i]["showType"] == "sampleGroup") { //添加一个下拉框
+			var name = paraDatas[i]["para_name"];
+			var id = paraDatas[i]["id"];
+			var value = paraDatas[i]["para_value"];
+			var sampleDatas =value["samples"];
+			
+					
+			var html1='<div class="col-sm-3"><lable class="control-label">样本名称：</lable></div>';
+			var html2='<div class="col-sm-3"><button id="addBtn" class="btn btn-default" data-target="#groupModal" data-toggle="modal"><span class="glyphicon glyphicon-plus">Group</span></button></div>';
+			var html3='<div class="col-sm-3"><button id="addBtn" class="btn btn-default" data-target="#groupModal" data-toggle="modal"><span class="glyphicon glyphicon-plus">Group</span></button></div>'
+			var html4='<div class="col-sm-3"><button id="addBtn" class="btn btn-default" data-target="#groupModal" data-toggle="modal"><span class="glyphicon glyphicon-plus">Group</span></button></div>'
+			$("#" + key + " form").append('<div class="form-group">' + html1 +html2+html3+html4+ '</div>');	
+			var html11='<ul id="sampleNames" class="col-sm-3 list-group sampleNames ui-helper-reset ui-helper-clearfix"></ul>'
+			var html22='<div id="groupList" class="col-sm-3"></div>';
+			var html33='<div id="compareList" class="col-sm-3"></div>';
+			var html44='<div id="vennList" class="col-sm-3"></div>';
+			$("#" + key + " form").append('<div class="form-group">' + html11 +html22+html33+html44+'</div>');		
+		
+			var groupsObg = value["groupSamples"];
+			
+			for(key in groupsObg){
+				var value=groupsObg[key];
+				
+				var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
+				var divHtml = $(html);
+				console.log(divHtml)
+				allgroups.push(key);
+				for(var i=0;i<value.length;i++){
+					alert(111)
+//					var sample=value[i];
+//					var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
+//				    	+sample+'</li>');
+//				  liHtml.appendTo(divHtml.find("ul"))
+					
+				}
+//				divHtml.appendTo('#groupList');
+//				
+			}
+			
+		
+		
+		};
+		
+	}
 };//点击恢复默认值
 function paraDefult(key,id){
 	var key = key.id;
@@ -286,12 +423,13 @@ function opendir_path(){
 };
 
 //打开数据目录
-function openDataUrl(){
+function openDataUrl(id){
+	var inputId=$(id).attr("id");
 	if(samplesLock == 1){
 		var inputValue = $("#data_dir").val();  //当前input的值
 		$("#inputUrl").val(inputValue);	
 		$('#selectUrl').modal('show');   //显示模态框
-		$("#selected").attr("onClick","geturl('#data_dir','dir')")
+		$("#selected").attr("onClick","geturl("+inputId+",'dir')");
 	};
 	if(samplesLock == 0){
 		alert("样本已经锁定，请先解锁")
@@ -388,7 +526,8 @@ $(function(){
 	
 });
 //点击选择关闭模态框，将当前模态框input中的路径取出放入表单中,type 的类型 暂时有两种，dir和 file
-function geturl(formInputId,type){
+function geturl(id,type){
+	var formInputId="#"+$(id).attr("id");
 	debugger
 	var selected_num = checkedNum("jobUrlTable");
 	if(type == "dir"){
@@ -408,28 +547,27 @@ function geturl(formInputId,type){
 					$("#selected").removeAttr("onClick");   //选择按钮
 					$("#selectUrl").modal('hide');          //隐藏目录选择的模态框
 					$(formInputId).val(newUrl);	
-					if(formInputId == "#data_dir"){
-						var sequencingType = $("#seq_type").val();
-						$.ajax({
-								url:samplesDataUrl,  
-								type:'get',
-								data:{url:newUrl},
-								dataType: "json",
-								success:function(data,textStatus) {
-									if(data['status']=='ERROR'){    //请求成功但没有执行成功
-										alert(data['data']);
-									}else{
-										var data1 = data['data'];
-										objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
-										$('#sampleTable').bootstrapTable('load',objData);  //填入table中	
-									}
-								},    
-								error : function(XMLHttpRequest) {
-									alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
+					var sequencingType = $("#seq_type").val();
+					$.ajax({
+							url:samplesDataUrl,  
+							type:'get',
+							data:{url:newUrl},
+							dataType: "json",
+							success:function(data,textStatus) {
+								if(data['status']=='ERROR'){    //请求成功但没有执行成功
+									alert(data['data']);
+								}else{
+									var data1 = data['data'];
+									objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
+									$('#sampleTable').bootstrapTable('load',objData);  //填入table中	
 								}
-						}); 
+							},    
+							error : function(XMLHttpRequest) {
+								alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
+							}
+					}); 
 					
-					};
+					
 				}else{
 					alert("对不起，您选择的必须是目录文件！");
 				
@@ -560,60 +698,7 @@ function geturl(formInputId,type){
 <!-- ##################　样本分组、比较、维恩图　################## -->
 
 //锁定样本的状态
-var samplesLock=1 //没有锁定
-var samples = []
-//点击锁定样本，获得样本名称
-bindGroupClick()
-$("#getSamples").click(function(){
-	if(samplesLock == 1){
-		var data = $("#sampleTable").bootstrapTable('getData');
-		if(data.length == 0){
-			alert("还没有选择样本")
-			}
-		else{
-			var array = new Array()    //用来去重
-			for(var i=0;i<data.length;i++){
-				var name = data[i].sample;
-				if($.inArray(name, array) == -1){
-					if(name.length>8){
-						alert("样本名过长，不利于报告美观，建议修改！");
-						return false;
-					}
-					array.push(name)
-					add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
-					$(add).appendTo('#sampleNames')
-				};
 
-			};
-			samples = array;
-			dragInit();
-			samplesLock = 0;
-			$("#unlockSamples").attr("class","btn btn_orange round_Button");
-			$("#getSamples").attr("class","btn btn_white round_Button");
-		};
-		
-		$(".editable-click").editable("disable");
-		$(".editable-click").parent().click(function(){
-			alert("样本已锁定，请先解锁！")
-		})
-	};
-}); 
-
-//解锁样本
-$("#unlockSamples").click(function(){
-	samplesLock = 1;
-	$("#unlockSamples").attr("class","btn btn_white round_Button");
-	$("#getSamples").attr("class","btn btn_orange round_Button");
-	$('#sampleNames').html("");
-	$('#groupList').html("");
-	$('#compareList').html("");
-	$('#vennList').html("");
-	allgroups=[];
-	allCompares=[];
-	allVenns=[];
-	$(".editable-click").parent().off("click")
-	$(".editable-click").editable("enable");
-});
 
 function dragInit() {
 	var $sampleNames = $( "#sampleNames" ),
@@ -881,7 +966,8 @@ function addGroup(){
 	var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+gname+'</span><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
 	$(html).appendTo('#groupList');
 	allgroups.push(gname);
-	dragInit();
+	
+	return false;
 }
 
 //增加比较组
@@ -937,7 +1023,7 @@ function addVenn(){
 }
 
 function bindGroupClick(){
-	dragInit();
+
 	$("#groupName").keydown(function(k){
 		if(k.keyCode==13 ){
 			addGroup();
@@ -945,6 +1031,7 @@ function bindGroupClick(){
 	});
 	$("#addGroup").click(function(){
 		addGroup();
+		
 	});
 	$("#compareName").keydown(function(k){
 		if(k.keyCode==13 ){
@@ -1259,22 +1346,7 @@ $("#taskRun").click(function(){
 	
 
 $(function(){
-	var options={
-		editable:true,
-		toolbar:"#toolbar",
-		clickToSelect:true,
-		showFooter:false,
-		classes:'table',
-		height:"250",
-		columns: [  
-	        {field:"state",edit:false,checkbox:true,checkboxEnabled:true},  
-	        {align: "left", field: "sample", order: "asc",editable:{type:'text'}, title: "样本名称 <span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>"},
-	        {align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "},
-	        {align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "}
-      	]
-	}
-	
-	$('#sampleTable').bootstrapTable(options);
+
 	var names=[]
   	if($('#seq_type').val()=="PE"){
 		var options=$('#sampleTable').bootstrapTable("getOptions");
