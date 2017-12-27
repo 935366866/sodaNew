@@ -3,6 +3,7 @@ var nodeParaUrl="json/draft.json";  // 节点参数的默认值的url
 var samplesDataUrl = "json/jobUrl.json"; //像后台发送目录的地址
 var nodeLockStatus=1  //可编辑
 var nodeStatus={};  //判断是否是草稿，加载任务参数填写时option的值
+var flowType;
 var defaultRefParams;
 $(function(){
 	//blockUI，请求失败提示
@@ -205,11 +206,12 @@ function selectedNode(){
 				if(status=="success"){ 
 					$("#parasBox").show()
 					var datas=data.data;
+					flowType=data.flow_type;
 					for(var key in datas){
 						if(nodeStatus[key]==1){
 							$("#parasPanel").append('<div class="panel panel-default"  id="' + key + '"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#' + key + '" href="#' + key + '_panel_body">' + key + ' 参数设置</a></h4></div><div id="' + key + '_panel_body" class="panel-collapse collapse in"><div class="panel-body"><form class="form-horizontal" role="form"></form></div></div></div>');
 							var paraDatas=datas[key];
-							addPara(paraDatas,key); //添加面板中的参数
+							addPara(paraDatas,key,flowType); //添加面板中的参数
 						}
 					}
 				}	
@@ -224,7 +226,7 @@ function selectedNode(){
 };
 var samplesLock=1 //没有锁定
 //在参数设置中 给node名字为key的模块 添加input或dropdown参数
-function addPara(paraDatas,key) {
+function addPara(paraDatas,key,flowType) {
 	for(var i=0;i<paraDatas.length;i++){
 		if(typeof(paraDatas[i]) == 'undefined' || paraDatas[i] == null) {
 			return;
@@ -234,8 +236,9 @@ function addPara(paraDatas,key) {
 			var id = paraDatas[i]["id"];
 			var value = paraDatas[i]["para_value"];
 			var info = ""
+			var defaultValue=paraDatas[i]["default_value"];
 			//添加input的代码		
-			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id="' + id + '" name="' + id + '" title="' + info + '"></div><a class="col-sm-2 control-label"  style=" text-align:left;cursor: pointer;text-decoration: none;" onclick="paraDefult(' + key + ',' + id + ')">默认值</a></div>');		
+			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id="' + id + '" name="' + id + '" title="' + info + '"></div><a class="col-sm-2 control-label"  style=" text-align:left;cursor: pointer;text-decoration: none;" onclick="paraDefult(' + key + ',' + id +','+defaultValue+ ')">默认值</a></div>');		
 			//向input中添加默认值
 			$("#" + id).val(value);
 		};
@@ -253,6 +256,87 @@ function addPara(paraDatas,key) {
 			$("#" + id).selectpicker({
 				liveSearch: true
 			});
+
+
+			$('#seq_type').on('changed.bs.select', function(e) {
+			    if(e.target.value){
+			      	if(e.target.value=="SE"){
+			      	var options=$('#sampleTable').bootstrapTable("getOptions");
+						
+						options.columns=[{
+							checkbox:true,checkboxEnabled:true,field:"state",title:""
+						},{
+							align: "left", 
+							field: "sample",
+							order: "asc",
+							editable: {
+			                    type: 'text',
+			                    validate: function (v) {
+			                    	var patrn=/^(\w){1,8}$/; 
+			                        if (!v&&v.trim().length<=0){
+			                        	return '用户名不能为空';
+			                        } 
+			                        if (!patrn.exec(v)) {
+										return '只能包含字母数字下划线，长度不超过8';
+									}
+			                        var data = $("#sampleTable").bootstrapTable('getData');
+			                        for(var i=0;i<data.length;i++){
+			                        	if(v==data[i].sample){
+			                        		return '样本名已存在';
+			                        	}
+			                        }
+			                   }
+		                	}, 
+		                	title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>"
+						},{
+							align: "center", field: "fq", order: "asc", title: "FastQ文件 "
+						}];
+						$('#sampleTable').bootstrapTable('destroy');
+						$('#sampleTable').bootstrapTable(options);
+			
+						
+			    	}else{
+						var options=$('#sampleTable').bootstrapTable("getOptions");
+						options.editable=true;
+						options.columns=[{
+							checkbox:true,checkboxEnabled:true,field:"state",title:""
+						},{
+							align: "left",
+							field: "sample", 
+							order: "asc",
+							title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>",
+							editable: {
+				                type: 'text',
+				                validate: function (v) {
+				                	var patrn=/^(\w){1,8}$/; 
+				                    if (!v&&v.trim().length<=0){
+				                    	return '用户名不能为空';
+				                    } 
+				                    if (!patrn.exec(v)) {
+										return '只能包含字母数字下划线，长度不超过8';
+									}
+				                    var data = $("#sampleTable").bootstrapTable('getData');
+				                    for(var i=0;i<data.length;i++){
+				                    	if(v==data[i].sample){
+				                    		return '样本名已存在';
+				                    	}
+				                    }
+				               }
+				        	}
+				        	
+						},{
+							align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "
+						},{
+							align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "
+						}];
+						$('#sampleTable').bootstrapTable('destroy');
+						$('#sampleTable').bootstrapTable(options);
+				  		$('#sampleTable').bootstrapTable("resetView");
+				  	}
+			    }
+		    });
+
+
 		};
 		
 		if(paraDatas[i]["showType"] == "path") { //添加一个下拉框
@@ -271,6 +355,7 @@ function addPara(paraDatas,key) {
 			var name = paraDatas[i]["para_name"];
 			var id = paraDatas[i]["id"];
 			var value = paraDatas[i]["para_value"];
+			var seq_type = paraDatas[i]["seq_type"];
 			var info = ""
 			var options='';
 
@@ -295,8 +380,6 @@ function addPara(paraDatas,key) {
 			}
 			$('#sampleTable').bootstrapTable(options);
 			
-			
-			
 			var samples = []
 			//点击锁定样本，获得样本名称
 			bindGroupClick()
@@ -307,7 +390,6 @@ function addPara(paraDatas,key) {
 						alert("还没有选择样本")
 						}
 					else{
-					
 						var array = new Array()    //用来去重
 						for(var i=0;i<data.length;i++){
 							var name = data[i].sample;
@@ -316,14 +398,25 @@ function addPara(paraDatas,key) {
 									alert("样本名过长，不利于报告美观，建议修改！");
 									return false;
 								}
+								
 								array.push(name)
-								add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
-								$(add).appendTo('#sampleNames')
+								if(flowType=="有参"){
+									var add;
+									add='<li class="list-group-item ui-widget-content ui-corner-tr">'+name+'</li>'
+									$(add).appendTo('#sampleNames')
+								}
+								if(flowType=="bsa"){
+									var options="<option>"+name+"</option>"
+									$(".sampleSel").append(options);
+								}
+								
 							};
 			
 						};
+						$("#p2").append("<option>-</option>");
+						$("#s1").append("<option>-</option>");
 						samples = array;
-//						dragInit();
+						dragInit();
 						samplesLock = 0;
 						$("#unlockSamples").attr("class","btn btn_orange round_Button");
 						$("#getSamples").attr("class","btn btn_white round_Button");
@@ -351,7 +444,55 @@ function addPara(paraDatas,key) {
 				allVenns=[];
 				$(".editable-click").parent().off("click")
 				$(".editable-click").editable("enable");
+				return false;
 			});
+			
+			
+	    	//删除选中的行
+	        $('#removeDataTable').click(function () {
+				if(samplesLock == 1){
+					var seq_type=$('#seq_type').val();
+					if(seq_type==undefined||seq_type==""){
+						seq_type="PE";
+					}
+					if(seq_type=="PE"){
+						var ids = $.map($('#sampleTable').bootstrapTable('getSelections'), function (row) {
+							if(row.fq1){
+								return row.fq1;
+							}else{
+								return row.fq2;
+							}
+						});
+						var index=ids[0].lastIndexOf("_");
+						var arr=ids[0].split(""); 
+						if(arr[index+1]=="2"||arr[index+2]=="2"){
+							$('#sampleTable').bootstrapTable('remove', {
+								field: 'fq2',
+								values: ids
+							});
+						}
+					if(arr[index+1]=="1"||arr[index+2]=="1"){
+							$('#sampleTable').bootstrapTable('remove', {
+								field: 'fq1',
+								values: ids
+							});
+						}
+					}else{
+						var ids = $.map($('#sampleTable').bootstrapTable('getSelections'), function (row) {
+							return row.fq;
+						});
+						$('#sampleTable').bootstrapTable('remove', {
+							field: 'fq',
+							values: ids
+						});
+					}
+				};
+				if(samplesLock == 0){
+					alert("样本已经锁定，请先解锁")
+				}
+				return false
+	        });
+    
 		};
 		
 		if(paraDatas[i]["showType"] == "sampleGroup") { //添加一个下拉框
@@ -359,59 +500,62 @@ function addPara(paraDatas,key) {
 			var id = paraDatas[i]["id"];
 			var value = paraDatas[i]["para_value"];
 			var sampleDatas =value["samples"];
-			
-					
 			var html1='<div class="col-sm-3"><lable class="control-label">样本名称：</lable></div>';
-			var html2='<div class="col-sm-3"><button id="addBtn" class="btn btn-default" data-target="#groupModal" data-toggle="modal"><span class="glyphicon glyphicon-plus">Group</span></button></div>';
-			var html3='<div class="col-sm-3"><button id="addBtn" class="btn btn-default" data-target="#groupModal" data-toggle="modal"><span class="glyphicon glyphicon-plus">Group</span></button></div>'
-			var html4='<div class="col-sm-3"><button id="addBtn" class="btn btn-default" data-target="#groupModal" data-toggle="modal"><span class="glyphicon glyphicon-plus">Group</span></button></div>'
-			$("#" + key + " form").append('<div class="form-group">' + html1 +html2+html3+html4+ '</div>');	
-			var html11='<ul id="sampleNames" class="col-sm-3 list-group sampleNames ui-helper-reset ui-helper-clearfix"></ul>'
-			var html22='<div id="groupList" class="col-sm-3"></div>';
-			var html33='<div id="compareList" class="col-sm-3"></div>';
-			var html44='<div id="vennList" class="col-sm-3"></div>';
-			$("#" + key + " form").append('<div class="form-group">' + html11 +html22+html33+html44+'</div>');		
-		
-			var groupsObg = value["groupSamples"];
+			var html2='<div class="col-sm-3"><button id="addBtn" class="btn btn-default"><span class="glyphicon glyphicon-plus">Group</span></button></div>';
+			var html3='<div class="col-sm-3"><button id="compareBtn" class="btn btn-default"><span class="glyphicon glyphicon-plus">Compare</span></button></div>'
+			var html4='<div class="col-sm-3"><button id="vennBtn" class="btn btn-default"><span class="glyphicon glyphicon-plus">Venn</span></button></div>'
+			$("#" + key + " form").append('<div class="form-group"><div style="width:80%">' + html1 +html2+html3+html4+ '</div></div>');	
+			$("#" + key + " form").append('<div class="form-group"><div style="width:80%"><ul id="sampleNames" class="col-sm-3 list-group sampleNames ui-helper-reset ui-helper-clearfix"></ul><div id="groupList" class="col-sm-3" style="position:static"></div><div id="compareList" class="col-sm-3" style="position:static"></div><div id="vennList" class="col-sm-3" style="position:static"></div></div></div>');		
 			
-			for(key in groupsObg){
-				var value=groupsObg[key];
-				
-				var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+key+'</span><button style=opacity:.2; class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"/></ul></div>';
-				var divHtml = $(html);
-				console.log(divHtml)
-				allgroups.push(key);
-				for(var i=0;i<value.length;i++){
-					alert(111)
-//					var sample=value[i];
-//					var liHtml=$('<li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'
-//				    	+sample+'</li>');
-//				  liHtml.appendTo(divHtml.find("ul"))
-					
+			$("#"+key).on("click","#addBtn",function(){
+				if($("#sampleNames li").length>0){
+					$('#groupModal').modal();
 				}
-//				divHtml.appendTo('#groupList');
-//				
+				return false;
+			})
+			$("#"+key).on("click","#compareBtn",function(){
+				if($("#groupList .sampleGroup ").length>0){
+					$('#compareModal').modal();
+				}
+				return false;
+			})
+			$("#"+key).on("click","#vennBtn",function(){
+				if($("#compareList .goupCompare ").length>0){
+					$('#vennModal').modal();
+				}
+				return false;
+			})
+			$('#groupModal').on('shown.bs.modal', function () {
+			  $('#groupName').focus()
+			})
+			$('#compareModal').on('shown.bs.modal', function () {
+			  $('#compareName').focus()
+			})
+			$('#vennModal').on('shown.bs.modal', function () {
+			  $('#vennName').focus()
+			})
+		};	
+		
+		if(paraDatas[i]["showType"] == "sampleSel") { //添加一个下拉框
+			var name = paraDatas[i]["para_name"];
+			var id = paraDatas[i]["id"];
+			var value = paraDatas[i]["para_value"];
+			//添加input的代码		
+			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><div class="panel panel-default"><div class="panel-body" id="samplePanel"></div></div></div></div>');		
+			for(var j=0;j<value.length;j++){
+				var html='<div class="form-group"><lable class="col-sm-3 control-label">'+value[j]+'</lable><div class="col-sm-7"><select class="form-control sampleSel" id='+value[j]+'><select/></div></div>'
+				$("#samplePanel").append(html);
 			}
-			
-		
-		
+
 		};
-		
 	}
 };//点击恢复默认值
-function paraDefult(key,id){
+function paraDefult(key,id,defaultValue){
 	var key = key.id;
 	var id = id.id;	
-//	$.getJSON(nodeParaUrl,function(data){  //始终从json文件中读取默认值
-	var data = constDefaultRefParams;
-	var items = data[key];
-	for (var i=0; i < items.length; i++){ 
-		if(items[i]["id"] == id){
-			$("#"+id).val(items[i]["value"]);
-		};
-	};
+	$("#"+id).val(defaultValue);
 };
-
+console.log(flowType)
 //-----------------------------------点击打开目录--------------------------------------------	
 //打开任务目录
 function opendir_path(){
@@ -527,15 +671,14 @@ $(function(){
 });
 //点击选择关闭模态框，将当前模态框input中的路径取出放入表单中,type 的类型 暂时有两种，dir和 file
 function geturl(id,type){
-	var formInputId="#"+$(id).attr("id");
 	debugger
+	var formInputId="#"+$(id).attr("id");
 	var selected_num = checkedNum("jobUrlTable");
 	if(type == "dir"){
 		//只能选择文件夹，单选
 		var newUrl = ""
 		if(selected_num == 1){
 			//此时选中了一项，判断是否是目录
-			
 			var singleName = ""   //选择一个文件夹或者文件的名字，单选
 			$.map($('#jobUrlTable').bootstrapTable('getSelections'), function (row) {
 				var d_f_type = "";
@@ -547,8 +690,12 @@ function geturl(id,type){
 					$("#selected").removeAttr("onClick");   //选择按钮
 					$("#selectUrl").modal('hide');          //隐藏目录选择的模态框
 					$(formInputId).val(newUrl);	
-					var sequencingType = $("#seq_type").val();
-					$.ajax({
+					if(formInputId!= "#dir_path"){
+						var sequencingType = $("#seq_type").val();
+						if(sequencingType==undefined||sequencingType==""){
+							sequencingType="PE";
+						}
+						$.ajax({
 							url:samplesDataUrl,  
 							type:'get',
 							data:{url:newUrl},
@@ -559,15 +706,16 @@ function geturl(id,type){
 								}else{
 									var data1 = data['data'];
 									objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
-									$('#sampleTable').bootstrapTable('load',objData);  //填入table中	
+									console.log(objData)
+									$('#sampleTable').bootstrapTable('load',objData);  //填入table中
 								}
 							},    
 							error : function(XMLHttpRequest) {
 								alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
 							}
-					}); 
-					
-					
+						}); 
+					}
+
 				}else{
 					alert("对不起，您选择的必须是目录文件！");
 				
@@ -584,8 +732,10 @@ function geturl(id,type){
 			$("#selected").removeAttr("onClick");
 			$("#selectUrl").modal('hide');
 			$(formInputId).val(newUrl);
-
 			var sequencingType = $("#seq_type").val();
+			if(sequencingType==undefined||sequencingType==""){
+				sequencingType="PE";
+			}
 			$.ajax({
 					url:samplesDataUrl,  
 					type:'post',
@@ -597,7 +747,7 @@ function geturl(id,type){
 						}else{
 							var data1 = data['data'];
 							objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
-							console.log(objData)
+
 							$('#sampleTable').bootstrapTable('load',objData);  //填入table中
 						}
 					},    
@@ -653,54 +803,12 @@ function geturl(id,type){
 	}
 
 };
-	//删除选中的行
-    $(function () {
-        $('#removeDataTable').click(function () {
-			if(samplesLock == 1){
-				if($('#seq_type').val()=="PE"){
-					var ids = $.map($('#sampleTable').bootstrapTable('getSelections'), function (row) {
-						if(row.fq1){
-							return row.fq1;
-						}else{
-							return row.fq2;
-						}
-					});
-					var index=ids[0].lastIndexOf("_");
-					var arr=ids[0].split(""); 
-					if(arr[index+1]=="2"||arr[index+2]=="2"){
-						$('#sampleTable').bootstrapTable('remove', {
-							field: 'fq2',
-							values: ids
-						});
-					}
-				if(arr[index+1]=="1"||arr[index+2]=="1"){
-						$('#sampleTable').bootstrapTable('remove', {
-							field: 'fq1',
-							values: ids
-						});
-					}
-				}else{
-					var ids = $.map($('#sampleTable').bootstrapTable('getSelections'), function (row) {
-						return row.fq;
-					});
-					$('#sampleTable').bootstrapTable('remove', {
-						field: 'fq',
-						values: ids
-					});
-				}
-			};
-			if(samplesLock == 0){
-				alert("样本已经锁定，请先解锁")
-			}
-        });
-    });
+	
+
 
 <!-- ##################　样本分组、比较、维恩图　################## -->
-
-//锁定样本的状态
-
-
 function dragInit() {
+	debugger
 	var $sampleNames = $( "#sampleNames" ),
     		$sampleGroup = $( ".sampleGroup" ),
     		$compareGroup = $(".goupCompare")
@@ -837,6 +945,7 @@ function dragInit() {
 	    }
 	    
    		$("#groupList .glyphicon-remove").each(function(){
+   			
 			$(this).click(function(){
 				if($("#groupList .glyphicon-remove").length>0){
 					$(this).parent('div').remove();
@@ -864,6 +973,7 @@ function dragInit() {
 	    
 	    	    
 		$("#compareList .glyphicon-remove").each(function(){
+			
 			$(this).click(function(){
 				if($("#compareList .glyphicon-remove").length>0){
 					$(this).parent('div').remove();
@@ -897,50 +1007,6 @@ function dragInit() {
 			})
 		});
 };
-$(function(){
-	$('#groupModal').on('shown.bs.modal', function () {
-	  $('#groupName').focus()
-	})
-	$('#compareModal').on('shown.bs.modal', function () {
-	  $('#compareName').focus()
-	})
-	$('#vennModal').on('shown.bs.modal', function () {
-	  $('#vennName').focus()
-	})
-	
-	$('#isRepeat').on('changed.bs.select', function(e) {
-		if(e.target.value){
-			if(e.target.value=="NO"){
-				if($("#groupList .sampleGroup").length!=0){	
-					alert("请先清空分组");
-					return false;
-				}else{
-					$("#sampleNames li").each(function(){
-						var gname= $(this).text();
-						var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+gname+'</span><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></button><ul class="sampleNames ui-helper-reset"><li class="list-group-item ui-widget-content ui-corner-tr ui-draggable" style="display: block;border:none;background:none; width: 90px;">'+gname+'</li></ul></div>';
-						$(html).appendTo('#groupList');
-						allgroups.push(gname);
-						dragInit();
-					})
-				}
-					
-			}else{
-				$('#groupList').empty();
-				$('#compareList').empty();
-				$('#vennList').empty();
-				allgroups=[];
-				allCompares=[];
-				allVenns=[];
-			}
-		}
-	})
-	
-	
-	
-})
-
-
-
 
 
 var patrn=/^(\w){1,10}$/i; 
@@ -966,8 +1032,7 @@ function addGroup(){
 	var html='<div name="sampleGroup" class="ui-widget-content ui-state-default sampleGroup" style=border-radius:3px;><span class="ui-widget-header" style=font-size:18px;height:28px;border:none;background:none;display:inline-block;>'+gname+'</span><button class="ui-widget-header glyphicon glyphicon-remove pull-right closeBorder" ></span></div>';
 	$(html).appendTo('#groupList');
 	allgroups.push(gname);
-	
-	return false;
+	dragInit();
 }
 
 //增加比较组
@@ -1023,20 +1088,25 @@ function addVenn(){
 }
 
 function bindGroupClick(){
-
+	dragInit();
 	$("#groupName").keydown(function(k){
 		if(k.keyCode==13 ){
 			addGroup();
 		}
 	});
-	$("#addGroup").click(function(){
-		addGroup();
-		
-	});
 	$("#compareName").keydown(function(k){
 		if(k.keyCode==13 ){
 			addCompare();
 		}
+	});
+	$("#vennName").keydown(function(k){
+		if(k.keyCode==13 ){
+			addVenn();
+		}
+	});
+	$("#addGroup").click(function(){
+		addGroup();
+		
 	});
 	$("#addCompare").click(function(){
 		addCompare();
@@ -1046,62 +1116,7 @@ function bindGroupClick(){
 	});
 }
 
-//保存草稿
-$("#saveDraft").click(function(){
-		var taskPara = $("#creatTask").serializeArray();
-	//	taskPara = JSON.stringify(taskPara);
-//选中的模块参数
-		var selectPara = $("#parasPanel select[name]").serializeArray();  //选择框
-		var inputPara = $("#parasPanel input[name]").serializeArray();   //下拉框
-		var nodePara= $.merge(selectPara,inputPara); //合并
-	//	nodePara = JSON.stringify(nodePara);
-//没选中的模块名字
-		var unselectNode="";
-		for (var i in nodeStatus){
-		  if(nodeStatus[i] == 0){
-			if(unselectNode==""){
-				unselectNode += i
-				}
-			else{
-				unselectNode += ","+i
-				}
-		  };
-		};
-		
-		var samplesStr=""
-		for(var j=0;j<samples.length;j++ ){  
-			if(samplesStr == ""){
-				samplesStr += samples[j];
-				}
-			else{
-				samplesStr += ","+samples[j];
-				}
-		};
-		
-		var draft={"taskPara":taskPara,
-				"nodePara":nodePara,
-				"unselectNode":unselectNode,
-				"samples":samplesStr
-				}; 
-		draft = JSON.stringify(draft);
-		$.ajax({
-			    url:"__MODULE__/Task/addUpdateTask/submitType/draft",  
-			    type:'post',
-			    data:{parameter:draft},
-			    dataType: "json",
-			    success:function(data) {
-			    	if(data['status']=='ERROR'){    //请求成功但没有执行成功
-			    		alert(data['data']);
-			    	}else{
-						alert("草稿保存成功！");	
-			    	}
-			     },    
-			     error : function(XMLHttpRequest) {
-			       alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);    
-			     }
-			});  
-				
-});
+
 //检查参数填写情况
 function checkInput(){
 	var checkTask=$("#creatTask input[name]");
@@ -1311,13 +1326,13 @@ $("#taskRun").click(function(){
 						"samples":samplesStr,
 						"groupCompareVenn":groupCompareVenn
 						}; 
-		if(nodeStatus["DE"] != 1){
-			delete resultPara.samples;
-			delete resultPara.groupCompareVenn;
-		}
-				
+//		if(nodeStatus["DE"] != 1){
+//			delete resultPara.samples;
+//			delete resultPara.groupCompareVenn;
+//		}
+
 		resultPara = JSON.stringify(resultPara);
-		window.sessionStorage.setItem("paras",resultPara);
+
 				
 //向后台传送数据
 		 		 $.ajax({
@@ -1343,157 +1358,9 @@ $("#taskRun").click(function(){
 				});  
 		} //检查参数
 	});
-	
 
-$(function(){
 
-	var names=[]
-  	if($('#seq_type').val()=="PE"){
-		var options=$('#sampleTable').bootstrapTable("getOptions");
-		options.editable=true;
-		options.columns=[{
-			checkbox:true,checkboxEnabled:true,field:"state",title:""
-		},{
-			align: "left",
-			field: "sample", 
-			order: "asc",
-			title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>",
-			editable: {
-                type: 'text',
-                validate: function (v) {
-                	var patrn=/^(\w){1,8}$/; 
-                    if (!v&&v.trim().length<=0){
-                    	return '用户名不能为空';
-                    } 
-                    if (!patrn.exec(v)) {
-						return '只能包含字母数字下划线，长度不超过8';
-					}
-                    var data = $("#sampleTable").bootstrapTable('getData');
-                    for(var i=0;i<data.length;i++){
-                    	if(v==data[i].sample){
-                    		return '样本名已存在';
-                    	}
-                    }
-               }
-        	}
-        	
-		},{
-			align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "
-		},{
-			align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "
-		}];
-		$('#sampleTable').bootstrapTable('destroy');
-		$('#sampleTable').bootstrapTable(options);
-  		$('#sampleTable').bootstrapTable("resetView");
-  		$('#sampleTip').on("mouseover",function(){
-			$('#sampleTipModal').show(); 
-		});
-
-		$('#sampleTip').on("mouseout",function(){
-			$('#sampleTipModal').hide(); 
-		});
-  		 
-  	}
-  	
-	$('#seq_type').on('changed.bs.select', function(e) {
-	    if(e.target.value){
-	      	if(e.target.value=="SE"){
-	      	var options=$('#sampleTable').bootstrapTable("getOptions");
-				
-				options.columns=[{
-					checkbox:true,checkboxEnabled:true,field:"state",title:""
-				},{
-					align: "left", 
-					field: "sample",
-					order: "asc",
-					editable: {
-	                    type: 'text',
-	                    validate: function (v) {
-	                    	var patrn=/^(\w){1,8}$/; 
-	                        if (!v&&v.trim().length<=0){
-	                        	return '用户名不能为空';
-	                        } 
-	                        if (!patrn.exec(v)) {
-								return '只能包含字母数字下划线，长度不超过8';
-							}
-	                        var data = $("#sampleTable").bootstrapTable('getData');
-	                        for(var i=0;i<data.length;i++){
-	                        	if(v==data[i].sample){
-	                        		return '样本名已存在';
-	                        	}
-	                        }
-	                   }
-                	}, 
-                	title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>"
-				},{
-					align: "center", field: "fq", order: "asc", title: "FastQ文件 "
-				}];
-				$('#sampleTable').bootstrapTable('destroy');
-				$('#sampleTable').bootstrapTable(options);
-				$('#sampleTip').on("mouseover",function(){
-					$('#sampleTipModal').show(); 
-				});  
-				$('#sampleTip').on("mouseout",function(){
-					$('#sampleTipModal').hide(); 
-				}); 
-				
-	    	}else{
-				var options=$('#sampleTable').bootstrapTable("getOptions");
-				options.editable=true;
-				options.columns=[{
-					checkbox:true,checkboxEnabled:true,field:"state",title:""
-				},{
-					align: "left",
-					field: "sample", 
-					order: "asc",
-					title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>",
-					editable: {
-		                type: 'text',
-		                validate: function (v) {
-		                	var patrn=/^(\w){1,8}$/; 
-		                    if (!v&&v.trim().length<=0){
-		                    	return '用户名不能为空';
-		                    } 
-		                    if (!patrn.exec(v)) {
-								return '只能包含字母数字下划线，长度不超过8';
-							}
-		                    var data = $("#sampleTable").bootstrapTable('getData');
-		                    for(var i=0;i<data.length;i++){
-		                    	if(v==data[i].sample){
-		                    		return '样本名已存在';
-		                    	}
-		                    }
-		               }
-		        	}
-		        	
-				},{
-					align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "
-				},{
-					align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "
-				}];
-				$('#sampleTable').bootstrapTable('destroy');
-				$('#sampleTable').bootstrapTable(options);
-		  		$('#sampleTable').bootstrapTable("resetView");
-		  		$('#sampleTip').on("mouseover",function(){
-					$('#sampleTipModal').show(); 
-				});  
-				$('#sampleTip').on("mouseout",function(){
-					$('#sampleTipModal').hide(); 
-				});
-		  		 
-		  	}
-	    }
-    });
-	$('#sampleTip').on("mouseover",function(){
-		$('#sampleTipModal').show(); 
-		$("body").css("overflow","hidden")
-	});  
-	$('#sampleTip').on("mouseout",function(){
-		$('#sampleTipModal').hide(); 
-	}); 
-
-})
-function mouse(btnId,tipId){
+function mouseEvent(btnId,tipId){
 	$("#"+btnId).on("mouseover",function(){
 		$("#"+tipId).show()
 	})

@@ -1,5 +1,6 @@
 {
 	"status":"success",
+	"flow_type":"bsa",
 	"data":{
 		"Basic_QC": [
 				{
@@ -35,7 +36,8 @@
 					"id":"seq_type1",
 					"para_name":"112类型",
 					"showType":"input",
-					"para_value":12
+					"para_value":12,
+					"default_value":5
 				}
 			
 			],
@@ -56,15 +58,16 @@
 					"id":"path2",
 					"para_name":"样本分组",
 					"showType":"sampleGroup",
-					"para_value":{
-						"samples":["s1","s2","s3"],
-						"groupSamples":{"1":["ck","cill"],"2":["wll"]},
-						"compareGroups":{"c1":["1","2"]},
-						"vennCompares":{"1":["ck","cill"],"2":["wll"]}
-					}
+					"para_value":{}
 					
+				},
+				{
+					"id":"sampleSel",
+					"para_name":"样本对应选择",
+					"showType":"sampleSel",
+					"para_value":["p1","p2","s1","s2"]
 				}
-			
+				
 			]
 		
 	}

@@ -131,7 +131,7 @@
 				</form>
 			</div>
 			<div class="part_box">
-				<div class="task_form_height" id="parasBox" style="display: block;">
+				<div class="task_form_height" id="parasBox" style="display: none;">
 					<label class="task_label"><span id="taskTitle">5</span>模块参数设置</label>
 					<!--点击展开参数-->
 					<div class="panel-group params_part" id="parasPanel" style="width: 91%;margin-left: 20px;">
@@ -145,91 +145,42 @@
 								<div class="panel-body">
 									<form class="form-horizontal">
 										<div class="form-group">
-											<label class="col-sm-3 control-label">任务目录</label>
+											<label class="col-sm-3 control-label">样本对应选择</label>
 											<div class="col-sm-7">
-												<input type="text" class="form-control" id="path1" name="path1"/>
-											</div>
-											<a class="col-sm-2" onclick="opendir_path()">
-												<span class="glyphicon glyphicon-folder-open"></span>
-											</a>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#Assemble" href="#Assemble_panel_body">Basic_QC 参数设置</a>
-								</h4>
-							</div>
-							<div id="Assemble_panel_body" class="panel-collapse collapse in">
-								<div class="panel-body">
-									<form class="form-horizontal">
-										<div class="form-group">
-											<label class="col-sm-3 control-label">任务目录</label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control" id="path1" name="path1"/>
-											</div>
-											<a class="col-sm-2" onclick="opendir_path()">
-												<span class="glyphicon glyphicon-folder-open"></span>
-											</a>
-										</div>
-										<div class="form-group">
-											<div class="col-sm-8 col-sm-offset-2">
-												<button id="removeDataTable" class="btn btn-default">删除行</button>
-												<table id="sampleTable" ></table>
-												<div style="width:360px;margin:0 auto;padding-top:40px;padding-bottom:40px;">
-													<button id="getSamples" class="btn btn_orange round_Button" style="margin-top: 10px;">锁定样本</button>
-													<button class="btn btn_white round_Button" id="unlockSamples" style="margin-top: 10px; margin-left:20px;">清空样本</button>
+												<div class="panel panel-default">
+													<div class="panel-body">
+														<div class="form-group">
+															<label class="col-sm-3 control-label">s1</label>
+															<div class="col-sm-7">
+																<select class="selectpicker">
+																	<option>12233</option>
+																	<option>12233</option>
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-3 control-label">s2</label>
+															<div class="col-sm-7">
+																<select class="selectpicker">
+																	<option>12233</option>
+																	<option>12233</option>
+																</select>
+															</div>
+														</div>
+													</div>
 												</div>
+
+												
 											</div>
+							
 										</div>
+						
 									</form>
 								</div>
 							</div>
 						</div>-->
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#Assemble" href="#Assemble_panel_body">Basic_QC 参数设置</a>
-								</h4>
-							</div>
-							<div id="Assemble_panel_body" class="panel-collapse collapse in">
-								<div class="panel-body">
-									<form class="form-horizontal">
-										<div class="form-group">
-											<div class="col-sm-3">
-												<label class=' control-label'><b>样本名称：</b></label>
-											</div>
-											<div class="btnTip col-sm-3">
-												<button id="addBtn" class="btn btn-default" data-target='#groupModal' data-toggle='modal' style="outline: none;">
-													<span  class="glyphicon glyphicon-plus">Group</span>
-												</button><br />
-											</div>
-											<div class="btnTip col-sm-3">
-												<button id="compareBtn" class="btn btn-default" data-target='#compareModal' data-toggle='modal'style="outline: none;">
-													<span class="glyphicon glyphicon-plus">Compare</span>
-												</button>
-											</div>   
-											<div class="btnTip col-sm-3">
-												<button id="vennBtn" class="btn btn-default"  data-target='#vennModal' data-toggle='modal' style="outline: none;">
-													<span class="glyphicon glyphicon-plus">Venn</span>
-												</button>
-											</div>
-										</div>																			
-										<div class="form-group">
-											<div id="sampleWrap">
-												<ol id="sampleNames" class="list-group sampleNames ui-helper-reset ui-helper-clearfix" style="height: 100%;"></ol>
-											</div>
-											<div id='groupList' style="float:left;width:21%;margin-right:20px;"></div>
-											<div id='compareList' style="float:left;width:21%;margin-right:20px;"></div>
-											<div id='vennList' style="float:left;width:21%"></div>																					
-										</div>	
-									</form>
-								</div>
-							</div>
-						</div>
+						
+						
 					</div>							
 				</div>
 			</div>
@@ -291,7 +242,55 @@
 					</div>
 				</div>
 			</div>
-	
+			<!-- group modal -->
+			<div class="modal fade " id="groupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog " style='width:20%;top: 50%;margin-top: -46px;'>
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">组名</h4>
+							<div class="input-group">
+								<input id="groupName" class="form-control" value=''/>
+								<span id='addGroup' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+			<!-- compare modal -->				
+			<div class="modal fade " id="compareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div  class="modal-dialog" style='width:20%;top: 50%;margin-top: -46px;'>
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">组间比较</h4>
+							<div class="input-group">
+								<input id="compareName" class="form-control" value='' />
+								<span id='addCompare' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- venn modal -->
+			<div class="modal fade " id="vennModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">									
+				<div class="modal-dialog" style='width:20%;top: 50%;margin-top: -46px;'>
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">维恩组</h4>
+							<div class="input-group">
+								<input id="vennName" class="form-control" value='' />
+								<span id='addVenn' class='glyphicon glyphicon-circle-arrow-right input-group-addon'></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--样本名格式提示框-->
+			<div id="sampleTipModal" style="display:none; width: 290px;height: 115px;position: absolute;top:7px;left: 122px;z-index: 100;color:#fff;padding: 17px 15px 20px 15px;background: url(img/sampleTipBj.png) no-repeat;">
+				建议点击每个样本的名称进行样本名的修改，由数字、字母、下划线任意组合构成，不能包含空格，长度不超过10个字符
+			</div>
 			<!-- ------------------------------参数设置结束-------------------------------- -->
 			<div class="task_form_height">
 				<label class="task_label"><span><img style="padding-bottom: 5px;" src="img/arrowLeft.svg"></span>提交任务</label>

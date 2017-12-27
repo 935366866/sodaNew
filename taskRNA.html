@@ -685,7 +685,6 @@
 		};
 		//点击锁定模块
 		function selectedNode(){
-			debugger
 			$("#unlockNode").attr("class","btn btn_orange round_Button");
 			$("#lockNode").attr("class","btn btn_white round_Button");
 			if(nodeLockStatus == 1){  //判断是否是解锁状态
@@ -721,7 +720,6 @@
 			}
 			for(var i = 0; i < items.length; i++) { //遍历其中的许多参数
 				if(items[i]["type"] == "input") { //添加一个input框
-		debugger
 					var name = items[i]["name"]
 					var id = items[i]["id"]
 					var value = items[i]["value"]
@@ -940,7 +938,7 @@ function geturl(formInputId){
 */
 //点击选择关闭模态框，将当前模态框input中的路径取出放入表单中,type 的类型 暂时有两种，dir和 file
 function geturl(formInputId,type){
-
+debugger
 	var selected_num = checkedNum("jobUrlTable");
 	if(type == "dir"){
 		//只能选择文件夹，单选
@@ -972,12 +970,9 @@ function geturl(formInputId,type){
 										alert(data['data']);
 									}else{
 										var data1 = data['data'];
-
+										debugger
 										objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
 										console.log(objData)
-										
-										
-										
 										$('#sampleTable').bootstrapTable('load',objData);  //填入table中	
 									}
 								},    
@@ -1526,13 +1521,19 @@ function bindGroupClick(){
 			addGroup();
 		}
 	});
-	$("#addGroup").click(function(){
-		addGroup();
-	});
+
 	$("#compareName").keydown(function(k){
 		if(k.keyCode==13 ){
 			addCompare();
 		}
+	});
+	$("#vennName").keydown(function(k){
+		if(k.keyCode==13 ){
+			addVenn();
+		}
+	});
+	$("#addGroup").click(function(){
+		addGroup();
 	});
 	$("#addCompare").click(function(){
 		addCompare();
@@ -2010,7 +2011,6 @@ $(function(){
     });
 	$('#sampleTip').on("mouseover",function(){
 		$('#sampleTipModal').show(); 
-		$("body").css("overflow","hidden")
 	});  
 	$('#sampleTip').on("mouseout",function(){
 		$('#sampleTipModal').hide(); 
