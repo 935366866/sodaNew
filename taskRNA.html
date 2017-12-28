@@ -604,6 +604,7 @@
 	    });
 			//找到选中节点的子节点
 			function findChildren(obj){
+				debugger
 				var it = obj.findTreeChildrenNodes();    //找到所有的子节点
 			    for(var i=0;i<it.count;i++){             //遍历子节点
 					if(it.next()){   
@@ -622,6 +623,7 @@
 			}
 			//找到父节点
 			function findParents(obj){
+				debugger
 				var it = obj.findNodesInto();
 			    for(var i=0;i<it.count;i++){  
 					if(it.next()){
@@ -757,7 +759,6 @@
 			};
 		};//点击恢复默认值
 function paraDefult(key,id){
-	debugger
 	var key = key.id;
 	var id = id.id;	
 //	$.getJSON(nodeParaUrl,function(data){  //始终从json文件中读取默认值
@@ -938,7 +939,6 @@ function geturl(formInputId){
 */
 //点击选择关闭模态框，将当前模态框input中的路径取出放入表单中,type 的类型 暂时有两种，dir和 file
 function geturl(formInputId,type){
-debugger
 	var selected_num = checkedNum("jobUrlTable");
 	if(type == "dir"){
 		//只能选择文件夹，单选
@@ -970,7 +970,7 @@ debugger
 										alert(data['data']);
 									}else{
 										var data1 = data['data'];
-										debugger
+								
 										objData = dataTableGet(data1,sequencingType);   //向后台传输数据，返回值组成Json
 										console.log(objData)
 										$('#sampleTable').bootstrapTable('load',objData);  //填入table中	

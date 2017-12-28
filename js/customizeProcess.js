@@ -5,6 +5,12 @@ var nodeLockStatus=1  //可编辑
 var nodeStatus={};  //判断是否是草稿，加载任务参数填写时option的值
 var flowType;
 var defaultRefParams;
+var requiredColor="#13438b";
+var selectColor="rgb(56,190,237)";
+var unselectColor="lightgray";
+var arrowColor="rgb(100,100,100)";
+var nodeNameColor="rgb(255,255,255)";
+var nodeBorderColor="rgb(167,167,167)";
 $(function(){
 	//blockUI，请求失败提示
 	$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
@@ -25,7 +31,12 @@ $(function(){
 				$("#flowHead>button").on("click",function(){
 					window.location.href='../barDraw.html'
 				})
+				/*提交设置*/
+				var src=data.data["submitPic"];
+				$("#taskRun img").attr("src",src);
+				
 				/*模块节点设置*/
+				var  requiredNode=data.data["requiredNode"];//必选模块
 				var moduleDatas=data.data["processModule"];
 				for(var i=0;i<moduleDatas.length;i++){
 					var nodes=moduleDatas[i];
@@ -42,14 +53,6 @@ $(function(){
 					}
 				}
 
-				var  requiredNode=moduleDatas[0]["nodeName"];  //必选模块
-				//设置每个节点的状态
-				var requiredColor="#13438b";
-				var selectColor="rgb(56,190,237)";
-				var unselectColor="lightgray";
-				var arrowColor="rgb(100,100,100)";
-				var nodeNameColor="rgb(255,255,255)";
-				var nodeBorderColor="rgb(167,167,167)";
 				var $ = go.GraphObject.make;  
 				diagram =
 			      $(go.Diagram, "myDiagramDiv",  // must name or refer to the DIV HTML element
@@ -111,13 +114,13 @@ $(function(){
 							 if(color == selectColor){
 								part.elt(0).fill = unselectColor;
 								nodeStatus[obj.data.key] = 0;
-								findChildren(obj);
+								findChildren(obj,requiredNode);
 								}
 								
 							if(color == unselectColor){
 								part.elt(0).fill = selectColor;
 								nodeStatus[obj.data.key] = 1;
-								findParents(obj);
+								findParents(obj,requiredNode);
 								}
 						  };
 					}else{
@@ -151,7 +154,7 @@ $(function(){
 })
 
 //找到选中节点的子节点
-function findChildren(obj){
+function findChildren(obj,requiredNode){
 	var it = obj.findTreeChildrenNodes();    //找到所有的子节点
     for(var i=0;i<it.count;i++){             //遍历子节点
 		if(it.next()){   
@@ -169,7 +172,7 @@ function findChildren(obj){
 	}	
 }
 //找到父节点
-function findParents(obj){
+function findParents(obj,requiredNode){
 	var it = obj.findNodesInto();
     for(var i=0;i<it.count;i++){  
 		if(it.next()){
@@ -202,6 +205,7 @@ function selectedNode(){
 			url:"json/ajaxPara.json",  
 			type:'get',
 			dataType: "json",
+			async: false,
 			success:function(data,status){
 				if(status=="success"){ 
 					$("#parasBox").show()
@@ -335,7 +339,7 @@ function addPara(paraDatas,key,flowType) {
 				  	}
 			    }
 		    });
-
+			
 
 		};
 		
@@ -351,18 +355,17 @@ function addPara(paraDatas,key,flowType) {
 			$("#" + id).val(value);
 		};
 		
-		if(paraDatas[i]["showType"] == "path_list") { //添加一个下拉框
+		if(paraDatas[i]["showType"] == "path_list") { 
 			var name = paraDatas[i]["para_name"];
 			var id = paraDatas[i]["id"];
 			var value = paraDatas[i]["para_value"];
-			var seq_type = paraDatas[i]["seq_type"];
 			var info = ""
 			var options='';
 
 			//添加input的代码
 			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id=' + id + ' name=' + id + ' title=' + info + '></div><a class="col-sm-2"  style=" text-align:left;cursor: pointer;text-decoration: none;" onclick="openDataUrl('+id+')"><span class="glyphicon glyphicon-folder-open"></span></a></div>');		
 		
-			var htms="<div class='form-group'><div class='col-sm-8 col-sm-offset-2'><button id='removeDataTable' class='btn btn-default'>删除行</button><table id='sampleTable'></table><div style='width:360px;margin:0 auto;padding:40px 0;'><button id='getSamples' class='btn btn_orange round_Button'>锁定样本</button><button id='unlockSamples' class='btn btn_white round_Button'>清空样本</button></div></div></div>"
+			var htms="<div class='form-group'><div class='col-sm-8 col-sm-offset-2'><button id='removeDataTable' class='btn btn-default'>删除行</button><table id='sampleTable'></table><div style='width:360px;margin:0 auto;padding:40px 0;'><button id='getSamples' class='btn btn_orange round_Button'>锁定样本</button><button id='unlockSamples' class='btn btn_white round_Button'>清空样本</button></div><div id='sampleTipModal' class='sampleTipModal'>建议点击每个样本的名称进行样本名的修改，由数字、字母、下划线任意组合构成，不能包含空格，长度不超过10个字符</div></div></div>"
 			$("#" + key + " form").append(htms);
 			var options={
 				editable:true,
@@ -444,6 +447,7 @@ function addPara(paraDatas,key,flowType) {
 				allVenns=[];
 				$(".editable-click").parent().off("click")
 				$(".editable-click").editable("enable");
+				$(".sampleSel").empty();
 				return false;
 			});
 			
@@ -492,6 +496,13 @@ function addPara(paraDatas,key,flowType) {
 				}
 				return false
 	        });
+	        
+			$('#sampleTip').on("mouseover",function(){
+				$('#sampleTipModal').show(); 
+			});  
+			$('#sampleTip').on("mouseout",function(){
+				$('#sampleTipModal').hide(); 
+			}); 
     
 		};
 		
@@ -555,7 +566,7 @@ function paraDefult(key,id,defaultValue){
 	var id = id.id;	
 	$("#"+id).val(defaultValue);
 };
-console.log(flowType)
+
 //-----------------------------------点击打开目录--------------------------------------------	
 //打开任务目录
 function opendir_path(){
@@ -671,7 +682,6 @@ $(function(){
 });
 //点击选择关闭模态框，将当前模态框input中的路径取出放入表单中,type 的类型 暂时有两种，dir和 file
 function geturl(id,type){
-	debugger
 	var formInputId="#"+$(id).attr("id");
 	var selected_num = checkedNum("jobUrlTable");
 	if(type == "dir"){
@@ -945,7 +955,6 @@ function dragInit() {
 	    }
 	    
    		$("#groupList .glyphicon-remove").each(function(){
-   			
 			$(this).click(function(){
 				if($("#groupList .glyphicon-remove").length>0){
 					$(this).parent('div').remove();
@@ -1124,8 +1133,6 @@ function checkInput(){
 	var checkDrop=$("#parasPanel select");
 	var count=0; //计数
 //	var patt = /^[a-zA-Z0-9_]{1,}$/i; 
-
-	
 	for(var i=0;i<checkTask.length;i++){
 	  if(checkTask[i].value==""){
 		$($("#creatTask input[name]")[i]).attr("style","border-color:red;")
@@ -1168,6 +1175,7 @@ function checkInput(){
 
 //任务运行，提交参数
 $("#taskRun").click(function(){
+	console.log(flowType)
 	var tableDatas=$('#sampleTable').bootstrapTable("getData");
 	var resultArray=[];
 	for(var i=0;i<tableDatas.length;i++){
@@ -1185,28 +1193,24 @@ $("#taskRun").click(function(){
 	}
 	var nullNum = checkInput()
 	if(nullNum==0){
-	var value=$("#task_name").val();
-	var  patrn=/^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$/; 
-	if(!patrn.test(value)){
-		alert("只能由字母、数字、下划线组成，且不能以下划线开始结束！");
-		return false;
-	}
-		var groupCompareVenn={};	//发向服务器的json数据
-//任务参数有关的信息
+		var value=$("#task_name").val();
+		var  patrn=/^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$/; 
+		if(!patrn.test(value)){
+			alert("只能由字母、数字、下划线组成，且不能以下划线开始结束！");
+			return false;
+		}
 		
+		//任务参数有关的信息
 		var taskPara = $("#creatTask").serializeArray();
-	//	taskPara = decodeURIComponent(taskPara,true);
+		//	taskPara = decodeURIComponent(taskPara,true);
 		//taskPara = JSON.stringify(taskPara);
-		
-//选中的模块参数
+		//选中的模块参数
 		var selectPara = $("#parasPanel select[name]").serializeArray();  //选择框
-		
 		var inputPara = $("#parasPanel input[name]").serializeArray();   //下拉框
-		
 		var nodePara= $.merge(selectPara,inputPara); //合并
-	//	nodePara = JSON.stringify(nodePara);
-
-//没选中的模块名字
+		//	nodePara = JSON.stringify(nodePara);
+	
+		//没选中的模块名字
 		var unselectNode=""
 		for (var i in nodeStatus){
 		  if(nodeStatus[i] == 0){
@@ -1218,153 +1222,148 @@ $("#taskRun").click(function(){
 				}
 		  };
 		}
-
-		//检查是否有分组，每个分组下的样品名
-		var groups =$('#groupList').find('div');
-		var allGroupItems=[];
-		if(groups.length>0){
-			var groupSamples= {};
-			for(var i=0; i<groups.length; i++){
-				var sampleItems = $($(groups[i]).find('ul')[0]).find('li');
-				if(sampleItems.length==0){
-					continue;
-				}			
-				//组名
-				var curGroup =$($(groups[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");  //空格开头或者结尾
-				var curGroupSamples = new Array();
-				for(var j=0; j < sampleItems.length ;j++){
-					curGroupSamples.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
-					allGroupItems.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""))
-				}
-//				allGroupItems.push(curGroupSamples);
-				groupSamples[curGroup]= curGroupSamples;
-			}
-			groupCompareVenn['groupSamples']= groupSamples;
-		}
 		
-		//检查数据
-		//检查样本是否已全部分组，非强制
-		var samples=$("#sampleNames").find('li');
-		if(samples.length>0){
-			for(var i=0;i<samples.length;i++){
-				if(allGroupItems.indexOf(samples[i].innerText)==-1&&nodeStatus["DE"] == 1){
-					if(confirm("发现有未分组的样品，确定不分组?")){
-						break;
+		var groupCompareVenn={};	//发向服务器的json数据
+		if(flowType=="有参"){
+			//检查是否有分组，每个分组下的样品名
+			var groups =$('#groupList').find('div');
+			var allGroupItems=[];
+			if(groups.length>0){
+				var groupSamples= {};
+				for(var i=0; i<groups.length; i++){
+					var sampleItems = $($(groups[i]).find('ul')[0]).find('li');
+					if(sampleItems.length==0){
+						continue;
+					}			
+					//组名
+					var curGroup =$($(groups[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");  //空格开头或者结尾
+					var curGroupSamples = new Array();
+					for(var j=0; j < sampleItems.length ;j++){
+						curGroupSamples.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+						allGroupItems.push($(sampleItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""))
+					}
+			//		allGroupItems.push(curGroupSamples);
+					groupSamples[curGroup]= curGroupSamples;
+				}
+				groupCompareVenn['groupSamples']= groupSamples;
+			}
+			
+			//检查数据
+			//检查样本是否已全部分组，非强制
+			var samples=$("#sampleNames").find('li');
+			if(samples.length>0){
+				for(var i=0;i<samples.length;i++){
+					if(allGroupItems.indexOf(samples[i].innerText)==-1&&nodeStatus["DE"] == 1){
+						if(confirm("发现有未分组的样品，确定不分组?")){
+							break;
+						}
 					}
 				}
 			}
-		}
-
-		//检查比较组
-		var compares = $('#compareList').find('div');
-		if(compares.length>0){
-			var compareGroups = {};
-			for(var i=0; i<compares.length; i++){
-				var groupItems = $($(compares[i]).find('ul')[0]).find('li');
-				if(groupItems.length!=2){
-					alert("比较组必须含有两个组")
+		
+			//检查比较组
+			var compares = $('#compareList').find('div');
+			if(compares.length>0){
+				var compareGroups = {};
+				for(var i=0; i<compares.length; i++){
+					var groupItems = $($(compares[i]).find('ul')[0]).find('li');
+					if(groupItems.length!=2){
+						alert("比较组必须含有两个组")
+						return false;
+					}
+					//比较组名
+					var curCompare = $($(compares[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");
+					var curCompareGroups = new Array();
+					for(var j=0; j<groupItems.length; j++){
+						curCompareGroups.push($(groupItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+					}
+					compareGroups[curCompare] = curCompareGroups;
+				}
+				groupCompareVenn['compareGroups']= compareGroups;
+			}else{
+				if(nodeStatus["DE"] == 1){
+					alert("比较组不能为空！");
 					return false;
 				}
-				//比较组名
-				var curCompare = $($(compares[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");
-				var curCompareGroups = new Array();
-				for(var j=0; j<groupItems.length; j++){
-					curCompareGroups.push($(groupItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+				
+			}
+			//检查venn图
+			var venns = $('#vennList').find('div');
+			if(venns.length>0){
+				var vennCompares={};
+				for(var i=0; i<venns.length; i++){
+					var compareItems = $($(venns[i]).find('ul')[0]).find('li');
+					if(compareItems.length==0){
+						continue;
+					}
+					
+					//比较韦恩图
+					var curVennCompares = $($(venns[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");
+					var curVennGroups = new Array();
+					for(var j=0; j<compareItems.length; j++){
+						curVennGroups.push($(compareItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
+					}
+					vennCompares[curVennCompares] = curVennGroups;
+		
 				}
-				compareGroups[curCompare] = curCompareGroups;
+				groupCompareVenn['vennGroups'] = vennCompares;
 			}
-			groupCompareVenn['compareGroups']= compareGroups;
-		}else{
-			if(nodeStatus["DE"] == 1){
-				alert("比较组不能为空！");
-				return false;
-			}
+		
+		
+			groupCompareVenn = JSON.stringify(groupCompareVenn);
+			$('#groupCompareVenn').val(JSON.stringify(groupCompareVenn));
 			
+			
+			//全部的参数	
+			var samplesStr=""
+			for(var j=0;j<samples.length;j++ ){  
+				if(samplesStr == ""){
+					samplesStr += samples[j].innerText;
+				}else{
+					samplesStr += ","+samples[j].innerText;
+				}
+			};
 		}
-		//检查venn图
-		var venns = $('#vennList').find('div');
-		if(venns.length>0){
-			var vennCompares={};
-			for(var i=0; i<venns.length; i++){
-				var compareItems = $($(venns[i]).find('ul')[0]).find('li');
-				if(compareItems.length==0){
-					continue;
-				}
-				
-				//比较韦恩图
-				var curVennCompares = $($(venns[i]).find('span')).text().replace(/(^\s*)|(\s*$)/g, "");
-				var curVennGroups = new Array();
-				for(var j=0; j<compareItems.length; j++){
-					curVennGroups.push($(compareItems[j]).text().replace(/(^\s*)|(\s*$)/g, ""));
-				}
-				vennCompares[curVennCompares] = curVennGroups;
-
-			}
-			groupCompareVenn['vennGroups'] = vennCompares;
+		var sampleSel={};
+		if(flowType=="bsa"){
+			$("#samplePanel").find("select").each(function(){
+				var id=$(this).attr("id");
+				var val=$(this).val();
+				sampleSel[id]=val;
+			})
 		}
-
-
-		groupCompareVenn = JSON.stringify(groupCompareVenn);
-		$('#groupCompareVenn').val(JSON.stringify(groupCompareVenn));
-
-		//全部的参数	
-		var samplesStr=""
-		for(var j=0;j<samples.length;j++ ){  
-			if(samplesStr == ""){
-				samplesStr += samples[j].innerText;
-				}
-			else{
-				samplesStr += ","+samples[j].innerText;
-				}
-		};
-
 		var resultPara={
-						"sampleData":resultArray,
-						"taskPara":taskPara,
-						"nodePara":nodePara,
-						"unselectNode":unselectNode,
-						"samples":samplesStr,
-						"groupCompareVenn":groupCompareVenn
-						}; 
-//		if(nodeStatus["DE"] != 1){
-//			delete resultPara.samples;
-//			delete resultPara.groupCompareVenn;
-//		}
-
+				"sampleSel":sampleSel,
+				"sampleData":resultArray,
+				"taskPara":taskPara,
+				"nodePara":nodePara,
+				"unselectNode":unselectNode,
+				"samples":samplesStr,
+				"groupCompareVenn":groupCompareVenn
+		}; 					
 		resultPara = JSON.stringify(resultPara);
+		console.log(resultPara)
+		//向后台传送数据
+		 $.ajax({
+		//	url:"__MODULE__/Task/addUpdateTask/submitType/job",  
+			url:"json/job.json",
+		    type:'get',
+		    data:{parameter:resultPara},
+		    dataType: "json",
+		    success:function(data) {
+		    	if(data['status']=='ERROR'){    //请求成功但没有执行成功
+		    		alert(data['data']);
+		    	}else{
+		    		$('#id').val(data['data']);
+					alert("执行成功！");
+					//	window.location.href= "__MODULE__/Task/getTask/id/"+data['data'];
+					//	window.location.href= "taskDetailRNA.html";
+		    	}
+		     },    
+		     error : function(XMLHttpRequest) {
+		       alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText); 
+		     }
+		});  
+	} 
+});
 
-				
-//向后台传送数据
-		 		 $.ajax({
-//				    url:"__MODULE__/Task/addUpdateTask/submitType/job",  
-					url:"json/job.json",
-				    type:'get',
-				    data:{parameter:resultPara},
-				    dataType: "json",
-				    success:function(data) {
-				    	if(data['status']=='ERROR'){    //请求成功但没有执行成功
-				    		alert(data['data']);
-				    	}else{
-				    		$('#id').val(data['data']);
-							alert("执行成功！");
-							
-//							window.location.href= "__MODULE__/Task/getTask/id/"+data['data'];
-//							window.location.href= "taskDetailRNA.html";
-				    	}
-				     },    
-				     error : function(XMLHttpRequest) {
-				       alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText); 
-				     }
-				});  
-		} //检查参数
-	});
-
-
-function mouseEvent(btnId,tipId){
-	$("#"+btnId).on("mouseover",function(){
-		$("#"+tipId).show()
-	})
-	$("#"+btnId).on("mouseout",function(){
-		$("#"+tipId).hide()
-	})
-}

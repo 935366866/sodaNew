@@ -1,0 +1,237 @@
+{
+	"status":"success",
+	"data":{
+		"flowName":"有参转录组分析流程V1.0",
+		"flowType":"有参",
+		"seq_type":"SE",
+		"flowData":{
+				"task_name": "dkd",
+				"project_name": "testabc123",
+			    "dir_path": "/s4_2.fq.gz/merge_readcou",
+			    "module":{
+			    		"Basic_QC": [
+							{
+								"id":"species",
+								"para_name":"物种名称",
+								"showType":"input",
+								"para_value":"1222"
+							
+							},
+							{
+								"id":"is_sslib",
+								"para_name":"链特异性文库",
+								"showType":"input",
+								"para_value":""
+							},
+							{
+								"id":"seq_type",
+								"para_name":"测序类型",
+								"showType":"input",
+								"para_value":"SE"
+							},
+							{
+								"id":"seq_type1",
+								"para_name":"112类型",
+								"showType":"input",
+								"para_value":12
+							}
+						
+						],
+						"Assemble": [
+							{
+								"id":"path3",
+								"para_name":"数据目录",
+								"showType":"path_list",
+								"para_value":"../home/css",
+								"tableData":[
+				    				{"s777":[null,"s777_2.fastq.gz"]},
+				    				{"lx.1_s777":[null,"lx.1_s777_2.fastq.gz"]},
+				    				{"sm.1_s777":["sm.1_s777_1.fastq.gz",null]},
+				    				{"s2":["s2_1.fq.gz",null]},
+				    				{"s3":["s3_1.fq.gz",null]},
+				    				{"ss":["ss_R1.fq.gz","ss_R2.fq.gz"]},
+				    				{"s4":[null,"s4_2.fq.gz"]}
+				    			]
+							},
+							{
+								"id":"path2",
+								"para_name":"样本分组",
+								"showType":"sampleGroup",
+								"para_value":{}
+								
+							},
+							{
+								"id":"sampleSel",
+								"para_name":"样本对应选择",
+								"showType":"sampleSel",
+								"para_value":["p1","p2","s1","s2"]
+							}
+							
+						]
+			    } 
+		},
+		"processModule":[
+			{
+				"nodeName":"Basic_QC",
+				"loc":"0 0",
+				"linkData":[
+							{
+								"name":"Alignment",
+								"curviness":0
+							}
+						],
+				"status":1
+			
+			},
+			{
+				"nodeName":"Alignment",
+				"loc":"-5 100",
+				"status":1,
+				"linkData":[
+							{
+								"name":"Advanced_QC",
+								"curviness":0
+							},
+							{
+								"name":"Assemble",
+								"curviness":0
+							}	
+						]			
+			},
+			{
+				"nodeName":"Advanced_QC",
+				"loc":"150 100",
+				"status":1,
+				"linkData":[
+							{
+								"name":"SNP_INDEL",
+								"curviness":0
+							}
+						]
+							
+			},
+			{
+				"nodeName":"SNP_INDEL",
+				"loc":"160 200",
+				"linkData":[],
+				"status":1
+			},
+			{
+				"nodeName":"Assemble",
+				"loc":"0 200",
+				"linkData":[
+							{
+								"name":"AS",
+								"curviness":0
+							},
+							{
+								"name":"DE",
+								"curviness":0
+							}					
+						],
+				"status":1
+			},
+			{
+				"nodeName":"AS",
+				"loc":"-100 200",
+				"linkData":[],
+				"status":1
+			},
+			{
+				"nodeName":"DE",
+				"loc":"25 300",
+				"linkData":[
+							{
+								"name":"PPI",
+								"curviness":-20
+							},
+							{
+								"name":"GO",
+								"curviness":0
+							},
+							{
+								"name":"KEGG",
+								"curviness":20
+							}							
+						],
+				"status":1
+			},
+			{
+				"nodeName":"PPI",
+				"loc":"-70 400",
+				"linkData":[],
+				"status":1
+			},
+			{
+				"nodeName":"GO",
+				"loc":"25 400",
+				"linkData":[],
+				"status":1
+			},
+			{
+				"nodeName":"KEGG",
+				"loc":"120 400",
+				"linkData":[],
+				"status":1
+			}
+		],
+		"requiredNode":["Basic_QC"],
+		"modStatus": [
+	        {
+	            "task_name": "ck_rRNA_CHECK",
+	            "flow_mod": "QC",
+	            "status": "failed",
+	            "job_number": "536",
+	            "submit_time": "2016-08-01 15:40:30",
+	            "done_time": null,
+	            "consume_time": null
+	        },
+	        {
+	            "task_name": "ck_rRNA_CHECK",
+	            "flow_mod": "QC",
+	            "status": "failed",
+	            "job_number": "536",
+	            "submit_time": "2016-08-01 15:40:30",
+	            "done_time": null,
+	            "consume_time": null
+	        },
+	        {
+	            "task_name": "ck_rRNA_CHECK",
+	            "flow_mod": "QC",
+	            "status": "failed",
+	            "job_number": "536",
+	            "submit_time": "2016-08-01 15:40:30",
+	            "done_time": null,
+	            "consume_time": null
+	        },
+	        {
+	            "task_name": "ck_rRNA_CHECK",
+	            "flow_mod": "QC",
+	            "status": "failed",
+	            "job_number": "536",
+	            "submit_time": "2016-08-01 15:40:30",
+	            "done_time": null,
+	            "consume_time": null
+	        },
+	        {
+	            "task_name": "ck_rRNA_CHECK",
+	            "flow_mod": "QC",
+	            "status": "pending",
+	            "job_number": "536",
+	            "submit_time": "2016-08-01 15:40:30",
+	            "done_time": null,
+	            "consume_time": null
+	        },
+	        {
+	            "task_name": "wll_rRNA_CHECK",
+	            "flow_mod": "QC",
+	            "status": "done",
+	            "job_number": "537",
+	            "submit_time": "2016-08-01 15:40:30",
+	            "done_time": null,
+	            "consume_time": null
+	        }
+	    ]
+	
+	}    
+}

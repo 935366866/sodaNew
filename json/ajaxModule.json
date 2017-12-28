@@ -6,6 +6,8 @@
 			"url":"12233",
 			"style":"themeRNA"
 		},
+		"submitPic":"img/grunGreen.svg",
+		"requiredNode":["Basic_QC"],
 		"processModule":[
 			{
 				"nodeName":"Basic_QC",

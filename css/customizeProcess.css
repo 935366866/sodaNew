@@ -1,0 +1,12 @@
+.sampleTipModal{
+	display:none; 
+	width: 290px;
+	height: 115px;
+	position: absolute;
+	top:-46px;
+	left: -18px;
+	z-index: 100;
+	color:#fff;
+	padding: 17px 15px 20px 15px;
+	background: url(../img/sampleTipBj.png) no-repeat;
+}
