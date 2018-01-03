@@ -54,17 +54,33 @@
 				    			]
 							},
 							{
+								"id":"111",
+								"para_name":"112类型",
+								"showType":"input",
+								"para_value":7455
+							},
+							{
 								"id":"path2",
 								"para_name":"样本分组",
 								"showType":"sampleGroup",
-								"para_value":{}
+								"para_value":{
+									"samples":["ckkkkkkk","wll"],
+									"groupSamples":{"1":["ckkkkkkk","cill"],"2":["wll"]},
+									"compareGroups":{"c1":["1","2"]},
+									"vennCompares":{"1":["ck","cill"],"2":["wll"]}
+								}
 								
 							},
 							{
 								"id":"sampleSel",
 								"para_name":"样本对应选择",
 								"showType":"sampleSel",
-								"para_value":["p1","p2","s1","s2"]
+								"para_value":{
+									"p1":"ckkkkkk",
+									"s1":"will",
+									"p2":"-",
+									"s2":"jkl"
+								}
 							}
 							
 						]

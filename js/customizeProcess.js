@@ -11,6 +11,8 @@ var unselectColor="lightgray";
 var arrowColor="rgb(100,100,100)";
 var nodeNameColor="rgb(255,255,255)";
 var nodeBorderColor="rgb(167,167,167)";
+var ids=[];
+var idObj={};
 $(function(){
 	//blockUI，请求失败提示
 	$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
@@ -26,7 +28,8 @@ $(function(){
 				var $=jQuery;
 				/*流程头部设置*/
 				var flowHead=data.data["flowHead"];
-				$("#flowHead").addClass(flowHead["style"]);
+//				$("#flowHead").addClass(flowHead["style"]);
+				$("#flowHead").css("background-color",flowHead["style"]);
 				$("#flowHead>p").text(flowHead["flow_tile"]);
 				$("#flowHead>button").on("click",function(){
 					window.location.href='../barDraw.html'
@@ -34,12 +37,13 @@ $(function(){
 				/*提交设置*/
 				var src=data.data["submitPic"];
 				$("#taskRun img").attr("src",src);
-				
+				debugger
 				/*模块节点设置*/
 				var  requiredNode=data.data["requiredNode"];//必选模块
 				var moduleDatas=data.data["processModule"];
 				for(var i=0;i<moduleDatas.length;i++){
 					var nodes=moduleDatas[i];
+					idObj[nodes["nodeName"]]=nodes["id"];
 					nodeStatus[nodes["nodeName"]]=nodes["status"];
 					nodeDataArray.push({key:nodes["nodeName"],
 										loc:nodes["loc"]
@@ -52,7 +56,6 @@ $(function(){
 						}
 					}
 				}
-
 				var $ = go.GraphObject.make;  
 				diagram =
 			      $(go.Diagram, "myDiagramDiv",  // must name or refer to the DIV HTML element
@@ -120,15 +123,27 @@ $(function(){
 							if(color == unselectColor){
 								part.elt(0).fill = selectColor;
 								nodeStatus[obj.data.key] = 1;
+								
 								findParents(obj,requiredNode);
 								}
 						  };
 					}else{
 						alert("无法编辑，请先解锁模块")
 					}
+					
 			   	});
 				diagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);	
 				diagram.initialContentAlignment = go.Spot.Center; //整个图居中	
+
+				for(var key in nodeStatus){
+					if(nodeStatus[key]==0){
+						if(!diagram.findNodeForKey(key)){
+							continue;
+						}
+						diagram.findNodeForKey(key).elt(0).fill=unselectColor;	//未选中模块变成灰色
+						nodeStatus[key] = 0;
+					}
+				}
 			};
 		 },   
 		 error : function(XMLHttpRequest) {
@@ -195,16 +210,23 @@ function unlock(){
 	$("#unlockNode").attr("class","btn btn_white round_Button");
 	$("#parasPanel").html("");  //清空现有的参数
 };
+
 //点击锁定模块
 function selectedNode(){
 	$("#unlockNode").attr("class","btn btn_orange round_Button");
 	$("#lockNode").attr("class","btn btn_white round_Button");
+	for(var key in nodeStatus){
+		if(nodeStatus[key]==1){
+			ids.push(idObj[key])
+		}
+	}
 	if(nodeLockStatus == 1){  //判断是否是解锁状态
 		$("#parasPanel").html(""); //清空现有的参数
 		$.ajax({
 			url:"json/ajaxPara.json",  
 			type:'get',
 			dataType: "json",
+			data:{MOD_IDS:ids},
 			async: false,
 			success:function(data,status){
 				if(status=="success"){ 

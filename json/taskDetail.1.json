@@ -15,7 +15,7 @@
     "exclude_modules": "PPI,KEGG",
     "status": "finished",
     "create_time": "2016-08-01 15:39:51",
-    "unselectNode": "",
+    "unselectNode": "DE,KEGG",
     "create_man": "soda",
     "project_name": "testabc123",
     "samples": "ck,wll",

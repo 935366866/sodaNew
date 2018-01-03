@@ -532,7 +532,7 @@ function getTaskData(url){
 								data[key]= JSON.parse(data[key]);
 							}
 							
-							if(key == "group_samples"){
+							if(key == "group_sa    mples"){
 								var group_samples = data["group_samples"];  //填入group信息
 								if(group_samples == null || group_samples == 'null' ||data[key] == ''){
 									data[key]=[];
@@ -628,7 +628,7 @@ function getTaskData(url){
 						}
 						else if(key == "modStatus"){  //填充任务状态table
 							var jsonData = JSON.stringify(data[key]);
-							
+
 							$('#modStatusTable').bootstrapTable('load',data[key]);
 							}
 //							 波波，这是之前的判断状态的，现在暂时去掉了

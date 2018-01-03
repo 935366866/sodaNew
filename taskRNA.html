@@ -483,10 +483,10 @@
 			"SNP_INDEL":1,
 			"Assemble":1,
 			"AS":1,
-			"DE":1,
-			"PPI":1,
-			"GO":1,
-			"KEGG":1
+			"DE":0,
+			"PPI":0,
+			"GO":0,
+			"KEGG":0
 		};
 		var  requiredNode=new Array("Basic_QC"); //必选模块
 		//各种默认参数的url
@@ -545,7 +545,7 @@
 					selectionAdornmentTemplate:
 					$(go.Adornment, "Auto",
 						$(go.Shape, "RoundedRectangle",
-						{ fill: null, stroke: selectColor, strokeWidth: 1 }),
+						{ fill: null, stroke: "selectColor", strokeWidth: 1 }),
 						$(go.Placeholder)
 					)  // end Adornment
 				},
@@ -604,7 +604,7 @@
 	    });
 			//找到选中节点的子节点
 			function findChildren(obj){
-				debugger
+
 				var it = obj.findTreeChildrenNodes();    //找到所有的子节点
 			    for(var i=0;i<it.count;i++){             //遍历子节点
 					if(it.next()){   
@@ -623,7 +623,7 @@
 			}
 			//找到父节点
 			function findParents(obj){
-				debugger
+			
 				var it = obj.findNodesInto();
 			    for(var i=0;i<it.count;i++){  
 					if(it.next()){
