@@ -32,7 +32,8 @@ $(function(){
 				$("#flowHead").css("background-color",flowHead["style"]);
 				$("#flowHead>p").text(flowHead["flow_tile"]);
 				$("#flowHead>button").on("click",function(){
-					window.location.href='../barDraw.html'
+//					window.location.href='barDraw.html'
+					window.open("barDraw.html");
 				})
 				/*提交设置*/
 				var src=data.data["submitPic"];
@@ -250,7 +251,7 @@ function selectedNode(){
 	};
 	
 };
-var samplesLock=1 //没有锁定
+var samplesLock //没有锁定
 //在参数设置中 给node名字为key的模块 添加input或dropdown参数
 function addPara(paraDatas,key,flowType) {
 	for(var i=0;i<paraDatas.length;i++){
@@ -378,14 +379,15 @@ function addPara(paraDatas,key,flowType) {
 		};
 		
 		if(paraDatas[i]["showType"] == "path_list") { 
+			samplesLock=1;
 			var name = paraDatas[i]["para_name"];
 			var id = paraDatas[i]["id"];
 			var value = paraDatas[i]["para_value"];
+			var inputName = paraDatas[i]["input_name"];
 			var info = ""
 			var options='';
-
 			//添加input的代码
-			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id=' + id + ' name=' + id + ' title=' + info + '></div><a class="col-sm-2"  style=" text-align:left;cursor: pointer;text-decoration: none;" onclick="openDataUrl('+id+')"><span class="glyphicon glyphicon-folder-open"></span></a></div>');		
+			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id=' + id + ' name=' + inputName + ' title=' + info + '></div><a class="col-sm-2"  style=" text-align:left;cursor: pointer;text-decoration: none;" onclick="openDataUrl('+id+')"><span class="glyphicon glyphicon-folder-open"></span></a></div>');		
 		
 			var htms="<div class='form-group'><div class='col-sm-8 col-sm-offset-2'><button id='removeDataTable' class='btn btn-default'>删除行</button><table id='sampleTable'></table><div style='width:360px;margin:0 auto;padding:40px 0;'><button id='getSamples' class='btn btn_orange round_Button'>锁定样本</button><button id='unlockSamples' class='btn btn_white round_Button'>清空样本</button></div><div id='sampleTipModal' class='sampleTipModal'>建议点击每个样本的名称进行样本名的修改，由数字、字母、下划线任意组合构成，不能包含空格，长度不超过10个字符</div></div></div>"
 			$("#" + key + " form").append(htms);
@@ -714,7 +716,7 @@ function geturl(id,type){
 			var singleName = ""   //选择一个文件夹或者文件的名字，单选
 			$.map($('#jobUrlTable').bootstrapTable('getSelections'), function (row) {
 				var d_f_type = "";
-				d_f_type = row.type.charAt(0);
+				d_f_type = row.type.charAt(0);   
 				if(d_f_type == "d"){
 					singleName = row.name;
 					newUrl = $("#inputUrl").val() + "/"+ singleName;    //点击选择时取input中当前的路径，在加上此时选择的
@@ -1184,6 +1186,7 @@ function checkInput(){
 	if(count != 0){
 		alert("还有未填写的参数！");
 	};
+	debugger
 	if(samplesLock == 1){
 		alert("未锁定样本！");
 		count += 1;
@@ -1197,7 +1200,6 @@ function checkInput(){
 
 //任务运行，提交参数
 $("#taskRun").click(function(){
-	console.log(flowType)
 	var tableDatas=$('#sampleTable').bootstrapTable("getData");
 	var resultArray=[];
 	for(var i=0;i<tableDatas.length;i++){

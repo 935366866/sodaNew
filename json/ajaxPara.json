@@ -52,6 +52,7 @@
 					"id":"path3",
 					"para_name":"数据目录",
 					"showType":"path_list",
+					"input_name":"--path3",
 					"para_value":""
 				},
 				{
