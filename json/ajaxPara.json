@@ -1,6 +1,6 @@
 {
 	"status":"success",
-	"flow_type":"bsa",
+	"flow_type":"有参",
 	"data":{
 		"Basic_QC": [
 				{
@@ -33,7 +33,7 @@
 						]
 				},
 				{
-					"id":"seq_type1",
+					"id":"per455555555hger_14414",
 					"para_name":"112类型",
 					"showType":"input",
 					"para_value":12,
@@ -61,13 +61,8 @@
 					"showType":"sampleGroup",
 					"para_value":{}
 					
-				},
-				{
-					"id":"sampleSel",
-					"para_name":"样本对应选择",
-					"showType":"sampleSel",
-					"para_value":["p1","p2","s1","s2"]
 				}
+
 				
 			]
 		

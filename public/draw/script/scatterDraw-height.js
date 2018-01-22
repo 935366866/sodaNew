@@ -8,7 +8,7 @@ $(function(){
 		el:"#myTabContent",
 		data:{
 			input:"",
-			title:"男性女性身高体重分布",
+			title:"男女身高体重分布",
 			xlab:"X轴标题",
 			ylab:"Y轴标题",
 			pointsize:"5",
@@ -37,7 +37,6 @@ $(function(){
 		computed: {
 			legendDatas:function(){
 				var datas=this.fileData.content[0];
-				console.log(datas)
 				if(!datas){
 					return new Array();
 				}
@@ -561,20 +560,21 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxis,yAxis,type){
 		option.legend={
 			data:[]
 		};
-
+var minNum=[];
 		for(key in dataMap){
 			var data=dataMap[key];
 			var sum=0;
-			var min=0;
+			var min=Number(data[0][0]);
 			for(var i=0;i<data.length;i++){
-				sum+=Number(data[i][0]);
-				if(Number(data[i][0])<min){
-					min=Number(data[i][0]);
+				var item=Number(data[i][0]);
+				sum+=item;
+				if(item<min){
+					min=item;
 				}
 			}
 			var ave=sum/data.length;
-			console.log(min)
 			option.legend.data.push(key);
+			minNum.push(min);
 			var serie =  {
 				type:"scatter",
 				symbolSize: echartsStyle.pointsize,
@@ -618,6 +618,7 @@ function updateEchartsData(echarts,echartsStyle,echartsData,xAxis,yAxis,type){
 			};
 			option.series.push(serie)
 		}
+		var minValue=Math.min.apply(null, minNum)-10;
 		var numD=parseInt(echartsStyle.legendDiameter);
 		option.legend.itemHeight=numD;
 		option.legend.itemWidth=numD;

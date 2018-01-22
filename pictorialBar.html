@@ -127,7 +127,7 @@
 										<div class="input_a_l" style="width: 75px;">X轴数据：</div>
 										<div class="input_a_m" style="width: 88px;">
 											<select v-model="xColumn" id="xColumn"  name="xColumn" class=" select_width" autocomplete="off" >
-												<option v-for="item in fileData['content'][0]" :value="item">{{item}}</option>
+												<option v-for="item in fileData['content'][0]" v-if="item==fileData['content'][0][0]" :value="item">{{item}}</option>
 											</select>
 										</div>	
 									</div>
@@ -138,6 +138,12 @@
 												<option v-for="item in fileData['content'][0]" v-if="item!=fileData['content'][0][0]" :value="item">{{item}}</option>
 											</select>
 										</div>	
+									</div>
+								</div>
+								<div class="part">
+									<div class="input_a_l titleNameLeft">Y轴最大值：</div>	
+									<div class="input_b_2 inputLeft" >
+										<input v-model="yMaxNum" type="text" class="form-control" id="yMaxNum" name="yMaxNum" placeholder=""/>
 									</div>
 								</div>
 								<div class="line"></div>

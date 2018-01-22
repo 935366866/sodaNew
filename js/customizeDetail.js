@@ -135,11 +135,14 @@ function getTaskData(url){
 	var nodeDataArray=[];  //节点名称及坐标
 	var linkDataArray=[]	//连线节点
 	var requiredColor="#13438b";
-	var selectColor="rgb(56,190,237)";
 	var unselectColor="lightgray";
+	var selectColor="rgb(142,217,255)";
+	var runningColor="rgb(68,157,68)";
+	var failedColor="rgb(255,0,0)"
 	var arrowColor="rgb(100,100,100)";
 	var nodeNameColor="rgb(255,255,255)";
 	var nodeBorderColor="rgb(167,167,167)";
+	var okColor="rgb(19,67,139)";
 	$.ajax({
 			url:url,  
 			type:'get',
@@ -153,7 +156,6 @@ function getTaskData(url){
 					var moduleDatas=data.data["processModule"];
 					for(var i=0;i<moduleDatas.length;i++){
 						var nodes=moduleDatas[i];
-						nodeStatus[nodes["nodeName"]]=nodes["status"];
 						nodeDataArray.push({key:nodes["nodeName"],
 											loc:nodes["loc"]
 											}
@@ -216,34 +218,60 @@ function getTaskData(url){
 						  { toArrow: "standard", stroke: null, fill:arrowColor })
 						
 					  );  
-			
-					//单击元素，直接获得 key
-					diagram.addDiagramListener("ObjectSingleClicked",function(e) {
-						if(nodeLockStatus == 1){
-								var part = e.subject.part;
-								var color = part.elt(0).fill;
-								obj = part	
-						     if(jQuery.inArray(obj.data.key, requiredNode) == -1 ){   //单击的节点不在必选的节点当中
-								 if(color == selectColor){
-									part.elt(0).fill = unselectColor;
-									nodeStatus[obj.data.key] = 0;
-									findChildren(obj,requiredNode);
-									}
-									
-								if(color == unselectColor){
-									part.elt(0).fill = selectColor;
-									nodeStatus[obj.data.key] = 1;
-									findParents(obj,requiredNode);
-									}
-							  };
-						}else{
-							alert("无法编辑，请先解锁模块")
-						}
-				   	});
+
 					diagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);	
 					diagram.initialContentAlignment = go.Spot.Center; //整个图居中	
-					
+
 					var $=jQuery;
+					var status=data.data["status"];
+					if(status == "finished"){
+						$("#showReport").attr("onclick","window.open('__MODULE__/Report/showReport/id/{$id}')");
+						$("#downloadReport").attr("onclick","window.open('__MODULE__/Report/downReport/id/{$id}')");
+						$("#taskStatus").removeClass("btn-success");
+						$("#taskStatus").addClass("btn-primary").text('任务已完成');								
+					}else if(status == "failed"){
+						$("#taskStatus").addClass("btn-warning").text('任务已终止');
+						$("#showReport").css("background","#ccc");
+						$("#downloadReport").css("background","#ccc");
+						$("#taskReport h4").after('<p>任务终止，报告未生成。</p>');
+					}
+					else{
+						$("#taskStatus").addClass("btn-success").text('任务运行中');
+						$("#showReport").css("background","#ccc");
+						$("#downloadReport").css("background","#ccc");
+						$("#taskReport h4").after('<p>报告尚未生成，请耐心等待</p>');
+					}
+					
+					var unselectNode=data.data["unselectNodes"];
+					for(var i=0;i<unselectNode.length;i++){
+						if(!diagram.findNodeForKey(unselectNode[i])){
+							continue;
+						}
+						diagram.findNodeForKey(unselectNode[i]).elt(0).fill=unselectColor;	//未选中模块变成灰色
+						nodeStatus[unselectNode[i]] = 0;
+					};
+					/*运行中模块*/
+					var runMod = data.data["runMod"];
+					if(runMod!=""){
+						diagram.findNodeForKey(runMod).elt(0).fill=runningColor;	//运行中模块变成绿色
+					}
+						
+					/*运行失败模块*/
+					var failedMod =data.data["failedMod"];
+					for(var i=0;i<failedMod.length;i++){
+						if(!diagram.findNodeForKey(failedMod[i])){
+							continue;
+						}
+						diagram.findNodeForKey(failedMod[i]).elt(0).fill=failedColor;	//失败模块变成红色
+					};
+					/*运行完成模块*/
+					var finishedMod = data.data["finishedMod"];
+					for(var i=0;i<finishedMod.length;i++){
+						if(!diagram.findNodeForKey(finishedMod[i])){
+							continue;
+						}
+						diagram.findNodeForKey(finishedMod[i]).elt(0).fill=okColor;	//运行中模块变成绿色
+					};
 					$('#modStatusTable').bootstrapTable('load',data.data["modStatus"]);
 					var flowName=data.data["flowName"];
 					$("#flowName").text(flowName);
@@ -256,12 +284,10 @@ function getTaskData(url){
 					seqType=data.data["seq_type"];
 					var data=data.data["flowData"]["module"];
 					for(var key in data){
-						if(nodeStatus[key]==1){
-							$("#parasPanel").append('<div class="panel panel-default"  id="' + key + '"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#' + key + '" href="#' + key + '_panel_body">' + key + ' 参数设置</a></h4></div><div id="' + key + '_panel_body" class="panel-collapse collapse in"><div class="panel-body"><form class="form-horizontal" role="form"></form></div></div></div>');
-							var paraDatas=data[key];
-							addPara(paraDatas,key,seqType); //添加面板中的参数
-						}
-					};					
+						$("#parasPanel").append('<div class="panel panel-default"  id="' + key + '"><div class="panel-heading"><h4 class="panel-title"><a data-toggle="collapse" data-parent="#' + key + '" href="#' + key + '_panel_body">' + key + ' 参数设置</a></h4></div><div id="' + key + '_panel_body" class="panel-collapse collapse in"><div class="panel-body"><form class="form-horizontal" role="form"></form></div></div></div>');
+						var paraDatas=data[key];
+						addPara(paraDatas,key,seqType); //添加面板中的参数
+					};	
 				};
 			 },   
 			 error : function(XMLHttpRequest) {

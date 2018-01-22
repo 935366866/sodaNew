@@ -4,6 +4,7 @@
 		"flowName":"有参转录组分析流程V1.0",
 		"flowType":"有参",
 		"seq_type":"SE",
+		"status": "failed",
 		"flowData":{
 				"task_name": "dkd",
 				"project_name": "testabc123",
@@ -95,14 +96,12 @@
 								"name":"Alignment",
 								"curviness":0
 							}
-						],
-				"status":1
+						]
 			
 			},
 			{
 				"nodeName":"Alignment",
 				"loc":"-5 100",
-				"status":1,
 				"linkData":[
 							{
 								"name":"Advanced_QC",
@@ -117,7 +116,6 @@
 			{
 				"nodeName":"Advanced_QC",
 				"loc":"150 100",
-				"status":1,
 				"linkData":[
 							{
 								"name":"SNP_INDEL",
@@ -129,8 +127,7 @@
 			{
 				"nodeName":"SNP_INDEL",
 				"loc":"160 200",
-				"linkData":[],
-				"status":1
+				"linkData":[]
 			},
 			{
 				"nodeName":"Assemble",
@@ -144,14 +141,12 @@
 								"name":"DE",
 								"curviness":0
 							}					
-						],
-				"status":1
+						]
 			},
 			{
 				"nodeName":"AS",
 				"loc":"-100 200",
-				"linkData":[],
-				"status":1
+				"linkData":[]
 			},
 			{
 				"nodeName":"DE",
@@ -169,29 +164,28 @@
 								"name":"KEGG",
 								"curviness":20
 							}							
-						],
-				"status":1
+						]
 			},
 			{
 				"nodeName":"PPI",
 				"loc":"-70 400",
-				"linkData":[],
-				"status":1
+				"linkData":[]
 			},
 			{
 				"nodeName":"GO",
 				"loc":"25 400",
-				"linkData":[],
-				"status":1
+				"linkData":[]
 			},
 			{
 				"nodeName":"KEGG",
 				"loc":"120 400",
-				"linkData":[],
-				"status":1
+				"linkData":[]
 			}
 		],
-		"requiredNode":["Basic_QC"],
+		"unselectNodes":["KEGG","GO","PPI"],
+		"finishedMod":["Advanced_QC"],
+		"failedMod":["Basic_QC"],
+		"runMod":"DE",
 		"modStatus": [
 	        {
 	            "task_name": "ck_rRNA_CHECK",

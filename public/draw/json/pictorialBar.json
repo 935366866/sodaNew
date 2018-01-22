@@ -5,6 +5,7 @@
     "title_font": "bold",
     "titleX":"center",
     "titleY":"top",
+    "yMaxNum":"150",
     "xColumn":"人种",
     "yColumn":"水分",
     "legendWidth":10,  

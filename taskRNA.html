@@ -783,7 +783,7 @@ function opendir_path(){
 	$("#inputUrl").val(inputValue);
 	//console.log(inputValue)
 	$('#selectUrl').modal('show');
-    $("#selected").attr("onClick","geturl('#dir_path','dir')")
+    $("#selected").attr("onClick","geturl('#dir_path','dir','task')")
 };
 
 //打开数据目录
@@ -793,7 +793,7 @@ function openDataUrl(){
 		$("#inputUrl").val(inputValue);
 		//console.log(inputValue)		
 		$('#selectUrl').modal('show');   //显示模态框
-		$("#selected").attr("onClick","geturl('#data_dir','dir')")
+		$("#selected").attr("onClick","geturl('#data_dir','dir','data')")
 	};
 	if(samplesLock == 0){
 		alert("样本已经锁定，请先解锁")
@@ -938,7 +938,7 @@ function geturl(formInputId){
 };
 */
 //点击选择关闭模态框，将当前模态框input中的路径取出放入表单中,type 的类型 暂时有两种，dir和 file
-function geturl(formInputId,type){
+function geturl(formInputId,type,dirType){
 	var selected_num = checkedNum("jobUrlTable");
 	if(type == "dir"){
 		//只能选择文件夹，单选
@@ -1000,7 +1000,8 @@ function geturl(formInputId,type){
 			$(formInputId).val(newUrl);
 
 			var sequencingType = $("#seq_type").val();
-			$.ajax({
+			if(dirType=="data"){
+				$.ajax({
 					url:samplesDataUrl,  
 					type:'post',
 					data:{url:newUrl},
@@ -1018,7 +1019,10 @@ function geturl(formInputId,type){
 					error : function(XMLHttpRequest) {
 						alert(XMLHttpRequest.status +' '+ XMLHttpRequest.statusText);   
 					}
-			}); 
+				}); 
+				
+			}
+			
 		}
 		else{
 			//选择了多项，直接报错
@@ -1872,7 +1876,7 @@ $(function(){
 	}
 	
 	$('#sampleTable').bootstrapTable(options);
-	var names=[]
+	
   	if($('#seq_type').val()=="PE"){
 		var options=$('#sampleTable').bootstrapTable("getOptions");
 		options.editable=true;

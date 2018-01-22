@@ -261,13 +261,9 @@ function addPara(paraDatas,key,flowType) {
 		if(paraDatas[i]["showType"] == "input") { //添加一个input框
 			var name = paraDatas[i]["para_name"];
 			var id = paraDatas[i]["id"];
-			var value = paraDatas[i]["para_value"];
-			var info = ""
 			var defaultValue=paraDatas[i]["default_value"];
 			//添加input的代码		
-			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id="' + id + '" name="' + id + '" title="' + info + '"></div><a class="col-sm-2 control-label"  style=" text-align:left;cursor: pointer;text-decoration: none;" onclick="paraDefult(' + key + ',' + id +','+defaultValue+ ')">默认值</a></div>');		
-			//向input中添加默认值
-			$("#" + id).val(value);
+			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control"  id=' + id + ' name=' + id +'></div><a class="col-sm-2 control-label"  style="text-align:left;cursor:pointer;text-decoration: none;" onclick="paraDefult(' + key + ',' + id +','+defaultValue+ ')">默认值</a></div>');
 		};
 		if(paraDatas[i]["showType"] == "select") { //添加一个下拉框
 			var name = paraDatas[i]["para_name"];
@@ -284,86 +280,12 @@ function addPara(paraDatas,key,flowType) {
 				liveSearch: true
 			});
 
-
 			$('#seq_type').on('changed.bs.select', function(e) {
 			    if(e.target.value){
-			      	if(e.target.value=="SE"){
-			      	var options=$('#sampleTable').bootstrapTable("getOptions");
-						
-						options.columns=[{
-							checkbox:true,checkboxEnabled:true,field:"state",title:""
-						},{
-							align: "left", 
-							field: "sample",
-							order: "asc",
-							editable: {
-			                    type: 'text',
-			                    validate: function (v) {
-			                    	var patrn=/^(\w){1,8}$/; 
-			                        if (!v&&v.trim().length<=0){
-			                        	return '用户名不能为空';
-			                        } 
-			                        if (!patrn.exec(v)) {
-										return '只能包含字母数字下划线，长度不超过8';
-									}
-			                        var data = $("#sampleTable").bootstrapTable('getData');
-			                        for(var i=0;i<data.length;i++){
-			                        	if(v==data[i].sample){
-			                        		return '样本名已存在';
-			                        	}
-			                        }
-			                   }
-		                	}, 
-		                	title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>"
-						},{
-							align: "center", field: "fq", order: "asc", title: "FastQ文件 "
-						}];
-						$('#sampleTable').bootstrapTable('destroy');
-						$('#sampleTable').bootstrapTable(options);
-			
-						
-			    	}else{
-						var options=$('#sampleTable').bootstrapTable("getOptions");
-						options.editable=true;
-						options.columns=[{
-							checkbox:true,checkboxEnabled:true,field:"state",title:""
-						},{
-							align: "left",
-							field: "sample", 
-							order: "asc",
-							title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>",
-							editable: {
-				                type: 'text',
-				                validate: function (v) {
-				                	var patrn=/^(\w){1,8}$/; 
-				                    if (!v&&v.trim().length<=0){
-				                    	return '用户名不能为空';
-				                    } 
-				                    if (!patrn.exec(v)) {
-										return '只能包含字母数字下划线，长度不超过8';
-									}
-				                    var data = $("#sampleTable").bootstrapTable('getData');
-				                    for(var i=0;i<data.length;i++){
-				                    	if(v==data[i].sample){
-				                    		return '样本名已存在';
-				                    	}
-				                    }
-				               }
-				        	}
-				        	
-						},{
-							align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "
-						},{
-							align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "
-						}];
-						$('#sampleTable').bootstrapTable('destroy');
-						$('#sampleTable').bootstrapTable(options);
-				  		$('#sampleTable').bootstrapTable("resetView");
-				  	}
+			    	editTable(e.target.value);
 			    }
 		    });
 			
-
 		};
 		
 		if(paraDatas[i]["showType"] == "path") { //添加一个下拉框
@@ -406,7 +328,55 @@ function addPara(paraDatas,key,flowType) {
 		      	]
 			}
 			$('#sampleTable').bootstrapTable(options);
-			
+			editTable($('#seq_type').val())
+//			if($('#seq_type').val()=="PE"){
+//				var options=$('#sampleTable').bootstrapTable("getOptions");
+//				options.editable=true;
+//				options.columns=[{
+//					checkbox:true,checkboxEnabled:true,field:"state",title:""
+//				},{
+//					align: "left",
+//					field: "sample", 
+//					order: "asc",
+//					title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>",
+//					editable: {
+//		                type: 'text',
+//		                validate: function (v) {
+//		                	var patrn=/^(\w){1,8}$/; 
+//		                    if (!v&&v.trim().length<=0){
+//		                    	return '用户名不能为空';
+//		                    } 
+//		                    if (!patrn.exec(v)) {
+//								return '只能包含字母数字下划线，长度不超过8';
+//							}
+//		                    var data = $("#sampleTable").bootstrapTable('getData');
+//		                    for(var i=0;i<data.length;i++){
+//		                    	if(v==data[i].sample){
+//		                    		return '样本名已存在';
+//		                    	}
+//		                    }
+//		               }
+//		        	}
+//		        	
+//				},{
+//					align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "
+//				},{
+//					align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "
+//				}];
+//				$('#sampleTable').bootstrapTable('destroy');
+//				$('#sampleTable').bootstrapTable(options);
+//		  		$('#sampleTable').bootstrapTable("resetView");
+//		  		$('#sampleTip').on("mouseover",function(){
+//					$('#sampleTipModal').show(); 
+//				});
+//		
+//				$('#sampleTip').on("mouseout",function(){
+//					$('#sampleTipModal').hide(); 
+//				});
+//		  	}else{
+//		  		
+//		  	}
+
 			var samples = []
 			//点击锁定样本，获得样本名称
 			bindGroupClick()
@@ -417,6 +387,8 @@ function addPara(paraDatas,key,flowType) {
 						alert("还没有选择样本")
 						}
 					else{
+						$('#sampleNames').empty();
+						$('.sampleSel').empty();
 						var array = new Array()    //用来去重
 						for(var i=0;i<data.length;i++){
 							var name = data[i].sample;
@@ -586,10 +558,87 @@ function addPara(paraDatas,key,flowType) {
 	}
 };//点击恢复默认值
 function paraDefult(key,id,defaultValue){
+	console.log(key)
 	var key = key.id;
 	var id = id.id;	
 	$("#"+id).val(defaultValue);
 };
+
+function editTable(value){
+  	if(value=="SE"){
+  		var options=$('#sampleTable').bootstrapTable("getOptions");
+		options.columns=[{
+			checkbox:true,checkboxEnabled:true,field:"state",title:""
+		},{
+			align: "left", 
+			field: "sample",
+			order: "asc",
+			editable: {
+                type: 'text',
+                validate: function (v) {
+                	var patrn=/^(\w){1,8}$/; 
+                    if (!v&&v.trim().length<=0){
+                    	return '用户名不能为空';
+                    } 
+                    if (!patrn.exec(v)) {
+						return '只能包含字母数字下划线，长度不超过8';
+					}
+                    var data = $("#sampleTable").bootstrapTable('getData');
+                    for(var i=0;i<data.length;i++){
+                    	if(v==data[i].sample){
+                    		return '样本名已存在';
+                    	}
+                    }
+               }
+        	}, 
+        	title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>"
+		},{
+			align: "center", field: "fq", order: "asc", title: "FastQ文件 "
+		}];
+		$('#sampleTable').bootstrapTable('destroy');
+		$('#sampleTable').bootstrapTable(options);
+
+		
+	}else{
+		var options=$('#sampleTable').bootstrapTable("getOptions");
+		options.editable=true;
+		options.columns=[{
+			checkbox:true,checkboxEnabled:true,field:"state",title:""
+		},{
+			align: "left",
+			field: "sample", 
+			order: "asc",
+			title: "样本名称<span id='sampleTip' style='cursor:default'  class='glyphicon glyphicon-question-sign'></span>",
+			editable: {
+                type: 'text',
+                validate: function (v) {
+                	var patrn=/^(\w){1,8}$/; 
+                    if (!v&&v.trim().length<=0){
+                    	return '用户名不能为空';
+                    } 
+                    if (!patrn.exec(v)) {
+						return '只能包含字母数字下划线，长度不超过8';
+					}
+                    var data = $("#sampleTable").bootstrapTable('getData');
+                    for(var i=0;i<data.length;i++){
+                    	if(v==data[i].sample){
+                    		return '样本名已存在';
+                    	}
+                    }
+               }
+        	}
+        	
+		},{
+			align: "center", field: "fq1", order: "asc", title: "FastQ1文件 "
+		},{
+			align: "center", field: "fq2", order: "asc", title: "FastQ2文件 "
+		}];
+		$('#sampleTable').bootstrapTable('destroy');
+		$('#sampleTable').bootstrapTable(options);
+  		$('#sampleTable').bootstrapTable("resetView");
+  	}
+			    
+}
 
 //-----------------------------------点击打开目录--------------------------------------------	
 //打开任务目录
@@ -1280,6 +1329,8 @@ $("#taskRun").click(function(){
 					if(allGroupItems.indexOf(samples[i].innerText)==-1&&nodeStatus["DE"] == 1){
 						if(confirm("发现有未分组的样品，确定不分组?")){
 							break;
+						}else{
+							return false;
 						}
 					}
 				}
