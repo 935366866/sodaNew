@@ -210,6 +210,9 @@ function unlock(){
 	$("#lockNode").attr("class","btn btn_orange round_Button");
 	$("#unlockNode").attr("class","btn btn_white round_Button");
 	$("#parasPanel").html("");  //清空现有的参数
+	allgroups=[];
+	allCompares=[];
+	allVenns=[];
 };
 
 //点击锁定模块
@@ -288,14 +291,16 @@ function addPara(paraDatas,key,flowType) {
 			
 		};
 		
-		if(paraDatas[i]["showType"] == "path") { //添加一个下拉框
-			var name = paraDatas[i]["para_name"];
-			var id = paraDatas[i]["id"];
+		if(paraDatas[i]["showType"] == "path") { 
+			let name = paraDatas[i]["para_name"];
+			let id = paraDatas[i]["id"];
 			var value = paraDatas[i]["para_value"];
 			var info = ""
 			var options='';
+			var idid="#dir_path";
+			var type="dir"
 			//添加input的代码		
-			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id="' + id + '" name="' + id + '" title="' + info + '"></div><a class="col-sm-2"  style=" text-align:left;cursor: pointer;text-decoration: none;" onclick="opendir_path()"><span class="glyphicon glyphicon-folder-open"></span></a></div>');		
+			$("#" + key + " form").append('<div class="form-group"><label class="col-sm-3 control-label">' + name + '</label><div class="col-sm-7"><input type="text"  class="form-control" required id="' + id + '" name="' + id + '" title="' + info + '"></div><a class="col-sm-2"  style=" text-align:left;cursor: pointer;text-decoration: none;" onclick="para_dirPath(\''+idid+'\',\''+type+'\')"><span class="glyphicon glyphicon-folder-open"></span></a></div>');		
 			//向input中添加默认值
 			$("#" + id).val(value);
 		};
@@ -501,8 +506,8 @@ function addPara(paraDatas,key,flowType) {
 			}); 
     
 		};
-		
-		if(paraDatas[i]["showType"] == "sampleGroup") { //添加一个下拉框
+		//添加样本比较
+		if(paraDatas[i]["showType"] == "sampleGroup") { 
 			var name = paraDatas[i]["para_name"];
 			var id = paraDatas[i]["id"];
 			var value = paraDatas[i]["para_value"];
@@ -645,11 +650,16 @@ function editTable(value){
 function opendir_path(){
 	var inputValue = $("#dir_path").val();  //当前input的值
 	$("#inputUrl").val(inputValue);
-	//console.log(inputValue)
 	$('#selectUrl').modal('show');
-    $("#selected").attr("onClick","geturl('#dir_path','dir')")
+    $("#selected").attr("onClick","geturl('#dir_path','dir')");
 };
-
+//打开任务目录
+function para_dirPath(id,type){
+	var inputValue = $("#dir_path").val();  //当前input的值
+	$("#inputUrl").val(inputValue);
+	$('#selectUrl').modal('show');
+    $("#selected").attr("onClick","geturl('"+id+"','"+type+"')")
+};
 //打开数据目录
 function openDataUrl(id){
 	var inputId=$(id).attr("id");
@@ -706,7 +716,7 @@ function addDir(dirName,tableId,inputUrl,dirModal){
 }
 //选择目录时添加文件或者目录的图标
 function addIcon(State, row) {
-	var typeChr = row.type.charAt(0);
+	var  typeChr = row.type.charAt(0);
 		
 	if(typeChr == 'd'){
 		return '<span class="glyphicon glyphicon-folder-open"></span>';
@@ -1094,6 +1104,7 @@ function dragInit() {
 var patrn=/^(\w){1,10}$/i; 
 var allgroups = new Array();	//all groups
 function addGroup(){
+	debugger
 	var gname= $("#groupName").val();
 	if(gname=='' ||gname==null){
 		return false;
